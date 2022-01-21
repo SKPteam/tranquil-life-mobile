@@ -1,0 +1,1 @@
+enum ChatFrom { self, other }
