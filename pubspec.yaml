@@ -61,9 +61,9 @@ dependencies:
   pay: any
   timeago: any
   pointycastle: any
-  storage_path:
-    git:
-      url: https://github.com/w-rui/StoragePath
+#  storage_path:
+#    git:
+#      url: https://github.com/w-rui/StoragePath
   language_picker: any #language picker
   flutter_sound: any
 
