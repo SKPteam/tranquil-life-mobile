@@ -1,14 +1,13 @@
 // ignore_for_file: file_names
 
+import 'dart:core';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tranquil_app/app/models/consultant_profile_model.dart';
-import 'package:tranquil_app/app/utils/constants.dart';
-import 'package:tranquil_app/app/utils/sizes_helpers.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
+import 'package:tranquil_life/modules/consultantList/components/consultantProfileInfoWidget.dart';
 
-import 'consultantProfileInfoWidget.dart';
 
 class ConsultantProfile extends StatelessWidget {
   final ConsultantProfileModel consultantProfileModel;
