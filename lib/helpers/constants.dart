@@ -50,7 +50,7 @@ const String consultant = 'consultant';
 final RegExp emailValidatorRegExp =
 RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 final RegExp passwordValidatorRegExp = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
-// const String kEmailNullError = "Please enter your email address";
+const String kEmailNullError = "Please enter your email address";
 // const String kInvalidEmailError = "Please enter Valid Email";
 // const String kPassNullError = "Please enter your password";
 // const String kShortPassError = "Password is too short";

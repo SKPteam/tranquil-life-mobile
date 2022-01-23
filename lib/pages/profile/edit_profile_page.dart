@@ -2,22 +2,19 @@
 
 import 'dart:io';
 
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tranquil_app/app/getx_controllers/dashboard_controller.dart';
-import 'package:tranquil_app/app/getx_controllers/edit_profile_controller.dart';
-import 'package:tranquil_app/app/utils/constants.dart';
-import 'package:tranquil_app/app/utils/sizes_helpers.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 
-class EditProfileView extends GetView<EditProfileController> {
-  final EditProfileController _ = Get.put(EditProfileController());
+class EditProfileView
+// extends GetView<EditProfileController>
+{
+  // final EditProfileController _ = Get.put(EditProfileController());
 
   EditProfileView({Key? key}) : super(key: key);
   @override
@@ -53,10 +50,10 @@ class EditProfileView extends GetView<EditProfileController> {
                         ),
                         TextButton(
                           onPressed: () async {
-                            print('PHOTOOOOOO: ${_.photoUrl.value}');
-                            await _.updateToUserDatabase();
-                            Get.back(result: _.photoUrl.value);
-                            //Navigator.of(context).pop('done');
+                            // print('PHOTOOOOOO: ${_.photoUrl.value}');
+                            // await _.updateToUserDatabase();
+                            // Get.back(result: _.photoUrl.value);
+                            // //Navigator.of(context).pop('done');
                           },
                           child: const Text(
                             'Done',
