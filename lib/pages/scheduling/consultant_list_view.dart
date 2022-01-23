@@ -362,7 +362,7 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                                       await showModalBottomSheet<
                                           bool>(
                                         isDismissible: true,
-                                        shape: RoundedRectangleBorder(
+                                        shape: const RoundedRectangleBorder(
                                             borderRadius:
                                             BorderRadius.vertical(
                                                 top: Radius

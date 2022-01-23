@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:tranquil_app/app/getx_controllers/dashboard_controller.dart';
-import 'package:tranquil_app/app/getx_controllers/home_controller.dart';
-import 'package:tranquil_app/app/getx_controllers/profile_controller.dart';
-import 'package:tranquil_app/app/modules/profile/edit_profile_view.dart';
-import 'package:tranquil_app/app/routes/app_pages.dart';
-import 'package:tranquil_app/app/utils/constants.dart';
-import 'package:tranquil_app/app/utils/sizes_helpers.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/controllers/profile_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-
-import 'components/cusListTile.dart';
 import 'cusListTile.dart';
 import 'edit_profile_page.dart';
 
