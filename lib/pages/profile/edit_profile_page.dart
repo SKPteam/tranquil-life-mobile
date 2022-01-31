@@ -16,7 +16,7 @@ class EditProfileView
 {
   // final EditProfileController _ = Get.put(EditProfileController());
 
-  EditProfileView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -64,151 +64,152 @@ class EditProfileView
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(left: 20, bottom: 16),
-                          decoration: const BoxDecoration(
-                            color: Colors.white70,
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 32, top: 12),
-                          child: SingleChildScrollView(
-                            physics: const BouncingScrollPhysics(),
-                            child: _.profileDataLoaded.isTrue
-                                ? Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                _.editPhoto(context),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                _.editField(context,
-                                    title: 'First Name',
-                                    controller: _.controllers[0],
-                                    inputFormattors: [],
-                                    onTapped: () {}),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                _.editField(context,
-                                    title: 'Last Name',
-                                    controller: _.controllers[1],
-                                    inputFormattors: [],
-                                    onTapped: () {}),
-                                const SizedBox(
-                                  height: 50,
-                                ),
-                                _.editField(context,
-                                    title: 'Date of Birth',
-                                    controller: _.controllers[2],
-                                    readOnly: true,
-                                    inputFormattors: [],
-                                    onTapped: () {}),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                _.editField(context,
-                                    title: 'Gender',
-                                    controller: _.controllers[3],
-                                    readOnly: false,
-                                    inputFormattors: [],
-                                    onTapped: () {}),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                _.editField(context,
-                                    title: 'Location',
-                                    controller: _.controllers[4],
-                                    readOnly: true,
-                                    inputFormattors: [],
-                                    onTapped: () {}),
-                                const SizedBox(
-                                  height: 40,
-                                ),
-                                _.editField(
-                                  context,
-                                  title: 'Phone',
-                                  controller: _.controllers[5],
-                                  inputFormattors: [
-                                    FilteringTextInputFormatter
-                                        .digitsOnly,
-                                  ],
-                                  onTapped: () {},
-                                ),
-                                const SizedBox(
-                                  height: 40,
-                                ),
-                                _.editField(context,
-                                    title: 'Time zone',
-                                    controller: _.controllers[6],
-                                    readOnly: true,
-                                    onTapped: () {},
-                                    inputFormattors: []),
-                                const SizedBox(
-                                  height: 40,
-                                ),
-                                _.editField(context,
-                                    title: 'App lock pin',
-                                    controller: _.controllers[7],
-                                    readOnly: true,
-                                    onTapped: () {},
-                                    inputFormattors: []),
-                                const SizedBox(
-                                  height: 40,
-                                ),
-                                if (DashboardController.to.userType ==
-                                    consultant)
-                                  _.editField(
-                                    context,
-                                    title: 'Bank Name',
-                                    controller: _.controllers[8],
-                                    inputFormattors: [
-                                      FilteringTextInputFormatter.allow(
-                                          RegExp(r"[a-zA-Z]+|\s"))
-                                    ],
-                                    onTapped: () {},
-                                  ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                                if (DashboardController.to.userType ==
-                                    consultant)
-                                  _.editField(
-                                    context,
-                                    title: 'IBAN',
-                                    controller: _.controllers[9],
-                                    inputFormattors: [
-                                      FilteringTextInputFormatter
-                                          .digitsOnly,
-                                    ],
-                                    onTapped: () {},
-                                  ),
-                                const SizedBox(
-                                  height: 15,
-                                ),
-                              ],
-                            )
-                                : const Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+                  // Expanded(
+                  //   child: Stack(
+                  //     clipBehavior: Clip.none,
+                  //     children: [
+                  //       Container(
+                  //         margin: const EdgeInsets.only(left: 20, bottom: 16),
+                  //         decoration: const BoxDecoration(
+                  //           color: Colors.white70,
+                  //         ),
+                  //       ),
+                  //       Container(
+                  //         margin: const EdgeInsets.only(bottom: 32, top: 12),
+                  //         child: SingleChildScrollView(
+                  //           physics: const BouncingScrollPhysics(),
+                  //           child: _.profileDataLoaded.isTrue
+                  //               ? Column(
+                  //             mainAxisAlignment: MainAxisAlignment.start,
+                  //             crossAxisAlignment:
+                  //             CrossAxisAlignment.start,
+                  //             children: [
+                  //               const SizedBox(
+                  //                 height: 15,
+                  //               ),
+                  //               _.editPhoto(context),
+                  //               const SizedBox(
+                  //                 height: 15,
+                  //               ),
+                  //               _.editField(context,
+                  //                   title: 'First Name',
+                  //                   controller: _.controllers[0],
+                  //                   inputFormattors: [],
+                  //                   onTapped: () {}),
+                  //               const SizedBox(
+                  //                 height: 15,
+                  //               ),
+                  //               _.editField(context,
+                  //                   title: 'Last Name',
+                  //                   controller: _.controllers[1],
+                  //                   inputFormattors: [],
+                  //                   onTapped: () {}),
+                  //               const SizedBox(
+                  //                 height: 50,
+                  //               ),
+                  //               _.editField(context,
+                  //                   title: 'Date of Birth',
+                  //                   controller: _.controllers[2],
+                  //                   readOnly: true,
+                  //                   inputFormattors: [],
+                  //                   onTapped: () {}),
+                  //               const SizedBox(
+                  //                 height: 15,
+                  //               ),
+                  //               _.editField(context,
+                  //                   title: 'Gender',
+                  //                   controller: _.controllers[3],
+                  //                   readOnly: false,
+                  //                   inputFormattors: [],
+                  //                   onTapped: () {}),
+                  //               const SizedBox(
+                  //                 height: 30,
+                  //               ),
+                  //               _.editField(context,
+                  //                   title: 'Location',
+                  //                   controller: _.controllers[4],
+                  //                   readOnly: true,
+                  //                   inputFormattors: [],
+                  //                   onTapped: () {}),
+                  //               const SizedBox(
+                  //                 height: 40,
+                  //               ),
+                  //               _.editField(
+                  //                 context,
+                  //                 title: 'Phone',
+                  //                 controller: _.controllers[5],
+                  //                 inputFormattors: [
+                  //                   FilteringTextInputFormatter
+                  //                       .digitsOnly,
+                  //                 ],
+                  //                 onTapped: () {},
+                  //               ),
+                  //               const SizedBox(
+                  //                 height: 40,
+                  //               ),
+                  //               _.editField(context,
+                  //                   title: 'Time zone',
+                  //                   controller: _.controllers[6],
+                  //                   readOnly: true,
+                  //                   onTapped: () {},
+                  //                   inputFormattors: []),
+                  //               const SizedBox(
+                  //                 height: 40,
+                  //               ),
+                  //               _.editField(context,
+                  //                   title: 'App lock pin',
+                  //                   controller: _.controllers[7],
+                  //                   readOnly: true,
+                  //                   onTapped: () {},
+                  //                   inputFormattors: []),
+                  //               const SizedBox(
+                  //                 height: 40,
+                  //               ),
+                  //               if (DashboardController.to.userType ==
+                  //                   consultant)
+                  //                 _.editField(
+                  //                   context,
+                  //                   title: 'Bank Name',
+                  //                   controller: _.controllers[8],
+                  //                   inputFormattors: [
+                  //                     FilteringTextInputFormatter.allow(
+                  //                         RegExp(r"[a-zA-Z]+|\s"))
+                  //                   ],
+                  //                   onTapped: () {},
+                  //                 ),
+                  //               const SizedBox(
+                  //                 height: 15,
+                  //               ),
+                  //               if (DashboardController.to.userType ==
+                  //                   consultant)
+                  //                 _.editField(
+                  //                   context,
+                  //                   title: 'IBAN',
+                  //                   controller: _.controllers[9],
+                  //                   inputFormattors: [
+                  //                     FilteringTextInputFormatter
+                  //                         .digitsOnly,
+                  //                   ],
+                  //                   onTapped: () {},
+                  //                 ),
+                  //               const SizedBox(
+                  //                 height: 15,
+                  //               ),
+                  //             ],
+                  //           )
+                  //               : const Center(
+                  //             child: CircularProgressIndicator(),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // )
                 ],
               ),
-              Obx(() => _.uploadingPhoto.value
-                  ? Container(
+              Obx(() =>
+              //_.uploadingPhoto.value ?
+              Container(
                 height: displayHeight(context),
                 width: displayWidth(context),
                 color: Colors.black38,
@@ -229,8 +230,8 @@ class EditProfileView
                     ),
                   ),
                 ),
-              )
-                  : Container()),
+              ))
+                  // : Container()),
             ],
           ),
         )));

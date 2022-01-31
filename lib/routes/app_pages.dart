@@ -2,6 +2,7 @@
 library app_pages;
 
 import 'package:get/get.dart';
+import 'package:tranquil_life/dashboard.dart';
 
 import 'package:tranquil_life/pages/onboarding/onboarding_one.dart';
 import 'package:tranquil_life/pages/onboarding/onboarding_two.dart';
@@ -30,6 +31,10 @@ class AppPages {
     GetPage(
       name: _Paths.SIGN_IN,
       page: () => SignIn(),
+    ),
+    GetPage(
+      name: _Paths.DASHBOARD,
+      page: () => Dashboard(),
     ),
   ];
 }

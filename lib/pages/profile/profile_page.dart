@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,7 +10,7 @@ import 'package:tranquil_life/controllers/profile_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'cusListTile.dart';
+import 'widgets/cusListTile.dart';
 import 'edit_profile_page.dart';
 
 class ProfileView extends StatefulWidget {
@@ -26,7 +28,7 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return Scaffold(
         backgroundColor: kLightBackgroundColor,
         body: Container(
             margin: EdgeInsets.only(top: displayHeight(context) * 0.05),
@@ -82,22 +84,23 @@ class _ProfileViewState extends State<ProfileView> {
                                 borderRadius: BorderRadius.circular(12),
                                 color: Colors.white),
                             child: Center(
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: _.loaded.isFalse
-                                      ? Image.asset(
-                                    'assets/images/avatar_img1.png',
-                                    fit: BoxFit.cover,
-                                    width: 85,
-                                    height: 85,
-                                  )
-                                      : Image.network(
-                                      _.getStorage!
-                                          .read(userAvatarUrl)
-                                          .toString(),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child:
+                                    //_.loaded.isFalse?
+                                    Image.asset(
+                                      'assets/images/avatar_img1.png',
                                       fit: BoxFit.cover,
                                       width: 85,
-                                      height: 85)),
+                                      height: 85,
+                                    ))
+                              // : Image.network(
+                              // _.getStorage!
+                              //     .read(userAvatarUrl)
+                              //     .toString(),
+                              // fit: BoxFit.cover,
+                              // width: 85,
+                              // height: 85)),
                             ),
                           ),
                         ),
@@ -115,41 +118,42 @@ class _ProfileViewState extends State<ProfileView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                DashboardController.to.userType!.value == "client"
-                                    ? Text(
-                                  _.username.value != null
-                                      ? _.username.value.toString()
-                                      : '',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: kPrimaryDarkColor),
-                                ) : Text(
-                                  !DashboardController.to.firstName!.value.isNull
-                                      ? DashboardController.to.firstName!.value
-                                      : '',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: kPrimaryDarkColor),
-                                ),
-                                const SizedBox(
-                                  height: 3,
-                                ),
-                                Text(
-                                  !Get.find<HomeController>()
-                                      .location!.value.substring(
-                                      0,
-                                      Get.find<HomeController>().location!.value.indexOf("/")).isNull
-                                      ? Get.find<HomeController>()
-                                      .location!
-                                      .value
-                                      .substring(
-                                      0, Get.find<HomeController>().location!.value.indexOf("/")).toString()
-                                      : '',
-                                  style: const TextStyle(
-                                      fontSize: 14, color: kPrimaryColor),
-                                )
+                                Text("")
+                                // DashboardController.to.userType!.value == "client"
+                                //     ? Text(
+                                //   _.username.value != null
+                                //       ? _.username.value.toString()
+                                //       : '',
+                                //   style: const TextStyle(
+                                //       fontWeight: FontWeight.bold,
+                                //       fontSize: 20,
+                                //       color: kPrimaryDarkColor),
+                                // ) : Text(
+                                //   !DashboardController.to.firstName!.value.isNull
+                                //       ? DashboardController.to.firstName!.value
+                                //       : '',
+                                //   style: const TextStyle(
+                                //       fontWeight: FontWeight.bold,
+                                //       fontSize: 20,
+                                //       color: kPrimaryDarkColor),
+                                // ),
+                                // const SizedBox(
+                                //   height: 3,
+                                // ),
+                                // Text(
+                                //   !Get.find<HomeController>()
+                                //       .location!.value.substring(
+                                //       0,
+                                //       Get.find<HomeController>().location!.value.indexOf("/")).isNull
+                                //       ? Get.find<HomeController>()
+                                //       .location!
+                                //       .value
+                                //       .substring(
+                                //       0, Get.find<HomeController>().location!.value.indexOf("/")).toString()
+                                //       : '',
+                                //   style: const TextStyle(
+                                //       fontSize: 14, color: kPrimaryColor),
+                                // )
                               ],
                             ),
                             SizedBox(
@@ -162,8 +166,8 @@ class _ProfileViewState extends State<ProfileView> {
                                     print(result);
                                     if (result != null &&
                                         result.isNotEmpty) {
-                                      await _.checkAuthState();
-                                      setState(() {});
+                                      // await _.checkAuthState();
+                                      // setState(() {});
                                     }
                                   },
                                   style: ButtonStyle(
@@ -235,16 +239,16 @@ class _ProfileViewState extends State<ProfileView> {
                                     widget.setBottomBarIndex(0);
                                   },
                                 ),
-                                DashboardController.to.userType!.value == client
-                                    ? CusListTile(
+                                //DashboardController.to.userType!.value == client ?
+                                CusListTile(
                                   icon: Icons.favorite_outline,
                                   title: 'Favourite consultants',
                                   onTap: () {
                                     //TODO: clicked on favourite consultants
                                   },
-                                )
-                                    : SizedBox(),
-                                const SizedBox(
+                                ),
+                                //   : SizedBox(),
+                                SizedBox(
                                   height: 90,
                                 )
                               ],
@@ -257,7 +261,6 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
               ],
             ))
-    )
     );
   }
 }

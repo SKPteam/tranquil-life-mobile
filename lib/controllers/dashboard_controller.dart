@@ -15,7 +15,7 @@ class DashboardController extends GetxController {
   List<Widget> buildScreens() {
     return [
       Home(),
-      Profile()
+      ProfileView(setBottomBarIndex: (int index) {}),
     ];
   }
 
