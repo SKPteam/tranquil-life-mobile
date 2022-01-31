@@ -141,8 +141,8 @@ class SignIn extends StatelessWidget {
                                         // } else {
                                         //   _.loginAndAuthenticate(context);
                                         // }
-
-                                        Get.offAllNamed(Routes.DASHBOARD);
+                                        //INFO TODO: Return it back to allOffNamed
+                                        //Get.toNamed(Routes.DASHBOARD);
                                       },
                                       style: ElevatedButton.styleFrom(
                                           padding: const EdgeInsets.symmetric(
