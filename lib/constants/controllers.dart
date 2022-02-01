@@ -5,7 +5,7 @@ import 'package:tranquil_life/controllers/consultant_registration_controller.dar
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
-import 'package:tranquil_life/controllers/lock_screen_controller.dart';
+import 'package:tranquil_life/controllers/timeout_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/profile_controller.dart';
 import 'package:tranquil_life/controllers/sign_in_controller.dart';
@@ -15,7 +15,7 @@ import 'package:tranquil_life/controllers/wallet_controller.dart';
 
 SplashScreenController splashScreenController = SplashScreenController.instance;
 OnBoardingController onBoardingController = OnBoardingController.instance;
-LockScreenController lockScreenController = LockScreenController.instance;
+TimeoutController lockScreenController = TimeoutController.instance;
 SignInController signInController = SignInController.instance;
 ClientRegistrationController clientRegistrationController = ClientRegistrationController.instance;
 ConsultantRegistrationController consultantRegistrationController = ConsultantRegistrationController.instance;

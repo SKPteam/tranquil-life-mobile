@@ -7,7 +7,7 @@ abstract class Routes {
 
   static const HOME = _Paths.HOME;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
-  static const LOCK_SCREEN = _Paths.LOCK_SCREEN;
+  static const TIMEOUT_SCREEN = _Paths.TIMEOUT_SCREEN;
   static const ON_BOARDING_ONE = _Paths.ON_BOARDING_ONE;
   static const ON_BOARDING_TWO = _Paths.ON_BOARDING_TWO;
   static const SIGN_IN = _Paths.SIGN_IN;
@@ -36,7 +36,7 @@ abstract class Routes {
 abstract class _Paths {
   static const HOME = '/home';
   static const SPLASH_SCREEN = '/splash_screen';
-  static const LOCK_SCREEN = '/lock-screen';
+  static const TIMEOUT_SCREEN = '/timeout-screen';
   static const ON_BOARDING_ONE = '/on-boarding-one';
   static const SIGN_IN = '/sign-in';
   static const ON_BOARDING_TWO = '/on-boarding-two';

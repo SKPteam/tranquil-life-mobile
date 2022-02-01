@@ -16,8 +16,7 @@ class OnBoardingTwo extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(
       responsiveBuilder: (context, size){
-        return Obx(() =>
-            Scaffold(
+        return Scaffold(
             resizeToAvoidBottomInset: false,
             body: Container(
                 decoration: BoxDecoration(
@@ -49,19 +48,20 @@ class OnBoardingTwo extends StatelessWidget {
                                   width: size.width * 0.6,
                                   height: 60,
                                   child: ElevatedButton(onPressed: (){
-                                    onBoardingController.userType.value = client;
-                                    Get.offNamed(Routes.REGISTRATION_ONE);
-                                  }, style: ElevatedButton.styleFrom(
-                                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-                                      primary: active
-                                  ),
-                                      child: Text('Client',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16
-                                          )
-                                      )
-                                  )
+                                      onBoardingController.userType.value = client;
+                                      Get.offNamed(Routes.REGISTRATION_ONE);
+                                    }, style: ElevatedButton.styleFrom(
+                                        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                                        primary: active
+                                    ),
+                                        child: Text('Client',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16
+                                            )
+                                        )
+                                    ),
+
                               ),
 
                               SizedBox(height: 16),
@@ -70,18 +70,19 @@ class OnBoardingTwo extends StatelessWidget {
                                 width: size.width * 0.6,
                                 height: 60,
                                 child: ElevatedButton(onPressed: (){
-                                //_showModalBottomSheet(context);
-                                  onBoardingController.userType.value = consultant;
-                                  Get.offNamed(Routes.REGISTRATION_ONE);
+                                  //_showModalBottomSheet(context);
+                                    onBoardingController.userType.value = consultant;
+                                    Get.offNamed(Routes.REGISTRATION_ONE);
                               },
-                                  style: ElevatedButton.styleFrom(
-                                      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-                                      primary: Colors.white
-                                  ),
-                                  child: Text('Consultant',style: TextStyle(
-                                      color: active,
-                                      fontSize: 16
-                                  ),)),
+                                    style: ElevatedButton.styleFrom(
+                                        padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+                                        primary: Colors.white
+                                    ),
+                                    child: Text('Consultant',style: TextStyle(
+                                        color: active,
+                                        fontSize: 16
+                                    ),)),
+
                               ),
 
                               Spacer(),
@@ -124,8 +125,7 @@ class OnBoardingTwo extends StatelessWidget {
                   ],
                 )
             ),
-          ),
-        );
+          );
       },
     );
   }
