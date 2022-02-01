@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 
 class CusListTile extends StatelessWidget {

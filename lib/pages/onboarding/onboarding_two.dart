@@ -68,6 +68,7 @@ class OnBoardingTwo extends StatelessWidget {
                               height: 60,
                               child: ElevatedButton(onPressed: (){
                               //_showModalBottomSheet(context);
+                                Get.offNamed(Routes.REGISTRATION_ONE);
                             },
                                 style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),

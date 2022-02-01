@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
