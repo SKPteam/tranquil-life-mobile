@@ -131,52 +131,55 @@ class RegistrationOneView extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                             onPressed: () {
-                              String phoneNumber =
-                                  '${_.countryCode}${_.phoneNumTextEditingController.text.replaceAll(RegExp(r'^0+(?=.)'), '')}';
+                              // String phoneNumber =
+                              //     '${_.countryCode}${_.phoneNumTextEditingController.text.replaceAll(RegExp(r'^0+(?=.)'), '')}';
+                              //
+                              // if (_.emailTextEditingController
+                              //     .text.isEmpty) {
+                              //   _.displaySnackBar(
+                              //       kEmailNullError, context);
+                              // } else if (!emailValidatorRegExp
+                              //     .hasMatch(_
+                              //     .emailTextEditingController
+                              //     .text)) {
+                              //   _.displaySnackBar(
+                              //       kInvalidEmailError, context);
+                              // } else if (_
+                              //     .passwordTextEditingController
+                              //     .text
+                              //     .isEmpty) {
+                              //   _.displaySnackBar(
+                              //       kPassNullError, context);
+                              // } else if (_
+                              //     .passwordTextEditingController
+                              //     .text
+                              //     .length <
+                              //     6) {
+                              //   _.displaySnackBar(
+                              //       kShortPassError, context);
+                              // } else if (_
+                              //     .passwordTextEditingController
+                              //     .text !=
+                              //     _.confirmPwdTextEditingController
+                              //         .text) {
+                              //   _.displaySnackBar(
+                              //       kMatchPassError, context);
+                              // } else if (!passwordValidatorRegExp
+                              //     .hasMatch(_
+                              //     .passwordTextEditingController
+                              //     .text)) {
+                              //   _.displaySnackBar(
+                              //       kInvalidPassError, context);
+                              // } else if (_.countryCode == null) {
+                              //   _.displaySnackBar(
+                              //       'Select a country code',
+                              //       context);
+                              // } else {
+                              //   Get.toNamed(Routes.REGISTRATION_TWO);
+                              // }
 
-                              if (_.emailTextEditingController
-                                  .text.isEmpty) {
-                                _.displaySnackBar(
-                                    kEmailNullError, context);
-                              } else if (!emailValidatorRegExp
-                                  .hasMatch(_
-                                  .emailTextEditingController
-                                  .text)) {
-                                _.displaySnackBar(
-                                    kInvalidEmailError, context);
-                              } else if (_
-                                  .passwordTextEditingController
-                                  .text
-                                  .isEmpty) {
-                                _.displaySnackBar(
-                                    kPassNullError, context);
-                              } else if (_
-                                  .passwordTextEditingController
-                                  .text
-                                  .length <
-                                  6) {
-                                _.displaySnackBar(
-                                    kShortPassError, context);
-                              } else if (_
-                                  .passwordTextEditingController
-                                  .text !=
-                                  _.confirmPwdTextEditingController
-                                      .text) {
-                                _.displaySnackBar(
-                                    kMatchPassError, context);
-                              } else if (!passwordValidatorRegExp
-                                  .hasMatch(_
-                                  .passwordTextEditingController
-                                  .text)) {
-                                _.displaySnackBar(
-                                    kInvalidPassError, context);
-                              } else if (_.countryCode == null) {
-                                _.displaySnackBar(
-                                    'Select a country code',
-                                    context);
-                              } else {
-                                Get.toNamed(Routes.REGISTRATION_TWO);
-                              }
+                              Get.toNamed(Routes.REGISTRATION_TWO);
+
                             },
                             style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
