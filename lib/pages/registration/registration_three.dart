@@ -124,8 +124,8 @@ class RegistrationThreeView extends GetView<ClientRegistrationController> {
                                     hint: "Name of your organisation",
                                     readOnly: true,
                                     onTap: () {
-                                      _.ShowModalBottomSheet(
-                                          Get.context!);
+                                      // _.ShowModalBottomSheet(
+                                      //     Get.context!);
                                     },
                                     obscureText: false,
                                     togglePassword: () {},
@@ -318,8 +318,8 @@ class RegistrationThreeView extends GetView<ClientRegistrationController> {
                                       print("mdkkggd");
                                       _.areaOfExpertiseTEC.text = '';
                                       // ignore: prefer_const_constructors
-                                      _.showAOEModalBottomSheet(
-                                          context);
+                                      // _.showAOEModalBottomSheet(
+                                      //     context);
                                     },
                                     textInputType: TextInputType.text,
                                     togglePassword: () {},
@@ -340,8 +340,8 @@ class RegistrationThreeView extends GetView<ClientRegistrationController> {
                                     _.yearsOfExpTEC,
                                     readOnly: true,
                                     onTap: () {
-                                      _.showYOEModalBottomSheet(
-                                          context);
+                                      // _.showYOEModalBottomSheet(
+                                      //     context);
                                     },
                                     textInputType: TextInputType.text,
                                     togglePassword: () {},
@@ -363,7 +363,7 @@ class RegistrationThreeView extends GetView<ClientRegistrationController> {
                                     showCursor: false,
                                     readOnly: true,
                                     onTap: () {
-                                      _.openCupertinoLanguagePicker();
+                                      //_.openCupertinoLanguagePicker();
                                     },
                                     textInputType: TextInputType.text,
                                     togglePassword: () {},

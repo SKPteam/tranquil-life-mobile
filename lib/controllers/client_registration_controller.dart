@@ -25,11 +25,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:language_picker/languages.dart';
 import 'package:language_picker/language_picker.dart';
 import 'package:tranquil_life/models/company.dart';
-import 'package:tranquil_life/pages/registration/widgets/areaOfExpertiseModal.dart';
-import 'package:tranquil_life/pages/registration/widgets/yearsOfExpModalSheet.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-
-import 'package:tranquil_life/widgets/progress_dialog.dart';
 
 // import 'package:mailer/mailer.dart';
 // import 'package:mailer/smtp_server.dart';
@@ -153,41 +149,7 @@ class ClientRegistrationController extends GetxController{
   List<String> workStatusList = ['Self-employed', 'Employed'];
 
   //COMPANY LIST SETUP METHOD
-  final List<Company> companyList = [];
-  Company? _companyModel;
 
-
-
-  void locatePosition() async {
-    try {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-      currentPosition = position;
-
-      print(
-          'LAT: ${currentPosition!.latitude.toString()} \n LON: ${currentPosition!.longitude.toString()}');
-
-      //google map works with latitude and longitude
-      //LatLng latLatPosition = LatLng(position.latitude, position.longitude);
-
-      placemark = await placemarkFromCoordinates(
-          currentPosition!.latitude, currentPosition!.longitude);
-      tz.initializeTimeZones();
-
-      // var locations = tz.timeZoneDatabase.locations;
-      //timeZoneList.addAll(locations.keys.toList());
-
-      country.value =
-      '${placemark![0].country}/${placemark![0].administrativeArea}';
-      currentLocation.value =
-      '$country/${placemark![0].locality}/${placemark![0].subLocality}/${placemark![0].name}';
-
-      myLocation = currentLocation.value.toString();
-
-    } catch (e) {
-      print('ERROR: ' + e.toString());
-    }
-  }
 
   // void getAllEnrolledCompanies() async {
   //   QuerySnapshot queryCompanyDocs = await enrolledCompaniesRef!.get();
@@ -213,210 +175,47 @@ class ClientRegistrationController extends GetxController{
       orgSelected.value = false;
       Get.back();
     }
-    // else {
-    //   orgSelected.value = true;
-    //   await enrolledCompaniesRef!
-    //       .doc(companyID)
-    //       .collection('staff')
-    //       .where('email', isEqualTo: emailTextEditingController.text)
-    //       .get()
-    //       .then((snapshot) {
-    //     if (snapshot.docs.isEmpty) {
-    //       //print('yes');
-    //       Get.back();
-    //       showMessageDialog(
-    //           'Your email address does not exist in our $companyName staff database',
-    //           Get.context!);
-    //     } else {
-    //       for (var i = 0; i < snapshot.docs.length; i++) {
-    //         var doc = snapshot.docs[i];
-    //         staffIDEditingController.value =
-    //             TextEditingController(text: "${doc.data()['staffID']}");
-    //         Navigator.of(Get.context!).pop();
-    //       }
-    //       print("okkkk:${staffIDEditingController.value}");
-    //     }
-    //   });
-    // }
-    //print(companyName);
   }
 
   Map mapData = {};
 
-  // CollectionReference otherConsltRegDetails = FirebaseFirestore.instance
-  //     .collection('otherConsultantRegistrationDetails');
 
-  // Future<void> getConsltRegDataFromDatabase() async {
-  //   await otherConsltRegDetails.get().then((QuerySnapshot querySnapshot) {
-  //     querySnapshot.docs.forEach((doc) {
-  //       mapData = doc.data() as Map;
-  //       print(mapData);
-  //       List<String> tempList = [];
-  //       tempList.addAll(mapData.keys.toList().cast<String>());
-  //       //uh used tempList[0] which was actually a key and uh were adding the key in aoeList while uh had
-  //       //to access the mapData[key] so it wasn't working
-  //       areaOfExpertiseList = mapData[tempList[0]].cast<String>();
-  //       yearsOfExperienceList = mapData[tempList[1]].cast<String>();
-  //
-  //       print("AREA OF EXPERTISE: $areaOfExpertiseList");
-  //       print("YEARS OF EXPERIENCE: $yearsOfExperienceList");
-  //     });
-  //   });
-  // }
 
-  showAOEModalBottomSheet(BuildContext context) async {
-    await showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        ),
-        //Atish changed here, the time zone list modal sheet is now another
-        //widget in the timzonemodalsheet.dart file
-        builder: (BuildContext context) => AreaOfExpertiseModalSheet(
-          aoeList: areaOfExpertiseList,
-          areaOfExpertiseTEC: areaOfExpertiseTEC,
-          key: null,
-        ));
-
-    if (areaOfExpertiseTEC.text != '') {
-      if (!aoeArray.contains(areaOfExpertiseTEC.text)) {
-        aoeArray.add(areaOfExpertiseTEC.text);
-      }
-
-      String aoeArrayToString = aoeArray.map((e) => e.toString()).toString();
-
-      String brokenString = aoeArrayToString.substring(
-          0, aoeArrayToString.length - aoeArray.last.length - 1);
-
-      areaOfExpertiseTEC.text = brokenString.replaceAll('(', '') +
-          aoeArray.last.substring(0, aoeArray.last.length);
-
-      print('Selected Area Of Expertise: ' + areaOfExpertiseTEC.text);
-    }
-  }
-
-  showYOEModalBottomSheet(BuildContext context) async {
-    await showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        ),
-        //Atish changed here, the time zone list modal sheet is now another
-        //widget in the timzonemodalsheet.dart file
-        builder: (BuildContext context) => YearsOfExpModalSheet(
-          yearsOfExpList: yearsOfExperienceList,
-          yearsOfExpTEC: yearsOfExpTEC,
-        ));
-    print('Selected Year Of Experience: ' + yearsOfExpTEC.text);
-  }
-
-  Rx<Language> selectedCupertinoLanguage = Languages.english.obs;
-
-  void openCupertinoLanguagePicker() => showCupertinoModalPopup<void>(
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return Container(
-          height: 500,
-          decoration: const BoxDecoration(color: Colors.white),
-          child: Column(
-            children: [
-              Container(
-                  alignment: Alignment.topRight,
-                  padding: EdgeInsets.only(
-                      right: displayWidth(context) * 0.06,
-                      top: displayWidth(context) * 0.06),
-                  child: GestureDetector(
-                    onTap: () {
-                      if (!langArray
-                          .contains(selectedCupertinoLanguage.value.name)) {
-                        langArray
-                            .add(selectedCupertinoLanguage.value.name + '');
-                      }
-
-                      String langArrayToString =
-                      langArray.map((e) => e.toString()).toString();
-
-                      String brokenString = langArrayToString.substring(0,
-                          langArrayToString.length - langArray.last.length - 1);
-
-                      preferredLangTEC.text = brokenString.replaceAll('(', '') +
-                          langArray.last.substring(0, langArray.last.length);
-
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      'Select',
-                      style: TextStyle(
-                          decoration: TextDecoration.none,
-                          fontSize: 24,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )),
-              LanguagePickerCupertino(
-                pickerSheetHeight: 400.0,
-                itemBuilder: _buildCupertinoItem,
-                onValuePicked: (Language language) {
-                  selectedCupertinoLanguage.value = language;
-
-                  //preferredLangTEC.text = _selectedCupertinoLanguage.name;
-
-                  print(selectedCupertinoLanguage.value.name);
-                  print(selectedCupertinoLanguage.value.isoCode);
-                },
-              )
-            ],
-          ),
-        );
-      });
-
-  Widget _buildCupertinoItem(Language language) => Container(
-    margin: EdgeInsets.only(left: displayWidth(Get.context!) * 0.06),
-    child: Row(
-      children: <Widget>[
-        Text("+${language.isoCode}"),
-        const SizedBox(width: 8.0),
-        Flexible(child: Text(language.name))
-      ],
-    ),
-  );
 
   //Display list of organisation
-  void ShowModalBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        ),
-        builder: (BuildContext context) {
-          return Container(
-              height: 300,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: SizedBox(
-                height: displayHeight(context) * 0.08,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: companyList.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              buildCompanyCard(context, index)),
-                    )
-                  ],
-                ),
-              ));
-        });
-  }
+  // void ShowModalBottomSheet(BuildContext context) {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       isScrollControlled: true,
+  //       shape: const RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+  //       ),
+  //       builder: (BuildContext context) {
+  //         return Container(
+  //             height: 300,
+  //             decoration: const BoxDecoration(
+  //               color: Colors.white,
+  //               borderRadius: BorderRadius.only(
+  //                 topLeft: Radius.circular(20),
+  //                 topRight: Radius.circular(20),
+  //               ),
+  //             ),
+  //             child: SizedBox(
+  //               height: displayHeight(context) * 0.08,
+  //               child: Column(
+  //                 children: [
+  //                   Expanded(
+  //                     child: ListView.builder(
+  //                         scrollDirection: Axis.horizontal,
+  //                         itemCount: companyList.length,
+  //                         itemBuilder: (BuildContext context, int index) =>
+  //                             buildCompanyCard(context, index)),
+  //                   )
+  //                 ],
+  //               ),
+  //             ));
+  //       });
+  // }
 
   // Future<void> registerNewClient(BuildContext context) async {
   //   showDialog(
@@ -537,27 +336,6 @@ class ClientRegistrationController extends GetxController{
   //   );
   // }
 
-  buildCompanyCard(BuildContext context, int index) {
-    final company = companyList[index];
-    return GestureDetector(
-        onTap: () {
-          onTapCompanyCard(company);
-        },
-        child: Container(
-            alignment: Alignment.bottomCenter,
-            margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
-            child: Column(
-              children: [
-                company.logo.isNotEmpty
-                    ? Image.network(company.logo, height: 200, width: 200)
-                    : Image.asset('', height: 200, width: 200),
-                Text(company.name,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: displayWidth(context) / 30))
-              ],
-            )));
-  }
 
   List<String> phoneNumbers = [];
 
@@ -682,7 +460,6 @@ class ClientRegistrationController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    userType.value = consultant;
     //userType = userType.value;
     staffID = staffIDEditingController.value.toString();
 
@@ -692,7 +469,7 @@ class ClientRegistrationController extends GetxController{
     lastNameTextEditingController = lastNameTextEditingController;
     phoneTextEditingController = TextEditingController(text: phoneNumber);
     userNameTextEditingController =
-    userType.value == "client"
+    userType.value == client
         ?
     userNameTextEditingController
         :
@@ -702,14 +479,13 @@ class ClientRegistrationController extends GetxController{
     print(
         "FIRST NAME: ${firstNameTextEditingController.text}, D.O.B: ${dobTextEditingController.text}");
 
-    locatePosition();
+    //locatePosition();
     // getAllEnrolledCompanies();
     // getConsltRegDataFromDatabase();
 
     print(passwordTextEditingController.text);
 
     getPhoneNumbers();
-    locatePosition();
 
     print(
         "EMAIL: $email\n"

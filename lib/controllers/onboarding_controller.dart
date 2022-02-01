@@ -15,4 +15,6 @@ class OnBoardingController extends GetxController{
       "image": "assets/images/onboarding_img2.png"
     }
   ];
+
+  RxString userType = "".obs;
 }
