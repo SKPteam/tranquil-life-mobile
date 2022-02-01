@@ -17,6 +17,9 @@ class RegistrationOneView extends StatelessWidget {
   final ClientRegistrationController _ =
       Get.put(ClientRegistrationController());
 
+  final OnBoardingController obc = Get.put(OnBoardingController());
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

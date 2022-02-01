@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 
@@ -460,7 +461,6 @@ class ClientRegistrationController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    //userType = userType.value;
     staffID = staffIDEditingController.value.toString();
 
     emailTextEditingController = emailTextEditingController;
@@ -476,6 +476,7 @@ class ClientRegistrationController extends GetxController{
     TextEditingController(text: "");
     dobTextEditingController = TextEditingController(text: dateOfBirth);
 
+    print("USERT TYPE: "+onBoardingController.userType.value);
     print(
         "FIRST NAME: ${firstNameTextEditingController.text}, D.O.B: ${dobTextEditingController.text}");
 

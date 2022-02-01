@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tranquil_app/app/utils/constants.dart';
-import 'package:tranquil_app/app/utils/sizes_helpers.dart';
+import 'package:tranquil_life/constants/style.dart';
+import 'package:tranquil_life/helpers/constants.dart';
+import 'package:tranquil_life/helpers/sizes_helpers.dart';
 
 class KeyboardNumber extends StatelessWidget{
   final int n;
   final Function() onPressed;
-  const KeyboardNumber({required this.n, required this.onPressed});
+   KeyboardNumber({required this.n, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
