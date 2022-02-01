@@ -47,9 +47,7 @@ class OnBoardingTwo extends StatelessWidget {
                                 width: size.width * 0.6,
                                 height: 60,
                                 child: ElevatedButton(onPressed: (){
-                                  // Navigator.pushNamed(context, RegistrationScreenOne.idScreen, arguments: {
-                                  //   'option': client
-                                  // });
+                                  Get.offNamed(Routes.REGISTRATION_ONE);
                                 }, style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
                                     primary: active
@@ -70,6 +68,7 @@ class OnBoardingTwo extends StatelessWidget {
                               height: 60,
                               child: ElevatedButton(onPressed: (){
                               //_showModalBottomSheet(context);
+                                Get.offNamed(Routes.REGISTRATION_ONE);
                             },
                                 style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),

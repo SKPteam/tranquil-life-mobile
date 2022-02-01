@@ -9,19 +9,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
-const kPrimaryColor = Colors.green;
-const kPrimaryDarkColor = Color(0xff266c29);
-const kPrimaryGradientColor = LinearGradient(
-  colors: [Color(0xFFFFA53E), Color(0xFFFF7643)],
-  begin: Alignment.topLeft,
-  end: Alignment.bottomRight,
-);
-const kSecondaryColor = Color(0xffFFE100);
-const kTextColor = Color(0xffffffff);
-const kToastMessageColor = Colors.blueGrey;
-bool isAnonymousInTheApp = true;
-const kLightBackgroundColor = Color(0xFFEAEAEA);
-const kIsOnlineColor = Color(0xff00E53F);
+
 
 const kAnimationDuration = Duration(milliseconds: 200);
 
@@ -43,14 +31,13 @@ const List<String> monthsFromIndex = [
 ];
 const days = ['Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
 
-const String client = 'client';
-const String consultant = 'consultant';
+
 
 // Form Error
-final RegExp emailValidatorRegExp =
-RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-final RegExp passwordValidatorRegExp = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
-const String kEmailNullError = "Please enter your email address";
+// final RegExp emailValidatorRegExp =
+// RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+//final RegExp passwordValidatorRegExp = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
+//const String kEmailNullError = "Please enter your email address";
 // const String kInvalidEmailError = "Please enter Valid Email";
 // const String kPassNullError = "Please enter your password";
 // const String kShortPassError = "Password is too short";
