@@ -180,7 +180,7 @@ class RegistrationOneView extends StatelessWidget {
                               // } else {
                               //   Get.toNamed(Routes.REGISTRATION_TWO);
                               // }
-
+                              print("The new value of my serach is ${onBoardingController.userType.value}");
                               Get.toNamed(Routes.REGISTRATION_TWO);
 
                             },

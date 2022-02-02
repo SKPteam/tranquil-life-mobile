@@ -41,7 +41,7 @@ class OnBoardingTwo extends StatelessWidget {
                         flex: 2,
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 8),
+                                horizontal: 8),
                           child: Column(
                             children: [
                               SizedBox(
@@ -49,6 +49,7 @@ class OnBoardingTwo extends StatelessWidget {
                                   height: 60,
                                   child: ElevatedButton(onPressed: (){
                                       onBoardingController.userType.value = client;
+                                      print("The value of my serach is ${onBoardingController.userType.value}");
                                       Get.offNamed(Routes.REGISTRATION_ONE);
                                     }, style: ElevatedButton.styleFrom(
                                         padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
