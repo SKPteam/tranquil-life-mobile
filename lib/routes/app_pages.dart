@@ -1,8 +1,12 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, prefer_const_constructors
 library app_pages;
 
 import 'package:get/get.dart';
 import 'package:tranquil_life/dashboard.dart';
+import 'package:tranquil_life/models/journal_model.dart';
+import 'package:tranquil_life/pages/journal/journal_history_page.dart';
+import 'package:tranquil_life/pages/journal/journal_page.dart';
+import 'package:tranquil_life/pages/journal/selected_note_page.dart';
 
 import 'package:tranquil_life/pages/onboarding/onboarding_one.dart';
 import 'package:tranquil_life/pages/onboarding/onboarding_two.dart';
@@ -72,6 +76,18 @@ class AppPages {
     GetPage(
       name: _Paths.ADD_NEW_CARD,
       page: () =>  AddNewCard(reloadWalletPage: (int index) {  },),
+    ),
+    GetPage(
+      name: _Paths.JOURNAL,
+      page: () =>  JournalView(moodSvgUrl: '',),
+    ),
+    GetPage(
+      name: _Paths.JOURNAL_HISTORY,
+      page: () =>  JournalHistoryView(),
+    ),
+    GetPage(
+      name: _Paths.SELECTED_NOTE,
+      page: () =>  SelectedNoteView(journalModel: JournalModel(id: '', timestamp: ""),),
     ),
 
   ];

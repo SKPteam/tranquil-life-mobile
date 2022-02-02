@@ -1,9 +1,12 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
@@ -11,6 +14,7 @@ import 'package:tranquil_life/controllers/journal_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/pages/journal/widgets/note_item.dart';
+import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
 
 class JournalView extends StatefulWidget {
@@ -118,7 +122,7 @@ class _JournalViewState extends State<JournalView>
     return Scaffold(
       backgroundColor: kLightBackgroundColor,
       body: SafeArea(
-          child: DashboardController.to.userType!.value == client
+          child: DashboardController.to.userType.value == client
               ?
           SingleChildScrollView(
               child: Container(
@@ -135,7 +139,7 @@ class _JournalViewState extends State<JournalView>
                       children: [
                         Text(
                           'date',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: kPrimaryDarkColor,
                             fontSize: 16,
                           ),
@@ -151,10 +155,15 @@ class _JournalViewState extends State<JournalView>
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            child: Icon(
-                              Icons.list,
-                              color: kPrimaryColor,
-                              size: displayWidth(context) * 0.06,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.JOURNAL_HISTORY);
+                                },
+                              child: Icon(
+                                Icons.list,
+                                color: kPrimaryColor,
+                                size: displayWidth(context) * 0.06,
+                              ),
                             ),
                           ),
                         )
