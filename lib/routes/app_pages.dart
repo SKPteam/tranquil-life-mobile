@@ -12,6 +12,8 @@ import 'package:tranquil_life/pages/registration/registration_three.dart';
 import 'package:tranquil_life/pages/registration/registration_two.dart';
 import 'package:tranquil_life/pages/sign_in/sign_in.dart';
 import 'package:tranquil_life/pages/timeout/timeout_screen.dart';
+import 'package:tranquil_life/pages/wallet/add_new_card.dart';
+import 'package:tranquil_life/pages/wallet/wallet_page.dart';
 
 import '../splash_screen.dart';
 
@@ -20,7 +22,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ON_BOARDING_TWO;
+  static const INITIAL = Routes.DASHBOARD;
 
   static final routes = [
     GetPage(
@@ -62,6 +64,14 @@ class AppPages {
     GetPage(
       name: _Paths.TIMEOUT_SCREEN,
       page: () => TimeoutView(),
+    ),
+    GetPage(
+      name: _Paths.WALLET,
+      page: () => WalletView(reloadWalletPage: (int index) {  },),
+    ),
+    GetPage(
+      name: _Paths.ADD_NEW_CARD,
+      page: () =>  AddNewCard(reloadWalletPage: (int index) {  },),
     ),
 
   ];

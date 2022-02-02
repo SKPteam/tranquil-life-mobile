@@ -24,8 +24,8 @@ class RegistrationThreeView extends GetView<ClientRegistrationController> {
 
   final ClientRegistrationController _ = Get.put(ClientRegistrationController());
 
-  // final OnBoardingController obc = Get.put(
-  //     OnBoardingController());
+  final OnBoardingController obc = Get.put(
+      OnBoardingController());
 
   RegistrationThreeView({Key? key}) : super(key: key);
 
@@ -39,7 +39,7 @@ class RegistrationThreeView extends GetView<ClientRegistrationController> {
               appBar: AppBar(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                title: const Text(
+                title: Text(
                   "Sign Up",
                   style: TextStyle(color: Color(0xffBEBEBE)),
                 ),
@@ -47,11 +47,8 @@ class RegistrationThreeView extends GetView<ClientRegistrationController> {
               body: Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: ClientRegistrationController().userType.value ==
-                          "client"
-                          ? const AssetImage('assets/images/bg_img1.png')
-                          : const AssetImage('assets/images/bg_img2.png'),
-                      colorFilter: const ColorFilter.mode(
+                      image: AssetImage('assets/images/bg_img2.png'),
+                      colorFilter: ColorFilter.mode(
                           Color(0xff777474), BlendMode.multiply),
                       fit: BoxFit.cover),
                 ),
@@ -74,7 +71,7 @@ class RegistrationThreeView extends GetView<ClientRegistrationController> {
                             Text("Build your biography",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    color: const Color(0xffDDDDDD),
+                                    color: Color(0xffDDDDDD),
                                     fontSize: displayWidth(context) / 32)),
                             SizedBox(height: displayHeight(context) * 0.08),
                             Form(
