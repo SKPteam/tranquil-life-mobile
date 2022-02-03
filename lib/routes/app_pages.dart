@@ -9,6 +9,7 @@ import 'package:tranquil_life/pages/chat/chatroom.dart';
 import 'package:tranquil_life/pages/journal/journal_history_page.dart';
 import 'package:tranquil_life/pages/journal/journal_page.dart';
 import 'package:tranquil_life/pages/journal/selected_note_page.dart';
+import 'package:tranquil_life/pages/notification/notification_history/notification_history_view.dart';
 
 import 'package:tranquil_life/pages/onboarding/onboarding_one.dart';
 import 'package:tranquil_life/pages/onboarding/onboarding_two.dart';
@@ -29,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.CONSULTANT_LIST;
+  static const INITIAL = Routes.CHAT_ROOM;
 
   static final routes = [
     GetPage(
@@ -99,6 +100,10 @@ class AppPages {
     GetPage(
       name: _Paths.CONSULTANT_LIST,
       page: () => ConsultantListView(answerOfQuestionaire: []),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION_HISTORY,
+      page: () => NotificationHistoryScreen(),
     ),
 
 

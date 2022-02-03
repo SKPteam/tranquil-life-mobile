@@ -11,6 +11,7 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
+import 'package:tranquil_life/controllers/consultant_list_controller.dart';
 import 'package:tranquil_life/controllers/consultant_registration_controller.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/consultant_profile_model.dart';
@@ -33,10 +34,10 @@ class _ConsultantListViewState extends State<ConsultantListView> {
   Widget build(BuildContext context) {
     ConsultantListController _ = Get.put(ConsultantListController());
 
-    print(widget.answerOfQuestionaire[2]);
+    //print(widget.answerOfQuestionaire[]);
 
     return Scaffold(
-        body: Obx(() => SafeArea(
+        body: SafeArea(
               child: _.consultantListLoaded.isTrue
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -279,6 +280,6 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                   : const Center(
                       child: CircularProgressIndicator(),
                     ),
-            )));
+            ));
   }
 }
