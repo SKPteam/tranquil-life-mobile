@@ -78,7 +78,7 @@ class JournalHistoryView extends StatelessWidget {
                           //------------------------
                           child: GestureDetector(
                             onTap: (){
-                              Get.toNamed(Routes.SELECTED_NOTE);
+                              Navigator.pushNamed(context, Routes.SELECTED_NOTE);
                             },
                             child: Icon(
                               Icons.search_rounded,

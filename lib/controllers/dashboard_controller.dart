@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
+import 'package:tranquil_life/pages/chat/chatroom.dart';
 import 'package:tranquil_life/pages/home/home.dart';
 import 'package:tranquil_life/pages/journal/journal_page.dart';
 import 'package:tranquil_life/pages/profile/profile_page.dart';
@@ -36,6 +37,7 @@ class DashboardController extends GetxController {
     return [
       Home(),
       WalletView(reloadWalletPage: setBottomBarIndex),
+      ChatScreenPage(consultantUid: "", clientUid: ""),
       JournalView(moodSvgUrl: '',),
       ProfileView(setBottomBarIndex: (int index) {}),
 
@@ -53,6 +55,12 @@ class DashboardController extends GetxController {
       PersistentBottomNavBarItem(
         icon: Icon(Icons.account_balance_wallet),
         title: ("Wallet"),
+        activeColorPrimary: active,
+        inactiveColorPrimary: grey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(Icons.chat_bubble),
+        title: ("Chat"),
         activeColorPrimary: active,
         inactiveColorPrimary: grey,
       ),
