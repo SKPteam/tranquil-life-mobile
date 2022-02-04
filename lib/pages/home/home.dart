@@ -5,7 +5,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/pages/home/widgets/meetings_section.dart';
+import 'package:tranquil_life/pages/scheduling/consultant_list_view.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_text.dart';
 import 'package:tranquil_life/widgets/top_nav.dart';
@@ -71,131 +73,60 @@ class Home extends StatelessWidget {
                         )),
 
                     Positioned(
-                      right: size.width * 0.1,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            top: size.width * 0.01),
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: size.width * 0.2),
-                              decoration: BoxDecoration(
-                                color: Colors.white70,
-                                borderRadius:
-                                BorderRadius.circular(10.0),
-                                boxShadow:  [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 10,
-                                    spreadRadius: 0,
-                                    offset: Offset(3, 6),
-                                  ),
-                                ],
-                              ),
-                              child: InkWell(
-                                onTap: ()  {
+                        right: size.width * 0.1,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: size.width * 0.01),
 
-                                  Get.toNamed(Routes.CONSULTANT_LIST);
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                onTap: (){
+                                  //Get.toNamed(Routes.CONSULTANT_LIST);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context)
+                                      => ConsultantListView()));
 
-                                  // var result = await Get.to<bool>(
-                                  //       () =>
-                                  //    ConsultationQuestionnaireView(),
-                                  // );
-                                  // if (result ?? false) {
-                                  //   Get.find<
-                                  //       MyScheduledMeetingsTabController>()
-                                  //       .getDataFromFirebase();
-                                  // }
+                                  print("Consutlant list");
                                 },
-                                child: SizedBox(
-                                    width: 46,
-                                    height: 46,
-                                    child: Icon(
-                                      Icons.people,
-                                      size: 28,
-                                      color: active,
-                                    )),
-                              ),
-                            ),
-                            SizedBox(width: size.width*0.02),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: size.width * 0.02),
-                              decoration: BoxDecoration(
-                                color: Colors.white70,
-                                borderRadius:
-                                BorderRadius.circular(10.0),
-                                boxShadow:  [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 10,
-                                    spreadRadius: 0,
-                                    offset: Offset(3, 6),
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                      left: size.width * 0.2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white70,
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                    boxShadow:  [
+                                      BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 10,
+                                        spreadRadius: 0,
+                                        offset: Offset(3, 6),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  Get.toNamed(Routes.NOTIFICATION_HISTORY);
-                                },
-                                child: SizedBox(
-                                  width: 46,
-                                  height: 46,
-                                  child: Icon(
-                                    Icons.notifications,
-                                    color: active,
-                                    size: 28,
-                                  ),
+                                  child: SizedBox(
+                                      width: 46,
+                                      height: 46,
+                                      child: Icon(
+                                        Icons.people,
+                                        size: 28,
+                                        color: active,
+                                      )),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    NotificationBadge(),
+                              )
+                            ],
+                          ),
+                        )
+                    )
                   ],
                 ),
-              ),
-              Container(
-                height: size.height,
-              ),
-
-              Positioned(
-                  top: size.height * 0.12,
-                  left: 0,
-                  width: size.width,
-                  child: SizedBox(
-                    height: size.height -
-                        size.height * 0.12,
-                    child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            MyMeetingsSection(),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            SelectMood(
-                              moodOnTap: (int index, [moodSvgUrl]) {
-                                print(moodSvgUrl);
-                                // DashboardController.to
-                                //     .setBottomBarIndex(index, moodSvgUrl!);
-                              },
-                            ),
-                            SizedBox(
-                              height: size.height * 0.28,
-                            )
-                          ],
-                        )),
-                  ))
+              )
 
             ],
           );
-        }
+        },
       ),
     );
   }

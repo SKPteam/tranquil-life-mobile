@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: preferructors
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,9 @@ import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/journal_model.dart';
 
 class SelectedNoteView extends StatelessWidget {
-  final JournalModel journalModel;
-
-  SelectedNoteView({Key? key, required this.journalModel}) : super(key: key);
+  // final JournalModel journalModel;
+  //
+  // SelectedNoteView({Key? key, required this.journalModel}) : super(key: key);
 
   // final SelectedNoteController _ = Get.put(SelectedNoteController());
 
@@ -32,7 +32,7 @@ class SelectedNoteView extends StatelessWidget {
             Center(
               child: Container(
                 width: displayWidth(context) * 0.95,
-                padding: const EdgeInsets.all(8),
+                padding: EdgeInsets.all(8),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -47,11 +47,11 @@ class SelectedNoteView extends StatelessWidget {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          icon: const Icon(Icons.arrow_back, color: kPrimaryColor),
+                          icon: Icon(Icons.arrow_back, color: kPrimaryColor),
                         ),
                       ),
                     ),
-                    const Spacer(),
+                    Spacer(),
                     DashboardController.to.userType.value == client
                         ?
                     InkWell(
@@ -68,7 +68,7 @@ class SelectedNoteView extends StatelessWidget {
                             //------------------------
                             // Edit SVG
                             //------------------------
-                            child: const Icon(
+                            child: Icon(
                               Icons.share,
                               color: kPrimaryColor,
                             )
@@ -85,8 +85,8 @@ class SelectedNoteView extends StatelessWidget {
 
             Expanded(
               child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.only(bottom: 20),
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.only(bottom: 20),
                 child: Column(
                   children: [
                     //------------------------
@@ -94,10 +94,10 @@ class SelectedNoteView extends StatelessWidget {
                     //------------------------
                     Container(
                       padding:
-                      const EdgeInsets.only(left: 24, right: 40, top: 10),
+                      EdgeInsets.only(left: 24, right: 40, top: 10),
                       child: Text(
-                        journalModel.heading,
-                        style: const TextStyle(
+                        'journalModel.heading',
+                        style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                           color: Colors.black87,
@@ -109,7 +109,7 @@ class SelectedNoteView extends StatelessWidget {
                     // DATE AND EMOJI CONTAINER
                     //------------------------
                     Container(
-                      padding: const EdgeInsets.all(24),
+                      padding: EdgeInsets.all(24),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -128,15 +128,15 @@ class SelectedNoteView extends StatelessWidget {
                           //------------------------
                           //if there is a mood attached to the journal element then the mood
                           //container in the topRight corner will be created
-                          if (journalModel.moodSvgUrl.isNotEmpty)
-                            Center(
-                              child: Image.network(
-                                journalModel.moodSvgUrl,
-                                fit: BoxFit.contain,
-                                height: 60,
-                                width: 60,
-                              ),
-                            ),
+                          // if (journalModel.moodSvgUrl.isNotEmpty)
+                          //   Center(
+                          //     child: Image.network(
+                          //       journalModel.moodSvgUrl,
+                          //       fit: BoxFit.contain,
+                          //       height: 60,
+                          //       width: 60,
+                          //     ),
+                          //   ),
                         ],
                       ),
                     ),
@@ -144,11 +144,11 @@ class SelectedNoteView extends StatelessWidget {
                     // CONTENT OF THE JOURNAL ENTRY
                     //------------------------
                     Container(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                           horizontal: 24, vertical: 12),
                       child: Text(
-                        journalModel.body,
-                        style: const TextStyle(
+                        'journalModel.body',
+                        style: TextStyle(
                           color: Colors.black87,
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
@@ -171,7 +171,7 @@ class SelectedNoteView extends StatelessWidget {
             color: Colors.white,
             child: Column(
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 16.0),
                   child: Text("Share this with your consultant",
                     style: TextStyle(fontSize: 16.0, color: kPrimaryDarkColor),),
@@ -211,7 +211,7 @@ class SelectedNoteView extends StatelessWidget {
                                           ),
                                           GestureDetector(
                                             onTap: ()=> Get.back(),
-                                            child: const Text("No",
+                                            child: Text("No",
                                               style: TextStyle(
                                                   color: kPrimaryDarkColor,
                                                   fontWeight: FontWeight.bold
@@ -224,7 +224,7 @@ class SelectedNoteView extends StatelessWidget {
                                 });
                           },
                           child: Container(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(8.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -253,9 +253,9 @@ class SelectedNoteView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
+                                SizedBox(width: 8),
                                 Text("Show Consultant Firstname and Lastname",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 18.0
                                   ),)
                               ],

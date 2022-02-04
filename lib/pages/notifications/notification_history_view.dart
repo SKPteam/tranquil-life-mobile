@@ -6,7 +6,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/notification_history_controller.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
-import 'package:tranquil_life/pages/notification/notification_history/widget/notification_history_widget.dart';
+import 'package:tranquil_life/pages/notifications/notification_history_widget.dart';
 
 class NotificationHistoryScreen extends StatelessWidget {
   static const String idScreen = 'notificationsPage';
@@ -74,10 +74,10 @@ class NotificationHistoryScreen extends StatelessWidget {
                     itemBuilder: (context, index, animation) =>
                     index == _.notifications.length
                         ? _.moreNotificationsAvailableInDatabase
-                        ? NotificationHistoryWidget(
+                        ? NotificationHistoryItem(
                         index: index, loader: true)
                         : Container()
-                        : NotificationHistoryWidget(
+                        : NotificationHistoryItem(
                       notificationModel:
                       _.notifications[index],
                       index: index,
@@ -129,7 +129,7 @@ class NotificationHistoryScreen extends StatelessWidget {
             sizeFactor:
             CurvedAnimation(parent: animation, curve: const Interval(0.0, 1.0)),
             axisAlignment: 0.0,
-            child: NotificationHistoryWidget(
+            child: NotificationHistoryItem(
               //checking if index is last [demonotifications.length without -1 becoz
               // the last element is already removed so] and building notifications with - 1
               // if index is last to avoid not in range index
