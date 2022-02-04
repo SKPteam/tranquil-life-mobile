@@ -20,7 +20,7 @@ class EditProfileView
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() => Scaffold(
+    return Scaffold(
         backgroundColor: kLightBackgroundColor,
         body: SafeArea(
           child: Stack(
@@ -208,7 +208,7 @@ class EditProfileView
                   // )
                 ],
               ),
-              Obx(() =>
+
               //_.uploadingPhoto.value ?
               Container(
                 height: displayHeight(context),
@@ -231,10 +231,10 @@ class EditProfileView
                     ),
                   ),
                 ),
-              ))
+              )
                   // : Container()),
             ],
           ),
-        )));
+        ));
   }
 }

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer__ructors, prefer_const_constructors
 
 import 'dart:js';
 
@@ -11,7 +11,6 @@ import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
-import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/pages/journal/widgets/note_item.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
@@ -20,7 +19,7 @@ import 'package:tranquil_life/widgets/custom_snackbar.dart';
 class JournalView extends StatefulWidget {
   final String moodSvgUrl;
 
-  const JournalView({Key? key, required this.moodSvgUrl}) : super(key: key);
+   JournalView({Key? key, required this.moodSvgUrl}) : super(key: key);
 
   @override
   _JournalViewState createState() => _JournalViewState();
@@ -36,7 +35,7 @@ class _JournalViewState extends State<JournalView>
   void initState() {
     _.headingController = TextEditingController();
     _.controller = AnimationController(
-        duration: const Duration(milliseconds: 700), vsync: this);
+        duration:  Duration(milliseconds: 700), vsync: this);
     _.textAnim = TweenSequence(<TweenSequenceItem<double>>[
       TweenSequenceItem<double>(
         tween: Tween<double>(begin: 80, end: 0)
@@ -101,7 +100,7 @@ class _JournalViewState extends State<JournalView>
   }
 
   void start() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed( Duration(seconds: 1));
     _.controller?.forward().orCancel;
   }
 
@@ -127,7 +126,7 @@ class _JournalViewState extends State<JournalView>
           SingleChildScrollView(
               child: Container(
                 height: displayHeight(context),
-                padding: const EdgeInsets.all(20),
+                padding:  EdgeInsets.all(20),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -169,7 +168,7 @@ class _JournalViewState extends State<JournalView>
                         )
                       ],
                     ),
-                    const SizedBox(
+                     SizedBox(
                       height: 60,
                     ),
                     if (widget.moodSvgUrl.isNotEmpty)
@@ -250,14 +249,14 @@ class _JournalViewState extends State<JournalView>
                         ),
                       ),
                     ),
-                    const SizedBox(
+                     SizedBox(
                       height: 20,
                     ),
                     TextField(
                       maxLines: 8,
-                      style: const TextStyle(fontSize: 20),
+                      style:  TextStyle(fontSize: 20),
                       controller: _.bodyController,
-                      decoration: const InputDecoration(
+                      decoration:  InputDecoration(
                         hintStyle: TextStyle(fontSize: 20),
                         hintText: 'Type Something here',
                         enabledBorder: InputBorder.none,
@@ -266,14 +265,16 @@ class _JournalViewState extends State<JournalView>
                         errorBorder: InputBorder.none,
                       ),
                     ),
-                    const SizedBox(
+                     SizedBox(
                       height: 100,
                     ),
                     Padding(
-                        padding: const EdgeInsets.only(left: 30.0),
+                        padding:  EdgeInsets.only(left: 30.0),
                         child: InkWell(
                           onTap: () {
                             //saveToDatabase();
+                            Get.toNamed(Routes.JOURNAL_HISTORY);
+
                           },
                           child: CircleAvatar(
                               backgroundColor: Colors.black54,
@@ -284,7 +285,7 @@ class _JournalViewState extends State<JournalView>
                                 size: displayWidth(context) * 0.06,
                               )),
                         )),
-                    const SizedBox(
+                     SizedBox(
                       height: 100,
                     )
                   ],
@@ -302,7 +303,7 @@ class _JournalViewState extends State<JournalView>
                 //------------------------
                 Container(
                   width: displayWidth(context) * 0.95,
-                  padding: const EdgeInsets.all(8),
+                  padding:  EdgeInsets.all(8),
                   child: Row(
                     children: [
                       SizedBox(
@@ -311,7 +312,7 @@ class _JournalViewState extends State<JournalView>
                       //------------------------
                       // SCREEN HEADING
                       //------------------------
-                      const Text(
+                       Text(
                         'Journal',
                         style: TextStyle(
                           color: kPrimaryColor,
@@ -319,7 +320,7 @@ class _JournalViewState extends State<JournalView>
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                      const Spacer(),
+                       Spacer(),
                       //------------------------
                       // Search Button Container
                       //------------------------
@@ -477,7 +478,7 @@ class _JournalViewState extends State<JournalView>
   //             horizontalTitleGap: 0,
   //             title: Container(
   //               color: Colors.white,
-  //               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+  //               padding:  EdgeInsets.symmetric(horizontal: 24, vertical: 12),
   //               child: Text(
   //                 'Delete',
   //                 textAlign: TextAlign.center,
