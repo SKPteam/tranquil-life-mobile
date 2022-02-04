@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer__ructors, prefer__literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,13 +24,13 @@ class SignIn extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            title: const Text(
+            title:  Text(
               "Sign In",
               style: TextStyle(color: Color(0xffBEBEBE)),
             ),
           ),
           body: Container(
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/images/bg_img1.png'),
                   colorFilter:
@@ -142,10 +142,10 @@ class SignIn extends StatelessWidget {
                                         //   _.loginAndAuthenticate(context);
                                         // }
                                         //INFO TODO: Return it back to allOffNamed
-                                        Get.toNamed(Routes.DASHBOARD);
+                                        Get.toNamed(Routes.TIMEOUT_SCREEN);
                                       },
                                       style: ElevatedButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(
+                                          padding:  EdgeInsets.symmetric(
                                               horizontal: 0, vertical: 20),
                                           primary: active),
                                       child: Text(

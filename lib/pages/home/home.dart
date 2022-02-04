@@ -1,9 +1,12 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: avoid_unnecessary_containers, prefer__ructors, prefer__literals_to_create_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/home/widgets/meetings_section.dart';
+import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_text.dart';
 import 'package:tranquil_life/widgets/top_nav.dart';
 
@@ -44,7 +47,7 @@ class Home extends StatelessWidget {
                 child: Stack(
                   children: [
                     SizedBox(
-                        width: size.width * 0.4,
+                        width: size.width * 0.6,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -81,7 +84,7 @@ class Home extends StatelessWidget {
                                 color: Colors.white70,
                                 borderRadius:
                                 BorderRadius.circular(10.0),
-                                boxShadow: const [
+                                boxShadow:  [
                                   BoxShadow(
                                     color: Colors.grey,
                                     blurRadius: 10,
@@ -91,10 +94,13 @@ class Home extends StatelessWidget {
                                 ],
                               ),
                               child: InkWell(
-                                onTap: () async {
+                                onTap: ()  {
+
+                                  Get.toNamed(Routes.NOTIFICATION_HISTORY);
+
                                   // var result = await Get.to<bool>(
                                   //       () =>
-                                  //   const ConsultationQuestionnaireView(),
+                                  //    ConsultationQuestionnaireView(),
                                   // );
                                   // if (result ?? false) {
                                   //   Get.find<
@@ -120,7 +126,7 @@ class Home extends StatelessWidget {
                                 color: Colors.white70,
                                 borderRadius:
                                 BorderRadius.circular(10.0),
-                                boxShadow: const [
+                                boxShadow:  [
                                   BoxShadow(
                                     color: Colors.grey,
                                     blurRadius: 10,
@@ -131,7 +137,7 @@ class Home extends StatelessWidget {
                               ),
                               child: InkWell(
                                 onTap: () {
-                                  //Navigator.pushNamed(context, NotificationHistoryScreen.idScreen);
+                                  Get.toNamed(Routes.NOTIFICATION_HISTORY);
                                 },
                                 child: SizedBox(
                                   width: 46,

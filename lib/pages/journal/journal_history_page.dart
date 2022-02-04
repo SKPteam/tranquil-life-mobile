@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -10,7 +12,7 @@ import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 
 class JournalHistoryView extends StatelessWidget {
-  const JournalHistoryView({Key? key}) : super(key: key);
+   JournalHistoryView({Key? key}) : super(key: key);
 
 
 
@@ -32,7 +34,7 @@ class JournalHistoryView extends StatelessWidget {
                 //------------------------
                 Container(
                   width: displayWidth(context) * 0.95,
-                  padding: const EdgeInsets.all(8),
+                  padding:  EdgeInsets.all(8),
                   child: Row(
                     children: [
                       //------------------------
@@ -50,7 +52,7 @@ class JournalHistoryView extends StatelessWidget {
                       //------------------------
                       // SCREEN HEADING
                       //------------------------
-                      const Text(
+                       Text(
                         'Journal',
                         style: TextStyle(
                           color: kPrimaryColor,
@@ -58,7 +60,7 @@ class JournalHistoryView extends StatelessWidget {
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                      const Spacer(),
+                       Spacer(),
                       //------------------------
                       // Search Button Container
                       //------------------------
@@ -100,15 +102,15 @@ class JournalHistoryView extends StatelessWidget {
                 //       //divide the horizontal axis into 6 parts
                 //       crossAxisCount: 6,
                 //       controller: _.scrollController,
-                //       padding: const EdgeInsets.symmetric(
+                //       padding:  EdgeInsets.symmetric(
                 //           vertical: 30, horizontal: 18),
-                //       physics: const BouncingScrollPhysics(),
+                //       physics:  BouncingScrollPhysics(),
                 //       itemCount: _.moreJournalsAvailableInDatabase.value
                 //           ? _.journalList.length + 1
                 //           : _.journalList.length,
                 //       itemBuilder: (BuildContext context, int index) {
                 //         if (index == _.journalList.length) {
-                //           return const SizedBox(
+                //           return  SizedBox(
                 //             height: 60,
                 //             child: Center(
                 //               child: CircularProgressIndicator(),
@@ -143,8 +145,8 @@ class JournalHistoryView extends StatelessWidget {
                 //                 },
                 //                 child: Container(
                 //                   padding: isThree
-                //                       ? const EdgeInsets.all(26)
-                //                       : const EdgeInsets.symmetric(
+                //                       ?  EdgeInsets.all(26)
+                //                       :  EdgeInsets.symmetric(
                 //                       vertical: 28, horizontal: 18),
                 //                   decoration: BoxDecoration(
                 //                     color: _.getColor(
@@ -176,7 +178,7 @@ class JournalHistoryView extends StatelessWidget {
                 //                               0, 58) +
                 //                               '...'
                 //                               : heading,
-                //                           style: const TextStyle(
+                //                           style:  TextStyle(
                 //                             color: Colors.white,
                 //                             fontSize: 20,
                 //                             fontWeight: FontWeight.w500,
@@ -199,7 +201,7 @@ class JournalHistoryView extends StatelessWidget {
                 //                             _.journalList[index]
                 //                                 .timestamp,
                 //                           ),
-                //                           style: const TextStyle(
+                //                           style:  TextStyle(
                 //                             color: Colors.white60,
                 //                             fontSize: 17,
                 //                             fontWeight: FontWeight.w400,
@@ -299,7 +301,7 @@ class JournalHistoryView extends StatelessWidget {
                 //       //vertical spacing between elements
                 //       crossAxisSpacing: 13,
                 //     )
-                //         : const Center(
+                //         :  Center(
                 //       child: CircularProgressIndicator(),
                 //     );
                 //   }),

@@ -13,6 +13,8 @@ import 'package:tranquil_life/pages/notification/notification_history/notificati
 
 import 'package:tranquil_life/pages/onboarding/onboarding_one.dart';
 import 'package:tranquil_life/pages/onboarding/onboarding_two.dart';
+import 'package:tranquil_life/pages/profile/edit_profile_page.dart';
+import 'package:tranquil_life/pages/profile/settings_page.dart';
 import 'package:tranquil_life/pages/registration/registration_four.dart';
 import 'package:tranquil_life/pages/registration/registration_one.dart';
 import 'package:tranquil_life/pages/registration/registration_three.dart';
@@ -30,7 +32,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ON_BOARDING_TWO;
+  static const INITIAL = Routes.DASHBOARD;
 
   static final routes = [
     GetPage(
@@ -89,10 +91,10 @@ class AppPages {
       name: _Paths.JOURNAL_HISTORY,
       page: () =>  JournalHistoryView(),
     ),
-    GetPage(
-      name: _Paths.SELECTED_NOTE,
-      page: () =>  SelectedNoteView(journalModel: JournalModel,),
-    ),
+    // GetPage(
+    //   name: _Paths.SELECTED_NOTE,
+    //   page: () =>  SelectedNoteView(journalModel: JournalModel,),
+    // ),
     GetPage(
       name: _Paths.CHAT_ROOM,
       page: () =>  ChatScreenPage(consultantUid: "", clientUid: ""),
@@ -109,6 +111,15 @@ class AppPages {
       name: _Paths.NOTIFICATION_HISTORY,
       page: () => NotificationHistoryScreen(),
     ),
+    GetPage(
+      name: _Paths.APP_SETTINGS,
+      page: () => AppSettingsView(),
+    ),
+    GetPage(
+      name: _Paths.CONSULTANT_LIST,
+      page: () => ConsultantListView(answerOfQuestionaire: []),
+    ),
+
 
 
   ];

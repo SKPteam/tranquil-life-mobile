@@ -1,14 +1,12 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: preferructors, prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/controllers/profile_controller.dart';
-import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'widgets/cusListTile.dart';
@@ -17,7 +15,7 @@ import 'edit_profile_page.dart';
 class ProfileView extends StatefulWidget {
   final void Function(int index) setBottomBarIndex;
 
-  const ProfileView({Key? key, required this.setBottomBarIndex})
+  ProfileView({Key? key, required this.setBottomBarIndex})
       : super(key: key);
 
   @override
@@ -38,7 +36,8 @@ class _ProfileViewState extends State<ProfileView> {
                 Container(
                   color: kLightBackgroundColor,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       InkWell(
                         onTap: () {
@@ -46,37 +45,40 @@ class _ProfileViewState extends State<ProfileView> {
                         },
                         child: Container(
                           padding:
-                          const EdgeInsets.symmetric(horizontal: 18.0),
+                          EdgeInsets.symmetric(horizontal: 18.0),
                           width: displayWidth(context),
                           height: 80,
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                              height: 35,
-                              width: 35,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: InkWell(
-                                onTap: (){
-                                  Navigator.pushNamed(Get.context!, Routes.APP_SETTINGS);
-                                },
-                                child: Icon(
-                                  Icons.settings,
-                                  color: kPrimaryColor,
-                                  size: displayWidth(context) * 0.06,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Container(
+                                height: 35,
+                                width: 35,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: InkWell(
+                                  onTap: (){
+                                    Navigator.pushNamed(Get.context!, Routes.APP_SETTINGS);
+                                  },
+                                  child: Icon(
+                                    Icons.settings,
+                                    color: kPrimaryColor,
+                                    size: displayWidth(context) * 0.06,
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
                       ),
-                      const SizedBox(
+                      SizedBox(
                         height: 10,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
+                        padding: EdgeInsets.only(bottom: 20.0),
                         child: Center(
                           child: Container(
                             height: 90,
@@ -110,7 +112,7 @@ class _ProfileViewState extends State<ProfileView> {
                         height: 100,
                         width: displayWidth(context),
                         color: Colors.white,
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        padding: EdgeInsets.symmetric(horizontal: 24),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,7 +127,7 @@ class _ProfileViewState extends State<ProfileView> {
                                 //   _.username.value != null
                                 //       ? _.username.value.toString()
                                 //       : '',
-                                //   style: const TextStyle(
+                                //   style: TextStyle(
                                 //       fontWeight: FontWeight.bold,
                                 //       fontSize: 20,
                                 //       color: kPrimaryDarkColor),
@@ -133,12 +135,12 @@ class _ProfileViewState extends State<ProfileView> {
                                 //   !DashboardController.to.firstName!.value.isNull
                                 //       ? DashboardController.to.firstName!.value
                                 //       : '',
-                                //   style: const TextStyle(
+                                //   style: TextStyle(
                                 //       fontWeight: FontWeight.bold,
                                 //       fontSize: 20,
                                 //       color: kPrimaryDarkColor),
                                 // ),
-                                // const SizedBox(
+                                // SizedBox(
                                 //   height: 3,
                                 // ),
                                 // Text(
@@ -152,7 +154,7 @@ class _ProfileViewState extends State<ProfileView> {
                                 //       .substring(
                                 //       0, Get.find<HomeController>().location!.value.indexOf("/")).toString()
                                 //       : '',
-                                //   style: const TextStyle(
+                                //   style: TextStyle(
                                 //       fontSize: 14, color: kPrimaryColor),
                                 // )
                               ],
@@ -179,7 +181,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     MaterialStateProperty.all(
                                         kPrimaryColor),
                                   ),
-                                  child: const Center(
+                                  child: Center(
                                     child: Text(
                                       "EDIT",
                                       style: TextStyle(
