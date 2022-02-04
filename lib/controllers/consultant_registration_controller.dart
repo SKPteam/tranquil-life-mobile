@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/models/consultant_model.dart';
+import 'package:tranquil_life/models/consultant_profile_model.dart';
 
 class ConsultantRegistrationController extends GetxController{
   static ConsultantRegistrationController instance = Get.find();
@@ -123,3 +126,5 @@ class ConsultantRegistrationController extends GetxController{
   // );
 
 }
+
+

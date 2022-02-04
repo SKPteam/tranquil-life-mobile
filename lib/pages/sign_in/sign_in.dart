@@ -142,7 +142,7 @@ class SignIn extends StatelessWidget {
                                         //   _.loginAndAuthenticate(context);
                                         // }
                                         //INFO TODO: Return it back to allOffNamed
-                                        //Get.toNamed(Routes.DASHBOARD);
+                                        Get.toNamed(Routes.DASHBOARD);
                                       },
                                       style: ElevatedButton.styleFrom(
                                           padding: const EdgeInsets.symmetric(
