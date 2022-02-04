@@ -26,8 +26,8 @@ class JournalHistoryView extends StatelessWidget {
           child: SizedBox(
             width: displayWidth(context),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 //------------------------
                 // APPBAR

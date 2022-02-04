@@ -96,7 +96,7 @@ class Home extends StatelessWidget {
                               child: InkWell(
                                 onTap: ()  {
 
-                                  Get.toNamed(Routes.NOTIFICATION_HISTORY);
+                                  Get.toNamed(Routes.CONSULTANT_LIST);
 
                                   // var result = await Get.to<bool>(
                                   //       () =>
