@@ -9,6 +9,7 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
+import 'package:tranquil_life/pages/journal/selected_note_page.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 
 class JournalHistoryView extends StatelessWidget {
@@ -67,7 +68,11 @@ class JournalHistoryView extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           //TODO: Search query for journal using heading
-                          Navigator.pushNamed(context, Routes.SELECTED_NOTE);
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(
+                            builder: (context) =>
+                                SelectedNoteView(),
+                          ));
                         },
                         child: Container(
                           height: displayHeight(context) * 0.037,

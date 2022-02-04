@@ -8,8 +8,8 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/notification_history_model.dart';
 
-class NotificationHistoryWidget extends StatelessWidget {
-  NotificationHistoryWidget(
+class NotificationHistoryItem extends StatelessWidget {
+  NotificationHistoryItem(
       {Key? key,
         this.notificationModel,
         this.loader = false,
