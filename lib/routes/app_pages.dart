@@ -30,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.CHAT_ROOM;
+  static const INITIAL = Routes.ON_BOARDING_TWO;
 
   static final routes = [
     GetPage(
@@ -88,6 +88,10 @@ class AppPages {
     GetPage(
       name: _Paths.JOURNAL_HISTORY,
       page: () =>  JournalHistoryView(),
+    ),
+    GetPage(
+      name: _Paths.SELECTED_NOTE,
+      page: () =>  SelectedNoteView(journalModel: JournalModel,),
     ),
     GetPage(
       name: _Paths.CHAT_ROOM,

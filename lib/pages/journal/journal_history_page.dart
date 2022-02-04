@@ -65,6 +65,7 @@ class JournalHistoryView extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           //TODO: Search query for journal using heading
+                          Navigator.pushNamed(context, Routes.SELECTED_NOTE);
                         },
                         child: Container(
                           height: displayHeight(context) * 0.037,
@@ -76,15 +77,10 @@ class JournalHistoryView extends StatelessWidget {
                           //------------------------
                           // SEARCH SVG
                           //------------------------
-                          child: GestureDetector(
-                            onTap: (){
-                              Navigator.pushNamed(context, Routes.SELECTED_NOTE);
-                            },
-                            child: Icon(
-                              Icons.search_rounded,
-                              size: displayWidth(context) * 0.06,
-                              color: kPrimaryColor,
-                            ),
+                          child: Icon(
+                            Icons.search_rounded,
+                            size: displayWidth(context) * 0.06,
+                            color: kPrimaryColor,
                           ),
                         ),
                       ),
