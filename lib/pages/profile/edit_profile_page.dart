@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, unrelated_type_equality_checks
+// ignore_for_file: must_be_immutable, unrelated_type_equality_checks, prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'dart:io';
 
@@ -12,11 +12,8 @@ import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 
-class EditProfileView
-// extends GetView<EditProfileController>
-{
-  // final EditProfileController _ = Get.put(EditProfileController());
-
+class EditProfileView extends StatelessWidget {
+  EditProfileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +26,8 @@ class EditProfileView
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 8.0),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,20 +43,20 @@ class EditProfileView
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
-                            child: const Icon(Icons.arrow_back, color: kPrimaryColor),
+                            child: Icon(Icons.arrow_back, color: kPrimaryColor),
                           ),
                         ),
                         TextButton(
-                          onPressed: () async {
+                          onPressed: () {
                             // print('PHOTOOOOOO: ${_.photoUrl.value}');
                             // await _.updateToUserDatabase();
                             // Get.back(result: _.photoUrl.value);
                             // //Navigator.of(context).pop('done');
                           },
-                          child: const Text(
+                          child: Text(
                             'Done',
                             style:
-                            TextStyle(color: kPrimaryColor, fontSize: 20),
+                                TextStyle(color: kPrimaryColor, fontSize: 20),
                           ),
                         ),
                       ],
@@ -70,26 +67,26 @@ class EditProfileView
                   //     clipBehavior: Clip.none,
                   //     children: [
                   //       Container(
-                  //         margin: const EdgeInsets.only(left: 20, bottom: 16),
-                  //         decoration: const BoxDecoration(
+                  //         margin:  EdgeInsets.only(left: 20, bottom: 16),
+                  //         decoration:  BoxDecoration(
                   //           color: Colors.white70,
                   //         ),
                   //       ),
                   //       Container(
-                  //         margin: const EdgeInsets.only(bottom: 32, top: 12),
+                  //         margin:  EdgeInsets.only(bottom: 32, top: 12),
                   //         child: SingleChildScrollView(
-                  //           physics: const BouncingScrollPhysics(),
+                  //           physics:  BouncingScrollPhysics(),
                   //           child: _.profileDataLoaded.isTrue
                   //               ? Column(
                   //             mainAxisAlignment: MainAxisAlignment.start,
                   //             crossAxisAlignment:
                   //             CrossAxisAlignment.start,
                   //             children: [
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 15,
                   //               ),
                   //               _.editPhoto(context),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 15,
                   //               ),
                   //               _.editField(context,
@@ -97,7 +94,7 @@ class EditProfileView
                   //                   controller: _.controllers[0],
                   //                   inputFormattors: [],
                   //                   onTapped: () {}),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 15,
                   //               ),
                   //               _.editField(context,
@@ -105,7 +102,7 @@ class EditProfileView
                   //                   controller: _.controllers[1],
                   //                   inputFormattors: [],
                   //                   onTapped: () {}),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 50,
                   //               ),
                   //               _.editField(context,
@@ -114,7 +111,7 @@ class EditProfileView
                   //                   readOnly: true,
                   //                   inputFormattors: [],
                   //                   onTapped: () {}),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 15,
                   //               ),
                   //               _.editField(context,
@@ -123,7 +120,7 @@ class EditProfileView
                   //                   readOnly: false,
                   //                   inputFormattors: [],
                   //                   onTapped: () {}),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 30,
                   //               ),
                   //               _.editField(context,
@@ -132,7 +129,7 @@ class EditProfileView
                   //                   readOnly: true,
                   //                   inputFormattors: [],
                   //                   onTapped: () {}),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 40,
                   //               ),
                   //               _.editField(
@@ -145,7 +142,7 @@ class EditProfileView
                   //                 ],
                   //                 onTapped: () {},
                   //               ),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 40,
                   //               ),
                   //               _.editField(context,
@@ -154,7 +151,7 @@ class EditProfileView
                   //                   readOnly: true,
                   //                   onTapped: () {},
                   //                   inputFormattors: []),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 40,
                   //               ),
                   //               _.editField(context,
@@ -163,7 +160,7 @@ class EditProfileView
                   //                   readOnly: true,
                   //                   onTapped: () {},
                   //                   inputFormattors: []),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 40,
                   //               ),
                   //               if (DashboardController.to.userType ==
@@ -178,7 +175,7 @@ class EditProfileView
                   //                   ],
                   //                   onTapped: () {},
                   //                 ),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 15,
                   //               ),
                   //               if (DashboardController.to.userType ==
@@ -193,12 +190,12 @@ class EditProfileView
                   //                   ],
                   //                   onTapped: () {},
                   //                 ),
-                  //               const SizedBox(
+                  //                SizedBox(
                   //                 height: 15,
                   //               ),
                   //             ],
                   //           )
-                  //               : const Center(
+                  //               :  Center(
                   //             child: CircularProgressIndicator(),
                   //           ),
                   //         ),
@@ -210,29 +207,29 @@ class EditProfileView
               ),
 
               //_.uploadingPhoto.value ?
-              Container(
-                height: displayHeight(context),
-                width: displayWidth(context),
-                color: Colors.black38,
-                child: Center(
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: Colors.black87,
-                    ),
-                    child: const Center(
-                      child: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                  ),
-                ),
-              )
-                  // : Container()),
+              // Container(
+              //   height: displayHeight(context),
+              //   width: displayWidth(context),
+              //   color: Colors.black38,
+              //   child: Center(
+              //     child: Container(
+              //       height: 50,
+              //       width: 50,
+              //       decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(8),
+              //         color: Colors.black87,
+              //       ),
+              //       child: Center(
+              //         child: SizedBox(
+              //           height: 30,
+              //           width: 30,
+              //           child: CircularProgressIndicator(),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // )
+              // : Container()),
             ],
           ),
         ));

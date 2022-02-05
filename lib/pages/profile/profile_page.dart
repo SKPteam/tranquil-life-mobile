@@ -34,7 +34,8 @@ class _ProfileViewState extends State<ProfileView> {
             child: Column(
               children: [
                 Container(
-                  color: kLightBackgroundColor,
+                  color: Colors.blue,
+                  //kLightBackgroundColor,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -44,9 +45,9 @@ class _ProfileViewState extends State<ProfileView> {
                           Navigator.pushNamed(context, Routes.APP_SETTINGS);
                         },
                         child: Container(
-                          padding:
-                          EdgeInsets.symmetric(horizontal: 18.0),
-                          width: displayWidth(context),
+                          // padding:
+                          // EdgeInsets.symmetric(horizontal: 18.0),
+                          width: double.infinity,
                           height: 80,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -163,15 +164,19 @@ class _ProfileViewState extends State<ProfileView> {
                                 height: 40,
                                 width: 100,
                                 child: ElevatedButton(
-                                  onPressed: () async {
-                                    var result = await Get.to<String?>(
-                                            () => EditProfileView());
-                                    print(result);
-                                    if (result != null &&
-                                        result.isNotEmpty) {
-                                      // await _.checkAuthState();
-                                      // setState(() {});
-                                    }
+                                  onPressed: ()  {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context)
+                                        => EditProfileView()));
+                                    // var result = await Get.to<String?>(
+                                    //         () => EditProfileView());
+                                    // print(result);
+                                    // if (result != null &&
+                                    //     result.isNotEmpty) {
+                                    //   // await _.checkAuthState();
+                                    //   // setState(() {});
+                                    // }
                                   },
                                   style: ButtonStyle(
                                     elevation:

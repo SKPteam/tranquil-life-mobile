@@ -169,7 +169,7 @@ class _JournalViewState extends State<JournalView>
                       ],
                     ),
                      SizedBox(
-                      height: 60,
+                      height: 50,
                     ),
                     if (widget.moodSvgUrl.isNotEmpty)
                       Image.asset(widget.moodSvgUrl, height: 60),
