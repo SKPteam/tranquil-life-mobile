@@ -136,7 +136,7 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
 
                                     ///if client
                                     if (onBoardingController.userType.value ==
-                                        "client") {
+                                        client) {
                                       if (_.firstNameTextEditingController.text
                                           .isEmpty) {
                                         displaySnackBar(
@@ -160,9 +160,8 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
                                                 .text)
                                             ? displaySnackBar(
                                                 kUserNameExists, context)
-                                            : print("The new newa value of my serach is ${onBoardingController.userType.value}");
-                                        // Get.toNamed(
-                                        //         Routes.REGISTRATION_THREE);
+                                            : Get.toNamed(
+                                                Routes.REGISTRATION_THREE);
 
                                       }
                                     } else {
@@ -175,11 +174,13 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
                                           .text.isEmpty) {
                                         displaySnackBar(
                                             kLastNameNullError, context);
-                                      } else if (_.locationEditingController.text
+                                      }
+                                      else if (_.locationEditingController.text
                                           .isEmpty) {
                                         displaySnackBar(
                                             'Location Unavailable', context);
-                                      } else if (_.dobTextEditingController.value
+                                      }
+                                      else if (_.dobTextEditingController.value
                                           .text.isEmpty) {
                                         displaySnackBar(kAgeNullError, context);
                                       } else if (_.age < 16) {
@@ -190,9 +191,7 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
                                                 .text)
                                             ? displaySnackBar(
                                                 kUserNameExists, context)
-                                            : print("The newb value of my serach is ${onBoardingController.userType.value}");
-                                        // Get.toNamed(
-                                        //         Routes.REGISTRATION_THREE);
+                                            : Get.toNamed(Routes.REGISTRATION_THREE);
                                       }
                                     }
                                   },

@@ -32,25 +32,25 @@ class ConsultantProfile extends StatelessWidget {
               //------------------------
               // PROFILE IMAGE
               //------------------------
-              // Hero(
-              //   tag: heroTag,
-              //   child: Container(
-              //       alignment: Alignment.topLeft,
-              //       width: displayWidth(context),
-              //       height: displayHeight(context) * 0.55,
-              //       child:
-              //       //consultantProfileModel.avatarUrl != ''
-              //       //     ? Image.network(
-              //       //   consultantProfileModel.avatarUrl.toString(),
-              //       //   fit: BoxFit.cover,
-              //       //   height: displayHeight(context) * 0.55,
-              //       // ) :
-              //       Image.asset(
-              //         'assets/images/default_img.png',
-              //         fit: BoxFit.cover,
-              //         height: displayHeight(context) * 0.55,
-              //       )),
-              // ),
+              Hero(
+                tag: "heroTag1",
+                child: Container(
+                    alignment: Alignment.topLeft,
+                    width: displayWidth(context),
+                    height: displayHeight(context) * 0.55,
+                    child:
+                    //consultantProfileModel.avatarUrl != ''
+                    //     ? Image.network(
+                    //   consultantProfileModel.avatarUrl.toString(),
+                    //   fit: BoxFit.cover,
+                    //   height: displayHeight(context) * 0.55,
+                    // ) :
+                    Image.asset(
+                      'assets/images/default_img.png',
+                      fit: BoxFit.cover,
+                      height: displayHeight(context) * 0.55,
+                    )),
+              ),
               SafeArea(
                 child:
                 //------------------------

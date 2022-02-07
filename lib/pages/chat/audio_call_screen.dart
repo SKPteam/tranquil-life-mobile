@@ -106,7 +106,9 @@ class AudioCallScreen extends StatelessWidget {
                             color: Colors.red,
                             size: 45,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
                       IconButton(
