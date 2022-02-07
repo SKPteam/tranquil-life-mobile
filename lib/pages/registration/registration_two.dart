@@ -175,11 +175,11 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
                                         displaySnackBar(
                                             kLastNameNullError, context);
                                       }
-                                      else if (_.locationEditingController.text
-                                          .isEmpty) {
-                                        displaySnackBar(
-                                            'Location Unavailable', context);
-                                      }
+                                      // else if (_.locationEditingController.text
+                                      //     .isEmpty) {
+                                      //   displaySnackBar(
+                                      //       'Location Unavailable', context);
+                                      // }
                                       else if (_.dobTextEditingController.value
                                           .text.isEmpty) {
                                         displaySnackBar(kAgeNullError, context);

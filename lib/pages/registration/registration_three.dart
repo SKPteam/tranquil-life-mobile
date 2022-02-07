@@ -378,16 +378,19 @@ class RegistrationThreeView extends GetView<ClientRegistrationController> {
                                       width: double.infinity,
                                       child: ElevatedButton(
                                           onPressed: () {
-                                            if(_.areaOfExpertiseTEC.text.isEmpty
-                                                || _.yearsOfExpTEC.text.isEmpty
-                                                || _.preferredLangTEC.text.isEmpty
-                                                || _.selectedWorkStatus.value.isEmpty
-                                                || _.companyEditingController.text.isEmpty){
-                                              displaySnackBar("A field is empty", context);
-                                            }
-                                            else{
-                                              Get.toNamed(Routes.REGISTRATION_FOUR);
-                                            }
+                                            // if(_.areaOfExpertiseTEC.text.isEmpty
+                                            //     || _.yearsOfExpTEC.text.isEmpty
+                                            //     || _.preferredLangTEC.text.isEmpty
+                                            //     || _.selectedWorkStatus.value.isEmpty
+                                            //     || _.companyEditingController.text.isEmpty){
+                                            //   displaySnackBar("A field is empty", context);
+                                            // }
+                                            // else{
+                                            //   Get.toNamed(Routes.REGISTRATION_FOUR);
+                                            // }
+
+                                            Get.toNamed(Routes.REGISTRATION_FOUR);
+
                                           },
                                           style: ElevatedButton.styleFrom(
                                               padding: const EdgeInsets

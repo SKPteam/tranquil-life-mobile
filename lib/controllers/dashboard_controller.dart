@@ -38,9 +38,8 @@ class DashboardController extends GetxController {
       Home(),
       WalletView(reloadWalletPage: setBottomBarIndex),
       ChatScreenPage(),
-      JournalView(moodSvgUrl: '',),
+      JournalView(moodSvgUrl: ''),
       ProfileView(setBottomBarIndex: (int index) {}),
-
     ];
   }
 

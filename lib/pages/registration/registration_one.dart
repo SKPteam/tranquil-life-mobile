@@ -9,6 +9,7 @@ import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/client_registration_controller.dart';
+import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
@@ -22,246 +23,248 @@ class RegistrationOneView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Obx(() =>
-          Scaffold(
-        //resizeToAvoidBottomPadding: false,
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: Text(
-            "Sign Up",
-            style: TextStyle(color: Color(0xffBEBEBE)),
-          ),
-        ),
-        body: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image:
-                  obc.userType.value == client
-                      ? AssetImage('assets/images/bg_img1.png')
-                      : AssetImage('assets/images/bg_img2.png'),
-                  colorFilter: ColorFilter.mode(
-                      Color(0xff777474), BlendMode.multiply),
-                  fit: BoxFit.cover),
-            ),
-            child: ListView(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: displayWidth(context) * 0.1),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(height: displayHeight(context) * 0.08),
-                        // 4%
-                        Text("Register Account",
-                            style: TextStyle(
-                              fontSize: displayWidth(context) / 14,
-                              color: Colors.white,
-                              height: displayHeight(context) * 0.0015,
-                            )),
-                        SizedBox(height: displayHeight(context) * 0.01),
-                        Text("Complete your details",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: const Color(0xffDDDDDD),
-                                fontSize: displayWidth(context) / 32)),
-                        SizedBox(height: displayHeight(context) * 0.08),
-                        Form(
-                            child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: buildEmailFormField(),
-                                ),
-                                SizedBox(
-                                    height: displayHeight(context) * 0.02),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: Container(
-                                      width: double.infinity,
-                                      height: displayHeight(context)* 0.08,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 0,
-                                            horizontal:
-                                            displayWidth(context) *
-                                                0.024),
-                                        child: Row(
-                                          children: [
-                                            countryCodePicker(),
-                                            Flexible(
-                                                flex: 2,
-                                                child: TextFormField(
-                                                  keyboardType:
-                                                  TextInputType.number,
-                                                  controller: _.phoneNumTextEditingController,
-                                                  style: TextStyle(
-                                                      fontSize: displayWidth(Get.context!) / 30,
-                                                      color: Colors.black
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    hintText: 'phone number',
-                                                    hintStyle:
-                                                    TextStyle(fontSize: displayWidth(context) / 30, color: Colors.grey),
-                                                    fillColor: Colors.white,
-                                                    border: InputBorder.none,
-                                                  ),
-                                                )),
-                                          ],
-                                        ),
-                                      )),
-                                ),
-                                SizedBox(
-                                    height: displayHeight(context) * 0.020),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: buildPasswordFormField(),
-                                ),
-                                SizedBox(
-                                    height: displayHeight(context) * 0.020),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: buildConformPassFormField(),
-                                ),
-                                SizedBox(
-                                    height: displayHeight(context) * 0.045),
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: ElevatedButton(
-                                      onPressed: () {
-                                        // String phoneNumber =
-                                        //     '${_.countryCode}${_.phoneNumTextEditingController.text.replaceAll(RegExp(r'^0+(?=.)'), '')}';
-                                        //
-                                        // if (_.emailTextEditingController
-                                        //     .text.isEmpty) {
-                                        //   _.displaySnackBar(
-                                        //       kEmailNullError, context);
-                                        // } else if (!emailValidatorRegExp
-                                        //     .hasMatch(_
-                                        //     .emailTextEditingController
-                                        //     .text)) {
-                                        //   _.displaySnackBar(
-                                        //       kInvalidEmailError, context);
-                                        // } else if (_
-                                        //     .passwordTextEditingController
-                                        //     .text
-                                        //     .isEmpty) {
-                                        //   _.displaySnackBar(
-                                        //       kPassNullError, context);
-                                        // } else if (_
-                                        //     .passwordTextEditingController
-                                        //     .text
-                                        //     .length <
-                                        //     6) {
-                                        //   _.displaySnackBar(
-                                        //       kShortPassError, context);
-                                        // } else if (_
-                                        //     .passwordTextEditingController
-                                        //     .text !=
-                                        //     _.confirmPwdTextEditingController
-                                        //         .text) {
-                                        //   _.displaySnackBar(
-                                        //       kMatchPassError, context);
-                                        // } else if (!passwordValidatorRegExp
-                                        //     .hasMatch(_
-                                        //     .passwordTextEditingController
-                                        //     .text)) {
-                                        //   _.displaySnackBar(
-                                        //       kInvalidPassError, context);
-                                        // } else if (_.countryCode == null) {
-                                        //   _.displaySnackBar(
-                                        //       'Select a country code',
-                                        //       context);
-                                        // } else {
-                                        //   Get.toNamed(Routes.REGISTRATION_TWO);
-                                        // }
-                                        print("The new value of my serach is ${onBoardingController.userType.value}");
-                                        Get.toNamed(Routes.REGISTRATION_TWO);
-
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 0, vertical: 20),
-                                          primary: kPrimaryColor),
-                                      child: Text(
-                                        'Next',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize:
-                                          displayWidth(context) / 28,
-                                        ),
-                                      )),
-                                ),
-                                SizedBox(
-                                    height: displayHeight(context) * 0.06),
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                        child: Column(children: [
-                                          Text(
-                                              'By clicking Next, you are indicating that you have ',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize:
-                                                  displayWidth(context) /
-                                                      30)),
-                                          Row(
-                                            children: [
-                                              Text(' read and agreed to the ',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: displayWidth(
-                                                          context) /
-                                                          30)),
-                                              Text('Terms of Service ',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: kSecondaryColor,
-                                                      fontSize: displayWidth(
-                                                          context) /
-                                                          30)),
-                                              Text('and ',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: displayWidth(
-                                                          context) /
-                                                          30)),
-                                            ],
-                                          ),
-                                          Text('Privacy Policy',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: kSecondaryColor,
-                                                  fontSize:
-                                                  displayWidth(context) /
-                                                      30)),
-                                          SizedBox(
-                                              height:
-                                              displayHeight(context) * 0.04)
-                                        ]))
-                                  ],
-                                ),
-                              ],
-                            ))
-                      ],
-                    ),
+    return ResponsiveSafeArea(
+      responsiveBuilder: (context, size)=>
+          Obx(() =>
+              Scaffold(
+                //resizeToAvoidBottomPadding: false,
+                extendBodyBehindAppBar: true,
+                appBar: AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  title: Text(
+                    "Sign Up",
+                    style: TextStyle(color: Color(0xffBEBEBE)),
                   ),
                 ),
-              ],
-            )
-        ),
-      ),));
+                body: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image:
+                          obc.userType.value == client
+                              ? AssetImage('assets/images/bg_img1.png')
+                              : AssetImage('assets/images/bg_img2.png'),
+                          colorFilter: ColorFilter.mode(
+                              Color(0xff777474), BlendMode.multiply),
+                          fit: BoxFit.cover),
+                    ),
+                    child: ListView(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.1),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(height: displayHeight(context) * 0.08),
+                                // 4%
+                                Text("Register Account",
+                                    style: TextStyle(
+                                      fontSize: size.width / 14,
+                                      color: Colors.white,
+                                      height: displayHeight(context) * 0.0015,
+                                    )),
+                                SizedBox(height: displayHeight(context) * 0.01),
+                                Text("Complete your details",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: const Color(0xffDDDDDD),
+                                        fontSize: displayWidth(context) / 32)),
+                                SizedBox(height: displayHeight(context) * 0.08),
+                                Form(
+                                    child: Column(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(4),
+                                          child: buildEmailFormField(),
+                                        ),
+                                        SizedBox(
+                                            height: displayHeight(context) * 0.02),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(4),
+                                          child: Container(
+                                              width: double.infinity,
+                                              height: displayHeight(context)* 0.08,
+                                              decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 0,
+                                                    horizontal:
+                                                    displayWidth(context) *
+                                                        0.024),
+                                                child: Row(
+                                                  children: [
+                                                    countryCodePicker(),
+                                                    Flexible(
+                                                        flex: 2,
+                                                        child: TextFormField(
+                                                          keyboardType:
+                                                          TextInputType.number,
+                                                          controller: _.phoneNumTextEditingController,
+                                                          style: TextStyle(
+                                                              fontSize: displayWidth(Get.context!) / 30,
+                                                              color: Colors.black
+                                                          ),
+                                                          decoration: InputDecoration(
+                                                            hintText: 'phone number',
+                                                            hintStyle:
+                                                            TextStyle(fontSize: displayWidth(context) / 30, color: Colors.grey),
+                                                            fillColor: Colors.white,
+                                                            border: InputBorder.none,
+                                                          ),
+                                                        )),
+                                                  ],
+                                                ),
+                                              )),
+                                        ),
+                                        SizedBox(
+                                            height: displayHeight(context) * 0.020),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(4),
+                                          child: buildPasswordFormField(),
+                                        ),
+                                        SizedBox(
+                                            height: displayHeight(context) * 0.020),
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(4),
+                                          child: buildConformPassFormField(),
+                                        ),
+                                        SizedBox(
+                                            height: displayHeight(context) * 0.045),
+                                        SizedBox(
+                                          width: double.infinity,
+                                          child: ElevatedButton(
+                                              onPressed: () {
+                                                // String phoneNumber =
+                                                //     '${_.countryCode}${_.phoneNumTextEditingController.text.replaceAll(RegExp(r'^0+(?=.)'), '')}';
+                                                //
+                                                // if (_.emailTextEditingController
+                                                //     .text.isEmpty) {
+                                                //   _.displaySnackBar(
+                                                //       kEmailNullError, context);
+                                                // } else if (!emailValidatorRegExp
+                                                //     .hasMatch(_
+                                                //     .emailTextEditingController
+                                                //     .text)) {
+                                                //   _.displaySnackBar(
+                                                //       kInvalidEmailError, context);
+                                                // } else if (_
+                                                //     .passwordTextEditingController
+                                                //     .text
+                                                //     .isEmpty) {
+                                                //   _.displaySnackBar(
+                                                //       kPassNullError, context);
+                                                // } else if (_
+                                                //     .passwordTextEditingController
+                                                //     .text
+                                                //     .length <
+                                                //     6) {
+                                                //   _.displaySnackBar(
+                                                //       kShortPassError, context);
+                                                // } else if (_
+                                                //     .passwordTextEditingController
+                                                //     .text !=
+                                                //     _.confirmPwdTextEditingController
+                                                //         .text) {
+                                                //   _.displaySnackBar(
+                                                //       kMatchPassError, context);
+                                                // } else if (!passwordValidatorRegExp
+                                                //     .hasMatch(_
+                                                //     .passwordTextEditingController
+                                                //     .text)) {
+                                                //   _.displaySnackBar(
+                                                //       kInvalidPassError, context);
+                                                // } else if (_.countryCode == null) {
+                                                //   _.displaySnackBar(
+                                                //       'Select a country code',
+                                                //       context);
+                                                // } else {
+                                                //   Get.toNamed(Routes.REGISTRATION_TWO);
+                                                // }
+                                                print("The new value of my serach is ${onBoardingController.userType.value}");
+                                                Get.toNamed(Routes.REGISTRATION_TWO);
+
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                  padding: const EdgeInsets.symmetric(
+                                                      horizontal: 0, vertical: 20),
+                                                  primary: kPrimaryColor),
+                                              child: Text(
+                                                'Next',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize:
+                                                  displayWidth(context) / 28,
+                                                ),
+                                              )),
+                                        ),
+                                        SizedBox(
+                                            height: displayHeight(context) * 0.06),
+                                        Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                                child: Column(children: [
+                                                  Text(
+                                                      'By clicking Next, you are indicating that you have ',
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize:
+                                                          displayWidth(context) /
+                                                              30)),
+                                                  Row(
+                                                    children: [
+                                                      Text(' read and agreed to the ',
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+                                                              color: Colors.grey,
+                                                              fontSize: displayWidth(
+                                                                  context) /
+                                                                  30)),
+                                                      Text('Terms of Service ',
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+                                                              color: kSecondaryColor,
+                                                              fontSize: displayWidth(
+                                                                  context) /
+                                                                  30)),
+                                                      Text('and ',
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+                                                              color: Colors.grey,
+                                                              fontSize: displayWidth(
+                                                                  context) /
+                                                                  30)),
+                                                    ],
+                                                  ),
+                                                  Text('Privacy Policy',
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: kSecondaryColor,
+                                                          fontSize:
+                                                          displayWidth(context) /
+                                                              30)),
+                                                  SizedBox(
+                                                      height:
+                                                      displayHeight(context) * 0.04)
+                                                ]))
+                                          ],
+                                        ),
+                                      ],
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                ),
+              ),)
+    );
   }
 
   CountryCodePicker countryCodePicker() {

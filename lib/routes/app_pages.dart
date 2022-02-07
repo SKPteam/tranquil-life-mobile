@@ -89,11 +89,10 @@ class AppPages {
       name: _Paths.JOURNAL_HISTORY,
       page: () =>  JournalHistoryView(),
     ),
-
-    GetPage(
-      name: _Paths.CHAT_ROOM,
-      page: () =>  ChatScreenPage(),
-    ),
+    // GetPage(
+    //   name: _Paths.CHAT_ROOM,
+    //   page: () =>  ChatScreenPage(),
+    // ),
     GetPage(
       name: _Paths.CHAT_HISTORY,
       page: () => ChatHistoryView(),
