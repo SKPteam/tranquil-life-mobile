@@ -19,6 +19,20 @@ class ChatScreenPage extends StatelessWidget {
     'End Session'
   ];
 
+  //menu icon options
+  optionAction(String option) {
+    print(option);
+    if (option == 'Invite') {
+     // showInviteMenu(Context, 40);
+    } else {
+      // PushNotificationHelperController.instance
+      //     .updateTokenAfterSigningOut(auth!.currentUser!.uid);
+      // auth!.signOut();
+      // Navigator.pushNamedAndRemoveUntil(
+      //     Get.context!, Routes.SIGN_IN, (route) => false);
+    }
+  }
+
   final ValueNotifier<double> heightOfText = ValueNotifier<double>(45.00);
 
   Size _textSize(String text, TextStyle style) {
@@ -130,7 +144,7 @@ class ChatScreenPage extends StatelessWidget {
                                   child: CircleAvatar(
                                     radius: 20,
                                     foregroundImage: AssetImage(
-                                      'assets/images/avatar_img2.png',
+                                      'assets/images/avatar_img1.png',
                                     ),
                                   ),
                                 )),
@@ -223,24 +237,16 @@ class ChatScreenPage extends StatelessWidget {
                                 onPressed: () async {}),
                           ),
 
-                          PopupMenuButton(
-                            child:  Icon(
-                              Icons.arrow_right_sharp,
-                              color: Colors.white,
-                              size: 26,
-                            ),
-                            onSelected: (value) async {
-                              },
-                            itemBuilder: (context) => menuList
-                                .map(
-                                  (e) => PopupMenuItem(
-                                value: menuList,
-                                height: 40,
-                                child: Text(menuList.first.toString()),
-                              ),
-                            )
-                                .toList(),
-                          ),
+                        PopupMenuButton<String>(
+                          color: Colors.white,
+                            onSelected: optionAction,
+                            iconSize: 28,
+                            itemBuilder: (BuildContext context) {
+                              return menuList.map((String option) {
+                                return PopupMenuItem(value: option, child: Text(option));
+                              }).toList();
+                            }),
+
                       ],
                     ),
                   ),
@@ -251,144 +257,144 @@ class ChatScreenPage extends StatelessWidget {
                 )
               ],
             ),
-          GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: ()  {
-              },
-              child: SizedBox(
-                height: size.height,
-                width: size.width,
-                child: Align(
-                  alignment: Alignment(6.0, -0.6),
-                  child: SizedBox(
-                    height: 20.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Colors.black,
-                      ),
-                      width: size.width * 0.7,
-                      padding: EdgeInsets.only(
-                          bottom: 12,
-                          top: 12,
-                          left: 12,
-                          right: size.width * 0.08),
-                      child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.start,
-                        crossAxisAlignment:
-                        CrossAxisAlignment.center,
-                        children: [
-                          Stack(
-                            children: [
-                              CircleAvatar(
-                                  backgroundColor:
-                                  Colors.white,
-                                  radius: 22,
-                                  child: Center(
-                                    child: CircleAvatar(
-                                      radius: 20,
-                                      foregroundImage:
-                                      AssetImage(
-                                        "assets/images/avatar_img1.png",
-                                      ),
-                                    ),
-                                  )),
-                              Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: true
-                                            ? Colors.green
-                                            : Colors.grey,
-                                        shape: BoxShape
-                                            .circle),
-                                    width: 12,
-                                    height: 12,
-                                  ))
-                            ],
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "e.name",
-                            style:  TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight:
-                                FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      // SingleChildScrollView(
-                      //   physics:  BouncingScrollPhysics(),
-                      //   child: Column(
-                      //     mainAxisAlignment:
-                      //     MainAxisAlignment.start,
-                      //     crossAxisAlignment:
-                      //     CrossAxisAlignment.start,
-                      //     children: chatRoomModel.participants
-                      //         .map((e) => Row(
-                      //       mainAxisAlignment:
-                      //       MainAxisAlignment.start,
-                      //       crossAxisAlignment:
-                      //       CrossAxisAlignment.center,
-                      //       children: [
-                      //         Stack(
-                      //           children: [
-                      //             CircleAvatar(
-                      //                 backgroundColor:
-                      //                 Colors.white,
-                      //                 radius: 22,
-                      //                 child: Center(
-                      //                   child:
-                      //                   CircleAvatar(
-                      //                     radius: 20,
-                      //                     foregroundImage:
-                      //                     NetworkImage(
-                      //                       e.avatarUrl,
-                      //                     ),
-                      //                   ),
-                      //                 )),
-                      //             Positioned(
-                      //                 bottom: 0,
-                      //                 right: 0,
-                      //                 child: Container(
-                      //                   decoration: BoxDecoration(
-                      //                       color: e.isOnline
-                      //                           ? Colors
-                      //                           .green
-                      //                           : Colors
-                      //                           .grey,
-                      //                       shape: BoxShape
-                      //                           .circle),
-                      //                   width: 12,
-                      //                   height: 12,
-                      //                 ))
-                      //           ],
-                      //         ),
-                      //          SizedBox(
-                      //           width: 10,
-                      //         ),
-                      //         Text(
-                      //           "e.name",
-                      //           style:  TextStyle(
-                      //               color: Colors.white,
-                      //               fontSize: 14,
-                      //               fontWeight:
-                      //               FontWeight.bold),
-                      //         ),
-                      //       ],
-                      //     ))
-                      //         .toList(),
-                      //   ),
-                      // ),
-                    ),
-                  ),
-                ),
-              ))
+          // GestureDetector(
+          //     behavior: HitTestBehavior.opaque,
+          //     onTap: ()  {
+          //     },
+          //     child: SizedBox(
+          //       height: size.height,
+          //       width: size.width,
+          //       child: Align(
+          //         alignment: Alignment(6.0, -0.6),
+          //         child: SizedBox(
+          //           height: 20.0,
+          //           child: Container(
+          //             decoration: BoxDecoration(
+          //               borderRadius: BorderRadius.circular(16),
+          //               color: Colors.black,
+          //             ),
+          //             width: size.width * 0.7,
+          //             padding: EdgeInsets.only(
+          //                 bottom: 12,
+          //                 top: 12,
+          //                 left: 12,
+          //                 right: size.width * 0.08),
+          //             child: Row(
+          //               mainAxisAlignment:
+          //               MainAxisAlignment.start,
+          //               crossAxisAlignment:
+          //               CrossAxisAlignment.center,
+          //               children: [
+          //                 Stack(
+          //                   children: [
+          //                     CircleAvatar(
+          //                         backgroundColor:
+          //                         Colors.white,
+          //                         radius: 22,
+          //                         child: Center(
+          //                           child: CircleAvatar(
+          //                             radius: 20,
+          //                             foregroundImage:
+          //                             AssetImage(
+          //                               "assets/images/avatar_img1.png",
+          //                             ),
+          //                           ),
+          //                         )),
+          //                     Positioned(
+          //                         bottom: 0,
+          //                         right: 0,
+          //                         child: Container(
+          //                           decoration: BoxDecoration(
+          //                               color: true
+          //                                   ? Colors.green
+          //                                   : Colors.grey,
+          //                               shape: BoxShape
+          //                                   .circle),
+          //                           width: 12,
+          //                           height: 12,
+          //                         ))
+          //                   ],
+          //                 ),
+          //                 SizedBox(
+          //                   width: 10,
+          //                 ),
+          //                 Text(
+          //                   "e.name",
+          //                   style:  TextStyle(
+          //                       color: Colors.white,
+          //                       fontSize: 14,
+          //                       fontWeight:
+          //                       FontWeight.bold),
+          //                 ),
+          //               ],
+          //             ),
+          //             // SingleChildScrollView(
+          //             //   physics:  BouncingScrollPhysics(),
+          //             //   child: Column(
+          //             //     mainAxisAlignment:
+          //             //     MainAxisAlignment.start,
+          //             //     crossAxisAlignment:
+          //             //     CrossAxisAlignment.start,
+          //             //     children: chatRoomModel.participants
+          //             //         .map((e) => Row(
+          //             //       mainAxisAlignment:
+          //             //       MainAxisAlignment.start,
+          //             //       crossAxisAlignment:
+          //             //       CrossAxisAlignment.center,
+          //             //       children: [
+          //             //         Stack(
+          //             //           children: [
+          //             //             CircleAvatar(
+          //             //                 backgroundColor:
+          //             //                 Colors.white,
+          //             //                 radius: 22,
+          //             //                 child: Center(
+          //             //                   child:
+          //             //                   CircleAvatar(
+          //             //                     radius: 20,
+          //             //                     foregroundImage:
+          //             //                     NetworkImage(
+          //             //                       e.avatarUrl,
+          //             //                     ),
+          //             //                   ),
+          //             //                 )),
+          //             //             Positioned(
+          //             //                 bottom: 0,
+          //             //                 right: 0,
+          //             //                 child: Container(
+          //             //                   decoration: BoxDecoration(
+          //             //                       color: e.isOnline
+          //             //                           ? Colors
+          //             //                           .green
+          //             //                           : Colors
+          //             //                           .grey,
+          //             //                       shape: BoxShape
+          //             //                           .circle),
+          //             //                   width: 12,
+          //             //                   height: 12,
+          //             //                 ))
+          //             //           ],
+          //             //         ),
+          //             //          SizedBox(
+          //             //           width: 10,
+          //             //         ),
+          //             //         Text(
+          //             //           "e.name",
+          //             //           style:  TextStyle(
+          //             //               color: Colors.white,
+          //             //               fontSize: 14,
+          //             //               fontWeight:
+          //             //               FontWeight.bold),
+          //             //         ),
+          //             //       ],
+          //             //     ))
+          //             //         .toList(),
+          //             //   ),
+          //             // ),
+          //           ),
+          //         ),
+          //       ),
+          //     ))
 
         ],
       ),
@@ -485,6 +491,98 @@ class ChatScreenPage extends StatelessWidget {
     );
   }
 
+  void showInviteMenu(BuildContext context, Size size) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(40),
+          height: size.height * 0.5,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Participant\'s\nUsername',
+                style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Spacer(
+                flex: 2,
+              ),
+              TextField(
+                style: const TextStyle(fontSize: 16, color: Colors.black),
+                decoration: const InputDecoration(
+                  labelText: 'Username',
+                  labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                ),
+              ),
+              const Spacer(
+                flex: 1,
+              ),
+              SizedBox(
+                width: size.width,
+                child: Center(
+                  child: TextButton(
+                      onPressed: () {
+                      //
+                      //   if (_inviteUserController.text.isNotEmpty) {
+                      //     accountSettingsRef!
+                      //         .orderByChild(userName)
+                      //         .equalTo(_inviteUserController.text)
+                      //         .once()
+                      //         .then((snapshot) {
+                      //       if (snapshot.value == null) {
+                      //         print('User does\'nt exist');
+                      //       } else {
+                      //         usersRef!
+                      //             .orderByKey()
+                      //             .equalTo(snapshot.value['uid'])
+                      //             .once()
+                      //             .then((snapshot4) async {
+                      //           final dynamicShortLink =
+                      //           await DynamicLinkHelper.createMeetingLink(
+                      //             id: scheduledMeeting!.id,
+                      //             desc:
+                      //             'Meeting between ${scheduledMeeting!.consultantName} and ${auth!.currentUser!.displayName}',
+                      //             title: 'Join the Scheduled Meeting',
+                      //           );
+                      //           sendInviteToUser(snapshot4.value[userEmail],
+                      //               dynamicShortLink);
+                      //           print(snapshot4.value[userEmail]);
+                      //         });
+                      //       }
+                      //     });
+                      //   }
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                        MaterialStateProperty.all(Colors.green),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12))),
+                        padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                            horizontal: size.width * 0.3, vertical: 20)),
+                      ),
+                      child: const Text(
+                        'Invite',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      )),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
+      ),
+      backgroundColor: Colors.white,
+    );
+  }
 
 
   displaySnackbar(String message, BuildContext context) {

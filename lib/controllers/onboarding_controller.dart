@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 class OnBoardingController extends GetxController{
   static OnBoardingController instance = Get.find();
 
+
   RxInt currentPage = 0.obs;
   List<Map<String, String>> onBoardingData = [
     {
