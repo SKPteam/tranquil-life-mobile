@@ -58,14 +58,15 @@ class OnBoardingTwo extends StatelessWidget {
                                   child: Text('Client',
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 16
+                                          fontSize: 18
                                       )
                                   )
                               ),
 
                             ),
 
-                            SizedBox(height: 16),
+                            SizedBox(
+                                height: size.height * 0.020),
 
                             SizedBox(
                               width: size.width * 0.6,
@@ -81,7 +82,7 @@ class OnBoardingTwo extends StatelessWidget {
                                   ),
                                   child: Text('Consultant',style: TextStyle(
                                       color: active,
-                                      fontSize: 16
+                                      fontSize: 18
                                   ),)),
 
                             ),
@@ -104,12 +105,12 @@ class OnBoardingTwo extends StatelessWidget {
                                           Text('Already have an account? ', textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 16
+                                                fontSize: 18
                                             ),),
                                           Text('Login', textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 color: yellow,
-                                                fontSize: 16
+                                                fontSize: 18
                                             ),),
                                         ],
                                       ),

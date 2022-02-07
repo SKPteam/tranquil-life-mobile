@@ -68,7 +68,7 @@ class OnBoardingOne extends StatelessWidget {
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 0, vertical: 20),
                                           primary: active),
-                                      child: Text('Next', style: TextStyle(fontSize: 16),)
+                                      child: Text('Next', style: TextStyle(fontSize: 22))
                                   ),
                                 ),
 

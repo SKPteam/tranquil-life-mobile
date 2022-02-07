@@ -12,7 +12,6 @@ import 'package:tranquil_life/controllers/client_registration_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/helpers/constants.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 
 class RegistrationOneView extends StatelessWidget {
   final ClientRegistrationController _ =

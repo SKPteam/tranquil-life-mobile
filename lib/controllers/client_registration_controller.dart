@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -5,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/helpers/constants.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 
 // ignore_for_file: avoid_print
 
@@ -104,7 +105,7 @@ class ClientRegistrationController extends GetxController{
         SnackBar(
             content: Text(message,
               style: TextStyle(
-                  fontSize: displayWidth(Get.context!) / 30
+                  fontSize: 30
               ),),
             duration: const Duration(seconds: 2),
             action: message == kInvalidPassError
