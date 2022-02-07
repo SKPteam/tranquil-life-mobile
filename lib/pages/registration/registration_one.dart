@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, prefer_const_constructors
+// ignore_for_file: avoid_print, prefer__ructors, prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +19,11 @@ class RegistrationOneView extends StatelessWidget {
 
   final OnBoardingController obc = Get.put(OnBoardingController());
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Obx(() =>
-          Scaffold(
+        child: Obx(
+      () => Scaffold(
         //resizeToAvoidBottomPadding: false,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -38,12 +37,11 @@ class RegistrationOneView extends StatelessWidget {
         body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image:
-                  obc.userType.value == client
+                  image: obc.userType.value == client
                       ? AssetImage('assets/images/bg_img1.png')
                       : AssetImage('assets/images/bg_img2.png'),
-                  colorFilter: ColorFilter.mode(
-                      Color(0xff777474), BlendMode.multiply),
+                  colorFilter:
+                      ColorFilter.mode(Color(0xff777474), BlendMode.multiply),
                   fit: BoxFit.cover),
             ),
             child: ListView(
@@ -66,202 +64,193 @@ class RegistrationOneView extends StatelessWidget {
                         Text("Complete your details",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: const Color(0xffDDDDDD),
+                                color: Color(0xffDDDDDD),
                                 fontSize: displayWidth(context) / 32)),
                         SizedBox(height: displayHeight(context) * 0.08),
                         Form(
                             child: Column(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: buildEmailFormField(),
-                                ),
-                                SizedBox(
-                                    height: displayHeight(context) * 0.02),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: Container(
-                                      width: double.infinity,
-                                      height: displayHeight(context)* 0.08,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 0,
-                                            horizontal:
-                                            displayWidth(context) *
-                                                0.024),
-                                        child: Row(
-                                          children: [
-                                            countryCodePicker(),
-                                            Flexible(
-                                                flex: 2,
-                                                child: TextFormField(
-                                                  keyboardType:
-                                                  TextInputType.number,
-                                                  controller: _.phoneNumTextEditingController,
-                                                  style: TextStyle(
-                                                      fontSize: displayWidth(Get.context!) / 30,
-                                                      color: Colors.black
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    hintText: 'phone number',
-                                                    hintStyle:
-                                                    TextStyle(fontSize: displayWidth(context) / 30, color: Colors.grey),
-                                                    fillColor: Colors.white,
-                                                    border: InputBorder.none,
-                                                  ),
-                                                )),
-                                          ],
-                                        ),
-                                      )),
-                                ),
-                                SizedBox(
-                                    height: displayHeight(context) * 0.020),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: buildPasswordFormField(),
-                                ),
-                                SizedBox(
-                                    height: displayHeight(context) * 0.020),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: buildConformPassFormField(),
-                                ),
-                                SizedBox(
-                                    height: displayHeight(context) * 0.045),
-                                SizedBox(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: buildEmailFormField(),
+                            ),
+                            SizedBox(height: displayHeight(context) * 0.02),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: Container(
                                   width: double.infinity,
-                                  child: ElevatedButton(
-                                      onPressed: () {
-                                        // String phoneNumber =
-                                        //     '${_.countryCode}${_.phoneNumTextEditingController.text.replaceAll(RegExp(r'^0+(?=.)'), '')}';
-                                        //
-                                        // if (_.emailTextEditingController
-                                        //     .text.isEmpty) {
-                                        //   _.displaySnackBar(
-                                        //       kEmailNullError, context);
-                                        // } else if (!emailValidatorRegExp
-                                        //     .hasMatch(_
-                                        //     .emailTextEditingController
-                                        //     .text)) {
-                                        //   _.displaySnackBar(
-                                        //       kInvalidEmailError, context);
-                                        // } else if (_
-                                        //     .passwordTextEditingController
-                                        //     .text
-                                        //     .isEmpty) {
-                                        //   _.displaySnackBar(
-                                        //       kPassNullError, context);
-                                        // } else if (_
-                                        //     .passwordTextEditingController
-                                        //     .text
-                                        //     .length <
-                                        //     6) {
-                                        //   _.displaySnackBar(
-                                        //       kShortPassError, context);
-                                        // } else if (_
-                                        //     .passwordTextEditingController
-                                        //     .text !=
-                                        //     _.confirmPwdTextEditingController
-                                        //         .text) {
-                                        //   _.displaySnackBar(
-                                        //       kMatchPassError, context);
-                                        // } else if (!passwordValidatorRegExp
-                                        //     .hasMatch(_
-                                        //     .passwordTextEditingController
-                                        //     .text)) {
-                                        //   _.displaySnackBar(
-                                        //       kInvalidPassError, context);
-                                        // } else if (_.countryCode == null) {
-                                        //   _.displaySnackBar(
-                                        //       'Select a country code',
-                                        //       context);
-                                        // } else {
-                                        //   Get.toNamed(Routes.REGISTRATION_TWO);
-                                        // }
-                                        print("The new value of my serach is ${onBoardingController.userType.value}");
-                                        Get.toNamed(Routes.REGISTRATION_TWO);
-
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 0, vertical: 20),
-                                          primary: kPrimaryColor),
-                                      child: Text(
-                                        'Next',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize:
-                                          displayWidth(context) / 28,
-                                        ),
-                                      )),
-                                ),
+                                  height: displayHeight(context) * 0.08,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 0,
+                                        horizontal:
+                                            displayWidth(context) * 0.024),
+                                    child: Row(
+                                      children: [
+                                        countryCodePicker(),
+                                        Flexible(
+                                            flex: 2,
+                                            child: TextFormField(
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: _
+                                                  .phoneNumTextEditingController,
+                                              style: TextStyle(
+                                                  fontSize: displayWidth(
+                                                          Get.context!) /
+                                                      30,
+                                                  color: Colors.black),
+                                              decoration: InputDecoration(
+                                                hintText: 'phone number',
+                                                hintStyle: TextStyle(
+                                                    fontSize:
+                                                        displayWidth(context) /
+                                                            30,
+                                                    color: Colors.grey),
+                                                fillColor: Colors.white,
+                                                border: InputBorder.none,
+                                              ),
+                                            )),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                            SizedBox(height: displayHeight(context) * 0.020),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: buildPasswordFormField(),
+                            ),
+                            SizedBox(height: displayHeight(context) * 0.020),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: buildConformPassFormField(),
+                            ),
+                            SizedBox(height: displayHeight(context) * 0.045),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    // String phoneNumber =
+                                    //     '${_.countryCode}${_.phoneNumTextEditingController.text.replaceAll(RegExp(r'^0+(?=.)'), '')}';
+                                    //
+                                    // if (_.emailTextEditingController
+                                    //     .text.isEmpty) {
+                                    //   _.displaySnackBar(
+                                    //       kEmailNullError, context);
+                                    // } else if (!emailValidatorRegExp
+                                    //     .hasMatch(_
+                                    //     .emailTextEditingController
+                                    //     .text)) {
+                                    //   _.displaySnackBar(
+                                    //       kInvalidEmailError, context);
+                                    // } else if (_
+                                    //     .passwordTextEditingController
+                                    //     .text
+                                    //     .isEmpty) {
+                                    //   _.displaySnackBar(
+                                    //       kPassNullError, context);
+                                    // } else if (_
+                                    //     .passwordTextEditingController
+                                    //     .text
+                                    //     .length <
+                                    //     6) {
+                                    //   _.displaySnackBar(
+                                    //       kShortPassError, context);
+                                    // } else if (_
+                                    //     .passwordTextEditingController
+                                    //     .text !=
+                                    //     _.confirmPwdTextEditingController
+                                    //         .text) {
+                                    //   _.displaySnackBar(
+                                    //       kMatchPassError, context);
+                                    // } else if (!passwordValidatorRegExp
+                                    //     .hasMatch(_
+                                    //     .passwordTextEditingController
+                                    //     .text)) {
+                                    //   _.displaySnackBar(
+                                    //       kInvalidPassError, context);
+                                    // } else if (_.countryCode == null) {
+                                    //   _.displaySnackBar(
+                                    //       'Select a country code',
+                                    //       context);
+                                    // } else {
+                                    //   Get.toNamed(Routes.REGISTRATION_TWO);
+                                    // }
+                                    print(
+                                        "The new value of my serach is ${onBoardingController.userType.value}");
+                                    Get.toNamed(Routes.REGISTRATION_TWO);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 0, vertical: 20),
+                                      primary: kPrimaryColor),
+                                  child: Text(
+                                    'Next',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: displayWidth(context) / 28,
+                                    ),
+                                  )),
+                            ),
+                            SizedBox(height: displayHeight(context) * 0.06),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
                                 SizedBox(
-                                    height: displayHeight(context) * 0.06),
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                        child: Column(children: [
-                                          Text(
-                                              'By clicking Next, you are indicating that you have ',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize:
-                                                  displayWidth(context) /
-                                                      30)),
-                                          Row(
-                                            children: [
-                                              Text(' read and agreed to the ',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: displayWidth(
-                                                          context) /
-                                                          30)),
-                                              Text('Terms of Service ',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: kSecondaryColor,
-                                                      fontSize: displayWidth(
-                                                          context) /
-                                                          30)),
-                                              Text('and ',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: displayWidth(
-                                                          context) /
-                                                          30)),
-                                            ],
-                                          ),
-                                          Text('Privacy Policy',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: kSecondaryColor,
-                                                  fontSize:
-                                                  displayWidth(context) /
-                                                      30)),
-                                          SizedBox(
-                                              height:
-                                              displayHeight(context) * 0.04)
-                                        ]))
-                                  ],
-                                ),
+                                    child: Column(children: [
+                                  Text(
+                                      'By clicking Next, you are indicating that you have ',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize:
+                                              displayWidth(context) / 30)),
+                                  Row(
+                                    children: [
+                                      Text(' read and agreed to the ',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize:
+                                                  displayWidth(context) / 30)),
+                                      Text('Terms of Service ',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: kSecondaryColor,
+                                              fontSize:
+                                                  displayWidth(context) / 30)),
+                                      Text('and ',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize:
+                                                  displayWidth(context) / 30)),
+                                    ],
+                                  ),
+                                  Text('Privacy Policy',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: kSecondaryColor,
+                                          fontSize:
+                                              displayWidth(context) / 30)),
+                                  SizedBox(
+                                      height: displayHeight(context) * 0.04)
+                                ]))
                               ],
-                            ))
+                            ),
+                          ],
+                        ))
                       ],
                     ),
                   ),
                 ),
               ],
-            )
-        ),
-      ),));
+            )),
+      ),
+    ));
   }
 
   CountryCodePicker countryCodePicker() {
@@ -270,9 +259,9 @@ class RegistrationOneView extends StatelessWidget {
       onInit: (_countryCode) {
         _.countryCode = _countryCode.toString();
       },
-      flagWidth: displayWidth(Get.context!)/18,
+      flagWidth: displayWidth(Get.context!) / 18,
       initialSelection: 'NG',
-      favorite: const ['+234', 'NG'],
+      favorite: ['+234', 'NG'],
       onChanged: (_countryCode) {
         _.countryCode = _countryCode.toString();
         print("New Country selected: " + _.countryCode.toString());
@@ -291,9 +280,7 @@ class RegistrationOneView extends StatelessWidget {
   TextFormField buildEmailFormField() {
     return TextFormField(
       style: TextStyle(
-          fontSize: displayWidth(Get.context!) / 30,
-          color: Colors.black
-      ),
+          fontSize: displayWidth(Get.context!) / 30, color: Colors.black),
       controller: _.emailTextEditingController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
@@ -318,9 +305,7 @@ class RegistrationOneView extends StatelessWidget {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       style: TextStyle(
-          fontSize: displayWidth(Get.context!) / 30,
-          color: Colors.black
-      ),
+          fontSize: displayWidth(Get.context!) / 30, color: Colors.black),
       controller: _.passwordTextEditingController,
       obscureText: _.obscureText.value,
       decoration: InputDecoration(
@@ -328,9 +313,8 @@ class RegistrationOneView extends StatelessWidget {
             onTap: () {
               _.togglePassword();
             },
-            child: Icon(_.obscureText.value
-                ? Icons.visibility
-                : Icons.visibility_off)),
+            child: Icon(
+                _.obscureText.value ? Icons.visibility : Icons.visibility_off)),
         hintText: "password",
         hintStyle: TextStyle(
             fontSize: displayWidth(Get.context!) / 30, color: Colors.grey),
@@ -350,9 +334,7 @@ class RegistrationOneView extends StatelessWidget {
   TextFormField buildConformPassFormField() {
     return TextFormField(
       style: TextStyle(
-          fontSize: displayWidth(Get.context!) / 30,
-          color: Colors.black
-      ),
+          fontSize: displayWidth(Get.context!) / 30, color: Colors.black),
       controller: _.confirmPwdTextEditingController,
       keyboardType: TextInputType.visiblePassword,
       obscureText: true,
@@ -373,7 +355,3 @@ class RegistrationOneView extends StatelessWidget {
     );
   }
 }
-
-
-
-

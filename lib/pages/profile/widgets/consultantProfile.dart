@@ -7,13 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
+import 'package:tranquil_life/models/consultant_profile_model.dart';
 
 
 class ConsultantProfile extends StatelessWidget {
-  //final ConsultantProfileModel consultantProfileModel;
-  //final String heroTag;
-  // const ConsultantProfile(this.consultantProfileModel, {required Key? key, required this.heroTag})
-  //     : super(key: key);
+  final ConsultantProfileModel consultantProfileModel;
+  final String heroTag;
+  const ConsultantProfile(this.consultantProfileModel, {required Key? key, required this.heroTag})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

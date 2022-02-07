@@ -194,9 +194,9 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                                           .push(MaterialPageRoute(
                                         builder: (context) =>
                                             ConsultantProfile(
-                                              // _.consultantProfileModel,
-                                              // heroTag: 'consultant$index',
-                                              // key: null,
+                                              _.consultantProfileModel,
+                                              heroTag: 'consultant$index',
+                                              key: null,
                                             ),
                                       ));
                                     },

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,6 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/client_registration_controller.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
 import 'package:tranquil_life/widgets/custom_form_field.dart';
@@ -25,13 +24,13 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Obx( () =>
-         Scaffold(
+      child: Obx(
+        () => Scaffold(
           extendBodyBehindAppBar: true,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
-            title: const Text(
+            title: Text(
               "Sign Up",
               style: TextStyle(color: Color(0xffBEBEBE)),
             ),
@@ -39,13 +38,11 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
           body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image:
-                      _b.userType.value ==
-                              "client"
-                          ? const AssetImage('assets/images/bg_img1.png')
-                          : const AssetImage('assets/images/bg_img2.png'),
-                  colorFilter: const ColorFilter.mode(
-                      Color(0xff777474), BlendMode.multiply),
+                  image: _b.userType.value == "client"
+                      ? AssetImage('assets/images/bg_img1.png')
+                      : AssetImage('assets/images/bg_img2.png'),
+                  colorFilter:
+                      ColorFilter.mode(Color(0xff777474), BlendMode.multiply),
                   fit: BoxFit.cover),
             ),
             child: ListView(
@@ -67,7 +64,7 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
                         Text("Complete your details",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: const Color(0xffDDDDDD),
+                                color: Color(0xffDDDDDD),
                                 fontSize: displayWidth(context) / 32)),
                         SizedBox(height: displayHeight(context) * 0.08),
                         Form(
@@ -83,8 +80,7 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
                               child: buildLastNameFormField(_),
                             ),
                             SizedBox(height: displayHeight(context) * 0.020),
-                            _b.userType.value ==
-                                    "client"
+                            _b.userType.value == "client"
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(4),
                                     child: buildUserNameFormField(_),
@@ -98,7 +94,7 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
                                       showCursor: false,
                                       onTap: () {},
                                       togglePassword: () {},
-                                      formatters: const [],
+                                      formatters: [],
                                       obscureText: false,
                                       readOnly: true,
                                       textInputType: TextInputType.text,
@@ -149,11 +145,12 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
                                           .text.isEmpty) {
                                         displaySnackBar(
                                             kUserNameNullError, context);
-                                      } else if (_.dobTextEditingController.value
-                                          .text.isEmpty) {
+                                      } else if (_.dobTextEditingController
+                                          .value.text.isEmpty) {
                                         displaySnackBar(kAgeNullError, context);
                                       } else if (_.age < 16) {
-                                        displaySnackBar(kTooYoungError, context);
+                                        displaySnackBar(
+                                            kTooYoungError, context);
                                       } else {
                                         _.usernames.contains(_
                                                 .userNameTextEditingController
@@ -162,7 +159,6 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
                                                 kUserNameExists, context)
                                             : Get.toNamed(
                                                 Routes.REGISTRATION_THREE);
-
                                       }
                                     } else {
                                       /// if consultant
@@ -174,29 +170,29 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
                                           .text.isEmpty) {
                                         displaySnackBar(
                                             kLastNameNullError, context);
-                                      }
-                                      else if (_.locationEditingController.text
-                                          .isEmpty) {
+                                      } else if (_.locationEditingController
+                                          .text.isEmpty) {
                                         displaySnackBar(
                                             'Location Unavailable', context);
-                                      }
-                                      else if (_.dobTextEditingController.value
-                                          .text.isEmpty) {
+                                      } else if (_.dobTextEditingController
+                                          .value.text.isEmpty) {
                                         displaySnackBar(kAgeNullError, context);
                                       } else if (_.age < 16) {
-                                        displaySnackBar(kTooYoungError, context);
+                                        displaySnackBar(
+                                            kTooYoungError, context);
                                       } else {
                                         _.usernames.contains(_
                                                 .userNameTextEditingController
                                                 .text)
                                             ? displaySnackBar(
                                                 kUserNameExists, context)
-                                            : Get.toNamed(Routes.REGISTRATION_THREE);
+                                            : Get.toNamed(
+                                                Routes.REGISTRATION_THREE);
                                       }
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
-                                      padding: const EdgeInsets.symmetric(
+                                      padding: EdgeInsets.symmetric(
                                           horizontal: 0, vertical: 20),
                                       primary: kPrimaryColor),
                                   child: Text(
@@ -223,7 +219,8 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
     );
   }
 
-  TextFormField buildFirstNameFormField(ClientRegistrationController controller) {
+  TextFormField buildFirstNameFormField(
+      ClientRegistrationController controller) {
     return TextFormField(
       controller: controller.firstNameTextEditingController,
       style: TextStyle(
@@ -245,7 +242,8 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
     );
   }
 
-  TextFormField buildLastNameFormField(ClientRegistrationController controller) {
+  TextFormField buildLastNameFormField(
+      ClientRegistrationController controller) {
     return TextFormField(
       controller: controller.lastNameTextEditingController,
       style: TextStyle(
@@ -267,7 +265,8 @@ class RegistrationTwoView extends GetView<ClientRegistrationController> {
     );
   }
 
-  TextFormField buildUserNameFormField(ClientRegistrationController controller) {
+  TextFormField buildUserNameFormField(
+      ClientRegistrationController controller) {
     return TextFormField(
       controller: controller.userNameTextEditingController,
       style: TextStyle(
