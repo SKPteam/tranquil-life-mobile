@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_import, prefer_const_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,68 +7,72 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/notification_history_controller.dart';
+import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/pages/notifications/notification_history_widget.dart';
 
 class NotificationHistoryScreen extends StatelessWidget {
-  static const String idScreen = 'notificationsPage';
+  static  String idScreen = 'notificationsPage';
 
-  const NotificationHistoryScreen({Key? key}) : super(key: key);
+   NotificationHistoryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _ = Get.put(NotificationHistoryController());
-    return Scaffold(
+    return ResponsiveSafeArea(
+      responsiveBuilder: (context, size)
+      => Scaffold(
       backgroundColor: kLightBackgroundColor,
-      body: SafeArea(
-        child: SizedBox(
-          width: displayWidth(context),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: displayWidth(context) * 0.95,
-                padding: const EdgeInsets.all(8),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    //------------------------
-                    // BACK BUTTON
-                    //------------------------
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back, color: kPrimaryColor),
+      body: SizedBox(
+        width: displayWidth(context),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: displayWidth(context) * 0.95,
+              padding:  EdgeInsets.all(8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  //------------------------
+                  // BACK BUTTON
+                  //------------------------
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon:  Icon(Icons.arrow_back, color: kPrimaryColor),
+                  ),
+                  SizedBox(
+                    width: displayWidth(context) * 0.06,
+                  ),
+                  //------------------------
+                  // SCREEN HEADING
+                  //------------------------
+                   Text(
+                    'Notifications',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
                     ),
-                    SizedBox(
-                      width: displayWidth(context) * 0.06,
-                    ),
-                    //------------------------
-                    // SCREEN HEADING
-                    //------------------------
-                    const Text(
-                      'Notifications',
-                      style: TextStyle(
-                        color: kPrimaryColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: displayHeight(context) * 0.03,
-              ),
-              //------------------------
-              // LIST OF NOTIFICATIONS
-              //------------------------
-              Expanded(
-                child: Obx(() {
-                  return _.dataLoaded.value
+            ),
+            SizedBox(
+              height: displayHeight(context) * 0.03,
+            ),
+            //------------------------
+            // LIST OF NOTIFICATIONS
+            //------------------------
+            Expanded(
+              child: Obx(()
+              {
+                return
+                  _.dataLoaded.value
                       ? _.notifications.isNotEmpty
                       ? AnimatedList(
                     controller: _.scrollController,
@@ -86,15 +92,15 @@ class NotificationHistoryScreen extends StatelessWidget {
                       },
                     ),
                     initialItemCount: _.notifications.length + 1,
-                    physics: const BouncingScrollPhysics(),
+                    physics:  BouncingScrollPhysics(),
                     padding: EdgeInsets.only(
                       bottom: 20,
                       top: displayHeight(context) * 0.05,
                     ),
                   )
                       : Container(
-                    margin: const EdgeInsets.only(top: 40),
-                    child: const Text(
+                    margin:  EdgeInsets.only(top: 40),
+                    child:  Text(
                       'No Notifications',
                       style: TextStyle(
                         fontSize: 16,
@@ -103,16 +109,15 @@ class NotificationHistoryScreen extends StatelessWidget {
                       ),
                     ),
                   )
-                      : const Center(
+                      :  Center(
                     child: CircularProgressIndicator(),
                   );
-                }),
-              ),
-            ],
-          ),
+              }),
+            ),
+          ],
         ),
       ),
-    );
+    ),) ;
   }
 
   void _deleteNotification(int index, NotificationHistoryController _) {
@@ -124,10 +129,10 @@ class NotificationHistoryScreen extends StatelessWidget {
           (BuildContext context, Animation<double> animation) {
         return FadeTransition(
           opacity:
-          CurvedAnimation(parent: animation, curve: const Interval(0.5, 1.0)),
+          CurvedAnimation(parent: animation, curve:  Interval(0.5, 1.0)),
           child: SizeTransition(
             sizeFactor:
-            CurvedAnimation(parent: animation, curve: const Interval(0.0, 1.0)),
+            CurvedAnimation(parent: animation, curve:  Interval(0.0, 1.0)),
             axisAlignment: 0.0,
             child: NotificationHistoryItem(
               //checking if index is last [demonotifications.length without -1 becoz
@@ -140,7 +145,7 @@ class NotificationHistoryScreen extends StatelessWidget {
           ),
         );
       },
-      duration: const Duration(milliseconds: 600),
+      duration:  Duration(milliseconds: 600),
     );
     // print(index);
 

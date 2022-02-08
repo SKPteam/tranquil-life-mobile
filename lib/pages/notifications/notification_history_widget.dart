@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, avoid_print, unnecessary_import
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,7 +26,7 @@ class NotificationHistoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (loader) {
-      return const SizedBox(
+      return  SizedBox(
         height: 100,
         child: Center(
           child: CircularProgressIndicator(),
@@ -115,10 +117,10 @@ class NotificationHistoryItem extends StatelessWidget {
                         deleteNotification?.call(index);
                       },
                       child: Container(
-                        margin: const EdgeInsets.only(right: 20),
+                        margin:  EdgeInsets.only(right: 20),
                         height: 60,
                         width: 60,
-                        padding: const EdgeInsets.symmetric(
+                        padding:  EdgeInsets.symmetric(
                             horizontal: 12, vertical: 16),
                         decoration: BoxDecoration(
                           color: Colors.blue[600],
@@ -140,7 +142,7 @@ class NotificationHistoryItem extends StatelessWidget {
                           curve: Curves.ease,
                           right: value,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
+                            padding:  EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 8),
                             width: displayWidth(context) * 0.8,
                             height: 140,
@@ -169,7 +171,7 @@ class NotificationHistoryItem extends StatelessWidget {
                                     radius: 26,
                                   ),
                                 ),
-                                const SizedBox(
+                                 SizedBox(
                                   width: 16,
                                 ),
                                 //------------------------
@@ -179,22 +181,22 @@ class NotificationHistoryItem extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    const Spacer(
+                                     Spacer(
                                       flex: 1,
                                     ),
                                     //------------------------
                                     // TIMEAGO OF THE NOTIFICATION
                                     //------------------------
                                     Text(
-                                      timeago.format(notificationModel?.timeAgo ??
-                                          DateTime.now()),
+                                      "timeago.format(notificationModel?.timeAgo ??",
+                                         // DateTime.now())",
                                       style: TextStyle(
                                         fontSize: 11,
                                         color: Colors.grey[500],
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    const SizedBox(
+                                     SizedBox(
                                       height: 5,
                                     ),
                                     //------------------------
@@ -205,7 +207,7 @@ class NotificationHistoryItem extends StatelessWidget {
                                       child: coordinatesOfUsername.isEmpty
                                           ? Text(
                                         notificationModel?.msg ?? '',
-                                        style: const TextStyle(
+                                        style:  TextStyle(
                                           fontSize: 14,
                                           color: kPrimaryColor,
                                           fontWeight: FontWeight.w500,
@@ -224,7 +226,7 @@ class NotificationHistoryItem extends StatelessWidget {
                                                       0,
                                                       coordinatesOfUsername
                                                           .first),
-                                              style: const TextStyle(
+                                              style:  TextStyle(
                                                 fontSize: 14,
                                                 color: kPrimaryColor,
                                                 fontWeight: FontWeight.w500,
@@ -237,7 +239,7 @@ class NotificationHistoryItem extends StatelessWidget {
                                               text: notificationModel
                                                   ?.userName ??
                                                   '',
-                                              style: const TextStyle(
+                                              style:  TextStyle(
                                                 fontSize: 14,
                                                 color: kPrimaryColor,
                                                 fontWeight: FontWeight.w900,
@@ -251,7 +253,7 @@ class NotificationHistoryItem extends StatelessWidget {
                                                   .substring(
                                                   coordinatesOfUsername
                                                       .last),
-                                              style: const TextStyle(
+                                              style:  TextStyle(
                                                 fontSize: 14,
                                                 color: kPrimaryColor,
                                                 fontWeight: FontWeight.w500,
@@ -261,7 +263,7 @@ class NotificationHistoryItem extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    const Spacer(
+                                     Spacer(
                                       flex: 2,
                                     ),
                                   ],
@@ -279,7 +281,7 @@ class NotificationHistoryItem extends StatelessWidget {
                     builder: (context, double value, child) =>
                         AnimatedPositioned(
                           curve: Curves.ease,
-                          duration: const Duration(milliseconds: 220),
+                          duration:  Duration(milliseconds: 220),
                           //adding 15 to value so that the position is a little onto the right side
                           right: value + 15,
                           //getting out of the container by 15 px
@@ -288,7 +290,7 @@ class NotificationHistoryItem extends StatelessWidget {
                           child: Container(
                               height: 40,
                               width: 40,
-                              padding: const EdgeInsets.symmetric(
+                              padding:  EdgeInsets.symmetric(
                                 horizontal: 6,
                                 vertical: 8,
                               ),
@@ -296,19 +298,20 @@ class NotificationHistoryItem extends StatelessWidget {
                                 color: kPrimaryColor,
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              child: SvgPicture.asset(
-                                _getSvgForType(notificationModel?.type ??
-                                    NotificationType.chat),
+                              child:
+                              SvgPicture.asset(
+                                'assets/icons/schedule.svg',
                                 color: Colors.white,
                                 fit: BoxFit.contain,
-                              )),
+                              )
+                          ),
                         ),
                   )
                 ],
               ),
             ),
           ),
-          const SizedBox(
+           SizedBox(
             height: 40,
           )
         ],
@@ -317,18 +320,18 @@ class NotificationHistoryItem extends StatelessWidget {
   }
 
   ///get svg asset url from the type of the Notification
-  String _getSvgForType(NotificationType type) {
-    switch (type) {
-      case NotificationType.time:
-        return 'assets/icons/schedule.svg';
-      case NotificationType.chat:
-        return 'assets/icons/chat-bubble.svg';
-      case NotificationType.transaction:
-        return 'assets/icons/icon-credit-card.svg';
-      default:
-        return 'assets/icons/people.svg';
-    }
-  }
+  // String _getSvgForType(NotificationType type) {
+  //   switch (type) {
+  //     case NotificationType.time:
+  //       return 'assets/icons/schedule.svg';
+  //     case NotificationType.chat:
+  //       return 'assets/icons/chat-bubble.svg';
+  //     case NotificationType.transaction:
+  //       return 'assets/icons/icon-credit-card.svg';
+  //     default:
+  //       return 'assets/icons/people.svg';
+  //   }
+  // }
 
   ///getting index in the string where 'username' exists to replace it
   ///with the username given for text bold reasons
