@@ -34,7 +34,7 @@ class _ScheduleMeetingDialogState extends State<ScheduleMeetingDialog> {
   final ValueNotifier<int> selectedDate = ValueNotifier(-1);
   final ValueNotifier<String> selectedMonthToDisplay = ValueNotifier('');
   final ScrollController _dateListController = ScrollController();
-  bool dataLoaded = false;
+  bool dataLoaded = true;
   List<String> availableDayTimeList = [];
   List<String> availableNightTimeList = [];
   List<DateTime> allTimeSlotsList = [];

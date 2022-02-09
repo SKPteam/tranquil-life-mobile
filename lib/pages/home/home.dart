@@ -31,6 +31,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ConsultantProfileModel?
+    consultantProfileModel = ConsultantProfileModel(
+      preferredLangs: "Yoruba", yearsOfExperience: "2",
+      areaOfExpertise: "5", uid: "1", fee: 5000, firstName: "Barry", lastName: "allen", );
     return ResponsiveSafeArea(responsiveBuilder: (context, size) {
       return Scaffold(
           key: scaffoldKey,
@@ -174,8 +178,6 @@ class Home extends StatelessWidget {
                             displayHeight(context) * 0.12,
                         child: SingleChildScrollView(
                             child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             MyMeetingsSection(),
                             SizedBox(
@@ -296,7 +298,6 @@ class Home extends StatelessWidget {
                       left: 0,
                       width: displayWidth(context),
                       child: SizedBox(
-                        width: size.width * 0.12,
                         height: displayHeight(context) -
                             displayHeight(context) * 0.12,
                         child: SingleChildScrollView(
@@ -314,8 +315,7 @@ class Home extends StatelessWidget {
                                         width: displayWidth(context) * 0.94,
                                         child: ElevatedButton(
                                             onPressed: () async {
-                                              ConsultantProfileModel?
-                                                  consultantProfileModel;
+
 
                                               ///list of schedules containing schedule model for creating container templates
                                               ///of weekDay and date
@@ -344,7 +344,7 @@ class Home extends StatelessWidget {
                                                     ScheduleMeetingDialog(
                                                   schedules: schedules,
                                                   consultantProfileModel:
-                                                      consultantProfileModel!,
+                                                      consultantProfileModel,
                                                   isUserClient: false,
                                                   key: null,
                                                   reScheduleMeetingID: '',

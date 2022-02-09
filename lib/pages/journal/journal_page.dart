@@ -11,6 +11,8 @@ import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
+import 'package:tranquil_life/controllers/onboarding_controller.dart';
+import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/pages/journal/widgets/note_item.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
@@ -118,239 +120,240 @@ class _JournalViewState extends State<JournalView>
     // final date =
     //     '${_.dateTime.day} ${monthsFromIndex[_.dateTime.month - 1]}, ${_.dateTime.year}';
     final textSize = _.getSizeOfText(MediaQuery.of(context).size.width);
-    return Scaffold(
-      backgroundColor: kLightBackgroundColor,
-      body: SafeArea(
-          child: DashboardController.to.userType.value == client
-              ?
-          SingleChildScrollView(
-              child: Container(
-                height: displayHeight(context),
-                padding:  EdgeInsets.all(20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'date',
-                          style: TextStyle(
-                            color: kPrimaryDarkColor,
-                            fontSize: 16,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            //Get.to(() => JournalHistoryView());
-                          },
-                          child: Container(
-                            height: 35,
-                            width: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: GestureDetector(
-                              onTap: () {
-                                Get.toNamed(Routes.JOURNAL_HISTORY);
-                                },
-                              child: Icon(
-                                Icons.list,
-                                color: kPrimaryColor,
-                                size: displayWidth(context) * 0.06,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                     SizedBox(
-                      height: 50,
-                    ),
-                    if (widget.moodSvgUrl.isNotEmpty)
-                      Image.asset(widget.moodSvgUrl, height: 60),
-                    AnimatedBuilder(
-                      animation: _.textAnim!,
-                      builder: (context, child) => Transform.translate(
-                        offset: Offset(0, _.textAnim!.value),
-                        child: Opacity(
-                          opacity: (0.8 -
-                              (_.textAnim!.value != 0
-                                  ? _.textAnim!.value.toDouble() / 100
-                                  : -0.2))
-                              .toDouble(),
-                          child: SizedOverflowBox(
-                            size: textSize,
-                            alignment: Alignment.topCenter,
-                            child: ClipRect(
-                              clipper: CustomTextClipper(textSize),
-                              child: Transform.translate(
-                                offset: Offset(
-                                    0, -_.textSlideAnim!.value * textSize.height),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: textSize.width >
-                                          MediaQuery.of(context).size.width
-                                          ? textSize.height * 2
-                                          : textSize.height,
-                                      child: Text(
-                                        'What\'s On Your Mind?',
-                                        style: TextStyle(
-                                          fontSize: _.fontSizeForTitle,
-                                          color: Colors.black54,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                        height: textSize.width >
-                                            MediaQuery.of(context).size.width
-                                            ? textSize.height * 2
-                                            : textSize.height,
-                                        child: TextField(
-                                          maxLines: 3,
-                                          controller: _.headingController,
-                                          style:
-                                          TextStyle(fontSize: _.fontSizeForTitle),
-                                          decoration: InputDecoration(
-                                            hintStyle: TextStyle(
-                                              fontSize: _.fontSizeForTitle,
-                                              color: Colors.black54,
-                                            ),
-                                            hintText: 'What\'s On Your Mind?',
-                                            enabledBorder: InputBorder.none,
-                                            focusedBorder: InputBorder.none,
-                                            disabledBorder: InputBorder.none,
-                                            errorBorder: InputBorder.none,
-                                          ),
-                                        )),
-                                    SizedBox(
-                                      height: textSize.width >
-                                          MediaQuery.of(context).size.width
-                                          ? textSize.height * 2
-                                          : textSize.height,
-                                      child: Text(
-                                        'What\'s On Your Mind?',
-                                        style: TextStyle(
-                                          fontSize: _.fontSizeForTitle,
-                                          color: Colors.black54,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                     SizedBox(
-                      height: 20,
-                    ),
-                    TextField(
-                      maxLines: 8,
-                      style:  TextStyle(fontSize: 20),
-                      controller: _.bodyController,
-                      decoration:  InputDecoration(
-                        hintStyle: TextStyle(fontSize: 20),
-                        hintText: 'Type Something here',
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                      ),
-                    ),
-                     SizedBox(
-                      height: 100,
-                    ),
-                    Padding(
-                        padding:  EdgeInsets.only(left: 30.0),
-                        child: InkWell(
-                          onTap: () {
-                            //saveToDatabase();
-                            Get.toNamed(Routes.JOURNAL_HISTORY);
-
-                          },
-                          child: CircleAvatar(
-                              backgroundColor: Colors.black54,
-                              radius: 30,
-                              child: Icon(
-                                Icons.check,
-                                color: kPrimaryColor,
-                                size: displayWidth(context) * 0.06,
-                              )),
-                        )),
-                     SizedBox(
-                      height: 100,
-                    )
-                  ],
-                ),
-              ))
-              :
-          SizedBox(
-            width: displayWidth(context),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                //------------------------
-                // APPBAR
-                //------------------------
-                Container(
-                  width: displayWidth(context) * 0.95,
-                  padding:  EdgeInsets.all(8),
-                  child: Row(
+    return ResponsiveSafeArea(
+      responsiveBuilder: (context, size) =>
+          Scaffold(
+        backgroundColor: kLightBackgroundColor,
+        body: Get.find<OnBoardingController>().userType.value == client
+            ?
+        SingleChildScrollView(
+            child: Container(
+              height: displayHeight(context),
+              padding:  EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: displayWidth(context) * 0.06,
-                      ),
-                      //------------------------
-                      // SCREEN HEADING
-                      //------------------------
-                       Text(
-                        'Journal',
+                      Text(
+                        'date',
                         style: TextStyle(
-                          color: kPrimaryColor,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w900,
+                          color: kPrimaryDarkColor,
+                          fontSize: 16,
                         ),
                       ),
-                       Spacer(),
-                      //------------------------
-                      // Search Button Container
-                      //------------------------
                       InkWell(
                         onTap: () {
-                          //TODO: Search query for journal using heading
+                          //Get.to(() => JournalHistoryView());
                         },
                         child: Container(
-                          height: displayHeight(context) * 0.037,
-                          width: displayHeight(context) * 0.037,
+                          height: 35,
+                          width: 35,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          //------------------------
-                          // SEARCH SVG
-                          //------------------------
-                          child: Icon(
-                            Icons.search_rounded,
-                            size: displayWidth(context) * 0.06,
-                            color: kPrimaryColor,
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.JOURNAL_HISTORY);
+                            },
+                            child: Icon(
+                              Icons.list,
+                              color: kPrimaryColor,
+                              size: displayWidth(context) * 0.06,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  if (widget.moodSvgUrl.isNotEmpty)
+                    Image.asset(widget.moodSvgUrl, height: 60),
+                  AnimatedBuilder(
+                    animation: _.textAnim!,
+                    builder: (context, child) => Transform.translate(
+                      offset: Offset(0, _.textAnim!.value),
+                      child: Opacity(
+                        opacity: (0.8 -
+                            (_.textAnim!.value != 0
+                                ? _.textAnim!.value.toDouble() / 100
+                                : -0.2))
+                            .toDouble(),
+                        child: SizedOverflowBox(
+                          size: textSize,
+                          alignment: Alignment.topCenter,
+                          child: ClipRect(
+                            clipper: CustomTextClipper(textSize),
+                            child: Transform.translate(
+                              offset: Offset(
+                                  0, -_.textSlideAnim!.value * textSize.height),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: textSize.width >
+                                        MediaQuery.of(context).size.width
+                                        ? textSize.height * 2
+                                        : textSize.height,
+                                    child: Text(
+                                      'What\'s On Your Mind?',
+                                      style: TextStyle(
+                                        fontSize: _.fontSizeForTitle,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      height: textSize.width >
+                                          MediaQuery.of(context).size.width
+                                          ? textSize.height * 2
+                                          : textSize.height,
+                                      child: TextField(
+                                        maxLines: 3,
+                                        controller: _.headingController,
+                                        style:
+                                        TextStyle(fontSize: _.fontSizeForTitle),
+                                        decoration: InputDecoration(
+                                          hintStyle: TextStyle(
+                                            fontSize: _.fontSizeForTitle,
+                                            color: Colors.black54,
+                                          ),
+                                          hintText: 'What\'s On Your Mind?',
+                                          enabledBorder: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          disabledBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                        ),
+                                      )),
+                                  SizedBox(
+                                    height: textSize.width >
+                                        MediaQuery.of(context).size.width
+                                        ? textSize.height * 2
+                                        : textSize.height,
+                                    child: Text(
+                                      'What\'s On Your Mind?',
+                                      style: TextStyle(
+                                        fontSize: _.fontSizeForTitle,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                    maxLines: 8,
+                    style:  TextStyle(fontSize: 20),
+                    controller: _.bodyController,
+                    decoration:  InputDecoration(
+                      hintStyle: TextStyle(fontSize: 20),
+                      hintText: 'Type Something here',
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Padding(
+                      padding:  EdgeInsets.only(left: 30.0),
+                      child: InkWell(
+                        onTap: () {
+                          //saveToDatabase();
+                          Get.toNamed(Routes.JOURNAL_HISTORY);
+
+                        },
+                        child: CircleAvatar(
+                            backgroundColor: Colors.black54,
+                            radius: 30,
+                            child: Icon(
+                              Icons.check,
+                              color: kPrimaryColor,
+                              size: displayWidth(context) * 0.06,
+                            )),
+                      )),
+                  SizedBox(
+                    height: 100,
+                  )
+                ],
+              ),
+            ))
+            :
+        SizedBox(
+          width: displayWidth(context),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              //------------------------
+              // APPBAR
+              //------------------------
+              Container(
+                width: displayWidth(context) * 0.95,
+                padding:  EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: displayWidth(context) * 0.06,
+                    ),
+                    //------------------------
+                    // SCREEN HEADING
+                    //------------------------
+                    Text(
+                      'Journal',
+                      style: TextStyle(
+                        color: kPrimaryColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    Spacer(),
+                    //------------------------
+                    // Search Button Container
+                    //------------------------
+                    InkWell(
+                      onTap: () {
+                        //TODO: Search query for journal using heading
+                      },
+                      child: Container(
+                        height: displayHeight(context) * 0.037,
+                        width: displayHeight(context) * 0.037,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        //------------------------
+                        // SEARCH SVG
+                        //------------------------
+                        child: Icon(
+                          Icons.search_rounded,
+                          size: displayWidth(context) * 0.06,
+                          color: kPrimaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

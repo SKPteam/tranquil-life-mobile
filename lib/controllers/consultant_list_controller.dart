@@ -15,8 +15,12 @@ final RxList<Consultant> consultantList = <Consultant>[].obs;
 late Consultant consultantModel;
 final List<Map<String, String>> answers = [];
 RxBool consultantListLoaded = false.obs;
-late ConsultantProfileModel consultantProfileModel;
 late ConsultantPortfolioModel consultantPortfolio;
+
+ConsultantProfileModel consultantProfileModel = ConsultantProfileModel(preferredLangs: "Yoruba", yearsOfExperience: "2",
+    areaOfExpertise: "5", uid: "1", fee: 5000, firstName: "Barry", lastName: "allen", );
+
+
 
 
 @override

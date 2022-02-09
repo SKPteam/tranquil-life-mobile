@@ -252,6 +252,57 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                                               ),
                                               onPressed: () async {
 
+
+
+                                                ///list of schedules containing schedule model for creating container templates
+                                                ///of weekDay and date
+                                                ///dates from tom to next 7 days generated from DateTime
+                                                final List<Schedule> schedules =
+                                                List.generate(
+                                                  7,
+                                                      (index) => Schedule(
+                                                    DateTime.now().add(
+                                                      Duration(days: index + 1),
+                                                    ),
+                                                  ),
+                                                );
+
+                                                //show modal sheet for Date Selecting
+                                                bool result =
+                                                await showModalBottomSheet<
+                                                    bool>(
+                                                  isDismissible: true,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.vertical(
+                                                          top: Radius
+                                                              .circular(
+                                                              40))),
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      ScheduleMeetingDialog(
+                                                        schedules: schedules,
+                                                        consultantProfileModel: _
+                                                            .consultantProfileModel,
+                                                        isUserClient: true,
+                                                        key: null,
+                                                        reScheduleMeetingID: '',
+                                                      ),
+                                                ).then((value) {
+                                                  print(value);
+                                                  return value!;
+                                                });
+                                                print(result);
+                                                if (result) {
+                                                  Navigator.of(context)
+                                                      .pop(result);
+                                                }
+                                                // if (result ?? false) {
+                                                //   Navigator.of(context)
+                                                //       .pop(result ?? false);
+                                                // }
+
+
                                               },
                                               child: Row(
                                                 crossAxisAlignment:
