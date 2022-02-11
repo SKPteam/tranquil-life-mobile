@@ -7,7 +7,6 @@ import 'package:timeago/timeago.dart' as timeago;
 import 'package:get_storage/get_storage.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/notification_history_model.dart';
 
 class NotificationHistoryItem extends StatelessWidget {

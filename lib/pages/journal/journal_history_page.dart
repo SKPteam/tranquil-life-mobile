@@ -9,14 +9,11 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/pages/journal/selected_note_page.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 
 class JournalHistoryView extends StatelessWidget {
    JournalHistoryView({Key? key}) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +45,7 @@ class JournalHistoryView extends StatelessWidget {
                         icon: Icon(Icons.arrow_back, color: kPrimaryColor),
                       ),
                       SizedBox(
-                        width: displayWidth(context) * 0.06,
+                        width: size.width * 0.06,
                       ),
                       //------------------------
                       // SCREEN HEADING

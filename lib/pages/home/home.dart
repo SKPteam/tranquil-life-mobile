@@ -10,7 +10,6 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/consultant_profile_model.dart';
 import 'package:tranquil_life/models/schedule_date_model.dart';
 import 'package:tranquil_life/pages/home/widgets/meetings_section.dart';
@@ -131,7 +130,7 @@ class Home extends StatelessWidget {
                                   ),
                                   Container(
                                     margin: EdgeInsets.only(
-                                        left: displayWidth(context) * 0.02),
+                                        left: size.width * 0.02),
                                     decoration: BoxDecoration(
                                       color: Colors.white70,
                                       borderRadius: BorderRadius.circular(10.0),
@@ -154,12 +153,12 @@ class Home extends StatelessWidget {
                                                     NotificationHistoryScreen()));
                                       },
                                       child: SizedBox(
-                                        width: displayWidth(context) * 0.10,
-                                        height: displayWidth(context) * 0.10,
+                                        width: size.width * 0.10,
+                                        height: size.width * 0.10,
                                         child: Icon(
                                           Icons.notifications,
                                           color: kPrimaryColor,
-                                          size: displayWidth(context) * 0.06,
+                                          size: size.width * 0.06,
                                         ),
                                       ),
                                     ),
@@ -203,7 +202,7 @@ class Home extends StatelessWidget {
               : Stack(
                   children: [
                     Container(
-                      height: displayHeight(context) * .35,
+                      height: size.height * .35,
                       decoration: BoxDecoration(
                         color: kLightBackgroundColor,
                         gradient: LinearGradient(
@@ -215,12 +214,12 @@ class Home extends StatelessWidget {
                     Container(
                         width: double.infinity,
                         margin: EdgeInsets.only(
-                            left: displayWidth(context) * 0.1,
-                            top: displayWidth(context) * 0.1),
+                            left: size.width * 0.1,
+                            top: size.width * 0.1),
                         child: Stack(
                           children: [
                             SizedBox(
-                                width: displayWidth(context) * 0.4,
+                                width: size.width * 0.4,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -247,15 +246,15 @@ class Home extends StatelessWidget {
                                   ],
                                 )),
                             Positioned(
-                              right: displayWidth(context) * 0.1,
+                              right: size.width * 0.1,
                               child: Padding(
                                   padding: EdgeInsets.only(
-                                      top: displayWidth(context) * 0.01),
+                                      top: size.width * 0.01),
                                   child: Row(
                                     children: [
                                       Container(
                                         margin: EdgeInsets.only(
-                                            left: displayWidth(context) * 0.02),
+                                            left: size.width * 0.02),
                                         decoration: BoxDecoration(
                                           color: Colors.white70,
                                           borderRadius:
@@ -278,9 +277,9 @@ class Home extends StatelessWidget {
                                             ));
                                           },
                                           child: SizedBox(
-                                            width: displayWidth(context) * 0.10,
+                                            width: size.width * 0.10,
                                             height:
-                                                displayWidth(context) * 0.10,
+                                                size.width * 0.10,
                                             child: SvgPicture.asset(
                                               'assets/icons/notification.svg',
                                               color: kPrimaryColor,
@@ -298,25 +297,25 @@ class Home extends StatelessWidget {
                           ],
                         )),
                     Positioned(
-                      top: displayHeight(context) * 0.12,
+                      top: size.height * 0.12,
                       left: 0,
-                      width: displayWidth(context),
+                      width: size.width,
                       child: SizedBox(
-                        height: displayHeight(context) -
-                            displayHeight(context) * 0.12,
+                        height: size.height -
+                            size.height * 0.12,
                         child: SingleChildScrollView(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               MyMeetingsSection(),
-                              SizedBox(height: displayHeight(context) * .04),
+                              SizedBox(height: size.height * .04),
                               Center(
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.circular(12.0),
                                       child: SizedBox(
-                                        height: displayHeight(context) * 0.077,
-                                        width: displayWidth(context) * 0.94,
+                                        height: size.height * 0.077,
+                                        width: size.width * 0.94,
                                         child: ElevatedButton(
                                             onPressed: () async {
                                               ///list of schedules containing schedule model for creating container templates
@@ -360,11 +359,8 @@ class Home extends StatelessWidget {
                                                 SvgPicture.asset(
                                                   'assets/icons/schedule.svg',
                                                   color: Colors.white,
-                                                  width: displayWidth(context) *
-                                                      0.1,
-                                                  height:
-                                                      displayWidth(context) *
-                                                          0.1,
+                                                  width: 16,
+                                                  height: 16,
                                                   fit: BoxFit.none,
                                                 ),
                                                 Text(

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/consultant_porfolio_model.dart';
 import 'package:tranquil_life/models/consultant_profile_model.dart';
 import 'package:tranquil_life/pages/scheduling/widgets/consultantProfile_info_widget.dart';

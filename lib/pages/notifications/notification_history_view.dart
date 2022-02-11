@@ -8,7 +8,6 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/notification_history_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/pages/notifications/notification_history_widget.dart';
 
 class NotificationHistoryScreen extends StatelessWidget {

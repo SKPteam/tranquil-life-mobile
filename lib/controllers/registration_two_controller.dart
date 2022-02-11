@@ -89,6 +89,7 @@ class RegistrationTwoController extends GetxController {
     dobTextEditingController.text = dateOfBirth ?? '';
   }
 
+  //check if username exists in api path
   Future<String> checkForUsername() async {
     String url = baseUrl + ifUsernameExistsPath;
 

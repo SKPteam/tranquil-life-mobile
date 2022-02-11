@@ -8,7 +8,6 @@ import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/journal_model.dart';
 
 class SelectedNoteView extends StatelessWidget {
