@@ -1,5 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -7,15 +10,21 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/constants.dart';
+import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/chat/audio_call_screen.dart';
+import 'package:tranquil_life/pages/chat/widgets/custom_dialog.dart';
+import 'package:tranquil_life/pages/chat/widgets/rate_dialog_box.dart';
+import 'package:tranquil_life/pages/profile/widgets/image_picker_android.dart';
+import 'package:tranquil_life/pages/profile/widgets/image_picker_ios.dart';
 import 'package:tranquil_life/widgets/valueListenableBuilder2.dart';
 
-class ChatScreenPage extends StatelessWidget {
+import 'health_report_screen.dart';
 
+class ChatScreenPage extends StatelessWidget {
   Size size = MediaQuery.of(Get.context!).size;
 
-
-
+  final TextEditingController _sendtextController = TextEditingController();
+  final TextEditingController _inviteUserController = TextEditingController();
   List<String> menuList = [
     'Invite',
     'Participants',
@@ -23,11 +32,25 @@ class ChatScreenPage extends StatelessWidget {
     'End Session'
   ];
 
+  bool imagePickSel = false;
+  bool chatRoomLoaded = false;
+  String photoUrl = '';
+
+  // File photo;
+  String imgUrl = '';
+  ValueNotifier<bool> participants = ValueNotifier(false);
+  late AnimationController animController;
+  late ValueListenable<Animation<double>> participantsAnim;
+
+  String errText = 'No OnGoing Sessions';
+  bool mic = true;
+
+
   //menu icon options
   optionAction(String option) {
     print(option);
     if (option == 'Invite') {
-     // showInviteMenu(Context, 40);
+      // showInviteMenu(BuildContext, size);
     } else {
       // PushNotificationHelperController.instance
       //     .updateTokenAfterSigningOut(auth!.currentUser!.uid);
@@ -40,7 +63,6 @@ class ChatScreenPage extends StatelessWidget {
   final ValueNotifier<double> heightOfText = ValueNotifier<double>(45.00);
 
   Size _textSize(String text, TextStyle style) {
-
     final TextPainter textPainter = TextPainter(
         text: TextSpan(text: text, style: style),
         maxLines: 1,
@@ -49,8 +71,7 @@ class ChatScreenPage extends StatelessWidget {
     return textPainter.size;
   }
 
-   ChatScreenPage({Key? key}) : super(key: key);
-
+  ChatScreenPage({Key? key}) : super(key: key);
 
   double? textFieldWidth;
   late Size textSize;
@@ -59,46 +80,47 @@ class ChatScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     textSize = _textSize(
       'c',
-       TextStyle(
+      TextStyle(
         color: Colors.black,
         fontSize: 14,
         fontWeight: FontWeight.w600,
       ),
     );
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          SizedBox(
-            height: size.height,
-            width: size.width,
-            child: Image.asset(
-              'assets/images/chat_screen_bg_image.png',
-              fit: BoxFit.cover,
+    return ResponsiveSafeArea(
+      responsiveBuilder: (context, size) => Scaffold(
+        backgroundColor: Colors.white,
+        body: Stack(
+          children: [
+            SizedBox(
+              height: size.height,
+              width: size.width,
+              child: Image.asset(
+                'assets/images/chat_screen_bg_image.png',
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-
             Center(
               child: Container(
-                margin:  EdgeInsets.all(16),
-                padding:  EdgeInsets.all(16),
+                margin: EdgeInsets.all(16),
+                padding: EdgeInsets.all(16),
                 child: true
+                    //dataloaded
                     ? Text(
-                  "errText",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 1.2,
-                      decoration: TextDecoration.none,
-                      fontFamily: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .fontFamily),
-                )
-                    :  CircularProgressIndicator(),
+                        errText,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 1.2,
+                            decoration: TextDecoration.none,
+                            fontFamily: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .fontFamily),
+                      )
+                    : CircularProgressIndicator(),
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(12),
@@ -113,9 +135,9 @@ class ChatScreenPage extends StatelessWidget {
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                       colors: [
-                        Colors.black12,
-                         Color(0xff001A07).withOpacity(0.75),
-                      ])),
+                    Colors.black12,
+                    Color(0xff001A07).withOpacity(0.75),
+                  ])),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -125,14 +147,14 @@ class ChatScreenPage extends StatelessWidget {
                   child: Container(
                     height: 60,
                     color: Colors.transparent,
-                    padding:  EdgeInsets.only(left: 8),
+                    padding: EdgeInsets.only(left: 8),
                     width: size.width,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         IconButton(
-                            icon:  Icon(
+                            icon: Icon(
                               Icons.arrow_back,
                               color: Colors.white,
                             ),
@@ -142,7 +164,7 @@ class ChatScreenPage extends StatelessWidget {
                         Stack(
                           children: [
                             CircleAvatar(
-                                backgroundColor:  Color(0xffC9D8CD),
+                                backgroundColor: Color(0xffC9D8CD),
                                 radius: 22,
                                 child: Center(
                                   child: CircleAvatar(
@@ -156,7 +178,7 @@ class ChatScreenPage extends StatelessWidget {
                                 bottom: 0,
                                 right: 0,
                                 child: Container(
-                                  decoration:  BoxDecoration(
+                                  decoration: BoxDecoration(
                                     color: kIsOnlineColor,
                                     shape: BoxShape.circle,
                                   ),
@@ -165,7 +187,7 @@ class ChatScreenPage extends StatelessWidget {
                                 ))
                           ],
                         ),
-                         SizedBox(
+                        SizedBox(
                           width: 10,
                         ),
                         Column(
@@ -175,7 +197,7 @@ class ChatScreenPage extends StatelessWidget {
                             Hero(
                               tag: 'title',
                               child: Text(
-                                'Consultants First Lastname',
+                                'Dr Charles ',
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
@@ -187,310 +209,383 @@ class ChatScreenPage extends StatelessWidget {
                                         .fontFamily),
                               ),
                             ),
-
-                              Text(
-                                "scheduledMeeting!.duration",
-                                style:  TextStyle(
-                                    color: kSecondaryColor, fontSize: 16),
-                              )
+                            Text(
+                              "25 mins",
+                              style: TextStyle(
+                                  color: kSecondaryColor, fontSize: 16),
+                            )
                           ],
                         ),
-                         Spacer(),
-
-                          Container(
-                            height: 35,
-                            width: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.black54,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: IconButton(
-                              padding:  EdgeInsets.all(4.0),
-                              icon:  Icon(
-                                Icons.call,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                     AudioCallScreen(),
-                                  ),
-                                );
-                              },
-                            ),
+                        Spacer(),
+                        Container(
+                          height: 35,
+                          width: 35,
+                          decoration: BoxDecoration(
+                            color: Colors.black54,
+                            borderRadius: BorderRadius.circular(6),
                           ),
-                         SizedBox(
+                          child: IconButton(
+                            padding: EdgeInsets.all(4.0),
+                            icon: Icon(
+                              Icons.call,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AudioCallScreen(),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(
                           width: 5,
                         ),
-
-                          Container(
-                            height: 35,
-                            width: 35,
-                            decoration: BoxDecoration(
-                              color: Colors.black54,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: IconButton(
-                                padding:  EdgeInsets.all(4.0),
-                                icon:  Icon(
-                                  Icons.video_call,
-                                  color: Colors.white,
-                                ),
-                                onPressed: () async {}),
+                        Container(
+                          height: 35,
+                          width: 35,
+                          decoration: BoxDecoration(
+                            color: Colors.black54,
+                            borderRadius: BorderRadius.circular(6),
                           ),
+                          child: IconButton(
+                              padding: EdgeInsets.all(4.0),
+                              icon: Icon(
+                                Icons.video_call,
+                                color: Colors.white,
+                              ),
+                              onPressed: () async {
+                                showLoaderDialog(context);
+                                // await for camera and mic permissions before pushing video page
+                                // await _handleCameraAndMic(Permission.camera);
+                                // await _handleCameraAndMic(
+                                //     Permission.microphone);
+                              }),
+                        ),
+                        PopupMenuButton(
+                          child: Icon(
+                            Icons.more_vert,
+                            color: Colors.white,
+                            size: 26,
+                          ),
+                          onSelected: (value) async {
+                            if (true) {
+                              switch (value) {
+                                case 0:
+                                  print('invite');
 
-                        PopupMenuButton<String>(
-                          color: Colors.white,
-                            onSelected: optionAction,
-                            iconSize: 28,
-                            itemBuilder: (BuildContext context) {
-                              return menuList.map((String option) {
-                                return PopupMenuItem(value: option, child: Text(option));
-                              }).toList();
-                            }),
+                                  showInviteMenu(context, size);
+                                  break;
+                                case 1:
+                                  print('participant');
 
+                                  participants.value = true;
+                                  await Future.delayed(
+                                      Duration(milliseconds: 200));
+                                  animController.forward();
+                                  break;
+                                case 2:
+                                  print('health');
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => HealthReportScreen(),
+                                  ));
+                                  break;
+                                case 3:
+                                  await showDialog(
+                                    context: context,
+                                    builder: (context) => CustomDialogBox(
+                                      consultantName: "Dr Charles",
+                                      //scheduledMeeting!.consultantName,
+                                      onpressed: () async {
+                                        print('YES');
+                                        await showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              CustomRatingDialogBox(
+                                            consultantEmail:
+                                                "charlesthedoctor@gmail.com",
+                                            //consultantDoc.value[userEmail],
+                                            consultantID: "2238",
+                                            consultantName: 'Dr Charles',
+                                            //scheduledMeeting!.consultantName,
+                                            creatorUsername: 'Larry Badge',
+                                            //accountDoc.value[userName],
+                                            currentMeetingID: '2227',
+                                            // widget.scheduledMeetingID
+                                          ),
+                                        );
+                                        print('rated');
+                                      },
+                                    ),
+                                  );
+                                  print('end');
+                                  break;
+                              }
+                            } else {
+                              //   switch (value) {
+                              //     case 0:
+                              //       print('participant');
+                              //
+                              //       participants.value = true;
+                              //       await Future.delayed(
+                              //            Duration(milliseconds: 200));
+                              //       animController.forward();
+                              //       break;
+                              //     case 1:
+                              //       print('health');
+                              //       Navigator.of(context)
+                              //           .push(MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             HealthReportScreen(
+                              //               clientID: scheduledMeeting!
+                              //                   .creatorID,
+                              //             ),
+                              //       ));
+                              //       break;
+                              //   }
+                            }
+                          },
+                          itemBuilder: (context) => menuList
+                              .map(
+                                (e) => PopupMenuItem(
+                                  value: menuList.indexOf(e),
+                                  height: 40,
+                                  child: Text(e),
+                                ),
+                              )
+                              .toList(),
+                        ),
                       ],
                     ),
                   ),
                 ),
-
-                 SizedBox(
+                Expanded(
+                  child: Container(
+                    child: false
+                        //chatRoomLoaded
+                        ? Container()
+                        // StreamBuilder(
+                        //   stream: chatRoomMessagesRef
+                        //       .orderBy('timestamp', descending: true)
+                        //       .snapshots(),
+                        //   builder: (context, snapshot) {
+                        //     if (snapshot.hasData) {
+                        //       return ListView.builder(
+                        //         reverse: true,
+                        //         padding:  EdgeInsets.symmetric(
+                        //             horizontal: 12, vertical: 8),
+                        //         itemCount: (snapshot.data as QuerySnapshot)
+                        //             .docs
+                        //             .length,
+                        //         itemBuilder: (context, index) =>
+                        //             _buildChatMessageWidget(index,
+                        //                 snapshot:
+                        //                 (snapshot.data as QuerySnapshot)
+                        //                     .docs[index]),
+                        //       );
+                        //     } else {
+                        //       return  Center(
+                        //         child: CircularProgressIndicator(),
+                        //       );
+                        //     }
+                        //   },
+                        // )
+                        : Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                // ValueListenableBuilder(
+                //   valueListenable: heightOfText,
+                //   builder: (context, double value, child) => AnimatedContainer(
+                //     duration: Duration(milliseconds: 500),
+                //     width: size.width * 0.86,
+                //     margin: EdgeInsets.symmetric(vertical: 8),
+                //     height: value,
+                //     curve: Curves.easeIn,
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(12),
+                //       color: Colors.white,
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.start,
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: [
+                //         IconButton(
+                //           icon: SvgPicture.asset('assets/icons/attach.svg'),
+                //           onPressed: () async {
+                //             var status = await Permission.storage.isGranted;
+                //             if (!status) {
+                //               await Permission.storage.request();
+                //               status = await Permission.storage.isGranted;
+                //             }
+                //             print(status);
+                //             if (status) {
+                //               var result = await Navigator.of(context)
+                //                   .push(MaterialPageRoute(
+                //                 builder: (context) => Platform.isIOS
+                //                     ? ImagePickerPageIOS()
+                //                     : ImagePickerAndroid(),
+                //               ));
+                //               if (result != null && result.isNotEmpty) {
+                //                 print(result);
+                //                 //notSendingCurrently = false;
+                //                 print('setting state edit photo onTapped');
+                //                 // if (Platform.isAndroid) {
+                //                 //   photoUrl = result;
+                //                 // } else {
+                //                 //   photo = result;
+                //                 //   imgUrl = photo.toString();
+                //                 // }
+                //
+                //
+                //                 // ChatroomMessage message = ChatroomMessage(
+                //                 //   id: id,
+                //                 //   chatroomID: chatRoomModel.id,
+                //                 //   senderID: auth!.currentUser!.uid,
+                //                 //   isRead: false,
+                //                 //   timestamp: DateTime.now(),
+                //                 //   message: url,
+                //                 //   quote: '',
+                //                 //   type: 'image',
+                //                 // );
+                //
+                //
+                //                 // _listKey.currentState.insertItem(0,
+                //                 //     duration: Duration(seconds: 1));
+                //
+                //                 //inserting the msg into the messages list too at 0 index
+                //                 // chatRoomMessages.insert(0, message);
+                //
+                //                 String userName;
+                //
+                //
+                //               }
+                //             }
+                //           },
+                //         ),
+                //         Expanded(
+                //           child: TextField(
+                //               key: key,
+                //               controller: _sendtextController,
+                //               scrollPhysics: BouncingScrollPhysics(),
+                //               decoration: InputDecoration(
+                //                 errorBorder: InputBorder.none,
+                //                 disabledBorder: InputBorder.none,
+                //                 focusedBorder: InputBorder.none,
+                //                 enabledBorder: InputBorder.none,
+                //                 hintText: "Type Something...",
+                //                 hintStyle: TextStyle(
+                //                   color: Colors.grey,
+                //                   fontSize: 14,
+                //                   fontWeight: FontWeight.w400,
+                //                 ),
+                //               ),
+                //               style: TextStyle(
+                //                 color: Colors.black,
+                //                 fontSize: 14,
+                //                 fontWeight: FontWeight.w600,
+                //               ),
+                //               minLines: null,
+                //               maxLines: null,
+                //               expands: true,
+                //               onChanged: (String e) {
+                //                 if (_sendtextController.text.isEmpty) {
+                //                   setState(() {
+                //                     mic = true;
+                //                   });
+                //                 } else if (_sendtextController.text.length ==
+                //                     1) {
+                //                   setState(() {
+                //                     mic = false;
+                //                   });
+                //                 }
+                //                 changeTextFieldSize(e);
+                //               }),
+                //         ),
+                //         if (mic)
+                //           InkWell(
+                //             onTapDown: (details) {
+                //               startRecording();
+                //             },
+                //             onTapCancel: () {
+                //               stopRecording();
+                //             },
+                //             onTap: () {
+                //               stopRecording();
+                //             },
+                //             child: SizedBox(
+                //               height: 36,
+                //               width: 36,
+                //               child: SvgPicture.asset(
+                //                 'assets/icons/microphone.svg',
+                //                 fit: BoxFit.scaleDown,
+                //               ),
+                //             ),
+                //           ),
+                //         if (!mic)
+                //           IconButton(
+                //             icon: Icon(
+                //               Icons.send,
+                //               color: kPrimaryColor,
+                //             ),
+                //             onPressed: () async {
+                //               if (_sendtextController.text.isNotEmpty &&
+                //                   notSendingCurrently) {
+                //                 notSendingCurrently = false;
+                //                 var subStr = uuid.v4();
+                //                 String id =
+                //                     subStr.substring(0, subStr.length - 10);
+                //
+                //                 ChatroomMessage message = ChatroomMessage(
+                //                   id: id,
+                //                   chatroomID: chatRoomModel.id,
+                //                   senderID: auth!.currentUser!.uid,
+                //                   isRead: false,
+                //                   timestamp: DateTime.now(),
+                //                   message: _sendtextController.text,
+                //                   quote: '',
+                //                   type: 'text',
+                //                 );
+                //
+                //                 // _listKey.currentState.insertItem(0,
+                //                 //     duration: Duration(seconds: 1));
+                //
+                //                 //inserting the msg into the messages list too at 0 index
+                //                 // chatRoomMessages.insert(0, message);
+                //
+                //                 String userName;
+                //
+                //                 String avatarUrl =
+                //                     accountDoc.value[userAvatarUrl];
+                //                 print(userName);
+                //                 print(avatarUrl);
+                //                 _sendtextController.clear();
+                //                 heightOfText.value = 45.0;
+                //                 setState(() {
+                //                   mic = true;
+                //                 });
+                //                 // notSendingCurrently = true;
+                //
+                //               }
+                //             },
+                //           ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                SizedBox(
                   height: 10,
                 )
               ],
             ),
-          // GestureDetector(
-          //     behavior: HitTestBehavior.opaque,
-          //     onTap: ()  {
-          //     },
-          //     child: SizedBox(
-          //       height: size.height,
-          //       width: size.width,
-          //       child: Align(
-          //         alignment: Alignment(6.0, -0.6),
-          //         child: SizedBox(
-          //           height: 20.0,
-          //           child: Container(
-          //             decoration: BoxDecoration(
-          //               borderRadius: BorderRadius.circular(16),
-          //               color: Colors.black,
-          //             ),
-          //             width: size.width * 0.7,
-          //             padding: EdgeInsets.only(
-          //                 bottom: 12,
-          //                 top: 12,
-          //                 left: 12,
-          //                 right: size.width * 0.08),
-          //             child: Row(
-          //               mainAxisAlignment:
-          //               MainAxisAlignment.start,
-          //               crossAxisAlignment:
-          //               CrossAxisAlignment.center,
-          //               children: [
-          //                 Stack(
-          //                   children: [
-          //                     CircleAvatar(
-          //                         backgroundColor:
-          //                         Colors.white,
-          //                         radius: 22,
-          //                         child: Center(
-          //                           child: CircleAvatar(
-          //                             radius: 20,
-          //                             foregroundImage:
-          //                             AssetImage(
-          //                               "assets/images/avatar_img1.png",
-          //                             ),
-          //                           ),
-          //                         )),
-          //                     Positioned(
-          //                         bottom: 0,
-          //                         right: 0,
-          //                         child: Container(
-          //                           decoration: BoxDecoration(
-          //                               color: true
-          //                                   ? Colors.green
-          //                                   : Colors.grey,
-          //                               shape: BoxShape
-          //                                   .circle),
-          //                           width: 12,
-          //                           height: 12,
-          //                         ))
-          //                   ],
-          //                 ),
-          //                 SizedBox(
-          //                   width: 10,
-          //                 ),
-          //                 Text(
-          //                   "e.name",
-          //                   style:  TextStyle(
-          //                       color: Colors.white,
-          //                       fontSize: 14,
-          //                       fontWeight:
-          //                       FontWeight.bold),
-          //                 ),
-          //               ],
-          //             ),
-          //             // SingleChildScrollView(
-          //             //   physics:  BouncingScrollPhysics(),
-          //             //   child: Column(
-          //             //     mainAxisAlignment:
-          //             //     MainAxisAlignment.start,
-          //             //     crossAxisAlignment:
-          //             //     CrossAxisAlignment.start,
-          //             //     children: chatRoomModel.participants
-          //             //         .map((e) => Row(
-          //             //       mainAxisAlignment:
-          //             //       MainAxisAlignment.start,
-          //             //       crossAxisAlignment:
-          //             //       CrossAxisAlignment.center,
-          //             //       children: [
-          //             //         Stack(
-          //             //           children: [
-          //             //             CircleAvatar(
-          //             //                 backgroundColor:
-          //             //                 Colors.white,
-          //             //                 radius: 22,
-          //             //                 child: Center(
-          //             //                   child:
-          //             //                   CircleAvatar(
-          //             //                     radius: 20,
-          //             //                     foregroundImage:
-          //             //                     NetworkImage(
-          //             //                       e.avatarUrl,
-          //             //                     ),
-          //             //                   ),
-          //             //                 )),
-          //             //             Positioned(
-          //             //                 bottom: 0,
-          //             //                 right: 0,
-          //             //                 child: Container(
-          //             //                   decoration: BoxDecoration(
-          //             //                       color: e.isOnline
-          //             //                           ? Colors
-          //             //                           .green
-          //             //                           : Colors
-          //             //                           .grey,
-          //             //                       shape: BoxShape
-          //             //                           .circle),
-          //             //                   width: 12,
-          //             //                   height: 12,
-          //             //                 ))
-          //             //           ],
-          //             //         ),
-          //             //          SizedBox(
-          //             //           width: 10,
-          //             //         ),
-          //             //         Text(
-          //             //           "e.name",
-          //             //           style:  TextStyle(
-          //             //               color: Colors.white,
-          //             //               fontSize: 14,
-          //             //               fontWeight:
-          //             //               FontWeight.bold),
-          //             //         ),
-          //             //       ],
-          //             //     ))
-          //             //         .toList(),
-          //             //   ),
-          //             // ),
-          //           ),
-          //         ),
-          //       ),
-          //     ))
-
-        ],
-      ),
-      bottomSheet: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: ValueListenableBuilder(
-              valueListenable: heightOfText,
-              builder: (context, double value, child) =>
-                  AnimatedContainer(
-                    duration:  Duration(milliseconds: 500),
-                    width: size.width * 0.86,
-                    margin:  EdgeInsets.symmetric(vertical: 8),
-                    height: value,
-                    curve: Curves.easeIn,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.white,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          icon: SvgPicture.asset('assets/icons/attach.svg'),
-                          onPressed: ()  {},
-                        ),
-                        Expanded(
-                          child: TextField(
-                              key: key,
-                              //controller: _sendtextController,
-                              scrollPhysics:  BouncingScrollPhysics(),
-                              decoration:  InputDecoration(
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                hintText: "Type Something...",
-                                hintStyle: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              style:  TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                              minLines: null,
-                              maxLines: null,
-                              expands: true,
-                              onChanged: (String e) {
-                              }),
-                        ),
-
-                        InkWell(
-                          onTapDown: (details) {
-
-                          },
-                          onTapCancel: () {
-
-                          },
-                          onTap: () {
-
-                          },
-                          child: SizedBox(
-                            height: 36,
-                            width: 36,
-                            child: SvgPicture.asset(
-                              'assets/icons/microphone.svg',
-                              fit: BoxFit.scaleDown,
-                            ),
-                          ),
-                        ),
-
-                        IconButton(
-                          icon:  Icon(
-                            Icons.send,
-                            color: kPrimaryColor,
-                          ),
-                          onPressed: ()  {
-
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -500,31 +595,31 @@ class ChatScreenPage extends StatelessWidget {
       context: context,
       builder: (context) => SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(40),
+          padding: EdgeInsets.all(40),
           height: size.height * 0.5,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Participant\'s\nUsername',
                 style: TextStyle(
                     color: Colors.green,
                     fontSize: 28,
                     fontWeight: FontWeight.bold),
               ),
-              const Spacer(
+              Spacer(
                 flex: 2,
               ),
               TextField(
-                style: const TextStyle(fontSize: 16, color: Colors.black),
-                decoration: const InputDecoration(
+                style: TextStyle(fontSize: 16, color: Colors.black),
+                decoration: InputDecoration(
                   labelText: 'Username',
                   labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
               ),
-              const Spacer(
+              Spacer(
                 flex: 1,
               ),
               SizedBox(
@@ -532,45 +627,45 @@ class ChatScreenPage extends StatelessWidget {
                 child: Center(
                   child: TextButton(
                       onPressed: () {
-                      //
-                      //   if (_inviteUserController.text.isNotEmpty) {
-                      //     accountSettingsRef!
-                      //         .orderByChild(userName)
-                      //         .equalTo(_inviteUserController.text)
-                      //         .once()
-                      //         .then((snapshot) {
-                      //       if (snapshot.value == null) {
-                      //         print('User does\'nt exist');
-                      //       } else {
-                      //         usersRef!
-                      //             .orderByKey()
-                      //             .equalTo(snapshot.value['uid'])
-                      //             .once()
-                      //             .then((snapshot4) async {
-                      //           final dynamicShortLink =
-                      //           await DynamicLinkHelper.createMeetingLink(
-                      //             id: scheduledMeeting!.id,
-                      //             desc:
-                      //             'Meeting between ${scheduledMeeting!.consultantName} and ${auth!.currentUser!.displayName}',
-                      //             title: 'Join the Scheduled Meeting',
-                      //           );
-                      //           sendInviteToUser(snapshot4.value[userEmail],
-                      //               dynamicShortLink);
-                      //           print(snapshot4.value[userEmail]);
-                      //         });
-                      //       }
-                      //     });
-                      //   }
+                        //
+                        //   if (_inviteUserController.text.isNotEmpty) {
+                        //     accountSettingsRef!
+                        //         .orderByChild(userName)
+                        //         .equalTo(_inviteUserController.text)
+                        //         .once()
+                        //         .then((snapshot) {
+                        //       if (snapshot.value == null) {
+                        //         print('User does\'nt exist');
+                        //       } else {
+                        //         usersRef!
+                        //             .orderByKey()
+                        //             .equalTo(snapshot.value['uid'])
+                        //             .once()
+                        //             .then((snapshot4) async {
+                        //           final dynamicShortLink =
+                        //           await DynamicLinkHelper.createMeetingLink(
+                        //             id: scheduledMeeting!.id,
+                        //             desc:
+                        //             'Meeting between ${scheduledMeeting!.consultantName} and ${auth!.currentUser!.displayName}',
+                        //             title: 'Join the Scheduled Meeting',
+                        //           );
+                        //           sendInviteToUser(snapshot4.value[userEmail],
+                        //               dynamicShortLink);
+                        //           print(snapshot4.value[userEmail]);
+                        //         });
+                        //       }
+                        //     });
+                        //   }
                       },
                       style: ButtonStyle(
                         backgroundColor:
-                        MaterialStateProperty.all(Colors.green),
+                            MaterialStateProperty.all(Colors.green),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12))),
                         padding: MaterialStateProperty.all(EdgeInsets.symmetric(
                             horizontal: size.width * 0.3, vertical: 20)),
                       ),
-                      child: const Text(
+                      child: Text(
                         'Invite',
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       )),
@@ -580,14 +675,13 @@ class ChatScreenPage extends StatelessWidget {
           ),
         ),
       ),
-      shape: const RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
       ),
       backgroundColor: Colors.white,
     );
   }
-
 
   displaySnackbar(String message, BuildContext context) {
     try {
@@ -600,4 +694,6 @@ class ChatScreenPage extends StatelessWidget {
       debugPrint(e.toString());
     }
   }
+
+
 }
