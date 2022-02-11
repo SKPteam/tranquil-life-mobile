@@ -9,9 +9,7 @@ import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 
-class OnBoardingTwo extends StatelessWidget {
-  final OnBoardingController _ = Get.put(OnBoardingController());
-
+class OnBoardingTwo extends GetView<GetView<OnBoardingController>> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(
@@ -47,9 +45,10 @@ class OnBoardingTwo extends StatelessWidget {
                             SizedBox(
                               width: size.width * 0.6,
                               height: 60,
-                              child: ElevatedButton(onPressed: (){
+                              child: ElevatedButton(onPressed: () {
                                 onBoardingController.userType.value = client;
-                                print("The value of my serach is ${onBoardingController.userType.value}");
+                                print(onBoardingController.userType.value);
+
                                 Get.offNamed(Routes.REGISTRATION_ONE);
                               }, style: ElevatedButton.styleFrom(
                                   padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),

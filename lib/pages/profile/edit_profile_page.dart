@@ -10,7 +10,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 
 class EditProfileView extends StatelessWidget {
   EditProfileView({Key? key}) : super(key: key);

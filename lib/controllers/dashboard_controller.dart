@@ -35,11 +35,11 @@ class DashboardController extends GetxController {
   List<Widget> buildScreens() {
 
     return [
-      Home(),
-      WalletView(reloadWalletPage: setBottomBarIndex),
-      ChatScreenPage(),
-      JournalView(moodSvgUrl: ''),
-      ProfileView(setBottomBarIndex: (int index) {}),
+      // Home(),
+      // WalletView(reloadWalletPage: setBottomBarIndex),
+      // ChatScreenPage(),
+      // JournalView(moodSvgUrl: ''),
+      // ProfileView(setBottomBarIndex: (int index) {}),
     ];
   }
 

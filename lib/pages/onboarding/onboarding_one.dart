@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
@@ -11,10 +12,7 @@ import 'package:tranquil_life/routes/app_pages.dart';
 
 import 'widgets/onBoardingContent.dart';
 
-class OnBoardingOne extends StatelessWidget {
-
-  final OnBoardingController _ = Get.put(OnBoardingController());
-
+class OnBoardingOne extends GetView<OnBoardingController> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(
@@ -29,12 +27,12 @@ class OnBoardingOne extends StatelessWidget {
                         flex: 5,
                         child: PageView.builder(
                           onPageChanged: (value) {
-                            _.currentPage.value = value;
+                            onBoardingController.currentPage.value = value;
                           },
-                          itemCount: _.onBoardingData.length,
+                          itemCount: onBoardingController.onBoardingData.length,
                           itemBuilder: (context, index) => OnBoardingContent(
-                            image: _.onBoardingData[index]["image"],
-                            text: _.onBoardingData[index]['text'],
+                            image: onBoardingController.onBoardingData[index]["image"],
+                            text: onBoardingController.onBoardingData[index]['text'],
                           ),
                         ),
                       ),
@@ -49,7 +47,7 @@ class OnBoardingOne extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: List.generate(
-                                    _.onBoardingData.length,
+                                    onBoardingController.onBoardingData.length,
                                         (index) => buildDot(index: index),
                                   ),
                                 ),
@@ -90,9 +88,9 @@ class OnBoardingOne extends StatelessWidget {
       duration: kAnimationDuration,
       margin: EdgeInsets.only(right: 5),
       height: 6,
-      width: _.currentPage == index ? 20 : 6,
+      width: onBoardingController.currentPage == index ? 20 : 6,
       decoration: BoxDecoration(
-        color: _.currentPage == index ? active : Color(0xFFD8D8D8),
+        color: onBoardingController.currentPage == index ? active : Color(0xFFD8D8D8),
         borderRadius: BorderRadius.circular(3),
       ),
     );

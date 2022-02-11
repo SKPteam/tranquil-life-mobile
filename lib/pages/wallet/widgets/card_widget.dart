@@ -48,7 +48,7 @@ class _CardWidgetState extends State<CardWidget> {
     return tempColor;
   }
 
-  final AddNewCardController _ = Get.put(AddNewCardController());
+  //final AddNewCardController _ = Get.put(AddNewCardController());
   @override
   Widget build(BuildContext context) {
     return Stack(

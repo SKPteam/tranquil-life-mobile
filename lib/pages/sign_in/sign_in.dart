@@ -26,7 +26,7 @@ class SignIn extends StatelessWidget {
             elevation: 0,
             title:  Text(
               "Sign In",
-              style: TextStyle(color: Color(0xffBEBEBE)),
+              style: TextStyle(color: grey),
             ),
           ),
           body: Container(

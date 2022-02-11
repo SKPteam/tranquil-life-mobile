@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 
 // ignore: must_be_immutable
 class CustomFormField extends StatelessWidget {
@@ -44,13 +43,13 @@ class CustomFormField extends StatelessWidget {
       inputFormatters: formatters,
       keyboardType: textInputType,
       style: TextStyle(
-          fontSize: displayWidth(Get.context!) / 30,
+          fontSize: 18,
           color: Colors.black
       ),
       decoration: InputDecoration(
         hintText: hint,
         hintStyle:
-        TextStyle(fontSize: displayWidth(context) / 30, color: Colors.grey),
+        TextStyle(fontSize: 18, color: Colors.grey),
         fillColor: Colors.white,
         border: InputBorder.none,
         filled: true,
@@ -59,7 +58,7 @@ class CustomFormField extends StatelessWidget {
             child: icon()
         ),
         contentPadding: EdgeInsets.symmetric(
-            vertical: 20.0, horizontal: displayWidth(context) * 0.04),
+            vertical: 25.0, horizontal: 16),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
