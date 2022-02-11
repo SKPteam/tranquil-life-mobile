@@ -317,5 +317,4 @@ class JournalHistoryView extends StatelessWidget {
     );
   }
 
-
 }

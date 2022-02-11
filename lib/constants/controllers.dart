@@ -1,10 +1,12 @@
-
 import 'package:tranquil_life/controllers/chat_controller.dart';
-import 'package:tranquil_life/controllers/client_registration_controller.dart';
 import 'package:tranquil_life/controllers/consultant_registration_controller.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
+import 'package:tranquil_life/controllers/registration_four_controller.dart';
+import 'package:tranquil_life/controllers/registration_one_controller.dart';
+import 'package:tranquil_life/controllers/registration_three_controller.dart';
+import 'package:tranquil_life/controllers/registration_two_controller.dart';
 import 'package:tranquil_life/controllers/timeout_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/profile_controller.dart';
@@ -15,13 +17,15 @@ import 'package:tranquil_life/controllers/wallet_controller.dart';
 
 SplashScreenController splashScreenController = SplashScreenController.instance;
 OnBoardingController onBoardingController = OnBoardingController.instance;
-TimeoutController lockScreenController = TimeoutController.instance;
+//TimeoutController lockScreenController = TimeoutController.instance;
 SignInController signInController = SignInController.instance;
-ClientRegistrationController clientRegistrationController = ClientRegistrationController.instance;
-ConsultantRegistrationController consultantRegistrationController = ConsultantRegistrationController.instance;
+RegistrationOneController registrationOneController = RegistrationOneController.instance;
+RegistrationTwoController registrationTwoController = RegistrationTwoController.instance;
+RegistrationThreeController registrationThreeController = RegistrationThreeController.instance;
+RegistrationFourController registrationFourController = RegistrationFourController.instance;
 DashboardController dashboardController = DashboardController.instance;
 HomeController homeController = HomeController.instance;
-WalletController walletController = WalletController.instance;
-JournalController journalController = JournalController.instance;
+//WalletController walletController = WalletController.instance;
+//JournalController journalController = JournalController.instance;
 ProfileController profileController = ProfileController.instance;
 ChatController chatController = ChatController.instance;

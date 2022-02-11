@@ -13,9 +13,6 @@ import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/edit_profile_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
-import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
-
 class EditProfileView extends StatelessWidget {
   final EditProfileController _ = Get.put(EditProfileController());
 

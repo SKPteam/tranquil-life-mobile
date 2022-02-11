@@ -23,7 +23,7 @@ const String kInvalidPassError =
     "Password must be alphanumeric (e.g, myname@K18)";
 const String kMatchPassError = "Passwords don't match";
 const String kUserNameNullError = "Please enter your username";
-const String kUserNameExists = "Username exists";
+const String kUserNameExists = "username already exists";
 const String kPhoneNumberNullError = "Please enter your phone number";
 const String kFirstNameNullError = "Please enter your first name";
 const String kLastNameNullError = "Please enter your last name";
@@ -103,9 +103,9 @@ const APP_ID = 'a2782460e26a405cb9ffda0ae62e8038';
 
 var uuid = Uuid();
 
-const _chars =
+const randomChars =
     'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890?@!#%&%^*';
-Random _rnd = Random();
+Random rnd = Random();
 
 RxString generatedPwd = RxString(" ");
 
@@ -142,3 +142,10 @@ RxString generatedPwd = RxString(" ");
 
 var timeFormat = DateFormat('kk:mm');
 var dateFormat = DateFormat('dd-MM-yyyy');
+
+const baseUrl = "http://127.0.0.1:8000";
+
+//Post Api paths
+const registerPath = '/api/client/register';
+const loginPath = '/api/client/login';
+const ifUsernameExistsPath = '/api/client/ifUsernameExists';

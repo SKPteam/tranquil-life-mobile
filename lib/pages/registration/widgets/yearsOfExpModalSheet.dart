@@ -2,14 +2,14 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
+import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 
 class YearsOfExpModalSheet extends StatefulWidget {
 
   final List<String> yearsOfExpList;
   final TextEditingController yearsOfExpTEC;
 
-  const YearsOfExpModalSheet({Key? key, required this.yearsOfExpList, required this.yearsOfExpTEC})
+  YearsOfExpModalSheet({Key? key, required this.yearsOfExpList, required this.yearsOfExpTEC})
       :super(key: key);
 
   @override
@@ -53,58 +53,61 @@ class _YearsOfExpModalSheetState extends State<YearsOfExpModalSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(
-          displayWidth(context)*0.04
-      ),
-      child: SizedBox(
-        height: displayHeight(context) * 0.20,
-        child: Column(
-          children: [
-            Text('Years of experience', style: TextStyle(
-                fontSize: displayWidth(context)*0.05)),
-            Expanded(
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: searchYearsOfExpList.length,
-                    itemBuilder: (context, int index){
-                      final item = searchYearsOfExpList[index];
-                      return GestureDetector(
-                          onTap: (){
-                            selectedYOE = item.toString();
-                            widget.yearsOfExpTEC.text = selectedYOE;
-                            print(widget.yearsOfExpTEC.text);
-                            Navigator.of(context).pop();
-                          },
-                          child: Column(
-                            children: [
-                              const Spacer(),
-                              SizedBox(
-                                width: displayHeight(context)*0.12,
-                                height: displayHeight(context)*0.12,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(displayWidth(context)*0.03)
-                                  ),
-                                  margin: EdgeInsets.all(displayWidth(context) * 0.03),
-                                  child: Text(item.toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: displayWidth(context)*0.07
-                                      )),
-                                ),
-                              ),
-                              const Spacer(),
-                            ],
-                          )
-                      );
-                    })
+    return ResponsiveSafeArea(
+      responsiveBuilder: (context, size)
+      => Container(
+            padding: EdgeInsets.all(
+                size.width*0.04
             ),
-          ],
-        ),
-      ),
+            child: SizedBox(
+              height: size.height * 0.20,
+              child: Column(
+                children: [
+                  Text('Years of experience', style: TextStyle(
+                      fontSize: size.width*0.05)),
+                  Expanded(
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: searchYearsOfExpList.length,
+                          itemBuilder: (context, int index){
+                            final item = searchYearsOfExpList[index];
+                            return GestureDetector(
+                                onTap: (){
+                                  selectedYOE = item.toString();
+                                  widget.yearsOfExpTEC.text = selectedYOE;
+                                  print(widget.yearsOfExpTEC.text);
+                                  Navigator.of(context).pop();
+                                },
+                                child: Column(
+                                  children: [
+                                    Spacer(),
+                                    SizedBox(
+                                      width: size.height*0.12,
+                                      height: size.height*0.12,
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.circular(size.width*0.03)
+                                        ),
+                                        margin: EdgeInsets.all(size.width * 0.03),
+                                        child: Text(item.toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: size.width*0.07
+                                            )),
+                                      ),
+                                    ),
+                                    Spacer(),
+                                  ],
+                                )
+                            );
+                          })
+                  ),
+                ],
+              ),
+            ),
+          ),
     );
   }
 }

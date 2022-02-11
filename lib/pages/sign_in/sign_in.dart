@@ -1,4 +1,4 @@
-// ignore_for_file: prefer__ructors, prefer__literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer__ructors, prefer__literals_to_create_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +26,7 @@ class SignIn extends StatelessWidget {
             elevation: 0,
             title:  Text(
               "Sign In",
-              style: TextStyle(color: Color(0xffBEBEBE)),
+              style: TextStyle(color: grey),
             ),
           ),
           body: Container(
@@ -56,11 +56,11 @@ class SignIn extends StatelessWidget {
 
                         SizedBox(height: size.height * 0.01),
 
-                        Text("Sign in with your email \nand password",
+                        Text("Sign in with your email and password",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Color(0xffDDDDDD),
-                                fontSize: 16)),
+                                fontSize: 18)),
                         SizedBox(height: size.height * 0.08),
 
                         Form(
@@ -71,14 +71,15 @@ class SignIn extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(4.0),
                                   child: buildEmailFormField(),
                                 ),
-                                SizedBox(
-                                    height: size.height * 0.020),
+
+                                SizedBox(height: size.height * 0.020),
+
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(4.0),
                                   child: buildPasswordFormField(),
                                 ),
-                                SizedBox(
-                                    height: size.height * 0.020),
+
+                                SizedBox(height: size.height * 0.020),
 
                                 //FORGOT Password
                                 Align(
@@ -109,11 +110,11 @@ class SignIn extends StatelessWidget {
                                             decoration:
                                             TextDecoration.underline,
                                             color: yellow,
-                                            fontSize: 16),
+                                            fontSize: 18),
                                       ),
                                     )),
-                                SizedBox(
-                                    height: size.height * 0.045),
+
+                                SizedBox(height: size.height * 0.045),
 
                                 //Sign in button
                                 SizedBox(
@@ -152,12 +153,12 @@ class SignIn extends StatelessWidget {
                                         'Sign In',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 16,
+                                          fontSize: 18,
                                         ),
                                       )),
                                 ),
-                                SizedBox(
-                                    height: size.height * 0.040),
+
+                                SizedBox(height: size.height * 0.040),
                               ],
                             )),
 
@@ -177,14 +178,14 @@ class SignIn extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 16),
+                                    fontSize: 18),
                               ),
                               Text(
                                 ' Sign Up',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: yellow,
-                                    fontSize: 16),
+                                    fontSize: 18),
                               ),
                             ],
                           ),

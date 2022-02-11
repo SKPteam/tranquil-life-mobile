@@ -8,7 +8,7 @@ TextFormField buildEmailFormField() {
     controller: signInController.emailTextEditingController,
     keyboardType: TextInputType.emailAddress,
     style: TextStyle(
-        fontSize: 16,
+        fontSize: 18,
         color: Colors.black
     ),
     decoration: InputDecoration(
@@ -17,7 +17,7 @@ TextFormField buildEmailFormField() {
       filled: true,
       hintText: "email address",
       hintStyle: TextStyle(
-          fontSize: 16
+          fontSize: 18
           , color: Colors.grey),
       contentPadding: EdgeInsets.symmetric(
           vertical: 25.0, horizontal: 16),
@@ -34,8 +34,7 @@ TextFormField buildPasswordFormField() {
     obscureText: signInController.obscureText.value,
     controller: signInController.passwordTextEditingController,
     style: TextStyle(
-        fontSize: 16
-        ,
+        fontSize: 18,
         color: Colors.black
     ),
     decoration: InputDecoration(
@@ -47,8 +46,8 @@ TextFormField buildPasswordFormField() {
       ),
       hintText: "password",
       hintStyle: TextStyle(
-          fontSize: 16
-          , color: Colors.grey),
+          fontSize: 18,
+          color: Colors.grey),
       fillColor: Colors.white,
       border: InputBorder.none,
       filled: true,
