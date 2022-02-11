@@ -15,7 +15,6 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/wallet_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/pages/wallet/widgets/stack_wallet.dart';
 import 'package:tranquil_life/pages/wallet/widgets/top_up_history.dart';
 import 'package:tranquil_life/routes/app_pages.dart';

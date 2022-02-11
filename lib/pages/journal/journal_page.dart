@@ -13,7 +13,6 @@ import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/pages/journal/widgets/note_item.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
