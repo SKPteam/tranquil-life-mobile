@@ -131,16 +131,15 @@ class _JournalViewState extends State<JournalView>
               height: displayHeight(context),
               padding:  EdgeInsets.all(20),
               child: Column(
-                mainAxisSize: MainAxisSize.max,
+                // mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'date',
+                        '11 February, 2022',
                         style: TextStyle(
                           color: kPrimaryDarkColor,
                           fontSize: 16,
@@ -164,7 +163,7 @@ class _JournalViewState extends State<JournalView>
                             child: Icon(
                               Icons.list,
                               color: kPrimaryColor,
-                              size: displayWidth(context) * 0.06,
+                              //size: size.width * 0.06,
                             ),
                           ),
                         ),
@@ -285,7 +284,7 @@ class _JournalViewState extends State<JournalView>
                             child: Icon(
                               Icons.check,
                               color: kPrimaryColor,
-                              size: displayWidth(context) * 0.06,
+                              size: size.width * 0.05,
                             )),
                       )),
                   SizedBox(

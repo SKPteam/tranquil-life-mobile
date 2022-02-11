@@ -31,10 +31,15 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ConsultantProfileModel?
-    consultantProfileModel = ConsultantProfileModel(
-      preferredLangs: "Yoruba", yearsOfExperience: "2",
-      areaOfExpertise: "5", uid: "1", fee: 5000, firstName: "Barry", lastName: "allen", );
+    ConsultantProfileModel? consultantProfileModel = ConsultantProfileModel(
+      preferredLangs: "Yoruba",
+      yearsOfExperience: "2",
+      areaOfExpertise: "5",
+      uid: "1",
+      fee: 5000,
+      firstName: "Barry",
+      lastName: "allen",
+    );
     return ResponsiveSafeArea(responsiveBuilder: (context, size) {
       return Scaffold(
           key: scaffoldKey,
@@ -166,18 +171,17 @@ class Home extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    height: displayHeight(context),
-                  ),
+
                   Positioned(
-                      top: size.height * 0.1,
+                      top: size.height * 0.2,
                       left: 0,
-                      width: displayWidth(context),
+                      width: size.width,
                       child: SizedBox(
-                        height: displayHeight(context) -
-                            displayHeight(context) * 0.12,
+                        height: size.height -
+                            size.height * 0.25,
                         child: SingleChildScrollView(
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             MyMeetingsSection(),
                             SizedBox(
@@ -315,8 +319,6 @@ class Home extends StatelessWidget {
                                         width: displayWidth(context) * 0.94,
                                         child: ElevatedButton(
                                             onPressed: () async {
-
-
                                               ///list of schedules containing schedule model for creating container templates
                                               ///of weekDay and date
                                               ///dates from tom to next 7 days generated from DateTime

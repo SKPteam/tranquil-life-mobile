@@ -17,5 +17,5 @@ class OnBoardingController extends GetxController{
     }
   ];
 
-  RxString userType = ''.obs;
+  RxString userType = 'client'.obs;
 }

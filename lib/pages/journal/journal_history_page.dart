@@ -8,6 +8,7 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
 import 'package:tranquil_life/helpers/constants.dart';
+import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/pages/journal/selected_note_page.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
@@ -21,20 +22,19 @@ class JournalHistoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     final JournalHistoryController _ = Get.put(JournalHistoryController());
 
-    return Scaffold(
-        backgroundColor: kLightBackgroundColor,
-        body: SafeArea(
-          child: SizedBox(
-            width: displayWidth(context),
+    return ResponsiveSafeArea(
+      responsiveBuilder: (context, size) => Scaffold(
+          backgroundColor: kLightBackgroundColor,
+          body: SizedBox(
+            width: size.width,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+
               children: [
                 //------------------------
                 // APPBAR
                 //------------------------
                 Container(
-                  width: displayWidth(context) * 0.95,
+                  width: size.width * 0.95,
                   padding:  EdgeInsets.all(8),
                   child: Row(
                     children: [
@@ -53,7 +53,7 @@ class JournalHistoryView extends StatelessWidget {
                       //------------------------
                       // SCREEN HEADING
                       //------------------------
-                       Text(
+                      Text(
                         'Journal',
                         style: TextStyle(
                           color: kPrimaryColor,
@@ -61,7 +61,7 @@ class JournalHistoryView extends StatelessWidget {
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                       Spacer(),
+                      Spacer(),
                       //------------------------
                       // Search Button Container
                       //------------------------
@@ -75,8 +75,8 @@ class JournalHistoryView extends StatelessWidget {
                           ));
                         },
                         child: Container(
-                          height: displayHeight(context) * 0.037,
-                          width: displayHeight(context) * 0.037,
+                          height: 35,
+                          width: 35,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8.0),
@@ -86,7 +86,7 @@ class JournalHistoryView extends StatelessWidget {
                           //------------------------
                           child: Icon(
                             Icons.search_rounded,
-                            size: displayWidth(context) * 0.06,
+                            //size: size.width * 0.06,
                             color: kPrimaryColor,
                           ),
                         ),
@@ -313,8 +313,8 @@ class JournalHistoryView extends StatelessWidget {
                 // )
               ],
             ),
-          ),
-        ));
+          )),
+    );
   }
 
 
