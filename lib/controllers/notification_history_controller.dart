@@ -5,13 +5,18 @@ import 'package:get_storage/get_storage.dart';
 import 'package:tranquil_life/models/notification_history_model.dart';
 
 class NotificationHistoryController extends GetxController {
-  RxBool dataLoaded = false.obs;
+  RxBool dataLoaded = true.obs;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
   GlobalKey<AnimatedListState> get listKey => _listKey;
 
   ///list containing the notifications from the database
-  List<NotificationModel> notifications = [];
+  List<NotificationModel> notifications = [
+    NotificationModel(id: '1', userName: 'mike', uid: '1', msg: "Hi", imageUrl: "assets/images/avatar_img2.png"),
+    NotificationModel(id: '2', userName: 'mick', uid: '2', msg: "Hello", imageUrl: "assets/images/avatar_img2.png"),
+    NotificationModel(id: '3', userName: 'tom', uid: '3', msg: "are you coming", imageUrl: "assets/images/avatar_img2.png"),
+    NotificationModel(id: '4', userName: 'tommy', uid: '4', msg: "have you left? ", imageUrl: "assets/images/avatar_img2.png"),
+    NotificationModel(id: '5', userName: 'tomi', uid: '5', msg: "don't give up ", imageUrl: "assets/images/avatar_img2.png")];
 
   ///the last Notification document from the 10 extracted documents
 

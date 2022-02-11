@@ -267,7 +267,7 @@ class RegistrationOneView extends GetView<RegistrationOneController> {
       },
       flagWidth: size.width / 18,
       initialSelection: 'NG',
-      favorite: const ['+234', 'NG'],
+      favorite: ['+234', 'NG'],
       onChanged: (_countryCode) {
         registrationOneController.countryCode = _countryCode.toString();
         print("New Country selected: " + registrationOneController.countryCode.toString());
@@ -368,7 +368,3 @@ class RegistrationOneView extends GetView<RegistrationOneController> {
     );
   }
 }
-
-
-
-

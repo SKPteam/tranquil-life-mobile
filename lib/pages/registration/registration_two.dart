@@ -191,6 +191,7 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
     );
   }
 
+  
   TextFormField buildFirstNameFormField(RegistrationTwoController _, Size size) {
     return TextFormField(
       controller: _.firstNameTextEditingController,
@@ -234,6 +235,7 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
       ),
     );
   }
+
 
   TextFormField buildUserNameFormField(RegistrationTwoController _, Size size) {
     return TextFormField(

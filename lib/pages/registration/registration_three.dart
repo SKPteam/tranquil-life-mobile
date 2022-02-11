@@ -1,5 +1,4 @@
-
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, prefer_const_literals_to_create_immutables, must_be_immutable
 
 import 'package:flutter/material.dart';
 
@@ -15,9 +14,6 @@ import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
 import 'package:tranquil_life/widgets/custom_form_field.dart';
-
-
-
 import 'package:tranquil_life/widgets/custom_form_field.dart';
 import 'package:tranquil_life/widgets/progress_dialog.dart';
 
@@ -26,7 +22,7 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
 
   final OnBoardingController obc = Get.put(
       OnBoardingController());
-
+  
   RegistrationThreeView({Key? key}) : super(key: key);
 
   @override
@@ -39,7 +35,7 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text(
+              title: Text(
                 "Sign Up",
                 style: TextStyle(color: Color(0xffBEBEBE)),
               ),
@@ -422,6 +418,4 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
             )))
     );
   }
-
-
 }
