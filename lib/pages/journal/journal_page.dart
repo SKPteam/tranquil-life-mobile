@@ -11,6 +11,7 @@ import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
+import 'package:tranquil_life/controllers/journal_history_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/journal/widgets/note_item.dart';
@@ -19,6 +20,8 @@ import 'package:tranquil_life/widgets/custom_snackbar.dart';
 
 class JournalView extends StatefulWidget {
   final String moodSvgUrl;
+
+  Size size = MediaQuery.of(Get.context!).size;
 
    JournalView({Key? key, required this.moodSvgUrl}) : super(key: key);
 
@@ -127,7 +130,7 @@ class _JournalViewState extends State<JournalView>
             ?
         SingleChildScrollView(
             child: Container(
-              height: displayHeight(context),
+              height: size.height,
               padding:  EdgeInsets.all(20),
               child: Column(
                 // mainAxisSize: MainAxisSize.max,
@@ -294,7 +297,7 @@ class _JournalViewState extends State<JournalView>
             ))
             :
         SizedBox(
-          width: displayWidth(context),
+          width: size.width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -303,12 +306,12 @@ class _JournalViewState extends State<JournalView>
               // APPBAR
               //------------------------
               Container(
-                width: displayWidth(context) * 0.95,
+                width: size.width * 0.95,
                 padding:  EdgeInsets.all(8),
                 child: Row(
                   children: [
                     SizedBox(
-                      width: displayWidth(context) * 0.06,
+                      width: size.width * 0.06,
                     ),
                     //------------------------
                     // SCREEN HEADING
@@ -330,8 +333,8 @@ class _JournalViewState extends State<JournalView>
                         //TODO: Search query for journal using heading
                       },
                       child: Container(
-                        height: displayHeight(context) * 0.037,
-                        width: displayHeight(context) * 0.037,
+                        height: size.height * 0.037,
+                        width: size.height * 0.037,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8.0),
@@ -341,7 +344,7 @@ class _JournalViewState extends State<JournalView>
                         //------------------------
                         child: Icon(
                           Icons.search_rounded,
-                          size: displayWidth(context) * 0.06,
+                          size: size.width * 0.06,
                           color: kPrimaryColor,
                         ),
                       ),

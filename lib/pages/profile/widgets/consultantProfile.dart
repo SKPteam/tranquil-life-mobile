@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, avoid_unnecessary_containers, must_be_immutable
 
 import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
@@ -13,6 +14,7 @@ import 'package:tranquil_life/pages/scheduling/widgets/consultantProfile_info_wi
 
 
 class ConsultantProfile extends StatelessWidget {
+  Size size = MediaQuery.of(Get.context!).size;
   //final ConsultantProfileModel consultantProfileModel;
   final ConsultantPortfolioModel consultantPortfolio;
   final String heroTag;
@@ -44,20 +46,20 @@ class ConsultantProfile extends StatelessWidget {
                     tag: heroTag,
                     child: Container(
                         alignment: Alignment.topLeft,
-                        width: displayWidth(context),
-                        height: displayHeight(context) * 0.55,
+                        width: size.width,
+                        height: size.height * 0.55,
                         child: true
                         //consultantProfileModel.avatarUrl != ''
                             ? Image.asset(
                           'assets/images/avatar_img1.png',
                           // consultantProfileModel.avatarUrl.toString(),
                           fit: BoxFit.cover,
-                          height: displayHeight(context) * 0.55,
+                          height: size.height * 0.55,
                         )
                             : Image.asset(
                           'assets/images/default_img.png',
                           fit: BoxFit.cover,
-                          height: displayHeight(context) * 0.55,
+                          height: size.height * 0.55,
                         )),
                   ),
                   SafeArea(

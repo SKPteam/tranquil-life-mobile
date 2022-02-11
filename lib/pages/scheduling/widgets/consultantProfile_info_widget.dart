@@ -2,9 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/consultant_porfolio_model.dart';
+import 'package:get/get_core/src/get_main.dart';
+
 import 'package:tranquil_life/models/consultant_profile_model.dart';
 
 class ConsultantProfileInfoWidget extends StatefulWidget {
@@ -23,10 +25,14 @@ class ConsultantProfileInfoWidget extends StatefulWidget {
 }
 
 class _ConsultantProfileInfoWidgetState
+
     extends State<ConsultantProfileInfoWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _sliderAnimation;
+
+  Size size = MediaQuery.of(Get.context!).size;
+
 
   @override
   void initState() {
@@ -56,7 +62,7 @@ class _ConsultantProfileInfoWidgetState
       offset: Offset(0, _sliderAnimation.value),
       child: Container(
         padding: EdgeInsets.all(35),
-        height: displayHeight(context) * 0.55,
+        height: size.height * 0.55,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
@@ -95,7 +101,7 @@ class _ConsultantProfileInfoWidgetState
               // SESSION CONTAINER
               //------------------------
               Container(
-                height: displayHeight(context) * 0.08,
+                height: size.height * 0.08,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
                   color: kPrimaryColor,
@@ -111,7 +117,7 @@ class _ConsultantProfileInfoWidgetState
                   children: [
                     Icon(
                       Icons.schedule,
-                      size: displayWidth(context) * 0.05,
+                      size: size.width * 0.05,
                       color: Colors.white,
                     ),
                     SizedBox(
@@ -161,7 +167,7 @@ class _ConsultantProfileInfoWidgetState
               // FLUENCY CONTAINER
               //------------------------
               Container(
-                height: displayHeight(context) * 0.08,
+                height: size.height * 0.08,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
                   color: kPrimaryColor,
@@ -177,7 +183,7 @@ class _ConsultantProfileInfoWidgetState
                   children: [
                     Icon(
                       Icons.language,
-                      size: displayWidth(context) * 0.05,
+                      size: size.width * 0.05,
                       color: Colors.white,
                     ),
                     SizedBox(
@@ -225,7 +231,7 @@ class _ConsultantProfileInfoWidgetState
               // CURRENT LOCATION CONTAINER
               //------------------------
               Container(
-                height: displayHeight(context) * 0.08,
+                height: size.height * 0.08,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(18),
                   color: Colors.white,
@@ -244,7 +250,7 @@ class _ConsultantProfileInfoWidgetState
                   children: [
                     Icon(
                       Icons.place,
-                      size: displayWidth(context) * 0.05,
+                      size: size.width * 0.05,
                       color: kPrimaryColor,
                     ),
                     SizedBox(

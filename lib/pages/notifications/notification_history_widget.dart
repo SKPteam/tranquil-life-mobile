@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:get_storage/get_storage.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
@@ -10,6 +11,7 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/models/notification_history_model.dart';
 
 class NotificationHistoryItem extends StatelessWidget {
+  Size size = MediaQuery.of(Get.context!).size;
   NotificationHistoryItem(
       {Key? key,
         this.notificationModel,
@@ -97,7 +99,7 @@ class NotificationHistoryItem extends StatelessWidget {
               }
             },
             child: SizedBox(
-              width: displayWidth(context) * 0.8,
+              width: size.width * 0.8,
               height: 140,
               //------------------------
               // STACK FOR HOLDING BADGE AND NOTIFICATION CONTAINER
@@ -143,7 +145,7 @@ class NotificationHistoryItem extends StatelessWidget {
                           child: Container(
                             padding:  EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 8),
-                            width: displayWidth(context) * 0.8,
+                            width: size.width * 0.8,
                             height: 140,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -202,7 +204,7 @@ class NotificationHistoryItem extends StatelessWidget {
                                     // NOTIFICATION TEXT
                                     //------------------------
                                     Container(
-                                      width: displayWidth(context) * 0.53,
+                                      width: size.width * 0.53,
                                       child: coordinatesOfUsername.isEmpty
                                           ? Text(
                                         notificationModel?.msg ?? '',

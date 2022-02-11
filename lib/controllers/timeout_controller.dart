@@ -19,6 +19,8 @@ import 'package:tranquil_life/widgets/custom_form_field.dart';
 class TimeoutController extends GetxController{
   static TimeoutController instance = Get.find();
 
+  Size size = MediaQuery.of(Get.context!).size;
+
   TextEditingController pwdTEC = TextEditingController();
 
   //DashboardController dashboardController = Get.put(DashboardController());
@@ -55,7 +57,7 @@ class TimeoutController extends GetxController{
       clearPin();
       Get.bottomSheet(Container(
         //padding: const EdgeInsets.all(8),
-        height: displayHeight(Get.context!) * 0.22,
+        height: size.height * 0.22,
         decoration: const BoxDecoration(color: Colors.white),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -72,29 +74,11 @@ class TimeoutController extends GetxController{
                 togglePassword: obscureText.value.obs),
             const SizedBox(height: 30),
             SizedBox(
-              height: displayHeight(Get.context!) * 0.056,
-              width: displayWidth(Get.context!) * 0.8,
+              height: size.height * 0.056,
+              width: size.width * 0.8,
               child: ElevatedButton(
                   onPressed: () async
                   {
-                    // AuthCredential credential = EmailAuthProvider.credential(
-                    //     email: auth!.currentUser!.email.toString(),
-                    //     password: pwdTEC.text);
-                    //
-                    // await auth!.currentUser!
-                    //     .reauthenticateWithCredential(credential)
-                    //     .then((value) {
-                    //   if (!value.isNull) {
-                    //     Get.back();
-                    //
-                    //     appBarTitle.value = "Create New Pin";
-                    //     print(appBarTitle.value);
-                    //   }
-                    // }).catchError((e) async {
-                    //   Get.back();
-                    //
-                    //   displaySnackBar(e.toString(), Get.context!);
-                    // });
                   },
                   style: ElevatedButton.styleFrom(
                       padding:
@@ -104,7 +88,7 @@ class TimeoutController extends GetxController{
                     'Next',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: displayWidth(Get.context!) / 28,
+                      fontSize:size.width / 28,
                     ),
                   )),
             ),
