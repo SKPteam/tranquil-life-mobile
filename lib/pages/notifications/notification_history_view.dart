@@ -23,13 +23,13 @@ class NotificationHistoryScreen extends StatelessWidget {
       => Scaffold(
       backgroundColor: kLightBackgroundColor,
       body: SizedBox(
-        width: displayWidth(context),
+        width: size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: displayWidth(context) * 0.95,
+              width: size.width * 0.95,
               padding:  EdgeInsets.all(8),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,7 +45,7 @@ class NotificationHistoryScreen extends StatelessWidget {
                     icon:  Icon(Icons.arrow_back, color: kPrimaryColor),
                   ),
                   SizedBox(
-                    width: displayWidth(context) * 0.06,
+                    width: size.width * 0.06,
                   ),
                   //------------------------
                   // SCREEN HEADING
@@ -62,7 +62,7 @@ class NotificationHistoryScreen extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: displayHeight(context) * 0.03,
+              height: size.height * 0.03,
             ),
             //------------------------
             // LIST OF NOTIFICATIONS
@@ -94,7 +94,7 @@ class NotificationHistoryScreen extends StatelessWidget {
                     physics:  BouncingScrollPhysics(),
                     padding: EdgeInsets.only(
                       bottom: 20,
-                      top: displayHeight(context) * 0.05,
+                      top: size.height * 0.05,
                     ),
                   )
                       : Container(

@@ -6,13 +6,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/journal_controller.dart';
-import 'package:tranquil_life/helpers/constants.dart';
+import 'package:tranquil_life/controllers/journal_history_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/journal/selected_note_page.dart';
-import 'package:tranquil_life/routes/app_pages.dart';
 
 class JournalHistoryView extends StatelessWidget {
+  Size size = MediaQuery.of(Get.context!).size;
    JournalHistoryView({Key? key}) : super(key: key);
 
   @override

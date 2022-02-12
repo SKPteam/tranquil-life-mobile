@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, must_be_immutable, use_key_in_widget_constructors
 
 import 'dart:html';
 import 'dart:convert';
@@ -14,7 +14,6 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/consultant_list_controller.dart';
 import 'package:tranquil_life/controllers/consultant_registration_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/consultant_porfolio_model.dart';
 import 'package:tranquil_life/models/consultant_profile_model.dart';
 import 'package:tranquil_life/models/schedule_date_model.dart';
@@ -25,6 +24,8 @@ import 'package:tranquil_life/pages/scheduling/scheduling_time/widgets/schedule_
 
 
 class ConsultantListView extends StatefulWidget {
+  Size size = MediaQuery.of(Get.context!).size;
+
   // final List<Map<String, String>> answerOfQuestionaire;
   //
   //  ConsultantListView({Key? key, required this.answerOfQuestionaire})
@@ -35,6 +36,7 @@ class ConsultantListView extends StatefulWidget {
 }
 
 class _ConsultantListViewState extends State<ConsultantListView> {
+
   @override
   void initState() {
     // print(jsonArray.map((e) => print(e['f_name'])).toList());
@@ -95,7 +97,7 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: displayWidth(context) * 0.12),
+                              horizontal: size.width * 0.12),
                           child: ListView.separated(
                             separatorBuilder: (context, index) => SizedBox(
                               height: 20,
@@ -126,14 +128,12 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                                                   ? Image.asset(
                                                       'assets/images/avatar_img1.png',
                                                       fit: BoxFit.cover,
-                                                      height: displayHeight(
-                                                              context) *
+                                                      height: size.height *
                                                           0.55)
                                                   : Image.asset(
                                                       'assets/images/default_img.png',
                                                       fit: BoxFit.cover,
-                                                      height: displayHeight(
-                                                              context) *
+                                                      height: size.height *
                                                           0.55,
                                                     ),
                                             ),
@@ -160,7 +160,7 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                                       flex: 6,
                                       child: Container(
                                         padding: EdgeInsets.only(
-                                            left: displayWidth(context) * 0.05),
+                                            left: size.width * 0.05),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,

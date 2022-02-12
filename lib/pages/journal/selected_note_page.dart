@@ -1,4 +1,4 @@
-// ignore_for_file: preferructors, prefer_const_constructors
+// ignore_for_file: preferructors, prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +11,7 @@ import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/models/journal_model.dart';
 
 class SelectedNoteView extends StatelessWidget {
+  Size size = MediaQuery.of(Get.context!).size;
   // final JournalModel journalModel;
   //
   // SelectedNoteView({Key? key, required this.journalModel}) : super(key: key);
@@ -77,7 +78,7 @@ class SelectedNoteView extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: displayHeight(context) * 0.03,
+              height: size.height * 0.03,
             ),
 
             Expanded(

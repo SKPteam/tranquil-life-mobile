@@ -2,14 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/dashboard_controller.dart';
-import 'package:tranquil_life/helpers/sizes_helpers.dart';
-import 'package:tranquil_life/helpers/time_function_controller_helper.dart';
 import 'package:tranquil_life/models/consultant_profile_model.dart';
 import 'package:tranquil_life/models/schedule_date_model.dart';
-import 'package:tranquil_life/pages/scheduling/scheduling_time/widgets/demo_timing.dart';
 
 class ScheduleMeetingDialog extends StatefulWidget {
   final String workingTimeOfConsultant;
@@ -33,6 +30,8 @@ class ScheduleMeetingDialog extends StatefulWidget {
 }
 
 class _ScheduleMeetingDialogState extends State<ScheduleMeetingDialog> {
+  Size size = MediaQuery.of(Get.context!).size;
+
   final ValueNotifier<int> selectedDate = ValueNotifier(-1);
   final ValueNotifier<String> selectedMonthToDisplay = ValueNotifier('');
   final ScrollController _dateListController = ScrollController();
@@ -68,7 +67,7 @@ class _ScheduleMeetingDialogState extends State<ScheduleMeetingDialog> {
           top: Radius.circular(40),
         ),
       ),
-      padding: EdgeInsets.only(left: displayWidth(context) * 0.1, top: 40),
+      padding: EdgeInsets.only(left: size.width * 0.1, top: 40),
       child: dataLoaded
           ? Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -191,7 +190,7 @@ class _ScheduleMeetingDialogState extends State<ScheduleMeetingDialog> {
                     // * and then divide it by 80, 60 is the width of the container and added 20 as there is SizedBox
                     // * of 20 width between each container and then subtract 1 from it as we need index which starts from 0
                     var indexOfDateBadge = ((scrollOffset +
-                        displayWidth(context) * 0.9 -
+                        size.width * 0.9 -
                         20) ~/
                         80) -
                         1;

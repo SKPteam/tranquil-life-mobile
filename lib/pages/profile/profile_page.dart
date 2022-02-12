@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/dashboard_controller.dart';
-import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/profile_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
@@ -16,6 +14,8 @@ import 'edit_profile_page.dart';
 
 class ProfileView extends StatefulWidget {
   final void Function(int index) setBottomBarIndex;
+
+  Size size = MediaQuery.of(Get.context!).size;
 
   ProfileView({Key? key, required this.setBottomBarIndex})
       : super(key: key);
@@ -34,7 +34,7 @@ class _ProfileViewState extends State<ProfileView> {
           Scaffold(
           backgroundColor: kLightBackgroundColor,
           body: Container(
-              margin: EdgeInsets.only(top: displayHeight(context) * 0.05),
+              margin: EdgeInsets.only(top: size.height * 0.05),
               child: Column(
                 children: [
                   Container(
@@ -86,7 +86,7 @@ class _ProfileViewState extends State<ProfileView> {
                           child: Center(
                             child: Container(
                               height: 90,
-                              width: displayWidth(context),
+                              width: size.width,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
                                   color: Colors.white),
@@ -209,7 +209,7 @@ class _ProfileViewState extends State<ProfileView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: displayWidth(context) * 0.2,
+                          width: size.width * 0.2,
                           color: kLightBackgroundColor,
                         ),
                         Expanded(

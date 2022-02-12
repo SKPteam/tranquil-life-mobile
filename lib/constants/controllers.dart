@@ -17,7 +17,7 @@ import 'package:tranquil_life/controllers/wallet_controller.dart';
 
 SplashScreenController splashScreenController = SplashScreenController.instance;
 OnBoardingController onBoardingController = OnBoardingController.instance;
-//TimeoutController lockScreenController = TimeoutController.instance;
+TimeoutController lockScreenController = TimeoutController.instance;
 SignInController signInController = SignInController.instance;
 RegistrationOneController registrationOneController = RegistrationOneController.instance;
 RegistrationTwoController registrationTwoController = RegistrationTwoController.instance;
@@ -25,7 +25,7 @@ RegistrationThreeController registrationThreeController = RegistrationThreeContr
 RegistrationFourController registrationFourController = RegistrationFourController.instance;
 DashboardController dashboardController = DashboardController.instance;
 HomeController homeController = HomeController.instance;
-//WalletController walletController = WalletController.instance;
-//JournalController journalController = JournalController.instance;
+WalletController walletController = WalletController.instance;
+JournalController journalController = JournalController.instance;
 ProfileController profileController = ProfileController.instance;
 ChatController chatController = ChatController.instance;

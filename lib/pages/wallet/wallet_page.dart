@@ -1,9 +1,8 @@
-// ignore_for_file: prefer__literals_to_create_immutables, prefer__ructors, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, sized_box_for_whitespace
+// ignore_for_file: prefer__literals_to_create_immutables, prefer__ructors, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, sized_box_for_whitespace, unnecessary_import
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/wallet_controller.dart';
@@ -12,8 +11,6 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/dashboard_controller.dart';
-import 'package:tranquil_life/controllers/wallet_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/wallet/widgets/stack_wallet.dart';
 import 'package:tranquil_life/pages/wallet/widgets/top_up_history.dart';
@@ -21,6 +18,9 @@ import 'package:tranquil_life/routes/app_pages.dart';
 
 class WalletView extends StatefulWidget {
   final void Function(int index) reloadWalletPage;
+
+  Size size = MediaQuery.of(Get.context!).size;
+
 
   WalletView({Key? key, required this.reloadWalletPage}) : super(key: key);
 
@@ -33,6 +33,8 @@ class _WalletViewState extends State<WalletView>
   final WalletController _ = Get.put(WalletController());
 
   void implementAnimation() async {
+    Size size = MediaQuery.of(Get.context!).size;
+
     _.controller =
         AnimationController(duration: Duration(milliseconds: 800), vsync: this);
     _.animationaw = Tween<double>(begin: 20, end: 0).animate(_.controller)
@@ -82,7 +84,7 @@ class _WalletViewState extends State<WalletView>
                             color: Colors.black,
                             fontWeight: FontWeight.bold))
                     .width -
-                displayWidth(context) -
+                size.width -
                 4,
             end: 0)
         .animate(_.controller)
@@ -125,7 +127,7 @@ class _WalletViewState extends State<WalletView>
           //dependency injection to check userType
           body: Get.find<OnBoardingController>().userType.value == client
               ? Container(
-            height: displayHeight(context),
+            height: size.height,
             padding: EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -178,7 +180,7 @@ class _WalletViewState extends State<WalletView>
                         ],
                       ),
                       SizedBox(
-                        height: displayHeight(context) * 0.022,
+                        height: size.height * 0.022,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -195,7 +197,7 @@ class _WalletViewState extends State<WalletView>
                         ],
                       ),
                       SizedBox(
-                        height: displayHeight(context) * 0.022,
+                        height: size.height * 0.022,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -203,7 +205,7 @@ class _WalletViewState extends State<WalletView>
                           Text("Top up"),
                           Container(
                             margin: EdgeInsets.only(
-                                right: displayWidth(context) * 0.04),
+                                right: size.width * 0.04),
                             decoration: BoxDecoration(
                               color: Colors.white70,
                               borderRadius: BorderRadius.circular(10.0),
@@ -223,7 +225,7 @@ class _WalletViewState extends State<WalletView>
                                 Get.bottomSheet(Container(
                                   decoration:
                                   BoxDecoration(color: Colors.white),
-                                  height: displayHeight(context) * 0.5,
+                                  height: size.height * 0.5,
                                   padding: EdgeInsets.fromLTRB(
                                       16.0, 16.0, 16.0, 0),
                                   child: ListView.builder(
@@ -257,11 +259,11 @@ class _WalletViewState extends State<WalletView>
                                 ));
                               },
                               child: SizedBox(
-                                  width: displayWidth(context) * 0.10,
-                                  height: displayWidth(context) * 0.10,
+                                  width: size.width * 0.10,
+                                  height: size.width * 0.10,
                                   child: Icon(
                                     Icons.arrow_upward,
-                                    size: displayWidth(context) * 0.06,
+                                    size: size.width * 0.06,
                                     color: kPrimaryColor,
                                   )),
                             ),
@@ -269,7 +271,7 @@ class _WalletViewState extends State<WalletView>
                         ],
                       ),
                       SizedBox(
-                        height: displayHeight(context) * 0.08,
+                        height: size.height * 0.08,
                       ),
                       SizedBox(
                           width: double.infinity,
@@ -298,7 +300,7 @@ class _WalletViewState extends State<WalletView>
                                       'View transactions',
                                       style: TextStyle(
                                           fontSize:
-                                          displayWidth(context) / 28),
+                                          size.width / 28),
                                     ),
                                     Icon(
                                         Icons.keyboard_arrow_up_outlined),
@@ -316,7 +318,7 @@ class _WalletViewState extends State<WalletView>
           )
               : SingleChildScrollView(
             child: Container(
-              height: displayHeight(context),
+              height: size.height,
               padding: EdgeInsets.all(20),
               child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -325,7 +327,7 @@ class _WalletViewState extends State<WalletView>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: displayHeight(context) * 0.2,
+                          height: size.height * 0.2,
                         ),
                         Container(
                           height: 80,
@@ -376,7 +378,7 @@ class _WalletViewState extends State<WalletView>
                         Stack(
                           children: [
                             Container(
-                              height: displayHeight(context) * 0.08,
+                              height: size.height * 0.08,
                               child: Center(
                                 child: Row(
                                   mainAxisAlignment:
@@ -408,7 +410,7 @@ class _WalletViewState extends State<WalletView>
                         Stack(
                           children: [
                             Container(
-                              height: displayHeight(context) * 0.08,
+                              height: size.height * 0.08,
                               child: Center(
                                 child: Row(
                                   mainAxisAlignment:
@@ -443,7 +445,7 @@ class _WalletViewState extends State<WalletView>
                         Stack(
                           children: [
                             Container(
-                              height: displayHeight(context) * 0.08,
+                              height: size.height * 0.08,
                               child: Center(
                                 child: Row(
                                   mainAxisAlignment:
@@ -472,7 +474,7 @@ class _WalletViewState extends State<WalletView>
                         Stack(
                           children: [
                             Container(
-                              height: displayHeight(context) * 0.08,
+                              height: size.height * 0.08,
                               child: Center(
                                 child: Row(
                                   mainAxisAlignment:
