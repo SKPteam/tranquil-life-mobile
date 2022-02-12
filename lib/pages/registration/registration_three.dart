@@ -182,14 +182,16 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
                                             } else if (registrationThreeController
                                                 .companyEditingController
                                                 .text ==
-                                                'None' &&
+                                                'none' &&
                                                 registrationThreeController
                                                     .staffIDEditingController
                                                     .value.text.isEmpty) {
                                               // _.registerNewClient(
                                               //     context);
                                             }
-                                            else {}
+                                            else {
+                                              Get.toNamed(Routes.SIGN_IN);
+                                            }
                                           } else {
                                             displaySnackBar(
                                                 'Select your company or organisation',

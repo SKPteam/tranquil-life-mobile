@@ -2,12 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
+import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/models/consultant_profile_model.dart';
@@ -24,9 +27,11 @@ import 'package:tranquil_life/widgets/top_nav.dart';
 import 'widgets/moods_section.dart';
 import 'widgets/notificationBadge.dart';
 
-class Home extends StatelessWidget {
+class Home extends GetView<HomeController> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   bool? toggleValue = false;
+
+  final DashboardController _dashboardController = Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,7 @@ class Home extends StatelessWidget {
           key: scaffoldKey,
           backgroundColor: light,
           appBar: topNavigationBar(context, scaffoldKey),
-          body: Get.find<OnBoardingController>().userType.value == client
+          body: dashboardController.userType.value == client
               ? Stack(children: [
                   Container(
                     height: size.height * .35,
@@ -193,11 +198,13 @@ class Home extends StatelessWidget {
                               },
                             ),
                             SizedBox(
-                              height: 100,
+                              height: 80,
                             )
                           ],
                         )),
-                      ))
+                      )),
+
+
                 ])
               : Stack(
                   children: [
@@ -378,7 +385,8 @@ class Home extends StatelessWidget {
                       ),
                     )
                   ],
-                ));
+                ),
+      );
     });
   }
 }

@@ -13,11 +13,9 @@ import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/models/card_model.dart';
 import 'package:tranquil_life/helpers/constants.dart';
-import 'package:tranquil_life/main.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 
-import 'dashboard_controller.dart';
 
 class WalletController extends GetxController{
   static WalletController instance = Get.find();

@@ -30,7 +30,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  persistent_bottom_nav_bar: any
   get: any
   get_storage: any #backs up data to disk at each operation
   toggle_switch: any

@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:tranquil_life/constants/controllers.dart';
+import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/wallet_controller.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -31,6 +33,8 @@ class WalletView extends StatefulWidget {
 class _WalletViewState extends State<WalletView>
     with SingleTickerProviderStateMixin {
   final WalletController _ = Get.put(WalletController());
+  final DashboardController _dashboardController = Get.put(DashboardController());
+
 
   void implementAnimation() async {
     Size size = MediaQuery.of(Get.context!).size;
@@ -125,7 +129,7 @@ class _WalletViewState extends State<WalletView>
             () => Scaffold(
           backgroundColor: kLightBackgroundColor,
           //dependency injection to check userType
-          body: Get.find<OnBoardingController>().userType.value == client
+          body: dashboardController.userType.value == client
               ? Container(
             height: size.height,
             padding: EdgeInsets.all(20),

@@ -2,7 +2,7 @@
 library app_pages;
 
 import 'package:get/get.dart';
-import 'package:tranquil_life/dashboard.dart';
+import 'package:tranquil_life/pages/dashboard/dashboard.dart';
 import 'package:tranquil_life/models/journal_model.dart';
 import 'package:tranquil_life/pages/chat/chat_history.dart';
 import 'package:tranquil_life/pages/chat/chatroom.dart';
