@@ -73,14 +73,14 @@ class AppPages {
       name: _Paths.TIMEOUT_SCREEN,
       page: () => TimeoutView(),
     ),
-    // GetPage(
-    //   name: _Paths.WALLET,
-    //   page: () => WalletView(reloadWalletPage: (int index) {  },),
-    // ),
-    // GetPage(
-    //   name: _Paths.ADD_NEW_CARD,
-    //   page: () =>  AddNewCard(reloadWalletPage: (int index) {  },),
-    // ),
+    GetPage(
+      name: _Paths.WALLET,
+      page: () => WalletView(reloadWalletPage: (int index) {  },),
+    ),
+    GetPage(
+      name: _Paths.ADD_NEW_CARD,
+      page: () =>  AddNewCard(reloadWalletPage: (int index) {  },),
+    ),
     GetPage(
       name: _Paths.JOURNAL,
       page: () =>  JournalView(moodSvgUrl: '',),

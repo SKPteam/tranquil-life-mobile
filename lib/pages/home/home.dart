@@ -49,7 +49,7 @@ class Home extends GetView<HomeController> {
           key: scaffoldKey,
           backgroundColor: light,
           appBar: topNavigationBar(context, scaffoldKey),
-          body: dashboardController.userType.value == consultant
+          body: dashboardController.userType.value == client
               ? Stack(children: [
                   Container(
                     height: size.height * .35,

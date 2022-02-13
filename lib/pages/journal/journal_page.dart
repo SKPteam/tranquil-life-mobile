@@ -306,6 +306,7 @@ class _JournalViewState extends State<JournalView>
               // APPBAR
               //------------------------
               Container(
+
                 width: size.width * 0.95,
                 padding:  EdgeInsets.all(8),
                 child: Row(

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:tranquil_life/controllers/add_new_card_controller.dart';
 import 'package:tranquil_life/controllers/consultant_registration_controller.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
@@ -26,6 +27,7 @@ class AllControllerBinding extends Bindings{
     Get.lazyPut(() => RegistrationThreeController());
     Get.lazyPut(() => RegistrationFourController());
     Get.lazyPut(() => DashboardController());
+    Get.lazyPut(() => AddNewCardController());
 
   }
 
