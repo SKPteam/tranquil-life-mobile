@@ -344,7 +344,7 @@ class _JournalViewState extends State<JournalView>
                         //------------------------
                         child: Icon(
                           Icons.search_rounded,
-                          size: size.width * 0.06,
+                          size: 28,
                           color: kPrimaryColor,
                         ),
                       ),

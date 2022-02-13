@@ -1,16 +1,20 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, annotate_overrides, overridden_fields
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/models/schedule_meeting.dart';
 import 'package:tranquil_life/pages/chat/audio_call_screen.dart';
 import 'package:tranquil_life/pages/chat/widgets/custom_dialog.dart';
 import 'package:tranquil_life/pages/chat/widgets/rate_dialog_box.dart';
@@ -20,11 +24,32 @@ import 'package:tranquil_life/widgets/valueListenableBuilder2.dart';
 
 import 'health_report_screen.dart';
 
-class ChatScreenPage extends StatelessWidget {
+class ChatScreenPage extends StatefulWidget {
+
+
+
+
+  ChatScreenPage({Key? key}) : super(key: key);
+
+  @override
+  State<ChatScreenPage> createState() => _ChatScreenPageState();
+}
+
+class _ChatScreenPageState extends State<ChatScreenPage> {
+  final key1 = GlobalKey();
+
   Size size = MediaQuery.of(Get.context!).size;
 
+  bool _mRecorderIsInited = false;
+
+  bool dataloaded = false;
+
+  ScheduledMeeting? scheduledMeeting;
+
   final TextEditingController _sendtextController = TextEditingController();
+
   final TextEditingController _inviteUserController = TextEditingController();
+
   List<String> menuList = [
     'Invite',
     'Participants',
@@ -32,19 +57,26 @@ class ChatScreenPage extends StatelessWidget {
     'End Session'
   ];
 
+  final ValueNotifier<double> heightOfText = ValueNotifier<double>(45.00);
+
   bool imagePickSel = false;
+
   bool chatRoomLoaded = false;
+
   String photoUrl = '';
 
   // File photo;
   String imgUrl = '';
+
   ValueNotifier<bool> participants = ValueNotifier(false);
+
   late AnimationController animController;
+
   late ValueListenable<Animation<double>> participantsAnim;
 
   String errText = 'No OnGoing Sessions';
-  bool mic = true;
 
+  bool mic = true;
 
   //menu icon options
   optionAction(String option) {
@@ -60,8 +92,6 @@ class ChatScreenPage extends StatelessWidget {
     }
   }
 
-  final ValueNotifier<double> heightOfText = ValueNotifier<double>(45.00);
-
   Size _textSize(String text, TextStyle style) {
     final TextPainter textPainter = TextPainter(
         text: TextSpan(text: text, style: style),
@@ -71,9 +101,8 @@ class ChatScreenPage extends StatelessWidget {
     return textPainter.size;
   }
 
-  ChatScreenPage({Key? key}) : super(key: key);
-
   double? textFieldWidth;
+
   late Size textSize;
 
   @override
@@ -400,185 +429,146 @@ class ChatScreenPage extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                // ValueListenableBuilder(
-                //   valueListenable: heightOfText,
-                //   builder: (context, double value, child) => AnimatedContainer(
-                //     duration: Duration(milliseconds: 500),
-                //     width: size.width * 0.86,
-                //     margin: EdgeInsets.symmetric(vertical: 8),
-                //     height: value,
-                //     curve: Curves.easeIn,
-                //     decoration: BoxDecoration(
-                //       borderRadius: BorderRadius.circular(12),
-                //       color: Colors.white,
-                //     ),
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.start,
-                //       crossAxisAlignment: CrossAxisAlignment.center,
-                //       children: [
-                //         IconButton(
-                //           icon: SvgPicture.asset('assets/icons/attach.svg'),
-                //           onPressed: () async {
-                //             var status = await Permission.storage.isGranted;
-                //             if (!status) {
-                //               await Permission.storage.request();
-                //               status = await Permission.storage.isGranted;
-                //             }
-                //             print(status);
-                //             if (status) {
-                //               var result = await Navigator.of(context)
-                //                   .push(MaterialPageRoute(
-                //                 builder: (context) => Platform.isIOS
-                //                     ? ImagePickerPageIOS()
-                //                     : ImagePickerAndroid(),
-                //               ));
-                //               if (result != null && result.isNotEmpty) {
-                //                 print(result);
-                //                 //notSendingCurrently = false;
-                //                 print('setting state edit photo onTapped');
-                //                 // if (Platform.isAndroid) {
-                //                 //   photoUrl = result;
-                //                 // } else {
-                //                 //   photo = result;
-                //                 //   imgUrl = photo.toString();
-                //                 // }
-                //
-                //
-                //                 // ChatroomMessage message = ChatroomMessage(
-                //                 //   id: id,
-                //                 //   chatroomID: chatRoomModel.id,
-                //                 //   senderID: auth!.currentUser!.uid,
-                //                 //   isRead: false,
-                //                 //   timestamp: DateTime.now(),
-                //                 //   message: url,
-                //                 //   quote: '',
-                //                 //   type: 'image',
-                //                 // );
-                //
-                //
-                //                 // _listKey.currentState.insertItem(0,
-                //                 //     duration: Duration(seconds: 1));
-                //
-                //                 //inserting the msg into the messages list too at 0 index
-                //                 // chatRoomMessages.insert(0, message);
-                //
-                //                 String userName;
-                //
-                //
-                //               }
-                //             }
-                //           },
-                //         ),
-                //         Expanded(
-                //           child: TextField(
-                //               key: key,
-                //               controller: _sendtextController,
-                //               scrollPhysics: BouncingScrollPhysics(),
-                //               decoration: InputDecoration(
-                //                 errorBorder: InputBorder.none,
-                //                 disabledBorder: InputBorder.none,
-                //                 focusedBorder: InputBorder.none,
-                //                 enabledBorder: InputBorder.none,
-                //                 hintText: "Type Something...",
-                //                 hintStyle: TextStyle(
-                //                   color: Colors.grey,
-                //                   fontSize: 14,
-                //                   fontWeight: FontWeight.w400,
-                //                 ),
-                //               ),
-                //               style: TextStyle(
-                //                 color: Colors.black,
-                //                 fontSize: 14,
-                //                 fontWeight: FontWeight.w600,
-                //               ),
-                //               minLines: null,
-                //               maxLines: null,
-                //               expands: true,
-                //               onChanged: (String e) {
-                //                 if (_sendtextController.text.isEmpty) {
-                //                   setState(() {
-                //                     mic = true;
-                //                   });
-                //                 } else if (_sendtextController.text.length ==
-                //                     1) {
-                //                   setState(() {
-                //                     mic = false;
-                //                   });
-                //                 }
-                //                 changeTextFieldSize(e);
-                //               }),
-                //         ),
-                //         if (mic)
-                //           InkWell(
-                //             onTapDown: (details) {
-                //               startRecording();
-                //             },
-                //             onTapCancel: () {
-                //               stopRecording();
-                //             },
-                //             onTap: () {
-                //               stopRecording();
-                //             },
-                //             child: SizedBox(
-                //               height: 36,
-                //               width: 36,
-                //               child: SvgPicture.asset(
-                //                 'assets/icons/microphone.svg',
-                //                 fit: BoxFit.scaleDown,
-                //               ),
-                //             ),
-                //           ),
-                //         if (!mic)
-                //           IconButton(
-                //             icon: Icon(
-                //               Icons.send,
-                //               color: kPrimaryColor,
-                //             ),
-                //             onPressed: () async {
-                //               if (_sendtextController.text.isNotEmpty &&
-                //                   notSendingCurrently) {
-                //                 notSendingCurrently = false;
-                //                 var subStr = uuid.v4();
-                //                 String id =
-                //                     subStr.substring(0, subStr.length - 10);
-                //
-                //                 ChatroomMessage message = ChatroomMessage(
-                //                   id: id,
-                //                   chatroomID: chatRoomModel.id,
-                //                   senderID: auth!.currentUser!.uid,
-                //                   isRead: false,
-                //                   timestamp: DateTime.now(),
-                //                   message: _sendtextController.text,
-                //                   quote: '',
-                //                   type: 'text',
-                //                 );
-                //
-                //                 // _listKey.currentState.insertItem(0,
-                //                 //     duration: Duration(seconds: 1));
-                //
-                //                 //inserting the msg into the messages list too at 0 index
-                //                 // chatRoomMessages.insert(0, message);
-                //
-                //                 String userName;
-                //
-                //                 String avatarUrl =
-                //                     accountDoc.value[userAvatarUrl];
-                //                 print(userName);
-                //                 print(avatarUrl);
-                //                 _sendtextController.clear();
-                //                 heightOfText.value = 45.0;
-                //                 setState(() {
-                //                   mic = true;
-                //                 });
-                //                 // notSendingCurrently = true;
-                //
-                //               }
-                //             },
-                //           ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                ValueListenableBuilder(
+                  valueListenable: heightOfText,
+                  builder: (context, double value, child) => AnimatedContainer(
+                    duration: Duration(milliseconds: 500),
+                    width: size.width * 0.86,
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    height: value,
+                    curve: Curves.easeIn,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: SvgPicture.asset('assets/icons/attach.svg'),
+                          onPressed: () async {
+                            var status = await Permission.storage.isGranted;
+                            if (!status) {
+                              await Permission.storage.request();
+                              status = await Permission.storage.isGranted;
+                            }
+                            print(status);
+                            if (status) {
+                              var result = await Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                builder: (context) => Platform.isIOS
+                                    ? ImagePickerPageIOS()
+                                    : ImagePickerAndroid(),
+                              ));
+                              if (result != null && result.isNotEmpty) {
+                                print(result);
+                                //notSendingCurrently = false;
+                                print('setting state edit photo onTapped');
+                                // if (Platform.isAndroid) {
+                                //   photoUrl = result;
+                                // } else {
+                                //   photo = result;
+                                //   imgUrl = photo.toString();
+                                // }
+
+
+                                // ChatroomMessage message = ChatroomMessage(
+                                //   id: id,
+                                //   chatroomID: chatRoomModel.id,
+                                //   senderID: auth!.currentUser!.uid,
+                                //   isRead: false,
+                                //   timestamp: DateTime.now(),
+                                //   message: url,
+                                //   quote: '',
+                                //   type: 'image',
+                                // );
+
+
+                                // _listKey.currentState.insertItem(0,
+                                //     duration: Duration(seconds: 1));
+
+                                //inserting the msg into the messages list too at 0 index
+                                // chatRoomMessages.insert(0, message);
+
+                                String userName;
+
+
+                              }
+                            }
+                          },
+                        ),
+                        Expanded(
+                          child: TextField(
+                              key: key1,
+                              controller: _sendtextController,
+                              scrollPhysics: BouncingScrollPhysics(),
+                              decoration: InputDecoration(
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                hintText: "Type Something...",
+                                hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              minLines: null,
+                              maxLines: null,
+                              expands: true,
+                              onChanged: (String e) {
+                                if (_sendtextController.text.isEmpty) {
+                                  setState(() {
+                                    mic = true;
+                                  });
+                                } else if (_sendtextController.text.length ==
+                                    1) {
+                                  setState(() {
+                                    mic = false;
+                                  });
+                                }
+                                changeTextFieldSize(e);
+                              }),
+                        ),
+                        if (mic)
+                          InkWell(
+                            onTapDown: (details) {
+                              startRecording();
+                            },
+                            onTapCancel: () {
+                              stopRecording();
+                            },
+                            onTap: () {
+                              stopRecording();
+                            },
+                            child: SizedBox(
+                              height: 36,
+                              width: 36,
+                              child: SvgPicture.asset(
+                                'assets/icons/microphone.svg',
+                                fit: BoxFit.scaleDown,
+                              ),
+                            ),
+                          ),
+                        if (!mic)
+                          IconButton(
+                            icon: Icon(
+                              Icons.send,
+                              color: kPrimaryColor,
+                            ),
+                            onPressed: () async {},
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: 10,
                 )
@@ -683,6 +673,10 @@ class ChatScreenPage extends StatelessWidget {
     );
   }
 
+  double getWidth() {
+    return  key1.currentState!.context.size!.width;
+  }
+
   displaySnackbar(String message, BuildContext context) {
     try {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -695,5 +689,84 @@ class ChatScreenPage extends StatelessWidget {
     }
   }
 
+  void changeTextFieldSize(String e) {
+    textFieldWidth ??= getWidth();
 
+    double cal = e.length * textSize.width;
+    int numlines = (cal / textFieldWidth!).ceil();
+    if (numlines != heightOfText.value / 40 && numlines > 1) {
+      double cal = 40 + (numlines * 8).toDouble();
+      if (cal > 90) {
+        heightOfText.value = 90;
+      } else {
+        heightOfText.value = cal == 50.00 ? 40.00 : cal;
+      }
+    } else if (numlines == 1) {
+      heightOfText.value = 40.00;
+    }
+  }
+
+  final FlutterSoundRecorder _mySoundRecorder = FlutterSoundRecorder();
+
+  String? _audioRecordPath;
+
+  bool hasRecordingPermission = false;
+
+  Future initiateRecorder() async {
+    hasRecordingPermission = await Permission.microphone.isGranted;
+    if (!hasRecordingPermission) {
+      var status = await Permission.microphone.request();
+      hasRecordingPermission = status == PermissionStatus.granted ||
+          status == PermissionStatus.limited;
+    }
+    if (hasRecordingPermission) {
+      _mySoundRecorder.openRecorder().then((value) {
+        setState(() {
+          _mRecorderIsInited = true;
+        });
+      });
+    } else {
+      displaySnackbar('Permission to microphone is denied', context);
+    }
+  }
+
+  Timer? timer;
+
+  int secondsOfAudioRecorded = 0;
+
+  void startRecording() async {
+    if (_mRecorderIsInited) {
+      if (hasRecordingPermission) {
+        Directory directory = await getApplicationDocumentsDirectory();
+        String filepath = directory.path +
+            '/' +
+            DateTime.now().millisecondsSinceEpoch.toString() +
+            '.aac';
+        timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+          secondsOfAudioRecorded++;
+        });
+        await _mySoundRecorder.startRecorder(
+          toFile: filepath,
+          codec: Codec.aacADTS,
+        );
+        displaySnackbar('Started Recording', context);
+        _audioRecordPath = filepath;
+      } else {
+        displaySnackbar('Permission Denied', context);
+      }
+    } else {
+      displaySnackbar('Try again in few moments', context);
+    }
+  }
+
+  void stopRecording() async {
+    if (_mRecorderIsInited && hasRecordingPermission) {
+      displaySnackbar('Stopped Recording', context);
+
+      await _mySoundRecorder.stopRecorder();
+      timer?.cancel();
+
+    }
+  }
 }
+

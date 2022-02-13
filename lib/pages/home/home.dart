@@ -49,7 +49,7 @@ class Home extends GetView<HomeController> {
           key: scaffoldKey,
           backgroundColor: light,
           appBar: topNavigationBar(context, scaffoldKey),
-          body: dashboardController.userType.value == client
+          body: dashboardController.userType.value == consultant
               ? Stack(children: [
                   Container(
                     height: size.height * .35,
@@ -158,12 +158,12 @@ class Home extends GetView<HomeController> {
                                                     NotificationHistoryScreen()));
                                       },
                                       child: SizedBox(
-                                        width: size.width * 0.10,
-                                        height: size.width * 0.10,
+                                        width: 46,
+                                        height: 46,
                                         child: Icon(
                                           Icons.notifications,
                                           color: kPrimaryColor,
-                                          size: size.width * 0.06,
+                                          size: 28,
                                         ),
                                       ),
                                     ),
@@ -177,7 +177,7 @@ class Home extends GetView<HomeController> {
                   ),
 
                   Positioned(
-                      top: size.height * 0.2,
+                      top: 110.0,
                       left: 0,
                       width: size.width,
                       child: SizedBox(
@@ -189,7 +189,7 @@ class Home extends GetView<HomeController> {
                           children: [
                             MyMeetingsSection(),
                             SizedBox(
-                              height: 30,
+                              height: 20,
                             ),
                             SelectMood(
                               moodOnTap: (int index, [moodSvgUrl]) {
@@ -284,9 +284,8 @@ class Home extends GetView<HomeController> {
                                             ));
                                           },
                                           child: SizedBox(
-                                            width: size.width * 0.10,
-                                            height:
-                                                size.width * 0.10,
+                                            width: 46,
+                                            height: 46,
                                             child: SvgPicture.asset(
                                               'assets/icons/notification.svg',
                                               color: kPrimaryColor,
@@ -304,7 +303,7 @@ class Home extends GetView<HomeController> {
                           ],
                         )),
                     Positioned(
-                      top: size.height * 0.12,
+                      top: size.height * 0.18,
                       left: 0,
                       width: size.width,
                       child: SizedBox(
@@ -321,8 +320,8 @@ class Home extends GetView<HomeController> {
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.circular(12.0),
                                       child: SizedBox(
-                                        height: size.height * 0.077,
-                                        width: size.width * 0.94,
+                                        width: size.width * 0.9,
+                                        height: 60,
                                         child: ElevatedButton(
                                             onPressed: () async {
                                               ///list of schedules containing schedule model for creating container templates

@@ -69,10 +69,10 @@ class AppPages {
     //   name: _Paths.REGISTRATION_FOUR,
     //   page: () => RegistrationFourView(),
     // ),
-    // GetPage(
-    //   name: _Paths.TIMEOUT_SCREEN,
-    //   page: () => TimeoutView(),
-    // ),
+    GetPage(
+      name: _Paths.TIMEOUT_SCREEN,
+      page: () => TimeoutView(),
+    ),
     // GetPage(
     //   name: _Paths.WALLET,
     //   page: () => WalletView(reloadWalletPage: (int index) {  },),
@@ -81,18 +81,18 @@ class AppPages {
     //   name: _Paths.ADD_NEW_CARD,
     //   page: () =>  AddNewCard(reloadWalletPage: (int index) {  },),
     // ),
-    // GetPage(
-    //   name: _Paths.JOURNAL,
-    //   page: () =>  JournalView(moodSvgUrl: '',),
-    // ),
-    // GetPage(
-    //   name: _Paths.JOURNAL_HISTORY,
-    //   page: () =>  JournalHistoryView(),
-    // ),
-    // // GetPage(
-    // //   name: _Paths.CHAT_ROOM,
-    // //   page: () =>  ChatScreenPage(),
-    // // ),
+    GetPage(
+      name: _Paths.JOURNAL,
+      page: () =>  JournalView(moodSvgUrl: '',),
+    ),
+    GetPage(
+      name: _Paths.JOURNAL_HISTORY,
+      page: () =>  JournalHistoryView(),
+    ),
+    GetPage(
+      name: _Paths.CHAT_ROOM,
+      page: () =>  ChatScreenPage(),
+    ),
     // GetPage(
     //   name: _Paths.CHAT_HISTORY,
     //   page: () => ChatHistoryView(),
@@ -105,14 +105,11 @@ class AppPages {
     //   name: _Paths.NOTIFICATION_HISTORY,
     //   page: () => NotificationHistoryScreen(),
     // ),
-    // GetPage(
-    //   name: _Paths.APP_SETTINGS,
-    //   page: () => AppSettingsView(),
-    // ),
-    // GetPage(
-    //   name: _Paths.CONSULTANT_LIST,
-    //   page: () => ConsultantListView(answerOfQuestionaire: []),
-    // ),
+    GetPage(
+      name: _Paths.APP_SETTINGS,
+      page: () => AppSettingsView(),
+    ),
+
 
 
 
