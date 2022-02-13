@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
 import 'package:tranquil_life/pages/chat/chatroom.dart';
@@ -30,53 +29,32 @@ class DashboardController extends GetxController {
   RxString userType = "".obs;
   static DashboardController instance = Get.find();
 
-  late PersistentTabController ptController;
+  RxBool toggleValue = false.obs;
 
-  List<Widget> buildScreens() {
+  RxInt tabIndex = 0.obs;
 
-    return [
-      Home(),
-      WalletView(reloadWalletPage: setBottomBarIndex),
-      ChatScreenPage(),
-      JournalView(moodSvgUrl: ''),
-      ProfileView(setBottomBarIndex: (int index) {}),
-    ];
+  void selectedTab(int index) {
+    tabIndex.value = index;
+
   }
 
-  List<PersistentBottomNavBarItem> navBarsItems() {
-    return [
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
-        title: ("Home"),
-        activeColorPrimary: active,
-        inactiveColorPrimary: grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.account_balance_wallet),
-        title: ("Wallet"),
-        activeColorPrimary: active,
-        inactiveColorPrimary: grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.chat_bubble),
-        title: ("Chat"),
-        activeColorPrimary: active,
-        inactiveColorPrimary: grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.note),
-        title: ("Journal"),
-        activeColorPrimary: active,
-        inactiveColorPrimary: grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.person),
-        title: ("Profile"),
-        activeColorPrimary: active,
-        inactiveColorPrimary: grey,
-      ),
-    ];
+  void selectedFab(int index) {
+    tabIndex.value = index;
   }
+
+  Widget tabView(){
+    switch(tabIndex.value){
+      case 1:
+        return WalletView(reloadWalletPage: setBottomBarIndex);
+      case 2:
+        return JournalView(moodSvgUrl: '');
+      case 3:
+        return ProfileView(setBottomBarIndex: (int index) {});
+    default:
+        return Home();
+    }
+  }
+
 
   RxInt currentIndex = RxInt(0);
   RxBool pageLoaded = RxBool(false);
@@ -158,15 +136,18 @@ class DashboardController extends GetxController {
     }
   }
 
+  Future hideBar() async {
+
+    return "";
+  }
+
   @override
   void onInit() {
     super.onInit();
-    ptController = PersistentTabController(initialIndex: 0);
     userType = "client".obs;
     //WidgetsBinding.instance!.addObserver(this);
 
     //WidgetsBinding.instance!.addObserver(this);
   }
-
 
 }

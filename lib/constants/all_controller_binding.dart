@@ -14,7 +14,7 @@ import 'package:tranquil_life/pages/registration/registration_one.dart';
 import 'package:tranquil_life/pages/registration/registration_two.dart';
 import 'package:tranquil_life/pages/sign_in/sign_in.dart';
 
-import '../dashboard.dart';
+import '../pages/dashboard/dashboard.dart';
 
 class AllControllerBinding extends Bindings{
   @override

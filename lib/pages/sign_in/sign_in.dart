@@ -6,7 +6,7 @@ import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/sign_in_controller.dart';
-import 'package:tranquil_life/dashboard.dart';
+import 'package:tranquil_life/pages/dashboard/dashboard.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 
@@ -143,7 +143,7 @@ class SignIn extends StatelessWidget {
                                         //   _.loginAndAuthenticate(context);
                                         // }
                                         //INFO TODO: Return it back to allOffNamed
-                                        Get.toNamed(Routes.TIMEOUT_SCREEN);
+                                        Get.toNamed(Routes.DASHBOARD);
                                       },
                                       style: ElevatedButton.styleFrom(
                                           padding:  EdgeInsets.symmetric(

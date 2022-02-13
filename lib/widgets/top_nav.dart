@@ -19,8 +19,8 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
             child: Obx(()=>
                 GestureDetector(
                   onTap: (){
-                    homeController.toggleValue.value = !homeController.toggleValue.value;
-                    print(homeController.toggleValue.value);
+                    dashboardController.toggleValue.value = !dashboardController.toggleValue.value;
+                    print(dashboardController.toggleValue.value);
                   },
                   child: AnimatedContainer(
                     duration: Duration(milliseconds: 1000),
@@ -28,7 +28,7 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
                     width: 60.0,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(35.0),
-                        color: homeController.toggleValue.value ? active[100] : Colors.red[100]
+                        color: dashboardController.toggleValue.value ? active[100] : Colors.red[100]
                     ),
                     child: Stack(
                       children: [
@@ -36,8 +36,8 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
                             duration: Duration(milliseconds: 1000),
                             curve: Curves.easeIn,
                             top: 2.0,
-                            left: homeController.toggleValue.value ? 35.0 : 0.0,
-                            right: homeController.toggleValue.value ? 0.0 : 35.0,
+                            left: dashboardController.toggleValue.value ? 35.0 : 0.0,
+                            right: dashboardController.toggleValue.value ? 0.0 : 35.0,
                             child: AnimatedSwitcher(
                                 duration: Duration(milliseconds: 1000),
                                 transitionBuilder: (child, animation){
@@ -46,7 +46,7 @@ AppBar topNavigationBar(BuildContext context, GlobalKey<ScaffoldState> key) =>
                                       turns: animation
                                   );
                                 },
-                                child: homeController.toggleValue.value
+                                child: dashboardController.toggleValue.value
                                     ? Icon(Icons.check_circle_outline, color: active, size: 22,
                                     key: UniqueKey())
                                     : Icon(Icons.remove_circle_outline, color: Colors.red, size: 22,
