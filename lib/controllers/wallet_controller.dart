@@ -110,7 +110,6 @@ class WalletController extends GetxController{
 
     type.value = storage.read(userType);
 
-    getStaffDetails();
 
   }
 
@@ -133,7 +132,6 @@ class WalletController extends GetxController{
   void onReady() {
     super.onReady();
 
-    getStaffDetails();
   }
 
   void getCardDetails() async {
@@ -164,39 +162,7 @@ class WalletController extends GetxController{
     // });
   }
 
-  getStaffDetails() async {
-    // workPlace = DashboardController.to.workPlace!.value.toString();
-    // print(workPlace.toString());
-    //
-    // var doc;
-    // await enrolledCompaniesRef!
-    //     .where('name', isEqualTo: workPlace)
-    //     .limit(1)
-    //     .get()
-    //     .then((snapshot1) {
-    //   if (snapshot1.size >= 0) {
-    //     for (var i = 0; i < snapshot1.docs.length; i++) {
-    //       doc = snapshot1.docs[i];
-    //     }
-    //   } else {
-    //     print('does not exist');
-    //   }
-    // });
-    //
-    // enrolledCompaniesRef!
-    //     .doc(doc.data()['id'])
-    //     .collection('staff')
-    //     .where('email', isEqualTo: auth!.currentUser!.email)
-    //     .limit(1)
-    //     .get()
-    //     .then((snapshot2) {
-    //   for (var j = 0; j < snapshot2.docs.length; j++) {
-    //     discount =
-    //         RxInt(int.parse(snapshot2.docs[j].data()['discount'].toString()));
-    //     loaded.value = true;
-    //   }
-    // });
-  }
+
 
   ///gives a reference string mentioning from which device type and at what time it is charged
   String getReference() {

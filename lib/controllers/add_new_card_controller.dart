@@ -7,6 +7,9 @@ import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:get/get.dart';
 
 class AddNewCardController extends GetxController{
+  static AddNewCardController instance = Get.find();
+
+
 
   TextEditingController? cardNumController;
   TextEditingController? cardOwnerController;

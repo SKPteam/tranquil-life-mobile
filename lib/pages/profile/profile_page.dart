@@ -40,38 +40,34 @@ class _ProfileViewState extends State<ProfileView> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(context, Routes.APP_SETTINGS);
-                      },
-                      child: Container(
-                        width: size.width,
-                        height: 80,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Container(
-                              height: 35,
-                              width: 35,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      Get.context!, Routes.APP_SETTINGS);
-                                },
-                                child: Icon(
-                                  Icons.settings,
-                                  color: kPrimaryColor,
-                                  size: 32,
-                                ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 24),
+                      width: size.width,
+                      height: 80,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    Get.context!, Routes.APP_SETTINGS);
+                              },
+                              child: Icon(
+                                Icons.settings,
+                                color: kPrimaryColor,
+                                size: 32,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(

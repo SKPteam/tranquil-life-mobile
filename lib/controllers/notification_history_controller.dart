@@ -1,10 +1,15 @@
+// ignore_for_file: unnecessary_import
+
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tranquil_life/models/notification_history_model.dart';
 
 class NotificationHistoryController extends GetxController {
+  static NotificationHistoryController instance = Get.find();
+
   RxBool dataLoaded = true.obs;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 

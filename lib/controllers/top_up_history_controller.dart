@@ -4,7 +4,9 @@
 import 'package:get/get.dart';
 
 class TopUpHistoryController extends GetxController {
-  // Query getDataFromFirebase() {
+  static TopUpHistoryController instance = Get.find();
+
+// Query getDataFromFirebase() {
   //   print('Extracting Data from Firebase for Transaction History');
   //   //snapshots from database
   //   //if the list is empty, that is extraction process if done for first time, then

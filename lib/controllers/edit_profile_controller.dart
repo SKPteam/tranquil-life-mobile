@@ -15,6 +15,8 @@ import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/profile_controller.dart';
 
 class EditProfileController extends GetxController {
+  static EditProfileController instance = Get.find();
+
   ProfileController profileController = Get.put(ProfileController());
 
   GetStorage? getStorage;

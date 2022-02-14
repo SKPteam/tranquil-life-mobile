@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class JournalHistoryController extends GetxController {
+  static JournalHistoryController instance = Get.find();
+
+
   double? prevCrossCount;
 
   Map map = {};
