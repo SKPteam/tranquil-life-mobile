@@ -13,6 +13,8 @@ class MyMeetingsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(Get.context!).size;
+
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
@@ -49,6 +51,7 @@ class MyMeetingsSection extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: CustomText(
                           text: 'My scheduled meetings',
+
                           color: dark,
                           size: 18,
                           weight: FontWeight.w700,

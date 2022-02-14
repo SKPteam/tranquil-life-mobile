@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, annotate_overrides, overridden_fields
+// ignore_for_file: prefer_const_constructors, avoid_print, annotate_overrides, overridden_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'dart:async';
 import 'dart:io';
@@ -18,6 +18,7 @@ import 'package:tranquil_life/models/schedule_meeting.dart';
 import 'package:tranquil_life/pages/chat/audio_call_screen.dart';
 import 'package:tranquil_life/pages/chat/widgets/custom_dialog.dart';
 import 'package:tranquil_life/pages/chat/widgets/rate_dialog_box.dart';
+import 'package:tranquil_life/pages/chat/widgets/text_widget.dart';
 import 'package:tranquil_life/pages/profile/widgets/image_picker_android.dart';
 import 'package:tranquil_life/pages/profile/widgets/image_picker_ios.dart';
 import 'package:tranquil_life/widgets/valueListenableBuilder2.dart';
@@ -392,38 +393,50 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
                 ),
                 Expanded(
                   child: Container(
-                    child: false
-                        //chatRoomLoaded
-                        ? Container()
-                        // StreamBuilder(
-                        //   stream: chatRoomMessagesRef
-                        //       .orderBy('timestamp', descending: true)
-                        //       .snapshots(),
-                        //   builder: (context, snapshot) {
-                        //     if (snapshot.hasData) {
-                        //       return ListView.builder(
-                        //         reverse: true,
-                        //         padding:  EdgeInsets.symmetric(
-                        //             horizontal: 12, vertical: 8),
-                        //         itemCount: (snapshot.data as QuerySnapshot)
-                        //             .docs
-                        //             .length,
-                        //         itemBuilder: (context, index) =>
-                        //             _buildChatMessageWidget(index,
-                        //                 snapshot:
-                        //                 (snapshot.data as QuerySnapshot)
-                        //                     .docs[index]),
-                        //       );
-                        //     } else {
-                        //       return  Center(
-                        //         child: CircularProgressIndicator(),
-                        //       );
-                        //     }
-                        //   },
-                        // )
-                        : Center(
-                            child: CircularProgressIndicator(),
-                          ),
+                    child: Column(
+                      children: [
+                        TextWidgetInChat(
+                          message: "Hi, tell me about the challenge you are facing",
+                          avatarUrl: "assets/images/avatar_img1.png",
+                        ),
+                        TextWidgetInChat(
+                          message: "I have been having issues with my marriage",
+                          avatarUrl: "assets/images/avatar_img2.png",
+                        ),
+                      ],
+                    ),
+                    // child: false
+                    //     //chatRoomLoaded
+                    //     ? Container()
+                    //     // StreamBuilder(
+                    //     //   stream: chatRoomMessagesRef
+                    //     //       .orderBy('timestamp', descending: true)
+                    //     //       .snapshots(),
+                    //     //   builder: (context, snapshot) {
+                    //     //     if (snapshot.hasData) {
+                    //     //       return ListView.builder(
+                    //     //         reverse: true,
+                    //     //         padding:  EdgeInsets.symmetric(
+                    //     //             horizontal: 12, vertical: 8),
+                    //     //         itemCount: (snapshot.data as QuerySnapshot)
+                    //     //             .docs
+                    //     //             .length,
+                    //     //         itemBuilder: (context, index) =>
+                    //     //             _buildChatMessageWidget(index,
+                    //     //                 snapshot:
+                    //     //                 (snapshot.data as QuerySnapshot)
+                    //     //                     .docs[index]),
+                    //     //       );
+                    //     //     } else {
+                    //     //       return  Center(
+                    //     //         child: CircularProgressIndicator(),
+                    //     //       );
+                    //     //     }
+                    //     //   },
+                    //     // )
+                    //     : Center(
+                    //         child: CircularProgressIndicator(),
+                    //       ),
                   ),
                 ),
                 SizedBox(

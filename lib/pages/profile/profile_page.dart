@@ -13,6 +13,9 @@ import 'widgets/cusListTile.dart';
 import 'edit_profile_page.dart';
 
 class ProfileView extends StatefulWidget {
+
+
+
   final void Function(int index) setBottomBarIndex;
 
   Size size = MediaQuery.of(Get.context!).size;
