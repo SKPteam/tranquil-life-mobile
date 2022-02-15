@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:tranquil_life/controllers/add_new_card_controller.dart';
 import 'package:tranquil_life/controllers/app_settings_controller.dart';
 import 'package:tranquil_life/controllers/chat_controller.dart';
+import 'package:tranquil_life/controllers/chat_history_controller.dart';
 import 'package:tranquil_life/controllers/consultant_list_controller.dart';
 import 'package:tranquil_life/controllers/consultant_registration_controller.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
@@ -50,6 +51,7 @@ class AllControllerBinding extends Bindings{
     Get.lazyPut(() => NotificationHistoryController());
     Get.lazyPut(() => ProfileController());
     Get.lazyPut(() => ChatController());
+    Get.lazyPut(() => ChatHistoryController());
     Get.lazyPut(() => AppSettingsController());
     Get.lazyPut(() => ConsultantListController());
     Get.lazyPut(() => EditProfileController());

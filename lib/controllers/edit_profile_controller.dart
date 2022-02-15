@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_import, unnecessary_overrides, non_constant_identifier_names
 
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

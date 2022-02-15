@@ -1,6 +1,5 @@
 // ignore_for_file: prefer__ructors, prefer_const_constructors
 
-import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,7 @@
 import 'package:tranquil_life/controllers/add_new_card_controller.dart';
 import 'package:tranquil_life/controllers/app_settings_controller.dart';
 import 'package:tranquil_life/controllers/chat_controller.dart';
+import 'package:tranquil_life/controllers/chat_history_controller.dart';
 import 'package:tranquil_life/controllers/consultant_list_controller.dart';
 import 'package:tranquil_life/controllers/consultant_registration_controller.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
@@ -41,6 +42,7 @@ JournalHistoryController journalHistoryController = JournalHistoryController.ins
 NotificationHistoryController notificationHistoryController = NotificationHistoryController.instance;
 ProfileController profileController = ProfileController.instance;
 ChatController chatController = ChatController.instance;
+ChatHistoryController chatHistoryController = ChatHistoryController.instance;
 AddNewCardController addNewCardController = AddNewCardController.instance;
 AppSettingsController appSettingsController = AppSettingsController.instance;
 ConsultantListController consultantListController = ConsultantListController.instance;

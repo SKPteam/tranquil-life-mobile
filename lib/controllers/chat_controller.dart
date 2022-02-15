@@ -9,38 +9,7 @@ class ChatController extends GetxController{
 
 
 
+
+
 }
 
-/*............ Chat History Controller ............*/
-
-class ChatHistoryController extends GetxController {
-  RxBool dataLoaded = RxBool(false);
-
-
-
-  ///the last chatRoom document from the 10 extracted documents
-
-  ///scroll controlling for checking whether the screen is scrolled to the end
-
-  ///boolean to check if there are more pagination is required
-  bool moreChatRoomAvailableInDatabase = true;
-
-  GetStorage prefs = GetStorage();
-
-
-  @override
-  void onInit() {
-    super.onInit();
-
-  }
-
-
-
-
-
-  final timeFormat = DateFormat.Hm();
-  final dateFormat = DateFormat('dd-MM-yyyy');
-
-  String username = "";
-  String avatarUrl = "";
-}
