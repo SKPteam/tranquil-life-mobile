@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, unnecessary_import, unnecessary_overrides, non_constant_identifier_names
 
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,8 @@ import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/profile_controller.dart';
 
 class EditProfileController extends GetxController {
+  static EditProfileController instance = Get.find();
+
   ProfileController profileController = Get.put(ProfileController());
 
   GetStorage? getStorage;

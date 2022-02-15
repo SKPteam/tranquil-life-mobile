@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, annotate_overrides, overridden_fields
+// ignore_for_file: prefer_const_constructors, avoid_print, annotate_overrides, overridden_fields, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
 import 'dart:async';
 import 'dart:io';
@@ -14,10 +14,12 @@ import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/models/chat_room_message.dart';
 import 'package:tranquil_life/models/schedule_meeting.dart';
 import 'package:tranquil_life/pages/chat/audio_call_screen.dart';
 import 'package:tranquil_life/pages/chat/widgets/custom_dialog.dart';
 import 'package:tranquil_life/pages/chat/widgets/rate_dialog_box.dart';
+import 'package:tranquil_life/pages/chat/widgets/text_widget.dart';
 import 'package:tranquil_life/pages/profile/widgets/image_picker_android.dart';
 import 'package:tranquil_life/pages/profile/widgets/image_picker_ios.dart';
 import 'package:tranquil_life/widgets/valueListenableBuilder2.dart';
@@ -35,7 +37,7 @@ class ChatScreenPage extends StatefulWidget {
   State<ChatScreenPage> createState() => _ChatScreenPageState();
 }
 
-class _ChatScreenPageState extends State<ChatScreenPage> {
+class _ChatScreenPageState extends State<ChatScreenPage>  with SingleTickerProviderStateMixin {
   final key1 = GlobalKey();
 
   Size size = MediaQuery.of(Get.context!).size;
@@ -56,6 +58,18 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
     'Health Profile',
     'End Session'
   ];
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    initiateRecorder();
+    animController = AnimationController(
+        duration: Duration(milliseconds: 500), vsync: this);
+    participantsAnim = ValueNotifier(
+        Tween<double>(begin: 6.0, end: 1.5).animate(animController));
+  }
 
   final ValueNotifier<double> heightOfText = ValueNotifier<double>(45.00);
 
@@ -134,7 +148,7 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
                 margin: EdgeInsets.all(16),
                 padding: EdgeInsets.all(16),
                 child: true
-                    //dataloaded
+                    //data-loaded
                     ? Text(
                         errText,
                         textAlign: TextAlign.center,
@@ -392,38 +406,50 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
                 ),
                 Expanded(
                   child: Container(
-                    child: false
-                        //chatRoomLoaded
-                        ? Container()
-                        // StreamBuilder(
-                        //   stream: chatRoomMessagesRef
-                        //       .orderBy('timestamp', descending: true)
-                        //       .snapshots(),
-                        //   builder: (context, snapshot) {
-                        //     if (snapshot.hasData) {
-                        //       return ListView.builder(
-                        //         reverse: true,
-                        //         padding:  EdgeInsets.symmetric(
-                        //             horizontal: 12, vertical: 8),
-                        //         itemCount: (snapshot.data as QuerySnapshot)
-                        //             .docs
-                        //             .length,
-                        //         itemBuilder: (context, index) =>
-                        //             _buildChatMessageWidget(index,
-                        //                 snapshot:
-                        //                 (snapshot.data as QuerySnapshot)
-                        //                     .docs[index]),
-                        //       );
-                        //     } else {
-                        //       return  Center(
-                        //         child: CircularProgressIndicator(),
-                        //       );
-                        //     }
-                        //   },
-                        // )
-                        : Center(
-                            child: CircularProgressIndicator(),
-                          ),
+                    child: Column(
+                      children: [
+                        TextWidgetInChat(
+                          message: "Hi, tell me about the challenge you are facing",
+                          avatarUrl: "assets/images/avatar_img1.png",
+                        ),
+                        TextWidgetInChat(
+                          message: "I have been having issues with my marriage",
+                          avatarUrl: "assets/images/avatar_img2.png",
+                        ),
+                      ],
+                    ),
+                    // child: false
+                    //     //chatRoomLoaded
+                    //     ? Container()
+                    //     // StreamBuilder(
+                    //     //   stream: chatRoomMessagesRef
+                    //     //       .orderBy('timestamp', descending: true)
+                    //     //       .snapshots(),
+                    //     //   builder: (context, snapshot) {
+                    //     //     if (snapshot.hasData) {
+                    //     //       return ListView.builder(
+                    //     //         reverse: true,
+                    //     //         padding:  EdgeInsets.symmetric(
+                    //     //             horizontal: 12, vertical: 8),
+                    //     //         itemCount: (snapshot.data as QuerySnapshot)
+                    //     //             .docs
+                    //     //             .length,
+                    //     //         itemBuilder: (context, index) =>
+                    //     //             _buildChatMessageWidget(index,
+                    //     //                 snapshot:
+                    //     //                 (snapshot.data as QuerySnapshot)
+                    //     //                     .docs[index]),
+                    //     //       );
+                    //     //     } else {
+                    //     //       return  Center(
+                    //     //         child: CircularProgressIndicator(),
+                    //     //       );
+                    //     //     }
+                    //     //   },
+                    //     // )
+                    //     : Center(
+                    //         child: CircularProgressIndicator(),
+                    //       ),
                   ),
                 ),
                 SizedBox(
@@ -465,30 +491,31 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
                                 print(result);
                                 //notSendingCurrently = false;
                                 print('setting state edit photo onTapped');
-                                // if (Platform.isAndroid) {
-                                //   photoUrl = result;
-                                // } else {
-                                //   photo = result;
-                                //   imgUrl = photo.toString();
-                                // }
+                                if (Platform.isAndroid) {
+                                  photoUrl = result;
+                                } else {
+                                  photoUrl = result;
+                                  imgUrl = photoUrl.toString();
+                                }
 
 
-                                // ChatroomMessage message = ChatroomMessage(
-                                //   id: id,
-                                //   chatroomID: chatRoomModel.id,
-                                //   senderID: auth!.currentUser!.uid,
-                                //   isRead: false,
-                                //   timestamp: DateTime.now(),
-                                //   message: url,
-                                //   quote: '',
-                                //   type: 'image',
-                                // );
+                                ChatroomMessage message = ChatroomMessage(
+                                  id: "m1",
+                                  chatroomID: "",
+                                  senderID: "Mr J",
+                                  //auth!.currentUser!.uid,
+                                  isRead: false,
+                                  timestamp: DateTime.now(),
+                                  message: photoUrl,
+                                  quote: '',
+                                  type: 'image',
+                                );
 
 
                                 // _listKey.currentState.insertItem(0,
                                 //     duration: Duration(seconds: 1));
-
-                                //inserting the msg into the messages list too at 0 index
+                                //
+                                // //inserting the msg into the messages list too at 0 index
                                 // chatRoomMessages.insert(0, message);
 
                                 String userName;

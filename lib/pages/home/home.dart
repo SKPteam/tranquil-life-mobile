@@ -28,13 +28,25 @@ import 'widgets/moods_section.dart';
 import 'widgets/notificationBadge.dart';
 
 class Home extends GetView<HomeController> {
+
+  // dimensions 500.. 530/ 35 ... top 110
+  // dimensions 535.. 700 ... top 130
+  // dimensions 700.. 890 ... top 150
+  // dimensions 890.. 1080 ... top 170
+  // dimensions 1080.. 1242 ... top 190
+  // dimensions 1242.. 1291 ... top 200
+
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   bool? toggleValue = false;
 
   final DashboardController _dashboardController = Get.put(DashboardController());
+  final HomeController _ = Get.put(HomeController());
+
 
   @override
   Widget build(BuildContext context) {
+    _.dimensionTop();
+
     ConsultantProfileModel? consultantProfileModel = ConsultantProfileModel(
       preferredLangs: "Yoruba",
       yearsOfExperience: "2",
@@ -49,10 +61,10 @@ class Home extends GetView<HomeController> {
           key: scaffoldKey,
           backgroundColor: light,
           appBar: topNavigationBar(context, scaffoldKey),
-          body: dashboardController.userType.value == consultant
+          body: dashboardController.userType.value == client
               ? Stack(children: [
                   Container(
-                    height: size.height * .35,
+                    height: size.height * 0.35,
                     decoration: BoxDecoration(
                       color: lightBgColor,
                       gradient: LinearGradient(
@@ -176,33 +188,35 @@ class Home extends GetView<HomeController> {
                     ),
                   ),
 
-                  Positioned(
-                      top: 110.0,
-                      left: 0,
-                      width: size.width,
-                      child: SizedBox(
-                        height: size.height -
-                            size.height * 0.25,
-                        child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            MyMeetingsSection(),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            SelectMood(
-                              moodOnTap: (int index, [moodSvgUrl]) {
-                                DashboardController.to
-                                    .setBottomBarIndex(index, moodSvgUrl!);
-                              },
-                            ),
-                            SizedBox(
-                              height: 80,
-                            )
-                          ],
-                        )),
-                      )),
+
+                    Positioned(
+
+                          top: 110,
+                          left: 0,
+                          width: size.width,
+                          child: SizedBox(
+                            height: size.height -
+                                size.height * 0.25,
+                            child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    MyMeetingsSection(),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    SelectMood(
+                                      moodOnTap: (int index, [moodSvgUrl]) {
+                                        DashboardController.to
+                                            .setBottomBarIndex(index, moodSvgUrl!);
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 80,
+                                    )
+                                  ],
+                                )),
+                          )),
 
 
                 ])

@@ -46,9 +46,10 @@ class TextWidgetInChat extends StatelessWidget {
                   child: Center(
                     child: CircleAvatar(
                       radius: 18,
-                      foregroundImage: CachedNetworkImageProvider(
-                        avatarUrl,
-                      ),
+                      backgroundImage: AssetImage(avatarUrl),
+                      // CachedNetworkImageProvider(
+                      //   avatarUrl,
+                      // ),
                     ),
                   ),
                 ),

@@ -1,10 +1,10 @@
-// ignore_for_file: avoid_print, must_be_immutable
+// ignore_for_file: avoid_print, must_be_immutable, prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/wallet_controller.dart';
+import 'package:tranquil_life/controllers/top_up_history_controller.dart';
 import 'package:tranquil_life/models/transaction_history.dart';
 
 
@@ -23,10 +23,10 @@ class TopUpHistoryModalSheet extends StatelessWidget {
     // MODAL SHEET WHEN TAPPED OUTSIDE OF THE TRANSACTION MODAL SHEET
     //------------------------
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 150),
+      duration:  Duration(milliseconds: 150),
       height: size.height * 0.6,
       width: size.width,
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(32),
@@ -40,15 +40,15 @@ class TopUpHistoryModalSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const SizedBox(
+           SizedBox(
             height: 10,
           ),
           //------------------------
           // HEADING
           //------------------------
           Container(
-            padding: const EdgeInsets.only(left: 10),
-            child: const Text(
+            padding:  EdgeInsets.only(left: 10),
+            child:  Text(
               'Transactions',
               style: TextStyle(
                 color: kPrimaryColor,
@@ -57,7 +57,7 @@ class TopUpHistoryModalSheet extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
+           SizedBox(
             height: 10,
           ),
           //------------------------
@@ -71,10 +71,10 @@ class TopUpHistoryModalSheet extends StatelessWidget {
             //       .orderByChild('uid')
             //       .equalTo(auth!.currentUser!.uid),
             //   shrinkWrap: true,
-            //   defaultChild: const Center(
+            //   defaultChild:  Center(
             //     child: CircularProgressIndicator(),
             //   ),
-            //   padding: const EdgeInsets.symmetric(vertical: 10),
+            //   padding:  EdgeInsets.symmetric(vertical: 10),
             //   sort: (a, b) {
             //     return DateTime.fromMillisecondsSinceEpoch(a.value["timestamp"])
             //         .compareTo(DateTime.fromMillisecondsSinceEpoch(
@@ -106,7 +106,7 @@ class TopUpHistoryModalSheet extends StatelessWidget {
 class TransactionHistoryModalWidget extends StatelessWidget {
   final TransactionHistoryModel transactionModel;
 
-  const TransactionHistoryModalWidget({Key? key, required this.transactionModel}) : super(key: key);
+   TransactionHistoryModalWidget({Key? key, required this.transactionModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -119,8 +119,8 @@ class TransactionHistoryModalWidget extends StatelessWidget {
     //------------------------
     return Container(
       height: 120,
-      padding: const EdgeInsets.all(18),
-      margin: const EdgeInsets.symmetric(vertical: 5),
+      padding:  EdgeInsets.all(18),
+      margin:  EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         color: kLightBackgroundColor,
         borderRadius: BorderRadius.circular(10),
@@ -143,7 +143,7 @@ class TransactionHistoryModalWidget extends StatelessWidget {
                   child: Text(
                     transactionModel.type.toString(),
                     textAlign: TextAlign.left,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       color: kPrimaryColor,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -151,7 +151,7 @@ class TransactionHistoryModalWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
+               SizedBox(
                 width: 10,
               ),
               Text(
@@ -164,7 +164,7 @@ class TransactionHistoryModalWidget extends StatelessWidget {
               ),
             ],
           ),
-          const Spacer(),
+           Spacer(),
           //------------------------
           // ref no. and date heading row
           //------------------------
@@ -187,7 +187,7 @@ class TransactionHistoryModalWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
+               SizedBox(
                 width: 10,
               ),
               Text(
@@ -200,7 +200,7 @@ class TransactionHistoryModalWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(
+           SizedBox(
             height: 2,
           ),
           //------------------------
@@ -217,7 +217,7 @@ class TransactionHistoryModalWidget extends StatelessWidget {
                   child: Text(
                     transactionModel.referenceNumber,
                     textAlign: TextAlign.left,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       color: kPrimaryColor,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -225,12 +225,12 @@ class TransactionHistoryModalWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
+               SizedBox(
                 width: 10,
               ),
               Text(
                 _dmyformat.format(transactionModel.timestamp),
-                style: const TextStyle(
+                style:  TextStyle(
                   color: kPrimaryColor,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

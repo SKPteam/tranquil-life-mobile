@@ -303,8 +303,7 @@ class _WalletViewState extends State<WalletView>
                                     Text(
                                       'View transactions',
                                       style: TextStyle(
-                                          fontSize:
-                                          size.width / 28),
+                                          fontSize: 28),
                                     ),
                                     Icon(
                                         Icons.keyboard_arrow_up_outlined),

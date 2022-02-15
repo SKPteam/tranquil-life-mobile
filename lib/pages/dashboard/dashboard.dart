@@ -8,6 +8,7 @@ import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/pages/home/home.dart';
 import 'package:tranquil_life/pages/profile/profile_page.dart';
+import 'package:tranquil_life/routes/app_pages.dart';
 
 import '../chat/chatroom.dart';
 import 'widgets/fab_bottom_app_bar.dart';
@@ -19,7 +20,9 @@ class Dashboard extends GetView<DashboardController>{
 
   Widget _buildFab(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () { },
+      onPressed: () {
+        Get.toNamed(Routes.CHAT_ROOM);
+      },
       tooltip: 'Increment',
       child: Icon(Icons.chat_bubble),
       elevation: 2.0,

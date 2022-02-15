@@ -1,6 +1,5 @@
 // ignore_for_file: prefer__ructors, prefer_const_constructors
 
-import 'dart:js';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -306,6 +305,7 @@ class _JournalViewState extends State<JournalView>
               // APPBAR
               //------------------------
               Container(
+
                 width: size.width * 0.95,
                 padding:  EdgeInsets.all(8),
                 child: Row(

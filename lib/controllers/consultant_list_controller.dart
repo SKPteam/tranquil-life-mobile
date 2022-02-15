@@ -10,6 +10,7 @@ import 'package:tranquil_life/models/consultant_profile_model.dart';
 
 class ConsultantListController extends GetxController {
 static ConsultantListController instance = Get.find();
+
 ///Demo List of Consultants
 final RxList<Consultant> consultantList = <Consultant>[].obs;
 late Consultant consultantModel;

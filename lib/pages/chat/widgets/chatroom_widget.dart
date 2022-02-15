@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/chat_controller.dart';
+import 'package:tranquil_life/controllers/chat_history_controller.dart';
 
 class ChatRoomCard extends StatefulWidget {
   @override
