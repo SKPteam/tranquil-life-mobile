@@ -13,8 +13,6 @@ import 'package:uuid/uuid.dart';
 
 const kAnimationDuration = Duration(milliseconds: 200);
 
-const List<int> top_up_figures = [50, 150, 250, 500, 750, 900, 1500];
-
 const List<String> monthsFromIndex = [
   'January',
   'February',

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tranquil_life/constants/controllers.dart';
+import 'package:tranquil_life/controllers/dashboard_controller.dart';
 
 class FABBottomAppBarItem {
   FABBottomAppBarItem({this.iconData, this.text});
@@ -35,14 +38,15 @@ class FABBottomAppBar extends StatefulWidget {
 }
 
 class FABBottomAppBarState extends State<FABBottomAppBar> {
-  int _selectedIndex = 0;
 
   _updateIndex(int index) {
     widget.onTabSelected!(index);
     setState(() {
-      _selectedIndex = index;
+      dashboardController.tabIndex.value = index;
     });
   }
+
+  final DashboardController _dashboardController = Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +94,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
     int? index,
     ValueChanged<int>? onPressed,
   }) {
-    Color? color = _selectedIndex == index ? widget.selectedColor : widget.color;
+    Color? color = dashboardController.tabIndex.value == index ? widget.selectedColor : widget.color;
     return Expanded(
       child: SizedBox(
         height: widget.height,

@@ -72,7 +72,15 @@ const String userJBody = 'body';
 const String userJMood = 'moodUrl';
 const String userJDate = 'timestamp';
 
-const List<int> top_up_figures = [50, 150, 250, 500, 750, 900, 1500];
+const List<int> top_up_figures = [1, 50, 150, 250, 500, 750, 900, 1500];
+
+const List payment_options = [
+  "Your Tranquil Life Default Card",
+  "Mobile Money Transfer",
+  "A New Card",
+  "Bank Transfer"
+];
+
 
 const List<String> monthsFromIndex = [
   'January',
@@ -143,9 +151,11 @@ RxString generatedPwd = RxString(" ");
 var timeFormat = DateFormat('kk:mm');
 var dateFormat = DateFormat('dd-MM-yyyy');
 
-const baseUrl = "http://127.0.0.1:8000";
+//const baseUrl = "http://127.0.0.1:8000";
+const baseUrl = "https://tranquil-api.herokuapp.com";
 
 //Post Api paths
 const registerPath = '/api/client/register';
 const loginPath = '/api/client/login';
 const ifUsernameExistsPath = '/api/client/ifUsernameExists';
+const ravePayPath = '/api/pay';

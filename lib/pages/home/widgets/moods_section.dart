@@ -1,7 +1,9 @@
 // ignore_for_file: file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tranquil_life/constants/style.dart';
+import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/models/mood.dart';
 import 'package:tranquil_life/widgets/custom_text.dart';
 
@@ -9,18 +11,9 @@ import 'package:tranquil_life/widgets/custom_text.dart';
 class SelectMood extends StatelessWidget {
   final void Function(int index, [String? moodSvgUrl]) moodOnTap;
 
-  final List<Mood> moodsList = [
-    Mood('Happy', 'assets/emojis/happy.png'),
-    Mood('Sad', 'assets/emojis/sad.png'),
-    Mood('Angry', 'assets/emojis/angry.png'),
-    Mood('Frustrated', 'assets/emojis/frustrated.png'),
-    Mood('Proud', 'assets/emojis/proud.png'),
-    Mood('Fear', 'assets/emojis/fear.png'),
-    Mood('Embarrassed', 'assets/emojis/embarrassed.png'),
-    Mood('shock', 'assets/emojis/shock.png')
-  ];
-
   SelectMood({Key? key, required this.moodOnTap}) : super(key: key);
+
+  final HomeController _homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +60,7 @@ class SelectMood extends StatelessWidget {
                     Expanded(
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: moodsList.length,
+                          itemCount: _homeController.moodsList.length,
                           itemBuilder: (BuildContext context, int index) =>
                               buildMoodCard(context, index)),
                     )
@@ -82,7 +75,7 @@ class SelectMood extends StatelessWidget {
   }
 
   Widget buildMoodCard(BuildContext context, int index) {
-    final mood = moodsList[index];
+    final mood = _homeController.moodsList[index];
     return InkWell(
       onTap: () {
         moodOnTap(2, mood.image);

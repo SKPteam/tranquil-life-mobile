@@ -8,7 +8,6 @@ class TransactionHistoryModel {
   late TransactionType type;
   final String uid;
 
-
   TransactionHistoryModel({
     required this.id,
     required this.amount,

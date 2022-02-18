@@ -1,47 +1,46 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:tranquil_life/constants/style.dart';
+import 'package:tranquil_life/models/mood.dart';
 
 
 class HomeController extends GetxController{
 
   static HomeController instance = Get.find();
-   RxDouble  position = 0.0.obs;
+  String blog = 'Blog';
+  String signOut = 'Sign out';
+  ValueNotifier<bool> anonymous = ValueNotifier(isAnonymousInTheApp);
+  List<String>? menuOptions;
+  bool _permissionGranted = false;
+  RxString? username;
+  Rx<UniqueKey>? meetingKey;
 
-  Size size = MediaQuery.of(Get.context!).size;
+  Rx<Position>? currentPosition;
+  var geoLocator = Geolocator(); // geoLocator is an instance of GeoLocator
+  RxString? country, administrativeArea;
+  RxString? location;
 
+  final count = 0.obs;
 
-// dimensions 500.. 530/ 35 ... top 110
-// dimensions 535.. 700 ... top 130
-// dimensions 700.. 890 ... top 150
-// dimensions 890.. 1080 ... top 170
-// dimensions 1080.. 1242 ... top 190
-// dimensions 1242.. 1291 ... top 200
-
-  dimensionTop (){
-    if (size.width >= 535.0){
-      position = 110.0.obs;
-    } else if(size.width >= 530.0 && size.width <= 700.0) {
-      position = 130.0.obs;
-    } else if(size.width >= 700.0 && size.width <= 890.0) {
-      position = 150.0.obs;
-    } else if(size.width >= 890.0 && size.width <= 1080.0) {
-      position = 170.0.obs;
-    } else if(size.width >= 1080.0 && size.width <= 1242.0) {
-      position = 190.0.obs;
-    } else if(size.width >= 1242.0 && size.width <= 1291.0) {
-      position = 200.0.obs;
-    }
-    return position.obs;
-  }
-
-  //TODO: Implement business logic for every feature in the Home page here:
-  //TODO: meetings, notifications, questionnaire
+  final List<Mood> moodsList = [
+    Mood('Happy', 'assets/emojis/happy.png'),
+    Mood('Sad', 'assets/emojis/sad.png'),
+    Mood('Angry', 'assets/emojis/angry.png'),
+    Mood('Frustrated', 'assets/emojis/frustrated.png'),
+    Mood('Proud', 'assets/emojis/proud.png'),
+    Mood('Fear', 'assets/emojis/fear.png'),
+    Mood('Embarrassed', 'assets/emojis/embarrassed.png'),
+    Mood('shock', 'assets/emojis/shock.png')
+  ];
 
   @override
   void onInit() {
-    dimensionTop();
     super.onInit();
+
+    menuOptions = <String>[signOut, blog];
+
   }
 }

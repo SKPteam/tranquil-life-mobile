@@ -26,7 +26,7 @@ class Dashboard extends GetView<DashboardController>{
       tooltip: 'Increment',
       child: Icon(Icons.chat_bubble),
       elevation: 2.0,
-      backgroundColor: kSecondaryColor,
+      backgroundColor: Color(0xFFFFC400),
     );
   }
 

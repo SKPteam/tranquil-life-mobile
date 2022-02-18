@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
@@ -15,6 +16,7 @@ import 'package:tranquil_life/models/card_model.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
+import 'package:webview_flutter/webview_flutter.dart';
 
 
 class WalletController extends GetxController{
@@ -49,6 +51,7 @@ class WalletController extends GetxController{
   String result = "";
 
   RxString figure = "".obs;
+  //final flutterWebviewPlugin = FlutterWebviewPlugin();
 
   var format;
 
@@ -78,6 +81,31 @@ class WalletController extends GetxController{
     return a;
   }
 
+  //check if username exists in api path
+  Future initialize(String email, String phone, String name) async {
+    String url = baseUrl + ravePayPath;
+
+    try{
+      var response = await post(Uri.parse(url),
+          headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json",
+          },
+          body: json.encode({
+            'email':email,
+            'phone':phone,
+            'name': name
+          }));
+
+      //print(jsonDecode(response.body));
+
+      return jsonDecode(response.body)['url'];
+    }catch (e) {
+      //print();
+      return "ERROR: "+e.toString();
+    }
+  }
+
   @override
   void dispose() {
     controller.dispose();
@@ -89,10 +117,12 @@ class WalletController extends GetxController{
   void onInit() async {
     super.onInit();
 
-
-    await checkNumOfConsultations();
-
     rate = await getRate(from, to);
+
+    if (Platform.isAndroid){
+      WebView.platform = AndroidWebView();
+    }
+
 
     (() async {
       // List<String> list = await getCurrencies();
@@ -110,6 +140,7 @@ class WalletController extends GetxController{
 
     type.value = storage.read(userType);
 
+    getStaffDetails();
 
   }
 
@@ -122,16 +153,14 @@ class WalletController extends GetxController{
     return textPainter.size;
   }
 
-  checkNumOfConsultations() {
-    // if (DashboardController.to.myTotalConsultations!.value <= 3) {
-    //   discountExists.value = true;
-    // }
-  }
+
+
 
   @override
   void onReady() {
     super.onReady();
 
+    getStaffDetails();
   }
 
   void getCardDetails() async {
@@ -162,7 +191,39 @@ class WalletController extends GetxController{
     // });
   }
 
-
+  getStaffDetails() async {
+    // workPlace = DashboardController.to.workPlace!.value.toString();
+    // print(workPlace.toString());
+    //
+    // var doc;
+    // await enrolledCompaniesRef!
+    //     .where('name', isEqualTo: workPlace)
+    //     .limit(1)
+    //     .get()
+    //     .then((snapshot1) {
+    //   if (snapshot1.size >= 0) {
+    //     for (var i = 0; i < snapshot1.docs.length; i++) {
+    //       doc = snapshot1.docs[i];
+    //     }
+    //   } else {
+    //     print('does not exist');
+    //   }
+    // });
+    //
+    // enrolledCompaniesRef!
+    //     .doc(doc.data()['id'])
+    //     .collection('staff')
+    //     .where('email', isEqualTo: auth!.currentUser!.email)
+    //     .limit(1)
+    //     .get()
+    //     .then((snapshot2) {
+    //   for (var j = 0; j < snapshot2.docs.length; j++) {
+    //     discount =
+    //         RxInt(int.parse(snapshot2.docs[j].data()['discount'].toString()));
+    //     loaded.value = true;
+    //   }
+    // });
+  }
 
   ///gives a reference string mentioning from which device type and at what time it is charged
   String getReference() {
@@ -212,3 +273,142 @@ class WalletController extends GetxController{
 
 }
 
+/* .................. To-Up History Controller ...............*/
+
+
+class TopUpHistoryController extends GetxController {
+  // Query getDataFromFirebase() {
+  //   print('Extracting Data from Firebase for Transaction History');
+  //   //snapshots from database
+  //   //if the list is empty, that is extraction process if done for first time, then
+  //   // don't use startAfterDocument property and limit the documents to 10
+  //   return transactionsRef!
+  //       .child(businessProfit)
+  //       .equalTo(auth!.currentUser!.uid, key: 'uid')
+  //       .orderByChild('timestamp');
+  // }
+}
+
+// Future _handleDataFromDatabase(
+//   QuerySnapshot transactionDocs,
+// ) async {
+//   print('the length of the transactions is ${transactionDocs.docs.length}');
+//   //if snapshots from database is not empty, then execute below code
+//   if (transactionDocs.docs.isNotEmpty) {
+//     // store the last snapshot of the 10 documents to be used for startfromDocument option
+//     lastDisplayedTransactionDocument = transactionDocs.docs.last;
+//     //for each document in the snapshot execute the loop
+//     for (var i = 0; i < transactionDocs.docs.length; i++) {
+//       var doc = transactionDocs.docs[i];
+//       print(doc.data());
+//       var docData = doc.data() as Map<String, dynamic>;
+//       //!will use this for getting name of the user to which money is sent
+//       //get the userData from the uid of the notification
+//       // var userAccountDoc =
+//       //     await accountSettingsRef.child(docData['uid']).once();
+
+//       //add the data into Notification Model and then add it to the notifications list
+//       historyOfTransactions.add(TransactionHistoryModel(
+//         id: docData['id'],
+//         amount: docData['amount'].toInt(),
+//         referenceNumber: docData['referenceNumber'],
+//         timestamp: DateTime.fromMillisecondsSinceEpoch(docData['timestamp'])
+//             .toLocal(),
+//         type: docData['type'],
+//         uid: docData['uid'],
+//       ));
+//     }
+//   }
+//   //if the length of snapshot documents is less than 10 or it is empty then
+//   // make the bool variable that suggests that no notifications are available in database for pagination
+//   if (transactionDocs.docs.length < 10) {
+//     moreTransactionsAvailableInDatabase.value = false;
+//   }
+// }
+
+// TransactionHistoryModel? transactionHistoryModel;
+
+// RxList<TransactionHistoryModel> historyOfTransactions =
+//     <TransactionHistoryModel>[].obs;
+
+// final _count = 103;
+// final _itemsPerPage = 5;
+// int _currentPage = 0;
+
+// // This async function simulates fetching results from Internet, etc.
+// Future<List<TransactionHistoryModel>> fetch() async {
+//   final n = min(_itemsPerPage, _count - _currentPage * _itemsPerPage);
+//   // Uncomment the following line to see in real time now items are loaded lazily.
+//   // print('Now on page $_currentPage');
+
+//   // Query transactionQuery;
+//   //
+//   // transactionQuery = transactionsRef!.child(businessProfit)
+//   //     .orderByChild("uid")
+//   //     .equalTo(auth!.currentUser!.uid)
+//   // .limitToLast(10);
+
+//   //transactionQuery.onValue.last;
+
+//   transactionsRef!
+//       .child(businessProfit)
+//       .orderByChild("uid")
+//       .equalTo(auth!.currentUser!.uid)
+//       .once()
+//       .then((DataSnapshot snapshot) {
+//     historyOfTransactions.clear();
+//     if (snapshot.value != null) {
+//       var keys = snapshot.value.keys;
+//       var values = snapshot.value;
+//       for (var key in keys) {
+// transactionHistoryModel = TransactionHistoryModel(
+//     id: values[key]["id"],
+//     amount: values[key]["amount"],
+//     referenceNumber: values[key]["referenceNumber"],
+//     timestamp: values[key]["timestamp"],
+//     type: values[key]["type"],
+//     uid: values[key]["uid"]);
+//         historyOfTransactions.add(transactionHistoryModel!);
+//       }
+//       print("KEYS:$keys");
+//       print("VALUES: $values");
+//     }
+//   });
+
+//   dataLoaded.value = true;
+
+//   print(historyOfTransactions.length);
+
+//   await Future.delayed(Duration(seconds: 1), () {
+//     for (int i = 0; i < n; i++) {
+//       historyOfTransactions.add(transactionHistoryModel!);
+//     }
+//   });
+//   _currentPage++;
+//   return historyOfTransactions;
+// }
+
+// @override
+// void onInit() {
+//   super.onInit();
+
+//   isLoading.value = true;
+//   hasMore.value = true;
+//   loadMore();
+// }
+
+// // Triggers fecth() and then add new items or change _hasMore flag
+// void loadMore() {
+//   isLoading.value = true;
+//   fetch().then((List<TransactionHistoryModel> fetchedList) {
+//     if (fetchedList.isEmpty) {
+//       isLoading.value = false;
+//       hasMore.value = false;
+//     } else {
+//       isLoading.value = false;
+//       historyOfTransactions.addAll(fetchedList);
+//     }
+//   });
+// }
+
+/*......... Add New Card Controller ............*/

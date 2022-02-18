@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:tranquil_life/constants/app_font.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
@@ -28,66 +29,50 @@ import 'widgets/moods_section.dart';
 import 'widgets/notificationBadge.dart';
 
 class Home extends GetView<HomeController> {
+  final void Function(int index, [String? moodSvgUrl]) moodOnTap;
 
-  // dimensions 500.. 530/ 35 ... top 110
-  // dimensions 535.. 700 ... top 130
-  // dimensions 700.. 890 ... top 150
-  // dimensions 890.. 1080 ... top 170
-  // dimensions 1080.. 1242 ... top 190
-  // dimensions 1242.. 1291 ... top 200
-
+  Home({Key? key, required this.moodOnTap}) : super(key: key);
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  bool? toggleValue = false;
-
-  final DashboardController _dashboardController = Get.put(DashboardController());
-  final HomeController _ = Get.put(HomeController());
 
 
   @override
   Widget build(BuildContext context) {
-    _.dimensionTop();
 
-    ConsultantProfileModel? consultantProfileModel = ConsultantProfileModel(
-      preferredLangs: "Yoruba",
-      yearsOfExperience: "2",
-      areaOfExpertise: "5",
-      uid: "1",
-      fee: 5000,
-      firstName: "Barry",
-      lastName: "allen",
-    );
-    return ResponsiveSafeArea(responsiveBuilder: (context, size) {
-      return Scaffold(
-          key: scaffoldKey,
-          backgroundColor: light,
-          appBar: topNavigationBar(context, scaffoldKey),
-          body: dashboardController.userType.value == client
-              ? Stack(children: [
+    return ResponsiveSafeArea(
+      responsiveBuilder: (context, size)=>
+          Scaffold(
+              key: scaffoldKey,
+              appBar: topNavigationBar(context, scaffoldKey),
+              backgroundColor: kLightBackgroundColor,
+              body: Stack(
+                children: [
                   Container(
-                    height: size.height * 0.35,
+                    height: size.height * .35,
                     decoration: BoxDecoration(
-                      color: lightBgColor,
+                      color: kLightBackgroundColor,
                       gradient: LinearGradient(
-                          colors: [Color(0xffC9D8CD), lightBgColor],
+                          colors: [Color(0xffC9D8CD), kLightBackgroundColor],
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter),
                     ),
                   ),
+
                   Container(
                     width: double.infinity,
                     margin: EdgeInsets.only(
-                        left: size.width * 0.1, top: size.width * 0.1),
+                        left: size.width * 0.1,
+                        top: size.width * 0.1),
                     child: Stack(
                       children: [
                         SizedBox(
-                            width: size.width * 0.6,
+                            width: size.width * 0.4,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'Hi,',
                                   style: TextStyle(
-                                    color: active,
+                                    color: kPrimaryColor,
                                     fontSize: 28,
                                     fontWeight: FontWeight.normal,
                                   ),
@@ -95,311 +80,135 @@ class Home extends GetView<HomeController> {
                                 ),
                                 CustomText(
                                   text: "Joseph",
-                                  color: active,
+                                  color: kPrimaryColor,
                                   weight: FontWeight.w700,
-                                  size: 28,
                                   align: TextAlign.start,
+                                  size: 28,
                                 ),
                               ],
                             )),
-                        Positioned(
-                            right: size.width * 0.1,
-                            child: Padding(
-                              padding: EdgeInsets.only(top: size.width * 0.01),
-                              child: Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      //Get.toNamed(Routes.CONSULTANT_LIST);
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ConsultantListView()));
 
-                                      print("Consutlant list");
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          left: size.width * 0.2),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white70,
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey,
-                                            blurRadius: 10,
-                                            spreadRadius: 0,
-                                            offset: Offset(3, 6),
-                                          ),
-                                        ],
+                        Positioned(
+                          right: size.width * 0.1,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                top: size.width * 0.01),
+                            child: Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: size.width * 0.2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white70,
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 10,
+                                        spreadRadius: 0,
+                                        offset: Offset(3, 6),
                                       ),
-                                      child: SizedBox(
-                                          width: 46,
-                                          height: 46,
-                                          child: Icon(
-                                            Icons.people,
-                                            size: 28,
-                                            color: active,
-                                          )),
-                                    ),
+                                    ],
                                   ),
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        left: size.width * 0.02),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white70,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey,
-                                          blurRadius: 10,
-                                          spreadRadius: 0,
-                                          offset: Offset(3, 6),
-                                        ),
-                                      ],
-                                    ),
-                                    child: InkWell(
-                                      onTap: () {
-                                        //Navigator.pushNamed(context, NotificationHistoryScreen.idScreen);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    NotificationHistoryScreen()));
-                                      },
-                                      child: SizedBox(
+                                  child: InkWell(
+                                    onTap: () async {
+                                      // var result = await Get.to<bool>(
+                                      //       () =>
+                                      //   const ConsultationQuestionnaireView(),
+                                      // );
+                                      // if (result ?? false) {
+                                      //   Get.find<
+                                      //       MyScheduledMeetingsTabController>()
+                                      //       .getDataFromFirebase();
+                                      // }
+                                    },
+                                    child: SizedBox(
                                         width: 46,
                                         height: 46,
                                         child: Icon(
-                                          Icons.notifications,
-                                          color: kPrimaryColor,
+                                          Icons.people,
                                           size: 28,
-                                        ),
+                                          color: kPrimaryColor,
+                                        )),
+                                  ),
+                                ),
+                                SizedBox(width: size.width*0.02),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                      left: size.width * 0.02),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white70,
+                                    borderRadius:
+                                    BorderRadius.circular(10.0),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: Colors.grey,
+                                        blurRadius: 10,
+                                        spreadRadius: 0,
+                                        offset: Offset(3, 6),
+                                      ),
+                                    ],
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, NotificationHistoryScreen.idScreen);
+                                    },
+                                    child: SizedBox(
+                                      width: 46,
+                                      height: 46,
+                                      child: Icon(
+                                        Icons.notifications,
+                                        color: kPrimaryColor,
+                                        size: 28,
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            )),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+
                         NotificationBadge(),
                       ],
                     ),
                   ),
 
-
-                    Positioned(
-
-                          top: 110,
-                          left: 0,
-                          width: size.width,
-                          child: SizedBox(
-                            height: size.height -
-                                size.height * 0.25,
-                            child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    MyMeetingsSection(),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                    SelectMood(
-                                      moodOnTap: (int index, [moodSvgUrl]) {
-                                        DashboardController.to
-                                            .setBottomBarIndex(index, moodSvgUrl!);
-                                      },
-                                    ),
-                                    SizedBox(
-                                      height: 80,
-                                    )
-                                  ],
-                                )),
-                          )),
-
-
-                ])
-              : Stack(
-                  children: [
-                    Container(
-                      height: size.height * .35,
-                      decoration: BoxDecoration(
-                        color: kLightBackgroundColor,
-                        gradient: LinearGradient(
-                            colors: [Color(0xffC9D8CD), kLightBackgroundColor],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter),
-                      ),
-                    ),
-                    Container(
-                        width: double.infinity,
-                        margin: EdgeInsets.only(
-                            left: size.width * 0.1,
-                            top: size.width * 0.1),
-                        child: Stack(
-                          children: [
-                            SizedBox(
-                                width: size.width * 0.4,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Hi,',
-                                      style: TextStyle(
-                                        color: kPrimaryDarkColor,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    Text(
-                                      "First name ",
-                                      // !DashboardController
-                                      //     .to.firstName!.value.isNull
-                                      //     ? DashboardController
-                                      //     .to.firstName!.value
-                                      //     .toString()
-                                      //     : '',
-                                      style: TextStyle(
-                                          color: kPrimaryDarkColor,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                )),
-                            Positioned(
-                              right: size.width * 0.1,
-                              child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: size.width * 0.01),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            left: size.width * 0.02),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white70,
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey,
-                                              blurRadius: 10,
-                                              spreadRadius: 0,
-                                              offset: Offset(3, 6),
-                                            ),
-                                          ],
-                                        ),
-                                        child: InkWell(
-                                          onTap: () {
-                                            Navigator.of(context)
-                                                .push(MaterialPageRoute(
-                                              builder: (context) =>
-                                                  NotificationHistoryScreen(),
-                                            ));
-                                          },
-                                          child: SizedBox(
-                                            width: 46,
-                                            height: 46,
-                                            child: SvgPicture.asset(
-                                              'assets/icons/notification.svg',
-                                              color: kPrimaryColor,
-                                              width: 40,
-                                              height: 40,
-                                              fit: BoxFit.none,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                            ),
-                            NotificationBadge(),
-                          ],
-                        )),
-                    Positioned(
-                      top: size.height * 0.18,
+                  ///meetings and moods section
+                  Positioned(
+                      top: size.height * 0.12,
                       left: 0,
                       width: size.width,
                       child: SizedBox(
                         height: size.height -
                             size.height * 0.12,
                         child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              MyMeetingsSection(),
-                              SizedBox(height: size.height * .04),
-                              Center(
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12.0),
-                                      child: SizedBox(
-                                        width: size.width * 0.9,
-                                        height: 60,
-                                        child: ElevatedButton(
-                                            onPressed: () async {
-                                              ///list of schedules containing schedule model for creating container templates
-                                              ///of weekDay and date
-                                              ///dates from tom to next 7 days generated from DateTime
-                                              final List<Schedule> schedules =
-                                                  List.generate(
-                                                7,
-                                                (index) => Schedule(
-                                                  DateTime.now().add(
-                                                    Duration(days: index + 1),
-                                                  ),
-                                                ),
-                                              );
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                MyMeetingsSection(),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                SelectMood(
+                                  moodOnTap: (int index, [moodSvgUrl]) {
+                                    DashboardController.to
+                                        .setBottomBarIndex(index, moodSvgUrl!);
+                                  },
+                                ),
+                                SizedBox(
+                                  height: size.width > 520 ? size.height * 0.12 : size.height * 0.2,
+                                )
+                              ],
+                            )),
+                      ))
+                ],
+              )
 
-                                              //show modal sheet for Date Selecting
-                                              showModalBottomSheet<void>(
-                                                isDismissible: true,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.vertical(
-                                                            top:
-                                                                Radius.circular(
-                                                                    40))),
-                                                context: context,
-                                                builder: (context) =>
-                                                    ScheduleMeetingDialog(
-                                                  schedules: schedules,
-                                                  consultantProfileModel:
-                                                      consultantProfileModel,
-                                                  isUserClient: false,
-                                                  key: null,
-                                                  reScheduleMeetingID: '',
-                                                ),
-                                              );
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                SvgPicture.asset(
-                                                  'assets/icons/schedule.svg',
-                                                  color: Colors.white,
-                                                  width: 16,
-                                                  height: 16,
-                                                  fit: BoxFit.none,
-                                                ),
-                                                Text(
-                                                  'Set your convenient consultation hours',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 18),
-                                                )
-                                              ],
-                                            )),
-                                      )))
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-      );
-    });
+            //TODO: CONSULTANT HOME
+          ),
+    );
   }
 }

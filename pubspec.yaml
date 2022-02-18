@@ -38,7 +38,9 @@ dependencies:
   geolocator: any # For access to platform specific location services
   geocoding: any
 
+  flutterwave: any
   flutter_paystack: any
+  webview_flutter: ^2.0.12
 
   flutter_local_notifications: any
   http: any
@@ -64,7 +66,7 @@ dependencies:
     git:
       url: https://github.com/w-rui/StoragePath
   language_picker: any #language picker
-  flutter_sound: any
+  #flutter_sound: any
 
 
   # The following adds the Cupertino Icons font to your application.

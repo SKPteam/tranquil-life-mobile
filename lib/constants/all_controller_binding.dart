@@ -44,7 +44,6 @@ class AllControllerBinding extends Bindings{
     Get.lazyPut(() => DashboardController());
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => WalletController());
-    Get.lazyPut(() => TopUpHistoryController());
     Get.lazyPut(() => AddNewCardController());
     Get.lazyPut(() => JournalController());
     Get.lazyPut(() => JournalHistoryController());

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
 import 'package:tranquil_life/pages/chat/chatroom.dart';
@@ -51,12 +52,12 @@ class DashboardController extends GetxController {
       case 3:
         return ProfileView(setBottomBarIndex: (int index) {});
     default:
-        return Home();
+        return Home(moodOnTap: setBottomBarIndex);
     }
   }
 
 
-  RxInt currentIndex = RxInt(0);
+  //RxInt currentIndex = RxInt(0);
   RxBool pageLoaded = RxBool(false);
   static DashboardController get to => Get.find();
   void setBottomBarIndex(int index, [String? moodSvgUrl = '']) {
@@ -66,7 +67,7 @@ class DashboardController extends GetxController {
       selectedMoodSvgUrl.value = '';
     }
     print('Changing Index');
-    currentIndex.value = index;
+    tabIndex.value = index;
   }
 
   ValueNotifier<String> selectedMoodSvgUrl = ValueNotifier('');

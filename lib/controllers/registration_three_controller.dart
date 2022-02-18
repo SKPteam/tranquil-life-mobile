@@ -78,6 +78,7 @@ class RegistrationThreeController extends GetxController {
                           fontWeight: FontWeight.w500),
                     ),
                   )),
+
               LanguagePickerCupertino(
                 pickerSheetHeight: 400.0,
                 itemBuilder: _buildCupertinoItem,

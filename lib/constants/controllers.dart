@@ -36,7 +36,6 @@ TimeoutController timeoutController = TimeoutController.instance;
 DashboardController dashboardController = DashboardController.instance;
 HomeController homeController = HomeController.instance;
 WalletController walletController = WalletController.instance;
-TopUpHistoryController topUpHistoryController = TopUpHistoryController.instance;
 JournalController journalController = JournalController.instance;
 JournalHistoryController journalHistoryController = JournalHistoryController.instance;
 NotificationHistoryController notificationHistoryController = NotificationHistoryController.instance;

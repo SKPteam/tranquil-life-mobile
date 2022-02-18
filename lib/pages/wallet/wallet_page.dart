@@ -1,6 +1,10 @@
 // ignore_for_file: prefer__literals_to_create_immutables, prefer__ructors, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, sized_box_for_whitespace, unnecessary_import
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutterwave/flutterwave.dart';
+import 'package:flutterwave/models/responses/charge_response.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -14,9 +18,12 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/pages/wallet/widgets/payment_options.dart';
 import 'package:tranquil_life/pages/wallet/widgets/stack_wallet.dart';
 import 'package:tranquil_life/pages/wallet/widgets/top_up_history.dart';
+import 'package:tranquil_life/pages/webview/webview.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class WalletView extends StatefulWidget {
   final void Function(int index) reloadWalletPage;
@@ -105,6 +112,10 @@ class _WalletViewState extends State<WalletView>
     _.controller.forward();
   }
 
+  final String currency = FlutterwaveCurrency.NGN;
+  final String txref = "My_unique_transaction_reference_123";
+
+
   @override
   void initState() {
     super.initState();
@@ -170,7 +181,10 @@ class _WalletViewState extends State<WalletView>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Available balance"),
+                          Text("Available balance",
+                        style: TextStyle(
+                        fontSize: 18,
+                      )),
                           SizedBox(
                               child: Text(
                                 "50000",
@@ -189,7 +203,10 @@ class _WalletViewState extends State<WalletView>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Staff discount"),
+                          Text("Staff discount",
+                              style: TextStyle(
+                                fontSize: 18,
+                              )),
                           SizedBox(
                               child: Text(
                                 '${_.loaded.isFalse ? "" : _.discountExists.isTrue ? _.discount!.value : 0}%',
@@ -206,14 +223,18 @@ class _WalletViewState extends State<WalletView>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Top up"),
+                          Text("Top up",
+                              style: TextStyle(
+                                fontSize: 18,
+                              )),
                           Container(
                             margin: EdgeInsets.only(
-                                right: size.width * 0.04),
+                                left: size.width * 0.02),
                             decoration: BoxDecoration(
                               color: Colors.white70,
-                              borderRadius: BorderRadius.circular(10.0),
-                              boxShadow: [
+                              borderRadius:
+                              BorderRadius.circular(10.0),
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,
                                   blurRadius: 10,
@@ -223,53 +244,21 @@ class _WalletViewState extends State<WalletView>
                               ],
                             ),
                             child: InkWell(
-                              onTap: () {
-                                //_.getCurrencies();
+                              onTap: () async{
 
-                                Get.bottomSheet(Container(
-                                  decoration:
-                                  BoxDecoration(color: Colors.white),
-                                  height: size.height * 0.5,
-                                  padding: EdgeInsets.fromLTRB(
-                                      16.0, 16.0, 16.0, 0),
-                                  child: ListView.builder(
-                                      itemCount: top_up_figures.length,
-                                      itemBuilder: (BuildContext context,
-                                          int index) {
-                                        return ListTile(
-                                          title: InkWell(
-                                            onTap: () {
-                                              //print("CURRENCY SYMBOL ${_.format.currencyName}"); // $
-                                              // print("${_.format.currencySymbol}"+"${top_up_figures[index]}");
-                                              Get.back();
-                                              _.figure.value = (_.rate! *
-                                                  double.parse(
-                                                      top_up_figures[
-                                                      index]
-                                                          .toString()))
-                                                  .toStringAsFixed(3);
-                                              // displayPaymentMethods(
-                                              //     _.figure.value);
-                                            },
-                                            child: Text(
-                                              "\$${double.parse(top_up_figures[index].toString())}",
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      }),
-                                ));
+                                await Get.bottomSheet(
+                                    PaymentOptions()
+                                );
                               },
                               child: SizedBox(
-                                  width: size.width * 0.10,
-                                  height: size.width * 0.10,
-                                  child: Icon(
-                                    Icons.arrow_upward,
-                                    size: size.width * 0.06,
-                                    color: kPrimaryColor,
-                                  )),
+                                width: 46,
+                                height: 46,
+                                child: Icon(
+                                  Icons.arrow_upward,
+                                  color: kPrimaryColor,
+                                  size: 28,
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -278,7 +267,8 @@ class _WalletViewState extends State<WalletView>
                         height: size.height * 0.08,
                       ),
                       SizedBox(
-                          width: double.infinity,
+                          width: size.width * 0.6,
+                          height: 60,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
                             child: ElevatedButton(
@@ -303,10 +293,10 @@ class _WalletViewState extends State<WalletView>
                                     Text(
                                       'View transactions',
                                       style: TextStyle(
-                                          fontSize: 28),
+                                          fontSize: 18),
                                     ),
                                     Icon(
-                                        Icons.keyboard_arrow_up_outlined),
+                                        Icons.keyboard_arrow_down_outlined),
                                   ],
                                 )),
                           )),
@@ -529,6 +519,8 @@ class _WalletViewState extends State<WalletView>
     );
   }
 
+
+
 // void displayPaymentMethods(String top_up_figure) {
 //   Get.bottomSheet(Container(
 //     decoration:  BoxDecoration(color: Colors.white),
@@ -676,4 +668,11 @@ class _WalletViewState extends State<WalletView>
 //     ),
 //   ));
 // }
+
+  bool checkPaymentIsSuccessful(final ChargeResponse response, String amount, ) {
+    return response.data!.status == FlutterwaveConstants.SUCCESSFUL &&
+        response.data!.currency == this.currency &&
+        response.data!.amount == amount &&
+        response.data!.txRef == this.txref;
+  }
 }

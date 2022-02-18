@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sound/flutter_sound.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -733,7 +732,7 @@ class _ChatScreenPageState extends State<ChatScreenPage>  with SingleTickerProvi
     }
   }
 
-  final FlutterSoundRecorder _mySoundRecorder = FlutterSoundRecorder();
+  //final FlutterSoundRecorder _mySoundRecorder = FlutterSoundRecorder();
 
   String? _audioRecordPath;
 
@@ -747,11 +746,11 @@ class _ChatScreenPageState extends State<ChatScreenPage>  with SingleTickerProvi
           status == PermissionStatus.limited;
     }
     if (hasRecordingPermission) {
-      _mySoundRecorder.openRecorder().then((value) {
-        setState(() {
-          _mRecorderIsInited = true;
-        });
-      });
+      // _mySoundRecorder.openRecorder().then((value) {
+      //   setState(() {
+      //     _mRecorderIsInited = true;
+      //   });
+      // });
     } else {
       displaySnackbar('Permission to microphone is denied', context);
     }
@@ -772,10 +771,10 @@ class _ChatScreenPageState extends State<ChatScreenPage>  with SingleTickerProvi
         timer = Timer.periodic(const Duration(seconds: 1), (timer) {
           secondsOfAudioRecorded++;
         });
-        await _mySoundRecorder.startRecorder(
-          toFile: filepath,
-          codec: Codec.aacADTS,
-        );
+        // await _mySoundRecorder.startRecorder(
+        //   toFile: filepath,
+        //   codec: Codec.aacADTS,
+        // );
         displaySnackbar('Started Recording', context);
         _audioRecordPath = filepath;
       } else {
@@ -790,7 +789,7 @@ class _ChatScreenPageState extends State<ChatScreenPage>  with SingleTickerProvi
     if (_mRecorderIsInited && hasRecordingPermission) {
       displaySnackbar('Stopped Recording', context);
 
-      await _mySoundRecorder.stopRecorder();
+      //await _mySoundRecorder.stopRecorder();
       timer?.cancel();
 
     }
