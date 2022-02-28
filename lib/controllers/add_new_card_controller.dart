@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
+import 'package:tranquil_life/constants/app_strings.dart';
+
+import '../main.dart';
 
 class AddNewCardController extends GetxController{
   static AddNewCardController instance = Get.find();
@@ -31,6 +37,33 @@ class AddNewCardController extends GetxController{
   cardNum() {
     if (cardNumController!.text == "") {
       cardNumController = TextEditingController(text: "Card Number");
+    }
+  }
+
+  Future addCard() async{
+    String url = baseUrl + addCardPath;
+
+    try{
+      var response = await post(Uri.parse(url),
+          headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json",
+            "Authorization": "Bearer ${sharedPreferences!.getString("accessToken")}",
+
+          },
+          body: json.encode({
+            'cardOwner': cardOwnerController!.text,
+            'cardNumber': cardNumController!.text,
+            'cardType': cardTypeName.value.toString(),
+            'cardExpiryMonth': cardExpDateController!.text.substring(0,2),
+            'cardExpiryYear': cardExpDateController!.text.substring(3,5),
+            'cvv': cardCvvController!.text
+          }));
+
+      return json.decode(response.body);
+    }catch (e) {
+      //print();
+      return "ERROR: "+e.toString();
     }
   }
 
@@ -74,12 +107,14 @@ class AddNewCardController extends GetxController{
     super.onInit();
   }
 
+
+
   @override
-  void onClose() {
+  void dispose() {
     cardNumFocusNode!.dispose();
     cardOwnerFocusNode!.dispose();
     cardCvvFocusNode!.dispose();
 
-    super.onClose();
+    super.dispose();
   }
 }

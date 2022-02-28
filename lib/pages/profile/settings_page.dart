@@ -6,22 +6,19 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/app_settings_controller.dart';
 import 'package:tranquil_life/pages/profile/widgets/settings_tile.dart';
+import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
 
 class AppSettingsView extends GetView<AppSettingsController> {
-
-  final AppSettingsController _ = Get.put(AppSettingsController());
-
-  AppSettingsView({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: _.bg,
+      backgroundColor: light,
       body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -111,7 +108,7 @@ class AppSettingsView extends GetView<AppSettingsController> {
                             text: 'Log out',
                             color: Colors.black,
                             onTap: (){
-
+                              appSettingsController.logOut().then((value) => Navigator.pushNamedAndRemoveUntil(context, Routes.SIGN_IN, (route) => false));
                             },
                           ),
                         ]),

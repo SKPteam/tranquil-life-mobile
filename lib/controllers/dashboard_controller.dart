@@ -1,10 +1,13 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart';
+import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
@@ -24,6 +27,8 @@ import 'package:tranquil_life/pages/profile/profile_page.dart';
 
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/helpers/constants.dart';
+
+import '../main.dart';
 
 class DashboardController extends GetxController {
 
@@ -95,19 +100,6 @@ class DashboardController extends GetxController {
 
   RxBool locked = false.obs;
 
-  displaySnackBar(String message, BuildContext context) {
-    try {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message),
-          duration: const Duration(seconds: 2),
-        ),
-      );
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
-
 
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused) {
@@ -137,16 +129,25 @@ class DashboardController extends GetxController {
     }
   }
 
-  Future hideBar() async {
+  Future clientProfile() async{
+    String url = baseUrl + getClientProfilePath;
 
-    return "";
+    var response = await post(
+        Uri.parse(url),
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json",
+          "Authorization": "Bearer ${sharedPreferences!.getString(
+              "accessToken")}",
+        });
+
+    return jsonDecode(response.body);
   }
 
   @override
   void onInit() {
     super.onInit();
-    userType = "client".obs;
-    //WidgetsBinding.instance!.addObserver(this);
+    clientProfile();
 
     //WidgetsBinding.instance!.addObserver(this);
   }

@@ -12,6 +12,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/main.dart';
 import 'package:tranquil_life/models/card_model.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:uuid/uuid.dart';
@@ -22,7 +23,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class WalletController extends GetxController{
   static WalletController instance = Get.find();
 
-  GetStorage storage = GetStorage();
+  //GetStorage storage = GetStorage();
   final plugin = PaystackPlugin();
 
   ValueNotifier<bool> cardStackLoaded = ValueNotifier(false);
@@ -113,37 +114,6 @@ class WalletController extends GetxController{
     super.dispose();
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-
-    rate = await getRate(from, to);
-
-    if (Platform.isAndroid){
-      WebView.platform = AndroidWebView();
-    }
-
-
-    (() async {
-      // List<String> list = await getCurrencies();
-      // currencies = list;
-    });
-
-    format = intl.NumberFormat.simpleCurrency(locale: locale.toString());
-
-    //to = "${NumberFormat.simpleCurrency(locale: locale.toString()).currencyName}";
-
-    plugin.initialize(publicKey: publicKey);
-
-    getCardDetails();
-    allCardStackBeforeSwipingOff.addAll(cardStack);
-
-    type.value = storage.read(userType);
-
-    getStaffDetails();
-
-  }
-
   Size textSize(String text, TextStyle style) {
     final TextPainter textPainter = TextPainter(
         text: TextSpan(text: text, style: style),
@@ -155,7 +125,6 @@ class WalletController extends GetxController{
 
 
 
-
   @override
   void onReady() {
     super.onReady();
@@ -163,32 +132,60 @@ class WalletController extends GetxController{
     getStaffDetails();
   }
 
-  void getCardDetails() async {
-    // DatabaseReference _paymentCardsReference =
-    // accountSettingsRef!.child(auth!.currentUser!.uid).child('paymentCards');
-    // await _paymentCardsReference.once().then((DataSnapshot snapshot) {
-    //   cardStack.clear();
-    //   if (snapshot.value != null) {
-    //     var keys = snapshot.value.keys;
-    //     var values = snapshot.value;
-    //     //print(keys);
-    //     //print(values);
-    //     for (var key in keys) {
-    //       cardModel = CardModel(
-    //           values[key]['id'],
-    //           values[key][cardNumber],
-    //           values[key][cardOwner],
-    //           values[key]["cardType"],
-    //           values[key][cardExpiryDate],
-    //           values[key][cardCVV],
-    //           values[key]['isDefault']);
-    //       cardStack.add(cardModel!);
-    //     }
-    //     print("KEYS:$keys");
-    //     print("VALUES: $values");
-    //   }
-    //   cardStackLoaded.value = true;
-    // });
+  Future getCardDetails() async {
+    cardStack.clear();
+
+    String url  = baseUrl + listCardsPath;
+
+    var response = await http.get(Uri.parse(url), headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Bearer ${sharedPreferences!.getString("accessToken")}",
+    });
+
+    if(response != null){
+      var resBody = json.decode(response.body);
+      resBody.forEach((card){
+        var model = CardModel();
+        model.id = card['id'];
+        model.cardOwner = card['cardOwner'];
+        model.cardNumber = card['cardNumber'];
+        model.cardExpiryMonth = card['cardExpiryMonth'];
+        model.cardExpiryYear = card['cardExpiryYear'];
+        model.cardType = card['cardType'];
+        model.cvv = card['cvv'];
+        model.isDefault = card['isDefault'];
+
+        cardStack.add(model);
+      });
+
+      cardStackLoaded.value = true;
+    }
+
+    //cardStack.add(cardStack);
+    allCardStackBeforeSwipingOff.addAll(cardStack);
+
+    print(cardStack);
+
+    return cardStack;
+
+  }
+
+  Future setDefaultCard(int id) async{
+    String url  = baseUrl + setDefaultCardPath;
+
+    var response = await http.post(
+        Uri.parse(url),
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json",
+          "Authorization": "Bearer ${sharedPreferences!.getString("accessToken")}",
+        },
+        body: json.encode({
+          'id': id
+        }));
+
+    return jsonDecode(response.body);
   }
 
   getStaffDetails() async {
@@ -267,10 +264,36 @@ class WalletController extends GetxController{
     }
   }
 
+  @override
+  void onInit() async {
+    super.onInit();
 
-//TODO: Implement business logic for every feature in the Wallet page here:
-//TODO: list of cards. top up, add card, client discount and balance
+    rate = await getRate(from, to);
 
+    if (Platform.isAndroid){
+      WebView.platform = AndroidWebView();
+    }
+
+
+    (() async {
+      // List<String> list = await getCurrencies();
+      // currencies = list;
+    });
+
+    format = intl.NumberFormat.simpleCurrency(locale: locale.toString());
+
+    //to = "${NumberFormat.simpleCurrency(locale: locale.toString()).currencyName}";
+
+    plugin.initialize(publicKey: publicKey);
+
+    print("WAALLET!!");
+    getCardDetails();
+
+    //type.value = storage.read(userType);
+
+    //getStaffDetails();
+
+  }
 }
 
 /* .................. To-Up History Controller ...............*/
@@ -386,15 +409,6 @@ class TopUpHistoryController extends GetxController {
 //   });
 //   _currentPage++;
 //   return historyOfTransactions;
-// }
-
-// @override
-// void onInit() {
-//   super.onInit();
-
-//   isLoading.value = true;
-//   hasMore.value = true;
-//   loadMore();
 // }
 
 // // Triggers fecth() and then add new items or change _hasMore flag

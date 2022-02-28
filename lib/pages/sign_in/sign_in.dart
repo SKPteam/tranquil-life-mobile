@@ -5,16 +5,17 @@ import 'package:get/get.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
+import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/sign_in_controller.dart';
 import 'package:tranquil_life/pages/dashboard/dashboard.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
+import 'package:tranquil_life/widgets/custom_snackbar.dart';
 
 import 'widgets/sign_in_form_fields.dart';
 
 
-class SignIn extends StatelessWidget {
-  final SignInController _ = Get.put(SignInController());
+class SignIn extends GetView<SignInController> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(
@@ -64,7 +65,7 @@ class SignIn extends StatelessWidget {
                         SizedBox(height: size.height * 0.08),
 
                         Form(
-                            key: _.formKey,
+                            key: signInController.formKey,
                             child: Column(
                               children: [
                                 ClipRRect(
@@ -86,21 +87,21 @@ class SignIn extends StatelessWidget {
                                     alignment: Alignment.centerRight,
                                     child: GestureDetector(
                                       onTap: () {
-                                        // _.emailTextEditingController.text
+                                        // signInController.emailTextEditingController.text
                                         //     .isEmpty
-                                        //     ? _.displaySnackBar(
+                                        //     ? signInController.displaySnackBar(
                                         //     kEmailNullError, context)
-                                        //     : _.firebaseAuth
+                                        //     : signInController.firebaseAuth
                                         //     .sendPasswordResetEmail(
                                         //     email: _
                                         //         .emailTextEditingController
                                         //         .text)
                                         //     .then((value) {
-                                        //   _.displaySnackBar(
+                                        //   signInController.displaySnackBar(
                                         //       'Check your inbox!',
                                         //       context);
                                         // }).catchError((error) =>
-                                        //     _.displaySnackBar(
+                                        //     signInController.displaySnackBar(
                                         //         '${error.toString().substring(30, error.toString().length)}',
                                         //         context));
                                       },
@@ -122,28 +123,37 @@ class SignIn extends StatelessWidget {
                                   height: 60,
                                   child: ElevatedButton(
                                       onPressed: () {
-                                        // if (_.emailTextEditingController.text
-                                        //     .isEmpty) {
-                                        //   _.displaySnackBar(
-                                        //       kEmailNullError, context);
-                                        // } else if (_
-                                        //     .passwordTextEditingController
-                                        //     .text
-                                        //     .isEmpty) {
-                                        //   _.displaySnackBar(
-                                        //       kPassNullError, context);
-                                        // } else if (_
-                                        //     .passwordTextEditingController
-                                        //     .text
-                                        //     .length <
-                                        //     6) {
-                                        //   _.displaySnackBar(
-                                        //       kShortPassError, context);
-                                        // } else {
-                                        //   _.loginAndAuthenticate(context);
-                                        // }
-                                        //INFO TODO: Return it back to allOffNamed
-                                        Get.toNamed(Routes.DASHBOARD);
+                                        if (signInController.emailTextEditingController.text
+                                            .isEmpty) {
+                                          displaySnackBar(
+                                              kEmailNullError, context);
+                                        } else if (signInController
+                                            .passwordTextEditingController
+                                            .text
+                                            .isEmpty) {
+                                          displaySnackBar(
+                                              kPassNullError, context);
+                                        } else if (signInController
+                                            .passwordTextEditingController
+                                            .text
+                                            .length <
+                                            6) {
+                                          displaySnackBar(
+                                              kShortPassError, context);
+                                        } else {
+                                          signInController.login(
+                                              signInController.emailTextEditingController.text,
+                                              signInController.passwordTextEditingController.text
+                                          ).then((value){
+                                            if(value != null){
+                                              //Get.offAllNamed(Routes.DASHBOARD);
+                                            }else{
+                                              print("Unable to login");
+                                            }
+                                          }).onError((error, stackTrace){
+                                            print("Opps an Error occured, failed to login $error");
+                                          });
+                                        }
                                       },
                                       style: ElevatedButton.styleFrom(
                                           padding:  EdgeInsets.symmetric(

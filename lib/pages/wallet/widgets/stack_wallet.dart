@@ -1,8 +1,9 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: file_names, avoid_print, prefer_const_constructors
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/controllers/wallet_controller.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/models/card_model.dart';
@@ -249,14 +250,8 @@ class _WalletCardStackState extends State<WalletCardStack> {
               ),
             ],
           )
-              : const Center(
-            child: Text('No Cards Found',
-                style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
-                )
-            ),
+              : Center(
+            child: CircularProgressIndicator(),
           ),
         ],
       ),
@@ -274,14 +269,21 @@ class _WalletCardStackState extends State<WalletCardStack> {
                 children: [
                   ListTile(
                     onTap: () async {
-
+                      walletController.setDefaultCard(_model.id!).then((value){
+                        if(value["message"]=="Success"){
+                          setState(() {
+                            _model.isDefault = true;
+                            Navigator.of(context).pop();
+                          });
+                        }
+                      });
                     },
                     visualDensity: VisualDensity.compact,
                     contentPadding: EdgeInsets.zero,
                     dense: true,
                     horizontalTitleGap: 0,
                     title: Text(
-                      !_model.isDefault ? 'Set as default' : 'Remove as default',
+                      !_model.isDefault! ? 'Set as default' : 'Remove as default',
                       style: TextStyle(fontSize: size.width * 0.04),
                     ),
                   ),

@@ -18,6 +18,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/pages/wallet/add_new_card.dart';
 import 'package:tranquil_life/pages/wallet/widgets/payment_options.dart';
 import 'package:tranquil_life/pages/wallet/widgets/stack_wallet.dart';
 import 'package:tranquil_life/pages/wallet/widgets/top_up_history.dart';
@@ -119,13 +120,12 @@ class _WalletViewState extends State<WalletView>
   @override
   void initState() {
     super.initState();
-
-    _.getCardDetails();
-
     // print(
     //     "NUM of consultations: ${DashboardController.to.myTotalConsultations!.value}");
 
     implementAnimation();
+
+    _.getCardDetails();
   }
 
   void reloadPageWalletPage() {
@@ -153,7 +153,7 @@ class _WalletViewState extends State<WalletView>
                   builder: (context, bool? stackLoaded, child) =>
                   stackLoaded!
                       ? WalletCardStack(
-                    cardStack: _.cardStack,
+                    cardStack: _.cardStack.value,
                   )
                       : Center(
                     child: CircularProgressIndicator(),
@@ -163,149 +163,168 @@ class _WalletViewState extends State<WalletView>
                   height: 20,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Get.toNamed(Routes.ADD_NEW_CARD);
+                  onTap: () async {
+                    bool? result = await Get.to(
+                          () => AddNewCard(
+                        reloadWalletPage: widget.reloadWalletPage,
+                      ),
+                      //to make screen full dialog
+                      fullscreenDialog: true,
+                      //to provide animation
+                      transition: Transition.zoom,
+                      //duration for transition animation
+                      //duration: Duration(milliseconds: 2000),
+                      //Curve Animation
+                      curve: Curves.bounceInOut,
+                    );
+
+                    if (result != null && result) {
+                      print('Executing Function $result');
+                      reloadPageWalletPage();
+                    }
+
                   },
-                  child: Center(child: Text("Added New Card")),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.add,
+                      ),
+                      SizedBox(width: 8),
+                      Text("Add new card",
+                          style: TextStyle(fontWeight: FontWeight.bold))
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 40,
                 ),
-                Expanded(
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: [
-                      SizedBox(
-                        height: 40,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Available balance",
-                        style: TextStyle(
-                        fontSize: 18,
-                      )),
-                          SizedBox(
-                              child: Text(
-                                "50000",
-                                //$${double.parse(Get.find<DashboardController>().balance!.value.toString())}
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  color: kPrimaryDarkColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.022,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Staff discount",
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Available balance",
+                            style: TextStyle(
+                              fontSize: 18,
+                            )),
+                        SizedBox(
+                            child: Text(
+                              "50000",
+                              //$${double.parse(Get.find<DashboardController>().balance!.value.toString())}
                               style: TextStyle(
-                                fontSize: 18,
-                              )),
-                          SizedBox(
-                              child: Text(
-                                '${_.loaded.isFalse ? "" : _.discountExists.isTrue ? _.discount!.value : 0}%',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.022,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Top up",
+                                fontSize: 28,
+                                color: kPrimaryDarkColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.022,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Staff discount",
+                            style: TextStyle(
+                              fontSize: 18,
+                            )),
+                        SizedBox(
+                            child: Text(
+                              '${_.loaded.isFalse ? "" : _.discountExists.isTrue ? _.discount!.value : 0}%',
                               style: TextStyle(
-                                fontSize: 18,
-                              )),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: size.width * 0.02),
-                            decoration: BoxDecoration(
-                              color: Colors.white70,
-                              borderRadius:
-                              BorderRadius.circular(10.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 10,
-                                  spreadRadius: 0,
-                                  offset: Offset(3, 6),
-                                ),
-                              ],
-                            ),
-                            child: InkWell(
-                              onTap: () async{
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.022,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Top up",
+                            style: TextStyle(
+                              fontSize: 18,
+                            )),
+                        Container(
+                          margin: EdgeInsets.only(
+                              left: size.width * 0.02),
+                          decoration: BoxDecoration(
+                            color: Colors.white70,
+                            borderRadius:
+                            BorderRadius.circular(10.0),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 10,
+                                spreadRadius: 0,
+                                offset: Offset(3, 6),
+                              ),
+                            ],
+                          ),
+                          child: InkWell(
+                            onTap: () async{
 
-                                await Get.bottomSheet(
-                                    PaymentOptions()
-                                );
-                              },
-                              child: SizedBox(
-                                width: 46,
-                                height: 46,
-                                child: Icon(
-                                  Icons.arrow_upward,
-                                  color: kPrimaryColor,
-                                  size: 28,
-                                ),
+                              await Get.bottomSheet(
+                                  PaymentOptions()
+                              );
+                            },
+                            child: SizedBox(
+                              width: 46,
+                              height: 46,
+                              child: Icon(
+                                Icons.arrow_upward,
+                                color: kPrimaryColor,
+                                size: 28,
                               ),
                             ),
                           ),
-                        ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.1,
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        width: size.width * 0.6,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          border: Border.all(width: 2, color: kPrimaryColor),
+                        ),
+                        child: Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              'View transactions',
+                              style: TextStyle(
+                                  fontSize: 18),
+                            ),
+                            Icon(
+                                Icons.keyboard_arrow_down_outlined),
+                          ],
+                        ),
                       ),
-                      SizedBox(
-                        height: size.height * 0.08,
-                      ),
-                      SizedBox(
-                          width: size.width * 0.6,
-                          height: 60,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  //showing bottom modal sheet containing the history of transactions
-                                  Get.bottomSheet(
-                                    TopUpHistoryModalSheet(),
-                                    backgroundColor: Colors.transparent,
-                                    barrierColor: Colors.black26,
-                                    enableDrag: true,
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 0, vertical: 20),
-                                  primary: kPrimaryColor,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text(
-                                      'View transactions',
-                                      style: TextStyle(
-                                          fontSize: 18),
-                                    ),
-                                    Icon(
-                                        Icons.keyboard_arrow_down_outlined),
-                                  ],
-                                )),
-                          )),
-                      SizedBox(
-                        height: 100,
-                      ),
-                    ],
-                  ),
-                ),
+                      onTap: (){
+                        Get.bottomSheet(
+                          TopUpHistoryModalSheet(),
+                          backgroundColor: Colors.transparent,
+                          barrierColor: Colors.black26,
+                          enableDrag: true,
+                        );
+                      },
+                    ),
+                  ],
+                )
               ],
             ),
           )

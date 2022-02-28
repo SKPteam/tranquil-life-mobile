@@ -58,7 +58,7 @@ class _CardWidgetState extends State<CardWidget> {
           child: Container(
             height: 200,
             decoration: BoxDecoration(
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
                   blurRadius: 10,
@@ -72,24 +72,27 @@ class _CardWidgetState extends State<CardWidget> {
                   begin: Alignment.bottomRight),
               borderRadius: BorderRadius.circular(12),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(),
+                SizedBox(),
                 Container(
                   alignment: Alignment.bottomLeft,
-                  child: Text( "",
-                    // EncryptionHelper.handleDecryption(widget.cardModel.cardNumber)
-                    //     .replaceAll(" ", "  ")
-                    //     .replaceRange(6, 10, '****')
-                    //     .replaceRange(12, 16, '****'),
-                    // style: const TextStyle(
-                    //     fontSize: 20, color: Colors.white, letterSpacing: 2),
-                    // textAlign: TextAlign.start,
+                  child: Text(
+                      widget.cardModel.cardNumber == null
+                          ? ''
+                          : widget.cardModel.cardNumber.toString()
+                          .replaceAll(" ", "  ")
+                          .replaceRange(6, 10, '****')
+                          .replaceRange(12, 16, '****'),
+                    style: TextStyle(
+                        fontSize: 20, color: Colors.white, letterSpacing: 2),
+                    textAlign: TextAlign.start,
                   ),
                 ),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,23 +101,15 @@ class _CardWidgetState extends State<CardWidget> {
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.centerLeft,
-                        child: Text( "",
-                          // EncryptionHelper
-                          //   .handleDecryption(widget.cardModel.cardOwner),
-                          // style: const
-                          // TextStyle(fontSize: 18, color: Colors.white),
-                          // textAlign: TextAlign.start,
+                        child: Text(
+                          widget.cardModel.cardOwner!.toString(),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          textAlign: TextAlign.start,
                         ),
                       ),
                     ),
-                    SvgPicture.asset(
-                      widget.cardModel.logoAsset!,
-                      color: Colors.white,
-                      height: 25,
-                      width: 40,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(
+                    cardType(),
+                    SizedBox(
                       width: 10,
                     )
                   ],
@@ -123,7 +118,7 @@ class _CardWidgetState extends State<CardWidget> {
             ),
           ),
         ),
-        if (widget.cardModel.isDefault)
+        if (widget.cardModel.isDefault!)
         //Here the checkBox is positioned4594
           const Positioned(
             bottom: -10,
@@ -147,5 +142,43 @@ class _CardWidgetState extends State<CardWidget> {
           )
       ],
     );
+  }
+
+  Widget cardType(){
+    switch (widget.cardModel.cardType){
+      case 'VISA':
+        return SvgPicture.asset(
+          "assets/icons/icon-visa.svg",
+          color: Colors.white,
+          height: 25,
+          width: 40,
+          fit: BoxFit.cover,
+        );
+      case 'VERVE':
+        return SvgPicture.asset(
+          "assets/icons/icon-verve.svg",
+          color: Colors.white,
+          height: 25,
+          width: 40,
+          fit: BoxFit.cover,
+        );
+      case 'MASTERCARD':
+        return SvgPicture.asset(
+          "assets/icons/icon-mastercard.svg",
+          color: Colors.white,
+          height: 25,
+          width: 40,
+          fit: BoxFit.cover,
+        );
+      default:
+        return SvgPicture.asset(
+          "assets/icons/icon-american-express.svg",
+          color: Colors.white,
+          height: 25,
+          width: 40,
+          fit: BoxFit.cover,
+        );
+    }
+
   }
 }

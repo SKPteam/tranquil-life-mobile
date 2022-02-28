@@ -62,6 +62,7 @@ dependencies:
   pay: any
   timeago: any
   pointycastle: any
+  shared_preferences: any
   storage_path:
     git:
       url: https://github.com/w-rui/StoragePath

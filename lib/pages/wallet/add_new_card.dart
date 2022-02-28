@@ -50,15 +50,21 @@ import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/wallet/widgets/cardNumber_inputFormatter.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
 
+import 'widgets/expiry_data_input_formatter.dart';
 
-
-
-
-class AddNewCard extends GetView<AddNewCardController> {
-
+class AddNewCard extends StatefulWidget {
   final void Function(int index) reloadWalletPage;
 
   AddNewCard({Key? key, required this.reloadWalletPage}) : super(key: key);
+
+  @override
+  _AddNewCardState createState() => _AddNewCardState();
+}
+
+class _AddNewCardState extends State<AddNewCard> {
+
+  final AddNewCardController _ = Get.put(AddNewCardController());
+
 
   String cardNumText = "";
 
@@ -93,7 +99,9 @@ class AddNewCard extends GetView<AddNewCardController> {
       autofocus: false,
       focusNode: addNewCardController.cardNumFocusNode,
       onChanged: (cardNumText) {
-        addNewCardController.cardNumFocusNode!.requestFocus();
+        setState(() {
+          addNewCardController.cardNumFocusNode!.requestFocus();
+        });
       },
       controller: addNewCardController.cardNumController!,
       keyboardType: TextInputType.number,
@@ -124,8 +132,9 @@ class AddNewCard extends GetView<AddNewCardController> {
       autofocus: false,
       focusNode: addNewCardController.cardOwnerFocusNode!,
       onChanged: (cardOwnerText) {
-        addNewCardController.cardOwnerFocusNode!.requestFocus();
-
+        setState(() {
+          addNewCardController.cardOwnerFocusNode!.requestFocus();
+        });
       },
       controller: addNewCardController.cardOwnerController!,
       decoration: InputDecoration(
@@ -184,13 +193,15 @@ class AddNewCard extends GetView<AddNewCardController> {
       ),
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
-        new LengthLimitingTextInputFormatter(4),
-
+        LengthLimitingTextInputFormatter(4),
+        ExpiryDateInputFormatter()
       ],
       autofocus: false,
       focusNode: addNewCardController.cardExpFocusNode!,
       onChanged: (expDate) {
-        addNewCardController.cardExpFocusNode!.requestFocus();
+        setState(() {
+          addNewCardController.cardExpFocusNode!.requestFocus();
+        });
       },
       controller: addNewCardController.cardExpDateController,
       decoration: InputDecoration(
@@ -221,7 +232,15 @@ class AddNewCard extends GetView<AddNewCardController> {
                 backgroundColor: kPrimaryColor,
                 title: Text("Add New Card"),
                 actions: [
-                  IconButton(onPressed: (){},
+                  IconButton(
+                      onPressed: (){
+                        print("cliecke");
+                        addNewCardController.addCard().then((value){
+                          if(value['message'] == 'Success'){
+                            Navigator.pop(context, true);
+                          }
+                        }).catchError((error)=>displaySnackBar("$error", context));
+                      },
                       icon: Icon(Icons.check, color: light)),
                   SizedBox(width: size.width * 0.01)
                 ],
@@ -249,10 +268,7 @@ class AddNewCard extends GetView<AddNewCardController> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(height: 10),
-                                Text(addNewCardController.cardNumController!.text == "Card Number"
-                                    ? ""
-                                    : addNewCardController.cardNumController!.text.toString()
-                                  ,
+                                Text(addNewCardController.cardNumController!.text.toString(),
                                   style: TextStyle(fontSize: 22, color: Colors.white),
                                   textAlign: TextAlign.start,
                                 ),
@@ -408,3 +424,5 @@ class AddNewCard extends GetView<AddNewCardController> {
     );
   }
 }
+
+

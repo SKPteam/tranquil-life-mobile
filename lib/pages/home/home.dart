@@ -34,6 +34,7 @@ class Home extends GetView<HomeController> {
   Home({Key? key, required this.moodOnTap}) : super(key: key);
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
+  final DashboardController _dashboardController = Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -72,15 +73,15 @@ class Home extends GetView<HomeController> {
                                 Text(
                                   'Hi,',
                                   style: TextStyle(
-                                    color: kPrimaryColor,
+                                    color: kPrimaryDarkColor,
                                     fontSize: 28,
                                     fontWeight: FontWeight.normal,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 CustomText(
-                                  text: "Joseph",
-                                  color: kPrimaryColor,
+                                  text: dashboardController.username!.value,
+                                  color: kPrimaryDarkColor,
                                   weight: FontWeight.w700,
                                   align: TextAlign.start,
                                   size: 28,

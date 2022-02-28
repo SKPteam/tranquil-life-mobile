@@ -7,11 +7,16 @@ import 'constants/app_font.dart';
 import 'constants/style.dart';
 import 'pages/dashboard/dashboard.dart';
 import 'pages/onboarding/onboarding_one.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+
+void main() async{
+  sharedPreferences = await SharedPreferences.getInstance();
 
   runApp(const MyApp());
 }
+
+SharedPreferences? sharedPreferences;
 
 
 class MyApp extends StatelessWidget {
