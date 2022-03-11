@@ -40,8 +40,8 @@ class _HealthReportScreenState extends State<HealthReportScreen>
 
   @override
   Widget build(BuildContext context) {
-    //TODO I declared a variable displayingQuestionslenght = 2
-    int displayingQuestionsLenght = 2;
+    //TODO I declared a variable displayingQuestionslength = 2
+    int displayingQuestionsLength = 2;
     return Scaffold(
       //------------------------
       // background image container container
@@ -104,7 +104,7 @@ class _HealthReportScreenState extends State<HealthReportScreen>
                           ),
                         ),
                         builder: (context, int value, child) =>
-                        value < displayingQuestionsLenght - 1
+                        value < displayingQuestionsLength - 1
                             ? child ?? Container()
                             : Container(),
                       ),
@@ -144,7 +144,7 @@ class _HealthReportScreenState extends State<HealthReportScreen>
                             width: ((size.width * 0.8) /
                                 (false
                                     ? 1.0
-                                    : displayingQuestionsLenght))
+                                    : displayingQuestionsLength))
                                 .toDouble() *
                                 (true ? 0 : value + 1),
                             height: 30,

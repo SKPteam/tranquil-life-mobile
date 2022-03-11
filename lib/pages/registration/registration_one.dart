@@ -182,8 +182,7 @@ class RegistrationOneView extends GetView<RegistrationOneController> {
                                                 //   Get.toNamed(Routes.REGISTRATION_TWO);
                                                 // }
 
-                                                Get.toNamed(Routes.REGISTRATION_TWO);
-
+                                                 Get.toNamed(Routes.REGISTRATION_TWO);
                                               },
                                               style: ElevatedButton.styleFrom(
                                                   padding: const EdgeInsets.symmetric(

@@ -54,10 +54,6 @@ class AllControllerBinding extends Bindings{
     Get.lazyPut(() => AppSettingsController());
     Get.lazyPut(() => ConsultantListController());
     Get.lazyPut(() => EditProfileController());
-
-
-
-
   }
 
 }

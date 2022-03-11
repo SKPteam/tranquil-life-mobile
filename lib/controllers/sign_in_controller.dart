@@ -14,8 +14,8 @@ class SignInController extends GetxController{
   RxString accessToken = "".obs;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController emailTextEditingController = TextEditingController(text: 'ayomideseaz@gmail.com');
-  TextEditingController passwordTextEditingController = TextEditingController(text: 'password');
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
 
   RxBool obscureText = RxBool(true);
 

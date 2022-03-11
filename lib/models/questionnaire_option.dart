@@ -1,59 +1,40 @@
 class Question {
-  final String question;
-  final List<QuestionaireOption> options;
-  String? _selectedOpton;
-  late int _selectedIndexOfOption;
+  int? id;
+  String? q1;
+  List<String>? q1Options;
+  bool? q1IsMultiChoice;
+  String? q1Trigger;
+  String? q2;
+  List<String>? q2Options;
 
-  Question({required this.question, required this.options});
+  Question(
+      {this.id,
+        this.q1,
+        this.q1Options,
+        this.q1IsMultiChoice,
+        this.q1Trigger,
+        this.q2,
+        this.q2Options});
 
-  ///sets the selected answer using the index of the option selected
-  ///only sets once, can't change it again if already set
-  set setSelectedOption(int index) {
-    _selectedIndexOfOption = index;
-    _selectedOpton = options[index].option;
+  Question.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    q1 = json['q1'];
+    q1Options = json['q1_options'].cast<String>();
+    q1IsMultiChoice = json['q1_is_multi_choice'];
+    q1Trigger = json['q1_trigger'];
+    q2 = json['q2'];
+    q2Options = json['q2_options'].cast<String>();
   }
 
-  ///returns index of the selected answer
-  int get getSelectedAnswerIndex => _selectedIndexOfOption;
-  //returns selected answer as String
-  String get getSelectedAnswer => _selectedOpton!;
-}
-
-class QuestionaireOption {
-  final String option;
-  final bool expandable;
-  final Question? question;
-
-  QuestionaireOption(
-      {required this.option, this.expandable = false, this.question});
-}
-
-class QuestionaireAnswerSelectedModel {
-  final String answer;
-  final String question;
-  final int answerIndex;
-  final String? answerForExtraQuestion;
-  final String? extraQuestion;
-  final int? answerForExtraQuestionIndex;
-
-  QuestionaireAnswerSelectedModel(
-      {required this.answer,
-        required this.answerIndex,
-        required this.question,
-        this.extraQuestion,
-        this.answerForExtraQuestion,
-        this.answerForExtraQuestionIndex});
-}
-
-class QuestionInHealthSection {
-  final String _question;
-  final List<String> _options;
-  final String _selectedAnswer;
-  final int _selectedAnswerIndex;
-  String get question => _question;
-  List<String> get options => _options;
-  String get selectedAnswer => _selectedAnswer;
-  int get selectedAnswerIndex => _selectedAnswerIndex;
-  QuestionInHealthSection(this._question, this._options, this._selectedAnswer,
-      this._selectedAnswerIndex);
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['q1'] = this.q1;
+    data['q1_options'] = this.q1Options;
+    data['q1_is_multi_choice'] = this.q1IsMultiChoice;
+    data['q1_trigger'] = this.q1Trigger;
+    data['q2'] = this.q2;
+    data['q2_options'] = this.q2Options;
+    return data;
+  }
 }

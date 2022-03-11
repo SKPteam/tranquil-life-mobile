@@ -7,6 +7,7 @@ import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/sign_in_controller.dart';
+import 'package:tranquil_life/main.dart';
 import 'package:tranquil_life/pages/dashboard/dashboard.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
@@ -146,7 +147,7 @@ class SignIn extends GetView<SignInController> {
                                               signInController.passwordTextEditingController.text
                                           ).then((value){
                                             if(value != null){
-                                              //Get.offAllNamed(Routes.DASHBOARD);
+                                              Get.offAllNamed(Routes.DASHBOARD);
                                             }else{
                                               print("Unable to login");
                                             }

@@ -14,6 +14,7 @@ import 'package:tranquil_life/pages/notifications/notification_history_view.dart
 import 'package:tranquil_life/pages/onboarding/onboarding_one.dart';
 import 'package:tranquil_life/pages/onboarding/onboarding_two.dart';
 import 'package:tranquil_life/pages/profile/settings_page.dart';
+import 'package:tranquil_life/pages/questionnaire/questionnaire_page.dart';
 import 'package:tranquil_life/pages/registration/registration_four.dart';
 import 'package:tranquil_life/pages/registration/registration_one.dart';
 import 'package:tranquil_life/pages/registration/registration_three.dart';
@@ -92,6 +93,10 @@ class AppPages {
     GetPage(
       name: _Paths.CHAT_ROOM,
       page: () =>  ChatScreenPage(),
+    ),
+    GetPage(
+      name: _Paths.QUESTIONNAIRE,
+      page: () =>  QuestionnaireView(),
     ),
     // GetPage(
     //   name: _Paths.CHAT_HISTORY,

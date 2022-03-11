@@ -27,6 +27,10 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
 
   @override
   Widget build(BuildContext context) {
+    onBoardingController
+        .userType
+        .value ==
+        client;
     return ResponsiveSafeArea(
         responsiveBuilder: (context, size)
         => Obx(() => Scaffold(
@@ -162,17 +166,13 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
                                     height: 60,
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          // print(
-                                          //     "${registrationThreeController.dobTextEditingController.text.trim()},"
-                                          //         " ${registrationThreeController.currentLocation.toString()}, "
-                                          //         "${registrationThreeController.country} ${registrationThreeController.phoneTextEditingController.text}");
                                           if (registrationThreeController
                                               .companyEditingController
                                               .text.isNotEmpty) {
                                             if (registrationThreeController
                                                 .companyEditingController
                                                 .text !=
-                                                'none' &&
+                                                'None' &&
                                                 registrationThreeController
                                                     .staffIDEditingController
                                                     .value.text.isEmpty) {
@@ -182,17 +182,18 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
                                             } else if (registrationThreeController
                                                 .companyEditingController
                                                 .text ==
-                                                'none' &&
+                                                'None' &&
                                                 registrationThreeController
                                                     .staffIDEditingController
-                                                    .value.text.isEmpty) {
-                                              // _.registerNewClient(
-                                              //     context);
+                                                    .value.text.isEmpty)
+                                            {
+                                              registrationThreeController.registerClient();
                                             }
                                             else {
-                                              Get.toNamed(Routes.SIGN_IN);
+                                              registrationThreeController.getStaff();
                                             }
-                                          } else {
+                                          }
+                                          else {
                                             displaySnackBar(
                                                 'Select your company or organisation',
                                                 context);

@@ -19,6 +19,7 @@ import 'package:tranquil_life/models/schedule_date_model.dart';
 import 'package:tranquil_life/pages/home/widgets/meetings_section.dart';
 import 'package:tranquil_life/pages/notifications/notification_history_view.dart';
 import 'package:tranquil_life/pages/onboarding/onboarding_two.dart';
+import 'package:tranquil_life/pages/questionnaire/questionnaire_page.dart';
 import 'package:tranquil_life/pages/scheduling/consultant_list_view.dart';
 import 'package:tranquil_life/pages/scheduling/scheduling_time/widgets/schedule_meeting_dialog.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
@@ -114,15 +115,15 @@ class Home extends GetView<HomeController> {
                                   ),
                                   child: InkWell(
                                     onTap: () async {
-                                      // var result = await Get.to<bool>(
-                                      //       () =>
-                                      //   const ConsultationQuestionnaireView(),
-                                      // );
-                                      // if (result ?? false) {
-                                      //   Get.find<
-                                      //       MyScheduledMeetingsTabController>()
-                                      //       .getDataFromFirebase();
-                                      // }
+                                      var result = await Get.to<bool>(
+                                            () => QuestionnaireView(),
+                                      );
+                                      if (result ?? false) {
+                                        print("Get meetings list");
+                                        // Get.find<
+                                        //     MyScheduledMeetingsTabController>()
+                                        //     .getDataFromFirebase();
+                                      }
                                     },
                                     child: SizedBox(
                                         width: 46,

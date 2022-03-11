@@ -6,6 +6,7 @@ import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
+import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/home/home.dart';
 import 'package:tranquil_life/pages/profile/profile_page.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
@@ -32,27 +33,31 @@ class Dashboard extends GetView<DashboardController>{
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()
-    =>Scaffold(
-      body: Center(
-        child: dashboardController.tabView()
-      ),
-      bottomNavigationBar: FABBottomAppBar(
-        centerItemText: 'Chat',
-        color: grey,
-        selectedColor: active,
-        notchedShape: CircularNotchedRectangle(),
-        onTabSelected: dashboardController.selectedTab,
-        items: [
-          FABBottomAppBarItem(iconData: Icons.home, text: 'Home'),
-          FABBottomAppBarItem(iconData: Icons.account_balance_wallet, text: 'Wallet'),
-          FABBottomAppBarItem(iconData: Icons.note_add, text: 'Journal'),
-          FABBottomAppBarItem(iconData: Icons.person, text: 'Profile'),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _buildFab(
-          context), // Th
-    ));
+    return ResponsiveSafeArea(
+      responsiveBuilder: (context, size){
+        return  Obx(()
+        =>Scaffold(
+          body: Center(
+              child: dashboardController.tabView()
+          ),
+          bottomNavigationBar: FABBottomAppBar(
+            centerItemText: 'Chat',
+            color: grey,
+            selectedColor: active,
+            notchedShape: CircularNotchedRectangle(),
+            onTabSelected: dashboardController.selectedTab,
+            items: [
+              FABBottomAppBarItem(iconData: Icons.home, text: 'Home'),
+              FABBottomAppBarItem(iconData: Icons.account_balance_wallet, text: 'Wallet'),
+              FABBottomAppBarItem(iconData: Icons.note_add, text: 'Journal'),
+              FABBottomAppBarItem(iconData: Icons.person, text: 'Profile'),
+            ],
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: _buildFab(
+              context), // Th
+        ));
+      },
+    );
   }
 }

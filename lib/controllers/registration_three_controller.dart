@@ -1,14 +1,28 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:language_picker/language_picker.dart';
 import 'package:language_picker/languages.dart';
-import 'package:tranquil_life/models/company.dart';
+import 'package:tranquil_life/constants/app_font.dart';
+import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/constants/controllers.dart';
+import 'package:tranquil_life/controllers/registration_one_controller.dart';
+import 'package:tranquil_life/controllers/registration_two_controller.dart';
+import 'package:tranquil_life/main.dart';
+import 'package:tranquil_life/models/partner.dart';
+import 'package:tranquil_life/routes/app_pages.dart';
+import 'package:tranquil_life/widgets/custom_snackbar.dart';
 
 class RegistrationThreeController extends GetxController {
   static RegistrationThreeController instance = Get.find();
+
+  RegistrationOneController _registrationOneController = Get.put(RegistrationOneController());
+  RegistrationTwoController _registrationTwoController = Get.put(RegistrationTwoController());
 
   Size size = MediaQuery.of(Get.context!).size;
 
@@ -16,8 +30,7 @@ class RegistrationThreeController extends GetxController {
   TextEditingController companyEditingController = TextEditingController();
   TextEditingController staffIDEditingController = TextEditingController();
   RxBool orgSelected = false.obs;
-  final List<Company> companyList = [];
-  Company? _companyModel;
+  //Company? _companyModel;
 
   /*For consultant*/
   TextEditingController areaOfExpertiseTEC = TextEditingController();
@@ -36,6 +49,8 @@ class RegistrationThreeController extends GetxController {
   TextEditingController aoeSearchController = TextEditingController();
 
   Rx<Language> selectedCupertinoLanguage = Languages.english.obs;
+
+  RxString company_id = "".obs;
 
   void openCupertinoLanguagePicker() => showCupertinoModalPopup<void>(
       context: Get.context!,
@@ -108,125 +123,357 @@ class RegistrationThreeController extends GetxController {
   );
 
 
-  var partnerList  = [
-    {
-      'id': 0,
-      'name': 'Total',
-      'email': 'total@gmail.com',
-      'phone': '+2348130308873',
-      "logo": ''
-    },
-    {
-      'id': 1,
-      'name': 'Chevron',
-      'email': 'chevron@gmail.com',
-      'phone': '+2348130308873',
-      "logo": ''
-    },
-    {
-      'id': 3,
-      'name': 'UBA',
-      'email': 'uba@gmail.com',
-      'phone': '+2348130308873',
-      "logo": ''
-    },
-    {
-      'id': 5,
-      'name': 'Sahara Energy',
-      'email': 'sahara@gmail.com',
-      'phone': '+2348130308873',
-      "logo": ''
-    }
-  ];
+  var partnerList  = [];
 
   //Display list of organisation
   void partnerListDialog(BuildContext context, Size size) {
     showModalBottomSheet(
+      isDismissible: true,
         context: context,
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
         builder: (BuildContext context) {
-          return Container(
-              height: 300,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
-              child: SizedBox(
-                height: size.height * 0.08,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: partnerList.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              buildCompanyCard(context, index)),
-                    )
+          return FutureBuilder<List<Partner>>(
+            future: getPartnerList(),
+            builder: (BuildContext context, snapshot)
+            {
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              }
+
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  snapshot.hasData == false) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator(
+                          valueColor:
+                          AlwaysStoppedAnimation<Color>(Colors.yellow)),
+                      // Loader Animation Widget
+                      Padding(padding: const EdgeInsets.only(top: 20.0)),
+                    ],
+                  ),
+                );
+              }
+
+              //buildCompanyCard()
+              if (snapshot.hasData){
+                return SingleChildScrollView(
+                  physics: ClampingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: snapshot.data!.map((partner){
+                      return GestureDetector(
+                        onTap: (){
+                          companyEditingController.text = partner.name!;
+                          company_id.value = partner.id.toString();
+
+                          orgSelected.value = true;
+
+                          getStaffUsingEmail();
+
+                          print(partner.id!);
+
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          height: 400,
+                            alignment: Alignment.bottomCenter,
+                            margin: EdgeInsets.only(left: 8, top: 8, right: 8),
+                          child: Column(
+                            children: [
+                              partner.logo!.isNotEmpty
+                                  ? Image.network(partner.logo!, height: 200, width: 200)
+                                  : Image.asset('', height: 200, width: 200),
+                              Text(partner.name!,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18))
+                            ],
+                          )
+                        ),
+                      );
+                    }).toList(),
+                  )
+                );
+
+
+              }
+
+
+              if (!snapshot.hasData &&
+                  snapshot.connectionState == ConnectionState.done) {
+                return Text('No Partners');
+              }
+
+              if (snapshot.connectionState != ConnectionState.done) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+
+              if (snapshot.data! == null || snapshot.data!.length == 0) {
+                return Column(
+                  children: <Widget>[
+                    Center(child: Text("Unable to find any partners"))
                   ],
-                ),
-              ));
+                );
+              }
+
+              return Text('No Data');
+            },
+
+          );
         });
   }
+  
+  Future getStaff() async{
+    String url = baseUrl + getStaffPath;
 
-  var companyDoc;
+    var response = await post(Uri.parse(url), headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    }, body: jsonEncode({
+      "staffID": staffIDEditingController.text,
+      "company_id": int.parse(company_id.value.toString())
+    }));
 
-  buildCompanyCard(BuildContext context, int index) {
-    //final company = partnerList[index];
-    companyList.add(Company(
-        id: partnerList[index]['id'].toString(),
-        name: partnerList[index]['name'].toString(),
-        logo: partnerList[index]['logo'].toString(),
-        phone: partnerList[index]['phone'].toString(),
-        email: partnerList[index]['email'].toString()
-    ));
+    var resBody = json.decode(response.body);
 
-    final company = companyList[index];
+    if(resBody["message"] == "does not exist"){
+      showDialog(
+          context: Get.context!,
+          builder: (BuildContext context){
+            return AlertDialog(
+              title: Text("Contact your company's HR", style: TextStyle(fontFamily: josefinSansSemiBold)),
+              content: Text("Sorry, no staff with this id in ${companyEditingController.text}'s database"),
+              actions: [
+                TextButton(
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Ok")),
+              ],
+            );
+          });
 
-    return GestureDetector(
-        onTap: () {
-          onTapCompanyCard(company);
-        },
-        child: Container(
-          alignment: Alignment.bottomCenter,
-          margin: EdgeInsets.only(left: 8, top: 8, right: 8),
-          child: Column(
-            children: [
-              company.logo.isNotEmpty
-                  ? Image.network(company.logo, height: 200, width: 200)
-                  : Image.asset('', height: 200, width: 200),
-              Text(company.name,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18))
-            ],
-          )
-        ));
+      return resBody["message"];
+    }
+    else {
+      showDialog(
+          context: Get.context!,
+          builder: (BuildContext context){
+            return AlertDialog(
+              title: Text(resBody["staff"]["company_email"].toString(), style: TextStyle(fontFamily: josefinSansSemiBold)),
+              content: Text("To gain access to your consultation discount, use your company email."),
+              actions: [
+                TextButton(
+                    onPressed: () async{
+                      registrationOneController.emailTextEditingController.text = resBody["staff"]["company_email"].toString();
+
+                      displaySnackBar("Email: ${registrationOneController
+                          .emailTextEditingController.text}", context);
+
+                      print(
+                          "${registrationTwoController.dobTextEditingController.text.trim()}, "
+                              "${registrationOneController.phoneNumTextEditingController.text}");
+
+                      if (companyEditingController
+                          .text.isNotEmpty) {
+                        if (companyEditingController
+                            .text !=
+                            'None' && staffIDEditingController
+                                .value.text.isEmpty) {
+                          displaySnackBar(
+                              'Type in your staff ID ',
+                              context);
+                        } else if (companyEditingController.text == 'None'
+                            && registrationThreeController
+                                .staffIDEditingController
+                                .value.text.isEmpty)
+                        {
+                          //register client
+                          await registerClient()
+                              .then((value){
+                            Navigator.of(context).pop();
+
+                            Get.offAllNamed(Routes.SIGN_IN);
+                          }).onError((error, stackTrace){
+                            print("REGISTRATION: ERROR $error");
+                          });
+
+                        }
+                        else {
+                          //register client
+
+                          await registerClient()
+                              .then((value) {
+                                Navigator.of(context).pop();
+
+                                Get.offAllNamed(Routes.SIGN_IN);
+                              }).onError((error, stackTrace){
+                                print("REGISTRATION: ERROR $error");
+                              });
+                        }
+                      }
+                      else {
+                        displaySnackBar(
+                            'Select your company or organisation',
+                            context);
+                      }
+                    },
+                    child: Text("Accept")),
+
+                TextButton(
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Decline")),
+              ],
+            );
+          });
+      return resBody["staff"];
+    }
   }
 
-  onTapCompanyCard(Company company) async {
-    var companyID = company.id;
-    var companyName = company.name;
-    companyEditingController.text = companyName;
+  Future getStaffUsingEmail() async{
+    String url = baseUrl + getStaffUsingEmailPath;
 
-    if (companyEditingController.text == 'None') {
-      orgSelected.value = false;
-      Get.back();
+    var response = await post(Uri.parse(url), headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    }, body: jsonEncode({
+      "email": registrationOneController.emailTextEditingController.text.removeAllWhitespace,
+      "company_id": int.parse(company_id.value.toString())
+    }));
+
+    var resBody = json.decode(response.body);
+
+    if(resBody["message"] == "does not exist"){
+
+      return resBody["message"];
+    }else {
+      showDialog(
+          context: Get.context!,
+          builder: (BuildContext context){
+            return AlertDialog(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("Your Staff ID: ", style: TextStyle(fontFamily: josefinSansSemiBold)),
+                  Text(resBody["staffID"].toString())
+                ],
+              ),
+              content: Text("Is this your staff ID?"),
+              actions: [
+                TextButton(
+                    onPressed: () async{
+                      staffIDEditingController.text = resBody["staffID"].toString();
+
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("Yes")),
+
+                TextButton(
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: Text("No")),
+              ],
+            );
+          });
+
+      return resBody["staffID"];
+    }
+  }
+
+  Future<List<Partner>> getPartnerList() async{
+    List<Partner> _partners = [];
+
+    String url = baseUrl + getAllPartnersPath;
+
+    var response = await get(Uri.parse(url), headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    });
+
+    if(response != null){
+      var resBody = json.decode(response.body);
+      resBody.forEach((partner){
+        var model = Partner();
+        model.id = partner['id'];
+        model.name = partner['name'];
+        model.logo = partner['logo'];
+        //model.email = partner['email'];
+        //model.phone = partner['phone'];
+        model.cities = partner['cities'];
+        //model.password = partner['password'];
+
+        _partners.add(model);
+      });
     }
 
-    print("COMPANY NAME: "+company.name);
-    orgSelected.value = true;
-    Get.back();
+    print(_partners);
 
+    partnerList.add(_partners);
+
+    return _partners;
   }
+
+  Future registerClient() async{
+    String url = baseUrl + clientRegisterPath;
+
+    var requestBody = companyEditingController.text == "None" ?
+    {
+      "f_name": registrationTwoController.firstNameTextEditingController.text,
+      "l_name": registrationTwoController.lastNameTextEditingController.text,
+      "username": registrationTwoController.userNameTextEditingController.text,
+      "email": registrationOneController.emailTextEditingController.text.removeAllWhitespace,
+      "password": registrationOneController.passwordTextEditingController.text,
+      "phone": registrationOneController.phoneNumTextEditingController.text.removeAllWhitespace,
+      "day_of_birth": registrationTwoController.day!,
+      "month_of_birth": registrationTwoController.month!,
+      "year_of_birth": registrationTwoController.year!,
+      "company_id": int.parse(company_id.value),
+    } : {
+      "f_name": registrationTwoController.firstNameTextEditingController.text,
+      "l_name": registrationTwoController.lastNameTextEditingController.text,
+      "username": registrationTwoController.userNameTextEditingController.text,
+      "email": registrationOneController.emailTextEditingController.text.removeAllWhitespace,
+      "password": registrationOneController.passwordTextEditingController.text,
+      "phone": registrationOneController.phoneNumTextEditingController.text.removeAllWhitespace,
+      "day_of_birth": registrationTwoController.day!,
+      "month_of_birth": registrationTwoController.month!,
+      "year_of_birth": registrationTwoController.year!,
+      "company_id": int.parse(company_id.value),
+      "staffID": staffIDEditingController.text
+    };
+
+
+    var response = await post(Uri.parse(url), headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    }, body: jsonEncode(requestBody));
+
+    var resBody = json.decode(response.body);
+
+    print(resBody);
+
+    return resBody;
+  }
+
 
   @override
   void onInit() {
     super.onInit();
   }
+
 }
+
+
+
+

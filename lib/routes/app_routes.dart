@@ -22,7 +22,7 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const CHAT_ROOM = _Paths.CHAT_ROOM;
   static const BLOG = _Paths.BLOG;
-  static const CONSULTATION_QUESTIONNAIRE = _Paths.CONSULTATION_QUESTIONNAIRE;
+  static const QUESTIONNAIRE = _Paths.QUESTIONNAIRE;
   static const SCHEDULING = _Paths.SCHEDULING;
   static const NOTIFICATION_HISTORY = _Paths.NOTIFICATION_HISTORY;
   static const ADD_NEW_CARD = _Paths.ADD_NEW_CARD;
@@ -50,7 +50,7 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const CHAT_ROOM = '/chat-room';
   static const BLOG = '/blog';
-  static const CONSULTATION_QUESTIONNAIRE = '/consultation-questionnaire';
+  static const QUESTIONNAIRE = '/questionnaire';
   static const SCHEDULING = '/pages.scheduling';
   static const NOTIFICATION_HISTORY = '/notification-history';
   static const ADD_NEW_CARD = '/add-new-card';
