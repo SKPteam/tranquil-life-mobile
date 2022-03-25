@@ -6,12 +6,14 @@ import 'package:get/get.dart';
 class CustomFormField extends StatelessWidget {
   final String hint;
   final bool showCursor;
-  final Function() onTap;
+  final Function()? onTap;
   final bool readOnly, obscureText;
   final Function() togglePassword;
   final TextInputType textInputType;
   final TextEditingController textEditingController;
   final List<TextInputFormatter> formatters;
+  final void Function(String)? onChanged;
+  final String? Function(String?)? validator;
 
   const CustomFormField(
       {Key? key, required this.hint,
@@ -19,10 +21,12 @@ class CustomFormField extends StatelessWidget {
         required this.showCursor,
         required this.formatters,
         this.readOnly = false,
-        required this.onTap,
+        this.onTap,
         required this.textInputType,
         required this.obscureText,
-        required this.togglePassword}) : super(key: key);
+        this.onChanged,
+        required this.togglePassword,
+        this.validator}) : super(key: key);
 
   Widget icon(){
     if(hint == 'Password'){
@@ -35,6 +39,8 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: validator,
+      onChanged: onChanged,
       readOnly: readOnly,
       controller: textEditingController,
       showCursor: showCursor,

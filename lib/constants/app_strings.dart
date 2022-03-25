@@ -151,27 +151,27 @@ RxString generatedPwd = RxString(" ");
 var timeFormat = DateFormat('kk:mm');
 var dateFormat = DateFormat('dd-MM-yyyy');
 
-const baseUrl = "http://2f97-102-89-32-47.ngrok.io";
+const baseUrl = "https://5101-168-253-119-198.ngrok.io/api/";
 //const baseUrl = "http://127.0.0.1:8000";
 //const baseUrl = "https://tranquil-api.herokuapp.com";
 
 //Post Api paths
-const clientRegisterPath = '/api/client/register';
-const loginPath = '/api/client/login';
-const ifUsernameExistsPath = '/api/client/ifUsernameExists';
-const getStaffPath = '/api/client/showStaff';
-const getStaffUsingEmailPath = '/api/client/showUsingEmail';
-const createWalletPath = '/api/client/createWallet';
-const ravePayPath = '/api/pay';
-const addCardPath = '/api/client/addCard';
-const setDefaultCardPath = '/api/client/setDefaultCard';
-const logoutPath = '/api/client/logout';
+const clientRegisterPath = 'client/register';
+const loginPath = 'client/login';
+const ifUsernameExistsPath = 'client/ifUsernameExists';
+const getStaffPath = 'client/showStaff';
+const getStaffUsingEmailPath = 'client/showUsingEmail';
+const createWalletPath = 'client/createWallet';
+const ravePayPath = 'pay';
+const addCardPath = 'client/addCard';
+const setDefaultCardPath = 'client/setDefaultCard';
+const logoutPath = 'client/logout';
 
 
 //Get Api Paths
-const listCardsPath = '/api/client/listCards';
-const getClientProfilePath = '/api/client/getProfile';
-const getAllPartnersPath = '/api/client/listPartners';
-const listQuestionsPath = '/api/client/listQuestions';
+const listCardsPath = 'client/listCards';
+const getClientProfilePath = 'client/getProfile';
+const getAllPartnersPath = 'client/listPartners';
+const listQuestionsPath = 'client/listQuestions';
 
 

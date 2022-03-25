@@ -73,7 +73,6 @@ class RegistrationTwoController extends GetxController {
     month = pickedDate!.month;
     year = pickedDate.year;
     day = pickedDate.day;
-
     age.value = currentDate.year - year!;
 
     if (month! > currentDate.month) {
@@ -83,7 +82,6 @@ class RegistrationTwoController extends GetxController {
         age.value--;
       }
     }
-
     String formattedDOB = dateFormatter.format(pickedDate);
     dateOfBirth = formattedDOB.toString();
     dobTextEditingController.text = dateOfBirth ?? '';

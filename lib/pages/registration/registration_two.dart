@@ -1,31 +1,48 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/onboarding_controller.dart';
+import 'package:tranquil_life/controllers/registration_one_controller.dart';
 import 'package:tranquil_life/controllers/registration_two_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
-import 'package:tranquil_life/widgets/custom_form_field.dart';
 import 'package:tranquil_life/widgets/custom_text.dart';
 
-class RegistrationTwoView extends GetView<RegistrationTwoController> {
-  final OnBoardingController obc = Get.put(OnBoardingController());
+import '../../widgets/custom_snackbar.dart';
 
-  RegistrationTwoView({Key? key}) : super(key: key);
 
+
+class RegistrationTwoView extends StatefulWidget {
+  const RegistrationTwoView({Key? key}) : super(key: key);
+
+  @override
+  State<RegistrationTwoView> createState() => _RegistrationTwoViewState();
+}
+
+class _RegistrationTwoViewState extends State<RegistrationTwoView> {
+  final controller = Get.put(RegistrationTwoController());
+  final RegistrationOneController regOneController = Get.put(RegistrationOneController());
+  final _formKeySignIn = GlobalKey <FormState>();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  _signIn() async {
+    FocusScope.of(context).unfocus();
+    if(_formKeySignIn.currentState!.validate()){
+      _formKeySignIn.currentState!.save();
+      Get.toNamed(Routes.REGISTRATION_THREE);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(
         responsiveBuilder: (context, size) =>
             Obx(() =>
                 Scaffold(
+                  key: scaffoldKey,
                   extendBodyBehindAppBar: true,
                   appBar: AppBar(
                     backgroundColor: Colors.transparent,
@@ -69,23 +86,19 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
                                         fontSize: 18)),
                                 SizedBox(height: size.height * 0.08),
                                 Form(
+                                  key: _formKeySignIn,
                                     child: Column(
                                       children: [
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(
                                               4),
-                                          child: buildFirstNameFormField(
-                                              Get.put(
-                                                  RegistrationTwoController()),
-                                              size),
+                                          child: buildFirstNameFormField(size),
                                         ),
                                         SizedBox(height: size.height * 0.020),
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(
                                               4),
-                                          child: buildLastNameFormField(Get.put(
-                                              RegistrationTwoController()),
-                                              size),
+                                          child: buildLastNameFormField(size),
                                         ),
                                         SizedBox(height: size.height * 0.020),
                                         onBoardingController.userType.value ==
@@ -94,12 +107,8 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
                                         Column(
                                           children: [
                                             ClipRRect(
-                                              borderRadius: BorderRadius
-                                                  .circular(4),
-                                              child: buildUserNameFormField(
-                                                  Get.put(
-                                                      RegistrationTwoController()),
-                                                  size),
+                                              borderRadius: BorderRadius.circular(4),
+                                              child: buildUserNameFormField(size),
                                             ),
                                             SizedBox(
                                                 height: size.height * 0.02),
@@ -111,27 +120,24 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(
                                               4),
-                                          child: buildDOBFormField(Get.put(
-                                              RegistrationTwoController()),
-                                              size),
+                                          child: buildDOBFormField(size),
                                         ),
-                                        SizedBox(height: size.height * 0.020),
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              4),
-                                          child: identityDocField(size),
-                                        ),
-                                        SizedBox(height: size.height * 0.020),
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              4),
-                                          child: cvDocField(size),
-                                        ),
+                                        // SizedBox(height: size.height * 0.020),
+                                        // ClipRRect(
+                                        //   borderRadius: BorderRadius.circular(
+                                        //       4),
+                                        //   child: identityDocField(size),
+                                        // ),
+                                        // SizedBox(height: size.height * 0.020),
+                                        // ClipRRect(
+                                        //   borderRadius: BorderRadius.circular(
+                                        //       4),
+                                        //   child: cvDocField(size),
+                                        // ),
                                         // ClipRRect(
                                         //   borderRadius: BorderRadius.circular(4),
                                         //   child: CustomFormField(
-                                        //     textEditingController:
-                                        //     _.timeZoneEditingController,
+                                        //     textEditingController: registrationTwoController.timeZoneEditingController,
                                         //     hint: 'Time zone',
                                         //     showCursor: false,
                                         //     readOnly: true,
@@ -149,7 +155,7 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
                                           width: size.width * 0.6,
                                           height: 60,
                                           child: ElevatedButton(
-                                              onPressed: () async {
+                                              onPressed: () async{
                                                 await registrationTwoController
                                                     .checkForUsername()
                                                     .then((value) {
@@ -205,9 +211,7 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
                                                       kTooYoungError, context);
                                                 }
                                                 else {
-                                                  Get.toNamed(
-                                                      Routes
-                                                          .REGISTRATION_THREE);
+                                                Get.toNamed(Routes.REGISTRATION_THREE);
                                                 }
                                               },
                                               style: ElevatedButton.styleFrom(
@@ -237,12 +241,13 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
                 ))
     );
   }
-
-
-  TextFormField buildFirstNameFormField(RegistrationTwoController _,
-      Size size) {
+  TextFormField buildFirstNameFormField(Size size) {
     return TextFormField(
-      controller: _.firstNameTextEditingController,
+      //validator: (value) => (value!.isEmpty? "Please enter your first name" : null),
+      // onChanged: (value){
+      //   regOneController.firstname = value;
+      // },
+      controller: registrationTwoController.firstNameTextEditingController,
       style: TextStyle(
           fontSize: 18, color: Colors.black),
       decoration: InputDecoration(
@@ -262,9 +267,11 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
     );
   }
 
-  TextFormField buildLastNameFormField(RegistrationTwoController _, Size size) {
+  TextFormField buildLastNameFormField(Size size) {
     return TextFormField(
-      controller: _.lastNameTextEditingController,
+      //validator: (value) => (value!.isEmpty? "Please enter your last name" : null),
+      //onChanged: (value){regOneController.lastname = value;},
+      controller: registrationTwoController.lastNameTextEditingController,
       style: TextStyle(
           fontSize: 18, color: Colors.black),
       decoration: InputDecoration(
@@ -274,8 +281,7 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
         fillColor: Colors.white,
         border: InputBorder.none,
         filled: true,
-        contentPadding: EdgeInsets.symmetric(
-            vertical: 25.0, horizontal: size.width * 0.04),
+        contentPadding: EdgeInsets.symmetric(vertical: 25.0, horizontal: size.width * 0.04),
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -285,9 +291,13 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
   }
 
 
-  TextFormField buildUserNameFormField(RegistrationTwoController _, Size size) {
+  TextFormField buildUserNameFormField(Size size) {
     return TextFormField(
-      controller: _.userNameTextEditingController,
+      //validator: (value) => (value!.isEmpty? "Please enter your username" : null),
+      // onChanged: (value){
+      //   regOneController.username = value;
+      // },
+      controller: registrationTwoController.userNameTextEditingController,
       style: TextStyle(
           fontSize: 18, color: Colors.black),
       decoration: InputDecoration(
@@ -307,13 +317,45 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
     );
   }
 
-  TextFormField buildDOBFormField(RegistrationTwoController _, Size size) {
+
+
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: registrationTwoController.currentDate,
+        firstDate: DateTime(1970),
+        lastDate: registrationTwoController.currentDate);
+    if (pickedDate != null && pickedDate != registrationTwoController.currentDate) {
+      setState(() {
+        registrationTwoController.day = pickedDate.day;
+        registrationTwoController.month = pickedDate.month;
+        registrationTwoController.year = pickedDate.year;
+        registrationTwoController.day = pickedDate.day;
+        registrationTwoController.age.value = registrationTwoController.currentDate.year - registrationTwoController.year!;
+      });
+    }
+
+    if (registrationTwoController.month! > registrationTwoController.currentDate.month) {
+      registrationTwoController.age.value--;
+    } else if (registrationTwoController.month! == registrationTwoController.currentDate.month) {
+      if (registrationTwoController.day! > registrationTwoController.currentDate.day) {
+        registrationTwoController.age.value--;
+      }
+    }
+    String formattedDOB = registrationTwoController.dateFormatter.format(pickedDate!);
+    registrationTwoController.dateOfBirth = formattedDOB.toString();
+    registrationTwoController.dobTextEditingController.text = registrationTwoController.dateOfBirth ?? '';
+  }
+
+
+  TextFormField buildDOBFormField( Size size) {
     return TextFormField(
-      controller: _.dobTextEditingController,
+      //validator: (value) => (value!.isEmpty? "Please enter your Date of Birth" : null),
+      controller: registrationTwoController.dobTextEditingController,
       showCursor: false,
       readOnly: true,
       onTap: () {
-        _.selectDate(Get.context!);
+        registrationTwoController.selectDate(Get.context!);
       },
       style: TextStyle(
           fontSize: 18, color: Colors.black),
@@ -347,15 +389,8 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomText(
-                text: "Passport or Driver's License",
-                size: 18,
-                weight: FontWeight.normal,
-                align: TextAlign.start,
-                key: null,
-                color: Colors.grey,
-              ),
-
+              CustomText(text: "Passport or Driver's License",
+                size: 18, weight: FontWeight.normal, align: TextAlign.start, key: null, color: Colors.grey,),
               Icon(
                 Icons.attach_file,
               )
@@ -378,15 +413,8 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomText(
-                text: "Upload your resumé",
-                size: 18,
-                weight: FontWeight.normal,
-                align: TextAlign.start,
-                key: null,
-                color: Colors.grey,
-              ),
-
+              CustomText(text: "Upload your resumé", size: 18,
+                weight: FontWeight.normal, align: TextAlign.start, key: null, color: Colors.grey,),
               Icon(
                 Icons.attach_file,
               )
@@ -395,20 +423,4 @@ class RegistrationTwoView extends GetView<RegistrationTwoController> {
         )
     );
   }
-
 }
-
-// ClipRRect(
-//                                         borderRadius: BorderRadius.circular(4),
-//                                         child: CustomFormField(
-//                                           hint: 'Current Location',
-//                                           textEditingController:
-//                                           _.locationEditingController,
-//                                           showCursor: false,
-//                                           onTap: () {},
-//                                           togglePassword: () {},
-//                                           formatters: [],
-//                                           obscureText: false,
-//                                           readOnly: true,
-//                                           textInputType: TextInputType.text,
-//                                         ),

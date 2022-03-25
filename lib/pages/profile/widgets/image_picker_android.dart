@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:storage_path/storage_path.dart';
+// import 'package:storage_path/storage_path.dart';
 import 'package:tranquil_life/models/file_model.dart';
 
 class ImagePickerAndroid extends StatefulWidget {
@@ -23,23 +23,23 @@ class _ImagePickerAndroidState extends State<ImagePickerAndroid> {
   @override
   void initState() {
     super.initState();
-    getImagesPath();
+    //getImagesPath();
   }
 
-  getImagesPath() async {
-    //Directory tempDir = await getTemporaryDirectory();
-    var imagePath = await StoragePath.imagesPath;
-    var images = jsonDecode(imagePath!) as List;
-    files = images.map<FileModel>((e) => FileModel.fromJson(e)).toList();
-    print(files);
-    if (files.isNotEmpty) {
-      setState(() {
-        selectedModel = files[0];
-        image = files[0].files[0];
-        loaded = true;
-      });
-    }
-  }
+  // getImagesPath() async {
+  //   //Directory tempDir = await getTemporaryDirectory();
+  //   var imagePath = await StoragePath.imagesPath;
+  //   var images = jsonDecode(imagePath!) as List;
+  //   files = images.map<FileModel>((e) => FileModel.fromJson(e)).toList();
+  //   print(files);
+  //   if (files.isNotEmpty) {
+  //     setState(() {
+  //       selectedModel = files[0];
+  //       image = files[0].files[0];
+  //       loaded = true;
+  //     });
+  //   }
+  // }
 
   List<DropdownMenuItem<FileModel>> getItems() {
     return files
