@@ -205,6 +205,7 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                                     .value.text.isEmpty)
                                             {
                                               registrationThreeController.registerClient();
+                                              print("registering client");
                                             }
                                             else {
                                               registrationThreeController.getStaff();
