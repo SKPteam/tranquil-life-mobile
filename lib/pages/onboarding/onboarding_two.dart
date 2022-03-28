@@ -47,13 +47,9 @@ class OnBoardingTwo extends GetView<GetView<OnBoardingController>> {
                               height: 60,
                               child: ElevatedButton(onPressed: () {
                                 onBoardingController.userType.value = client;
-                                print(onBoardingController.userType.value);
-
                                 Get.offNamed(Routes.REGISTRATION_ONE);
                               }, style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-                                  primary: active
-                              ),
+                                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20), primary: active),
                                   child: Text('Client',
                                       style: TextStyle(
                                           color: Colors.white,

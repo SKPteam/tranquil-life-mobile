@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-
 import 'constants/all_controller_binding.dart';
 import 'constants/app_font.dart';
 import 'constants/style.dart';

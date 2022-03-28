@@ -1,11 +1,18 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
+import 'package:tranquil_life/helpers/progress_dialog_helper.dart';
+
+import '../helpers/flush_bar_helper.dart';
+import '../routes/app_pages.dart';
+import '../services/http_services.dart';
 
 class RegistrationOneController extends GetxController {
   static RegistrationOneController instance = Get.find();
@@ -16,6 +23,11 @@ class RegistrationOneController extends GetxController {
   TextEditingController phoneNumTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
   TextEditingController confirmPwdTextEditingController = TextEditingController();
+  // TextEditingController dobTextEditingController = TextEditingController();
+  // TextEditingController firstNameTextEditingController = TextEditingController();
+  // TextEditingController lastNameTextEditingController = TextEditingController();
+  // TextEditingController userNameTextEditingController = TextEditingController();
+  // TextEditingController companyEditingController = TextEditingController();
 
   String? countryCode;
   String? phoneNumber;
@@ -72,4 +84,59 @@ class RegistrationOneController extends GetxController {
     super.onInit();
   }
 
-}
+  // //Registration Fields
+  // String? email;
+  // String? phone;
+  // String? password;
+  // String? firstname;
+  // String? lastname;
+  // String? username;
+  // String? age;
+  // int? dayOfBirth;
+  // int? monthOfBirth;
+  // int? yearOfBirth;
+  // String? companyID;
+  //
+  //
+  // //To register a client
+  // register() async {
+  //   CustomProgressDialog().show();
+  //   final phoneNumber = countryCode! + phone!;
+  //   var phoneNum = phoneNumber.startsWith("0") ? "234${phoneNumber.substring(1)}" : phoneNumber;
+  //   Map<String, String> header = {
+  //     "Content-Type": "application/json",
+  //     "Accept": "application/json",
+  //   };
+  //   Map<String, dynamic> body = {
+  //     "email": email,
+  //     "phone": phoneNum,
+  //     "password": password,
+  //     "f_name": firstname,
+  //     "l_name": lastname,
+  //     "username": username,
+  //     "day_of_birth": dayOfBirth!.toInt(),
+  //     "month_of_birth": monthOfBirth!.toInt(),
+  //     "year_of_birth": yearOfBirth!.toInt(),
+  //     "company_id": companyID
+  //   };
+  //   var url = Uri.parse("http://d138-102-91-4-168.ngrok.io/api/client/register");
+  //   await HttpClass().httpPostRequest(header, body, url).then((value) async {
+  //     final response = json.decode(value!.body);
+  //     if (value.statusCode == 200 || value.statusCode == 201) {
+  //       CustomProgressDialog().hide();
+  //       Get.offAllNamed(Routes.SIGN_IN);
+  //       FlushBarHelper(Get.context!).showFlushBar("Registration SuccessFull!", color: Colors.green);
+  //     } else {
+  //       CustomProgressDialog().hide();
+  //       FlushBarHelper(Get.context!).showFlushBar(response["message"] == ""?"Oops! An Error Occur. Try again": response["message"], color: Colors.red);
+  //     }
+  //   }).onError((error, stackTrace) {
+  //     print(error);
+  //     CustomProgressDialog().hide();
+  //   }).timeout(const Duration(seconds: 60), onTimeout: () {
+  //     CustomProgressDialog().hide();
+  //     FlushBarHelper(Get.context!).showFlushBar("Network Timeout!", color: Colors.red);
+  //   });
+  // }
+
+  }

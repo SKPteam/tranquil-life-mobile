@@ -8,15 +8,19 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:language_picker/language_picker.dart';
 import 'package:language_picker/languages.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tranquil_life/constants/app_font.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/controllers/registration_one_controller.dart';
 import 'package:tranquil_life/controllers/registration_two_controller.dart';
+import 'package:tranquil_life/helpers/progress_dialog_helper.dart';
 import 'package:tranquil_life/main.dart';
 import 'package:tranquil_life/models/partner.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
+
+import '../helpers/flush_bar_helper.dart';
 
 class RegistrationThreeController extends GetxController {
   static RegistrationThreeController instance = Get.find();
@@ -142,7 +146,6 @@ class RegistrationThreeController extends GetxController {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               }
-
               if (snapshot.connectionState == ConnectionState.waiting ||
                   snapshot.hasData == false) {
                 return Center(
@@ -171,7 +174,11 @@ class RegistrationThreeController extends GetxController {
                           companyEditingController.text = partner.name!;
                           company_id.value = partner.id.toString();
 
-                          orgSelected.value = true;
+                          if(companyEditingController.text == "None"){
+                            orgSelected.value = false;
+                          }else{
+                            orgSelected.value = true;
+                          }
 
                           getStaffUsingEmail();
 
@@ -185,9 +192,10 @@ class RegistrationThreeController extends GetxController {
                             margin: EdgeInsets.only(left: 8, top: 8, right: 8),
                           child: Column(
                             children: [
+                              // Image.asset('assets/images/logo.jpg', height: 200, width: 200),
                               partner.logo!.isNotEmpty
                                   ? Image.network(partner.logo!, height: 200, width: 200)
-                                  : Image.asset('', height: 200, width: 200),
+                                  : Image.asset('assets/images/logo.jpg', height: 200, width: 200),
                               Text(partner.name!,
                                   style: TextStyle(
                                       color: Colors.black,
@@ -425,6 +433,8 @@ class RegistrationThreeController extends GetxController {
   }
 
   Future registerClient() async{
+    SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
+    CustomProgressDialog().show();
     String url = baseUrl + clientRegisterPath;
 
     var requestBody = companyEditingController.text == "None" ?
@@ -452,25 +462,31 @@ class RegistrationThreeController extends GetxController {
       "company_id": int.parse(company_id.value),
       "staffID": staffIDEditingController.text
     };
-
-
     var response = await post(Uri.parse(url), headers: {
       "Content-type": "application/json",
       "Accept": "application/json"
     }, body: jsonEncode(requestBody));
+    var result = json.decode(response.body);
 
-    var resBody = json.decode(response.body);
-
-    print(resBody);
-
-    return resBody;
+    if(result["user"] != null){
+      sharedPreferences.setString("userName", result["user"]["username"]);
+      sharedPreferences.setString("firstName", result["user"]["f_name"]);
+      sharedPreferences.setString("lastName", result["user"]["l_name"]);
+      sharedPreferences.setString("email", result["user"]["email"]);
+      sharedPreferences.setString("phoneNumber", result["user"]["phone"]);
+      sharedPreferences.setString("token", result["user"]["auth_token"]);
+      CustomProgressDialog().hide();
+      Get.offAllNamed(Routes.SIGN_IN);
+      FlushBarHelper(Get.context!).showFlushBar("Registration Successful", color: Colors.red);
+    }else if (result["user"] == null){
+      CustomProgressDialog().hide();
+      FlushBarHelper(Get.context!).showFlushBar(result["errors"], color: Colors.red);
+    }else{
+      CustomProgressDialog().hide();
+      throw Exception("Unable to Complete Registration");
+    }
   }
 
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
 }
 

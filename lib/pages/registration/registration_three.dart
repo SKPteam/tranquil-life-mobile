@@ -9,6 +9,7 @@ import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/consultant_registration_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
+import 'package:tranquil_life/controllers/registration_one_controller.dart';
 import 'package:tranquil_life/controllers/registration_three_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
@@ -17,13 +18,29 @@ import 'package:tranquil_life/widgets/custom_form_field.dart';
 import 'package:tranquil_life/widgets/custom_form_field.dart';
 import 'package:tranquil_life/widgets/progress_dialog.dart';
 
-class RegistrationThreeView extends GetView<RegistrationThreeController> {
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+import '../../helpers/flush_bar_helper.dart';
 
-  final OnBoardingController obc = Get.put(
-      OnBoardingController());
-  
-  RegistrationThreeView({Key? key}) : super(key: key);
+
+class RegistrationThreeView extends StatefulWidget {
+  const RegistrationThreeView({Key? key}) : super(key: key);
+
+  @override
+  State<RegistrationThreeView> createState() => _RegistrationThreeViewState();
+}
+
+class _RegistrationThreeViewState extends State<RegistrationThreeView> {
+
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final regOneController = Get.put(RegistrationOneController());
+  final _formKeySignIn = GlobalKey <FormState>();
+
+  _signIn() async {
+    FocusScope.of(context).unfocus();
+    if(_formKeySignIn.currentState!.validate()){
+      _formKeySignIn.currentState!.save();
+      registrationThreeController.registerClient();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +95,7 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
                                   fontSize: 18)),
                           SizedBox(height: size.height * 0.08),
                           Form(
+                            key: _formKeySignIn,
                               child: onBoardingController
                                   .userType
                                   .value ==
@@ -118,14 +136,15 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
                                     borderRadius:
                                     BorderRadius.circular(4.0),
                                     child: CustomFormField(
-                                      textEditingController:
-                                      registrationThreeController
-                                          .companyEditingController,
+                                      //validator: (value) => (value!.isEmpty? "Please enter your Company Id" : null),
+                                      // onChanged: (value){
+                                      //   regOneController.companyID = value;
+                                      // },
+                                      textEditingController: registrationThreeController.companyEditingController,
                                       hint: "Name of your organisation",
                                       readOnly: true,
                                       onTap: () {
-                                        registrationThreeController
-                                            .partnerListDialog(Get.context!, size);
+                                        registrationThreeController.partnerListDialog(Get.context!, size);
                                       },
                                       obscureText: false,
                                       togglePassword: () {},
@@ -138,8 +157,7 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
                                       height:
                                       size.height * 0.02),
                                   Visibility(
-                                    visible: registrationThreeController
-                                        .orgSelected.value,
+                                    visible: registrationThreeController.orgSelected.value,
                                     child: ClipRRect(
                                       borderRadius:
                                       BorderRadius.circular(4.0),
@@ -180,14 +198,14 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
                                                   'Type in your staff ID ',
                                                   context);
                                             } else if (registrationThreeController
-                                                .companyEditingController
-                                                .text ==
+                                                .companyEditingController.text ==
                                                 'None' &&
                                                 registrationThreeController
                                                     .staffIDEditingController
                                                     .value.text.isEmpty)
                                             {
                                               registrationThreeController.registerClient();
+                                              print("registering client");
                                             }
                                             else {
                                               registrationThreeController.getStaff();
@@ -208,8 +226,8 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
                                         child: Text(
                                           'Sign Up',
                                           style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18
+                                              color: Colors.white,
+                                              fontSize: 18
                                           ),
                                         )),
                                   ),
@@ -422,3 +440,4 @@ class RegistrationThreeView extends GetView<RegistrationThreeController> {
     );
   }
 }
+

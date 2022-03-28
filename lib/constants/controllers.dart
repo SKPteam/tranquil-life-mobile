@@ -24,8 +24,6 @@ import 'package:tranquil_life/controllers/top_up_history_controller.dart';
 import 'package:tranquil_life/controllers/wallet_controller.dart';
 
 
-
-
 SplashScreenController splashScreenController = SplashScreenController.instance;
 OnBoardingController onBoardingController = OnBoardingController.instance;
 SignInController signInController = SignInController.instance;
