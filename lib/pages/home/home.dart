@@ -17,6 +17,7 @@ import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/models/consultant_profile_model.dart';
 import 'package:tranquil_life/models/schedule_date_model.dart';
 import 'package:tranquil_life/pages/home/widgets/meetings_section.dart';
+import 'package:tranquil_life/pages/journal/journal_page.dart';
 import 'package:tranquil_life/pages/notifications/notification_history_view.dart';
 import 'package:tranquil_life/pages/onboarding/onboarding_two.dart';
 import 'package:tranquil_life/pages/questionnaire/questionnaire_page.dart';
@@ -36,6 +37,7 @@ class Home extends GetView<HomeController> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   final DashboardController _dashboardController = Get.put(DashboardController());
+  final HomeController? _controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +83,7 @@ class Home extends GetView<HomeController> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 CustomText(
-                                  text: dashboardController.username!.value,
+                                  text: dashboardController.username,
                                   color: kPrimaryDarkColor,
                                   weight: FontWeight.w700,
                                   align: TextAlign.start,
@@ -196,8 +198,7 @@ class Home extends GetView<HomeController> {
                                 ),
                                 SelectMood(
                                   moodOnTap: (int index, [moodSvgUrl]) {
-                                    DashboardController.to
-                                        .setBottomBarIndex(index, moodSvgUrl!);
+                                    DashboardController.to.setBottomBarIndex(index, moodSvgUrl!);
                                   },
                                 ),
                                 SizedBox(

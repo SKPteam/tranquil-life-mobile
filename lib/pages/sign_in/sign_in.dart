@@ -12,7 +12,8 @@ import 'package:tranquil_life/pages/dashboard/dashboard.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
-
+import '../../helpers/flush_bar_helper.dart';
+import '../../helpers/progress-dialog_helper.dart';
 import 'widgets/sign_in_form_fields.dart';
 
 
@@ -43,28 +44,15 @@ class SignIn extends GetView<SignInController> {
             child: ListView(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.1),
-
+                  padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Text("Welcome Back",
-                            style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
-                              height: 4,
-                            )),
-
+                            style: TextStyle(fontSize: 30, color: Colors.white, height: 4,)),
                         SizedBox(height: size.height * 0.01),
-
-                        Text("Sign in with your email and password",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Color(0xffDDDDDD),
-                                fontSize: 18)),
+                        Text("Sign in with your email and password", textAlign: TextAlign.center, style: TextStyle(color: Color(0xffDDDDDD), fontSize: 18)),
                         SizedBox(height: size.height * 0.08),
-
                         Form(
                             key: signInController.formKey,
                             child: Column(
@@ -147,12 +135,19 @@ class SignIn extends GetView<SignInController> {
                                               signInController.passwordTextEditingController.text
                                           ).then((value){
                                             if(value != null){
+                                              ProgressDialogHelper().hideProgressDialog(Get.context!);
                                               Get.offAllNamed(Routes.DASHBOARD);
                                             }else{
+                                              ProgressDialogHelper().hideProgressDialog(Get.context!);
+                                              FlushBarHelper(Get.context!).showFlushBar(value["errors"], color: Colors.red);
                                               print("Unable to login");
                                             }
                                           }).onError((error, stackTrace){
-                                            print("Opps an Error occured, failed to login $error");
+                                            ProgressDialogHelper().hideProgressDialog(Get.context!);
+                                            print("Oops an Error occurred, failed to login $error");
+                                          }).timeout(Duration(seconds: 90),onTimeout: (){
+                                            ProgressDialogHelper().hideProgressDialog(Get.context!);
+                                            FlushBarHelper(Get.context!).showFlushBar("TimeOut Error. Please try again", color: Colors.red);
                                           });
                                         }
                                       },

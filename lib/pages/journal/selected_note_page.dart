@@ -53,7 +53,7 @@ class SelectedNoteView extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    DashboardController.to.userType.value == client
+                    DashboardController.to.userType == client
                         ? InkWell(
                             onTap: () {
                               displayConsultantList(context);

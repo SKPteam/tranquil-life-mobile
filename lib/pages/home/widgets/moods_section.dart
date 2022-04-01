@@ -3,17 +3,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranquil_life/constants/style.dart';
+import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/models/mood.dart';
 import 'package:tranquil_life/widgets/custom_text.dart';
 
+import '../../journal/journal_page.dart';
+
 
 class SelectMood extends StatelessWidget {
-  final void Function(int index, [String? moodSvgUrl]) moodOnTap;
-
-  SelectMood({Key? key, required this.moodOnTap}) : super(key: key);
+  final void Function(int index, [String? moodSvgUrl])? moodOnTap;
+  SelectMood({Key? key, this.moodOnTap}) : super(key: key);
 
   final HomeController _homeController = Get.put(HomeController());
+  final DashboardController dashboardController = Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -78,24 +81,25 @@ class SelectMood extends StatelessWidget {
     final mood = _homeController.moodsList[index];
     return InkWell(
       onTap: () {
-        moodOnTap(2, mood.image);
+        _homeController.navigateToNextPage(index: index);
+        _homeController.getSelectedItem();
+        DashboardController.to.setBottomBarIndex(2, _homeController.moodsList[_homeController.selectedIndex!].image);
+        dashboardController.moodSelected = _homeController.moodsList[_homeController.selectedIndex!].image;
+        print(_homeController.moodsList[_homeController.selectedIndex!].image);
+        //moodOnTap!(2, mood.image);
       },
       child: Container(
           alignment: Alignment.bottomCenter,
           margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
           child: Column(
             children: [
-              Image.asset(
-                mood.image,
-                height: 30,
-                width: 30,
-              ),
-              Text(
-                mood.name,
-                style: const TextStyle(color: light),
-              )
+              Image.asset(mood.image, height: 30, width: 30,),
+              Text(mood.name, style: const TextStyle(color: light),)
             ],
           )),
     );
   }
+
+
+
 }

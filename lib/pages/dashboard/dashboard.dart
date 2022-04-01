@@ -37,6 +37,7 @@ class Dashboard extends GetView<DashboardController>{
       responsiveBuilder: (context, size){
         return  Obx(()
         =>Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Center(
               child: dashboardController.tabView()
           ),

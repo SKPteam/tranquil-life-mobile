@@ -140,7 +140,7 @@ class _WalletViewState extends State<WalletView>
             () => Scaffold(
           backgroundColor: kLightBackgroundColor,
           //dependency injection to check userType
-          body: dashboardController.userType.value == client
+          body: dashboardController.userType == client
               ? Container(
             height: size.height,
             padding: EdgeInsets.all(20),

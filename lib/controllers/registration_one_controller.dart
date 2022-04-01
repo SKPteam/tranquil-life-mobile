@@ -8,7 +8,6 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
-import 'package:tranquil_life/helpers/progress_dialog_helper.dart';
 
 import '../helpers/flush_bar_helper.dart';
 import '../routes/app_pages.dart';
