@@ -1,24 +1,24 @@
 // ignore_for_file: prefer__ructors, prefer_const_constructors
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
-import 'package:tranquil_life/controllers/journal_history_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/journal/widgets/note_item.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
 
+import '../../controllers/journal_history_controller.dart';
+
 class JournalView extends StatefulWidget {
-  final String moodSvgUrl;
+  final String? moodSvgUrl;
 
   Size size = MediaQuery.of(Get.context!).size;
 
@@ -28,18 +28,18 @@ class JournalView extends StatefulWidget {
   _JournalViewState createState() => _JournalViewState();
 }
 
-class _JournalViewState extends State<JournalView>
-    with SingleTickerProviderStateMixin {
-  final JournalController _ = Get.put(JournalController());
-  final JournalHistoryController historyController = Get.put(JournalHistoryController());
+class _JournalViewState extends State<JournalView> with SingleTickerProviderStateMixin {
+  final controller = Get.put(OnBoardingController());
+  final JournalController journalController = Get.put(JournalController());
+  final dashboardController = Get.put(DashboardController());
+
 
 
   @override
   void initState() {
-    _.headingController = TextEditingController();
-    _.controller = AnimationController(
+    journalController.controller = AnimationController(
         duration:  Duration(milliseconds: 700), vsync: this);
-    _.textAnim = TweenSequence(<TweenSequenceItem<double>>[
+    journalController.textAnim = TweenSequence(<TweenSequenceItem<double>>[
       TweenSequenceItem<double>(
         tween: Tween<double>(begin: 80, end: 0)
             .chain(CurveTween(curve: Curves.ease)),
@@ -65,8 +65,8 @@ class _JournalViewState extends State<JournalView>
             .chain(CurveTween(curve: Curves.ease)),
         weight: 40.0,
       ),
-    ]).animate(_.controller!);
-    _.textSlideAnim = TweenSequence(<TweenSequenceItem<double>>[
+    ]).animate(journalController.controller!);
+    journalController.textSlideAnim = TweenSequence(<TweenSequenceItem<double>>[
       TweenSequenceItem<double>(
         tween: Tween<double>(begin: 0.6, end: 1.4)
             .chain(CurveTween(curve: Curves.ease)),
@@ -92,41 +92,41 @@ class _JournalViewState extends State<JournalView>
             .chain(CurveTween(curve: Curves.ease)),
         weight: 80.0,
       ),
-    ]).animate(_.controller!);
+    ]).animate(journalController.controller!);
 
     start();
 
-    print(widget.moodSvgUrl.isNotEmpty
-        ? 'Selected Mood In JournalPage: ' + widget.moodSvgUrl
+    print(widget.moodSvgUrl!.isNotEmpty
+        ? 'Selected Mood In JournalPage: ' + widget.moodSvgUrl!
         : 'No Mood Selected');
     super.initState();
   }
 
   void start() async {
     await Future.delayed( Duration(seconds: 1));
-    _.controller?.forward().orCancel;
+    journalController.controller?.forward().orCancel;
   }
 
   @override
   void dispose() {
-    if (!(_.controller?.isDismissed ?? true)) {
-      _.controller!.dispose();
+    if (!(journalController.controller?.isDismissed ?? true)) {
+      journalController.controller!.dispose();
     }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    _.setFontSize(context);
+    journalController.setFontSize(context);
     // final date =
     //     '${_.dateTime.day} ${monthsFromIndex[_.dateTime.month - 1]}, ${_.dateTime.year}';
-    final textSize = _.getSizeOfText(MediaQuery.of(context).size.width);
+    final textSize = journalController.getSizeOfText(MediaQuery.of(context).size.width);
+    String convertedDate = Jiffy(DateTime.now()).yMMMMEEEEd;
+
     return ResponsiveSafeArea(
       responsiveBuilder: (context, size) =>
-          Scaffold(
-        backgroundColor: kLightBackgroundColor,
-        body: Get.find<OnBoardingController>().userType.value == client
-            ?
+          Scaffold(resizeToAvoidBottomInset: false, backgroundColor: kLightBackgroundColor,
+        body: dashboardController.userType == client ?
         SingleChildScrollView(
             child: Container(
               height: size.height,
@@ -139,33 +139,27 @@ class _JournalViewState extends State<JournalView>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '11 February, 2022',
+                      Text(convertedDate,
                         style: TextStyle(
                           color: kPrimaryDarkColor,
                           fontSize: 16,
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          //Get.to(() => JournalHistoryView());
-                        },
-                        child: Container(
-                          height: 35,
-                          width: 35,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.JOURNAL_HISTORY);
-                            },
-                            child: Icon(
-                              Icons.list,
-                              color: kPrimaryColor,
-                              //size: size.width * 0.06,
-                            ),
+                      Container(
+                        height: 35,
+                        width: 35,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.toNamed(Routes.JOURNAL_HISTORY);
+                          },
+                          child: Icon(
+                            Icons.list,
+                            color: kPrimaryColor,
+                            //size: size.width * 0.06,
                           ),
                         ),
                       )
@@ -174,16 +168,19 @@ class _JournalViewState extends State<JournalView>
                   SizedBox(
                     height: 50,
                   ),
-                  if (widget.moodSvgUrl.isNotEmpty)
-                    Image.asset(widget.moodSvgUrl, height: 60),
+                  if (widget.moodSvgUrl!.isNotEmpty)
+                    Row(mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset(widget.moodSvgUrl!, height: 60),
+                      ],
+                    ),
                   AnimatedBuilder(
-                    animation: _.textAnim!,
+                    animation: journalController.textAnim!,
                     builder: (context, child) => Transform.translate(
-                      offset: Offset(0, _.textAnim!.value),
+                      offset: Offset(0, journalController.textAnim!.value),
                       child: Opacity(
                         opacity: (0.8 -
-                            (_.textAnim!.value != 0
-                                ? _.textAnim!.value.toDouble() / 100
+                            (journalController.textAnim!.value != 0 ? journalController.textAnim!.value.toDouble() / 100
                                 : -0.2))
                             .toDouble(),
                         child: SizedOverflowBox(
@@ -192,38 +189,33 @@ class _JournalViewState extends State<JournalView>
                           child: ClipRect(
                             clipper: CustomTextClipper(textSize),
                             child: Transform.translate(
-                              offset: Offset(
-                                  0, -_.textSlideAnim!.value * textSize.height),
+                              offset: Offset(0, -journalController.textSlideAnim!.value * textSize.height),
                               child: Column(
                                 children: [
                                   SizedBox(
+                                    height: 100,
+                                  ),
+                                  SizedBox(
                                     height: textSize.width >
                                         MediaQuery.of(context).size.width
-                                        ? textSize.height * 2
+                                        ? textSize.height * 1.5
                                         : textSize.height,
                                     child: Text(
                                       'What\'s On Your Mind?',
                                       style: TextStyle(
-                                        fontSize: _.fontSizeForTitle,
+                                        fontSize: journalController.fontSizeForTitle,
                                         color: Colors.black54,
                                       ),
                                     ),
                                   ),
                                   SizedBox(
-                                      height: textSize.width >
-                                          MediaQuery.of(context).size.width
-                                          ? textSize.height * 2
-                                          : textSize.height,
+                                      height: textSize.width > MediaQuery.of(context).size.width ? textSize.height * 2 : textSize.height,
                                       child: TextField(
-                                        maxLines: 3,
-                                        controller: _.headingController,
+                                        maxLines: 3, controller: journalController.headingController,
                                         style:
-                                        TextStyle(fontSize: _.fontSizeForTitle),
+                                        TextStyle(fontSize: journalController.fontSizeForTitle),
                                         decoration: InputDecoration(
-                                          hintStyle: TextStyle(
-                                            fontSize: _.fontSizeForTitle,
-                                            color: Colors.black54,
-                                          ),
+                                          hintStyle: TextStyle(fontSize: journalController.fontSizeForTitle, color: Colors.black54,),
                                           hintText: 'What\'s On Your Mind?',
                                           enabledBorder: InputBorder.none,
                                           focusedBorder: InputBorder.none,
@@ -234,12 +226,12 @@ class _JournalViewState extends State<JournalView>
                                   SizedBox(
                                     height: textSize.width >
                                         MediaQuery.of(context).size.width
-                                        ? textSize.height * 2
+                                        ? textSize.height * 1.5
                                         : textSize.height,
                                     child: Text(
                                       'What\'s On Your Mind?',
                                       style: TextStyle(
-                                        fontSize: _.fontSizeForTitle,
+                                        fontSize: journalController.fontSizeForTitle,
                                         color: Colors.black54,
                                       ),
                                     ),
@@ -252,13 +244,11 @@ class _JournalViewState extends State<JournalView>
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  Spacer(),
                   TextField(
                     maxLines: 8,
                     style:  TextStyle(fontSize: 20),
-                    controller: _.bodyController,
+                    controller: journalController.bodyController,
                     decoration:  InputDecoration(
                       hintStyle: TextStyle(fontSize: 20),
                       hintText: 'Type Something here',
@@ -268,29 +258,34 @@ class _JournalViewState extends State<JournalView>
                       errorBorder: InputBorder.none,
                     ),
                   ),
-                  SizedBox(
-                    height: 100,
+                  // SizedBox(
+                  //   height: 100,
+                  // ),
+                  Spacer(),
+                  Align(alignment: Alignment.bottomLeft,
+                    child: Padding(
+                        padding:  EdgeInsets.only(left: 30.0, bottom: 100),
+                        child: InkWell(
+                          onTap: () {
+                            if (journalController.headingController!.text.isEmpty) {
+                              displaySnackBar(kHeaderNullError, context);
+                            } else if (journalController.bodyController!.text.isEmpty) {
+                              displaySnackBar(kBodyNullError, context);
+                            } else {
+                              journalController.addJournal(journalController.headingController?.text, journalController.bodyController?.text, widget.moodSvgUrl!).whenComplete((){
+                                journalController.headingController?.clear();
+                                journalController.bodyController?.clear();
+                              });
+                            }
+                          },
+                          child: CircleAvatar(
+                              backgroundColor: Colors.black54, radius: 30,
+                              child: Icon(Icons.check, color: kPrimaryColor, size: size.width * 0.05,)),
+                        )),
                   ),
-                  Padding(
-                      padding:  EdgeInsets.only(left: 30.0),
-                      child: InkWell(
-                        onTap: () {
-                          //saveToDatabase();
-                          Get.toNamed(Routes.JOURNAL_HISTORY);
-
-                        },
-                        child: CircleAvatar(
-                            backgroundColor: Colors.black54,
-                            radius: 30,
-                            child: Icon(
-                              Icons.check,
-                              color: kPrimaryColor,
-                              size: size.width * 0.05,
-                            )),
-                      )),
-                  SizedBox(
-                    height: 100,
-                  )
+                  // SizedBox(
+                  //   height: 50,
+                  // )
                 ],
               ),
             ))

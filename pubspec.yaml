@@ -51,7 +51,8 @@ dependencies:
   timezone: any
   flutter_svg: any #to use SVG
   agora_rtc_engine: any
-  flutter_staggered_grid_view: any
+  date_picker_timeline: ^1.2.3
+  flutter_staggered_grid_view: ^0.4.0
   photo_manager: any #Photo/Assets management APIs for Flutter without UI integration, you can get assets (image/video/audio) from Android, iOS and macOS.
   permission_handler: any #for handling permissions in the app
   path_provider: any
@@ -63,10 +64,12 @@ dependencies:
   timeago: any
   pointycastle: any
   shared_preferences: any
+  jiffy: ^5.0.0
   another_flushbar: any
-#  storage_path:
-#    git:
-#      url: https://github.com/w-rui/StoragePath
+  ndialog:
+  #  storage_path:
+  #    git:
+  #      url: https://github.com/w-rui/StoragePath
   language_picker: any #language picker
   #flutter_sound: any
 

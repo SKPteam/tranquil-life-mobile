@@ -8,8 +8,8 @@ class TimeManipulativeHelperController {
 
   ///convert time from DateTime type to a String with format as
   ///MONTH DAY, YEAR i.e April 25, 2021
-  String convertTimeToMDY(DateTime time) {
-    String month = monthsInString[time.month - 1];
+  String convertTimeToMDY(DateTime? time) {
+    String month = monthsInString[time!.month - 1];
     String day = time.day.toString();
     String year = time.year.toString();
     return '$month $day, $year';

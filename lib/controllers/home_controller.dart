@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -24,6 +22,18 @@ class HomeController extends GetxController{
   RxString? location;
 
   final count = 0.obs;
+
+
+
+  int? selectedIndex;
+
+  navigateToNextPage({ required int index}) {
+    selectedIndex = index;
+  }
+
+  getSelectedItem() {
+    return moodsList.elementAt(selectedIndex!);
+  }
 
   final List<Mood> moodsList = [
     Mood('Happy', 'assets/emojis/happy.png'),

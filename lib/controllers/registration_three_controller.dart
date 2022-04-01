@@ -14,13 +14,12 @@ import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/controllers/registration_one_controller.dart';
 import 'package:tranquil_life/controllers/registration_two_controller.dart';
-import 'package:tranquil_life/helpers/progress_dialog_helper.dart';
-import 'package:tranquil_life/main.dart';
 import 'package:tranquil_life/models/partner.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
 
 import '../helpers/flush_bar_helper.dart';
+import '../helpers/progress-dialog_helper.dart';
 
 class RegistrationThreeController extends GetxController {
   static RegistrationThreeController instance = Get.find();
@@ -132,7 +131,7 @@ class RegistrationThreeController extends GetxController {
   //Display list of organisation
   void partnerListDialog(BuildContext context, Size size) {
     showModalBottomSheet(
-      isDismissible: true,
+        isDismissible: true,
         context: context,
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -165,47 +164,47 @@ class RegistrationThreeController extends GetxController {
               //buildCompanyCard()
               if (snapshot.hasData){
                 return SingleChildScrollView(
-                  physics: ClampingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: snapshot.data!.map((partner){
-                      return GestureDetector(
-                        onTap: (){
-                          companyEditingController.text = partner.name!;
-                          company_id.value = partner.id.toString();
+                    physics: ClampingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: snapshot.data!.map((partner){
+                        return GestureDetector(
+                          onTap: (){
+                            companyEditingController.text = partner.name!;
+                            company_id.value = partner.id.toString();
 
-                          if(companyEditingController.text == "None"){
-                            orgSelected.value = false;
-                          }else{
-                            orgSelected.value = true;
-                          }
+                            if(companyEditingController.text == "None"){
+                              orgSelected.value = false;
+                            }else{
+                              orgSelected.value = true;
+                            }
 
-                          getStaffUsingEmail();
+                            getStaffUsingEmail();
 
-                          print(partner.id!);
+                            print(partner.id!);
 
-                          Navigator.of(context).pop();
-                        },
-                        child: Container(
-                          height: 400,
-                            alignment: Alignment.bottomCenter,
-                            margin: EdgeInsets.only(left: 8, top: 8, right: 8),
-                          child: Column(
-                            children: [
-                              // Image.asset('assets/images/logo.jpg', height: 200, width: 200),
-                              partner.logo!.isNotEmpty
-                                  ? Image.network(partner.logo!, height: 200, width: 200)
-                                  : Image.asset('assets/images/logo.jpg', height: 200, width: 200),
-                              Text(partner.name!,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18))
-                            ],
-                          )
-                        ),
-                      );
-                    }).toList(),
-                  )
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                              height: 400,
+                              alignment: Alignment.bottomCenter,
+                              margin: EdgeInsets.only(left: 8, top: 8, right: 8),
+                              child: Column(
+                                children: [
+                                  // Image.asset('assets/images/logo.jpg', height: 200, width: 200),
+                                  partner.logo!.isNotEmpty
+                                      ? Image.network(partner.logo!, height: 200, width: 200)
+                                      : Image.asset('assets/images/logo.jpg', height: 200, width: 200),
+                                  Text(partner.name!,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18))
+                                ],
+                              )
+                          ),
+                        );
+                      }).toList(),
+                    )
                 );
 
 
@@ -238,7 +237,7 @@ class RegistrationThreeController extends GetxController {
           );
         });
   }
-  
+
   Future getStaff() async{
     String url = baseUrl + getStaffPath;
 
@@ -295,7 +294,7 @@ class RegistrationThreeController extends GetxController {
                         if (companyEditingController
                             .text !=
                             'None' && staffIDEditingController
-                                .value.text.isEmpty) {
+                            .value.text.isEmpty) {
                           displaySnackBar(
                               'Type in your staff ID ',
                               context);
@@ -320,12 +319,12 @@ class RegistrationThreeController extends GetxController {
 
                           await registerClient()
                               .then((value) {
-                                Navigator.of(context).pop();
+                            Navigator.of(context).pop();
 
-                                Get.offAllNamed(Routes.SIGN_IN);
-                              }).onError((error, stackTrace){
-                                print("REGISTRATION: ERROR $error");
-                              });
+                            Get.offAllNamed(Routes.SIGN_IN);
+                          }).onError((error, stackTrace){
+                            print("REGISTRATION: ERROR $error");
+                          });
                         }
                       }
                       else {
@@ -434,7 +433,7 @@ class RegistrationThreeController extends GetxController {
 
   Future registerClient() async{
     SharedPreferences sharedPreferences =  await SharedPreferences.getInstance();
-    CustomProgressDialog().show();
+    ProgressDialogHelper().showProgressDialog(Get.context!, "Authenticating...");
     String url = baseUrl + clientRegisterPath;
 
     var requestBody = companyEditingController.text == "None" ?
@@ -475,14 +474,14 @@ class RegistrationThreeController extends GetxController {
       sharedPreferences.setString("email", result["user"]["email"]);
       sharedPreferences.setString("phoneNumber", result["user"]["phone"]);
       sharedPreferences.setString("token", result["user"]["auth_token"]);
-      CustomProgressDialog().hide();
+      ProgressDialogHelper().hideProgressDialog(Get.context!);
       Get.offAllNamed(Routes.SIGN_IN);
-      FlushBarHelper(Get.context!).showFlushBar("Registration Successful", color: Colors.red);
+      FlushBarHelper(Get.context!).showFlushBar("Registration Successful", color: Colors.green);
     }else if (result["user"] == null){
-      CustomProgressDialog().hide();
+      ProgressDialogHelper().hideProgressDialog(Get.context!);
       FlushBarHelper(Get.context!).showFlushBar(result["errors"], color: Colors.red);
     }else{
-      CustomProgressDialog().hide();
+      ProgressDialogHelper().hideProgressDialog(Get.context!);
       throw Exception("Unable to Complete Registration");
     }
   }

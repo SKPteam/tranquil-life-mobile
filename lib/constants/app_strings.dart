@@ -16,6 +16,8 @@ final RegExp emailValidatorRegExp =
 RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 final RegExp passwordValidatorRegExp = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
 const String kEmailNullError = "Please enter your email address";
+const String kHeaderNullError = "Please enter your header";
+const String kBodyNullError = "Please enter a message";
 const String kInvalidEmailError = "Please enter Valid Email";
 const String kPassNullError = "Please enter your password";
 const String kShortPassError = "Password is too short";
@@ -151,13 +153,15 @@ RxString generatedPwd = RxString(" ");
 var timeFormat = DateFormat('kk:mm');
 var dateFormat = DateFormat('dd-MM-yyyy');
 
-const baseUrl = "https://5101-168-253-119-198.ngrok.io/api/";
+const baseUrl = "https://tranquil-api.herokuapp.com/api/";
 //const baseUrl = "http://127.0.0.1:8000";
 //const baseUrl = "https://tranquil-api.herokuapp.com";
 
 //Post Api paths
 const clientRegisterPath = 'client/register';
 const loginPath = 'client/login';
+const clientAddJournal = 'client/addNote';
+const clientGetJournal = 'client/listNotes';
 const ifUsernameExistsPath = 'client/ifUsernameExists';
 const getStaffPath = 'client/showStaff';
 const getStaffUsingEmailPath = 'client/showUsingEmail';
@@ -172,6 +176,6 @@ const logoutPath = 'client/logout';
 const listCardsPath = 'client/listCards';
 const getClientProfilePath = 'client/getProfile';
 const getAllPartnersPath = 'client/listPartners';
-const listQuestionsPath = 'client/listQuestions';
+const  listQuestionsPath = 'client/listQuestions';
 
 

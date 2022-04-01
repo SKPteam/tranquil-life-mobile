@@ -32,12 +32,17 @@ import '../main.dart';
 
 class DashboardController extends GetxController {
 
-  RxString userType = "".obs;
+  //RxString userType = "".obs;
+  String? userType;
+
+  String? user;
+
   static DashboardController instance = Get.find();
 
   RxBool toggleValue = false.obs;
 
   RxInt tabIndex = 0.obs;
+  String? moodSelected;
 
   void selectedTab(int index) {
     tabIndex.value = index;
@@ -53,10 +58,10 @@ class DashboardController extends GetxController {
       case 1:
         return WalletView(reloadWalletPage: setBottomBarIndex);
       case 2:
-        return JournalView(moodSvgUrl: '');
+        return JournalView(moodSvgUrl: moodSelected ?? "");
       case 3:
         return ProfileView(setBottomBarIndex: (int index) {});
-    default:
+      default:
         return Home(moodOnTap: setBottomBarIndex);
     }
   }
@@ -65,7 +70,8 @@ class DashboardController extends GetxController {
   //RxInt currentIndex = RxInt(0);
   RxBool pageLoaded = RxBool(false);
   static DashboardController get to => Get.find();
-  void setBottomBarIndex(int index, [String? moodSvgUrl = '']) {
+
+  void setBottomBarIndex(int index, [String? moodSvgUrl = ""]) {
     if (moodSvgUrl!.isNotEmpty) {
       selectedMoodSvgUrl.value = moodSvgUrl;
     } else {
@@ -81,7 +87,7 @@ class DashboardController extends GetxController {
   RxList<Widget>? tabs = <Widget>[].obs;
   GetStorage? _getStorage;
 
-  RxString? username,
+  String? username,
       firstName,
       lastName,
       workPlace,

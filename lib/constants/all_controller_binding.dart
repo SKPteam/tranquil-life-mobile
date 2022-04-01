@@ -34,7 +34,7 @@ class AllControllerBinding extends Bindings{
   @override
   void dependencies() {
     Get.lazyPut(() => SplashScreenController());
-    Get.lazyPut(() => OnBoardingController());
+    Get.lazyPut(() =>  OnBoardingController());
     Get.lazyPut(() => SignInController());
     Get.lazyPut(() => RegistrationOneController());
     Get.lazyPut(() => RegistrationTwoController());
