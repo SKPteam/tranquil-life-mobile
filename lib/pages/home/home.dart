@@ -44,174 +44,175 @@ class Home extends GetView<HomeController> {
 
     return ResponsiveSafeArea(
       responsiveBuilder: (context, size)=>
-          Scaffold(
-              key: scaffoldKey,
-              appBar: topNavigationBar(context, scaffoldKey),
-              backgroundColor: kLightBackgroundColor,
-              body: Stack(
-                children: [
-                  Container(
-                    height: size.height * .35,
-                    decoration: BoxDecoration(
-                      color: kLightBackgroundColor,
-                      gradient: LinearGradient(
-                          colors: [Color(0xffC9D8CD), kLightBackgroundColor],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter),
-                    ),
-                  ),
+          Obx(()=>
+              Scaffold(
+                  key: scaffoldKey,
+                  appBar: topNavigationBar(context, scaffoldKey),
+                  backgroundColor: kLightBackgroundColor,
+                  body: Stack(
+                    children: [
+                      Container(
+                        height: size.height * .35,
+                        decoration: BoxDecoration(
+                          color: kLightBackgroundColor,
+                          gradient: LinearGradient(
+                              colors: [Color(0xffC9D8CD), kLightBackgroundColor],
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter),
+                        ),
+                      ),
 
-                  Container(
-                    width: double.infinity,
-                    margin: EdgeInsets.only(
-                        left: size.width * 0.1,
-                        top: size.width * 0.1),
-                    child: Stack(
-                      children: [
-                        SizedBox(
-                            width: size.width * 0.4,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Hi,',
-                                  style: TextStyle(
-                                    color: kPrimaryDarkColor,
-                                    fontSize: 28,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                CustomText(
-                                  text: dashboardController.username,
-                                  color: kPrimaryDarkColor,
-                                  weight: FontWeight.w700,
-                                  align: TextAlign.start,
-                                  size: 28,
-                                ),
-                              ],
-                            )),
+                      Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.only(
+                            left: size.width * 0.1,
+                            top: size.width * 0.1),
+                        child: Stack(
+                          children: [
+                            SizedBox(
+                                width: size.width * 0.4,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Hi,',
+                                      style: TextStyle(
+                                        color: kPrimaryDarkColor,
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    CustomText(
+                                      text: dashboardController.username.value,
+                                      color: kPrimaryDarkColor,
+                                      weight: FontWeight.w700,
+                                      align: TextAlign.start,
+                                      size: 28,
+                                    ),
+                                  ],
+                                )),
 
-                        Positioned(
-                          right: size.width * 0.1,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: size.width * 0.01),
-                            child: Row(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      left: size.width * 0.2),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white70,
-                                    borderRadius:
-                                    BorderRadius.circular(10.0),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 10,
-                                        spreadRadius: 0,
-                                        offset: Offset(3, 6),
+                            Positioned(
+                              right: size.width * 0.1,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: size.width * 0.01),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          left: size.width * 0.2),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white70,
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 10,
+                                            spreadRadius: 0,
+                                            offset: Offset(3, 6),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      var result = await Get.to<bool>(
-                                            () => QuestionnaireView(),
-                                      );
-                                      if (result ?? false) {
-                                        print("Get meetings list");
-                                        // Get.find<
-                                        //     MyScheduledMeetingsTabController>()
-                                        //     .getDataFromFirebase();
-                                      }
-                                    },
-                                    child: SizedBox(
-                                        width: 46,
-                                        height: 46,
-                                        child: Icon(
-                                          Icons.people,
-                                          size: 28,
-                                          color: kPrimaryColor,
-                                        )),
-                                  ),
-                                ),
-                                SizedBox(width: size.width*0.02),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                      left: size.width * 0.02),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white70,
-                                    borderRadius:
-                                    BorderRadius.circular(10.0),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        blurRadius: 10,
-                                        spreadRadius: 0,
-                                        offset: Offset(3, 6),
-                                      ),
-                                    ],
-                                  ),
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.pushNamed(context, NotificationHistoryScreen.idScreen);
-                                    },
-                                    child: SizedBox(
-                                      width: 46,
-                                      height: 46,
-                                      child: Icon(
-                                        Icons.notifications,
-                                        color: kPrimaryColor,
-                                        size: 28,
+                                      child: InkWell(
+                                        onTap: () async {
+                                          var result = await Get.to<bool>(
+                                                () => QuestionnaireView(),
+                                          );
+                                          if (result ?? false) {
+                                            print("Get meetings list");
+                                            // Get.find<
+                                            //     MyScheduledMeetingsTabController>()
+                                            //     .getDataFromFirebase();
+                                          }
+                                        },
+                                        child: SizedBox(
+                                            width: 46,
+                                            height: 46,
+                                            child: Icon(
+                                              Icons.people,
+                                              size: 28,
+                                              color: kPrimaryColor,
+                                            )),
                                       ),
                                     ),
-                                  ),
+                                    SizedBox(width: size.width*0.02),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          left: size.width * 0.02),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white70,
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Colors.grey,
+                                            blurRadius: 10,
+                                            spreadRadius: 0,
+                                            offset: Offset(3, 6),
+                                          ),
+                                        ],
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(context, NotificationHistoryScreen.idScreen);
+                                        },
+                                        child: SizedBox(
+                                          width: 46,
+                                          height: 46,
+                                          child: Icon(
+                                            Icons.notifications,
+                                            color: kPrimaryColor,
+                                            size: 28,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+
+                            NotificationBadge(),
+                          ],
                         ),
+                      ),
 
-                        NotificationBadge(),
-                      ],
-                    ),
-                  ),
+                      ///meetings and moods section
+                      Positioned(
+                          top: size.height * 0.12,
+                          left: 0,
+                          width: size.width,
+                          child: SizedBox(
+                            height: size.height -
+                                size.height * 0.12,
+                            child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    MyMeetingsSection(),
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    SelectMood(
+                                      moodOnTap: (int index, [moodSvgUrl]) {
+                                        DashboardController.to.setBottomBarIndex(index, moodSvgUrl!);
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: size.width > 520 ? size.height * 0.12 : size.height * 0.2,
+                                    )
+                                  ],
+                                )),
+                          ))
+                    ],
+                  )
 
-                  ///meetings and moods section
-                  Positioned(
-                      top: size.height * 0.12,
-                      left: 0,
-                      width: size.width,
-                      child: SizedBox(
-                        height: size.height -
-                            size.height * 0.12,
-                        child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                MyMeetingsSection(),
-                                SizedBox(
-                                  height: 30,
-                                ),
-                                SelectMood(
-                                  moodOnTap: (int index, [moodSvgUrl]) {
-                                    DashboardController.to.setBottomBarIndex(index, moodSvgUrl!);
-                                  },
-                                ),
-                                SizedBox(
-                                  height: size.width > 520 ? size.height * 0.12 : size.height * 0.2,
-                                )
-                              ],
-                            )),
-                      ))
-                ],
-              )
-
-            //TODO: CONSULTANT HOME
-          ),
+                //TODO: CONSULTANT HOME
+              )),
     );
   }
 }

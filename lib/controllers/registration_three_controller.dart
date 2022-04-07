@@ -303,28 +303,29 @@ class RegistrationThreeController extends GetxController {
                                 .staffIDEditingController
                                 .value.text.isEmpty)
                         {
+                          Navigator.of(context).pop();
                           //register client
-                          await registerClient()
-                              .then((value){
-                            Navigator.of(context).pop();
+                          // await registerClient()
+                          //     .then((value){
+                          //   Navigator.of(context).pop();
 
-                            Get.offAllNamed(Routes.SIGN_IN);
-                          }).onError((error, stackTrace){
-                            print("REGISTRATION: ERROR $error");
-                          });
-
+                            //Get.offAllNamed(Routes.SIGN_IN);
+                          // }).onError((error, stackTrace){
+                          //   print("REGISTRATION: ERROR $error");
+                          // });
                         }
                         else {
                           //register client
+                          Navigator.of(context).pop();
 
-                          await registerClient()
-                              .then((value) {
-                            Navigator.of(context).pop();
-
-                            Get.offAllNamed(Routes.SIGN_IN);
-                          }).onError((error, stackTrace){
-                            print("REGISTRATION: ERROR $error");
-                          });
+                          // await registerClient()
+                          //     .then((value) {
+                          //   Navigator.of(context).pop();
+                          //
+                          //   Get.offAllNamed(Routes.SIGN_IN);
+                          // }).onError((error, stackTrace){
+                          //   print("REGISTRATION: ERROR $error");
+                          // });
                         }
                       }
                       else {

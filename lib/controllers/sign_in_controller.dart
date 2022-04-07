@@ -13,8 +13,8 @@ class SignInController extends GetxController{
   String? accessToken;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController emailTextEditingController = TextEditingController();
-  TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController(text: "ayomideseaz@gmail.com");
+  TextEditingController passwordTextEditingController = TextEditingController(text: "password123@");
 
   RxBool obscureText = RxBool(true);
 
@@ -38,8 +38,8 @@ class SignInController extends GetxController{
       accessToken =  map['auth_token'];
       sharedPreferences!.setString('accessToken', accessToken!);
       dashboardController.userType = client;
-      dashboardController.username = map['username'];
-      dashboardController.firstName = map['f_name'];
+      // dashboardController.username = map['username'];
+      // dashboardController.firstName = map['f_name'];
       sharedPreferences!.setString('userType', client);
     }else{
       print(map["errors"]);

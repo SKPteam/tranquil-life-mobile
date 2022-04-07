@@ -225,7 +225,8 @@ class _QuestionnaireViewState extends State<QuestionnaireView>
                       height: size.height * 0.05,
                     ),
 
-                    GetBuilder<QuestionnaireController>(builder: (controller) {
+                    GetBuilder<QuestionnaireController>(builder: (controller)
+                    {
                       return Padding(
                         padding: const EdgeInsets.only(left: 16.0),
                         child: Text.rich(TextSpan(

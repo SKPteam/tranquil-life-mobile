@@ -17,7 +17,9 @@ import 'widgets/fab_bottom_app_bar.dart';
 class Dashboard extends GetView<DashboardController>{
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
-  //HomeController _homeController = Get.put(HomeController());
+  DashboardController _dashboardController = Get.put(DashboardController());
+
+  HomeController _homeController = Get.put(HomeController());
 
   Widget _buildFab(BuildContext context) {
     return FloatingActionButton(

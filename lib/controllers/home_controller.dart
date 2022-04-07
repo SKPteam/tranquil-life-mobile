@@ -50,7 +50,7 @@ class HomeController extends GetxController{
   void onInit() {
     super.onInit();
 
-    menuOptions = <String>[signOut, blog];
+    menuOptions = <String>[blog];
 
   }
 }

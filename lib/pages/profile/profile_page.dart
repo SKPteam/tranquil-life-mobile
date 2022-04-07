@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/profile_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/main.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'widgets/cusListTile.dart';
 import 'edit_profile_page.dart';
@@ -121,13 +123,12 @@ class _ProfileViewState extends State<ProfileView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Get.find<OnBoardingController>().userType.value ==
+                              sharedPreferences!.getString("userType") ==
                                       client
                                   ? Text(
-                                      "Danny ",
-                                      // _.username.value != null
-                                      //     ? _.username.value.toString()
-                                      //     : '',
+                                      dashboardController.username.value == null
+                                          ? ""
+                                          : dashboardController.username.value,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,

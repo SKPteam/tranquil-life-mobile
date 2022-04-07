@@ -27,7 +27,7 @@ class SplashScreenView extends StatelessWidget {
                       Expanded(
                           flex: 3,
                           child: Align(
-                            child: Image.asset("assets/images/concept1_logo.png",
+                            child: Image.asset("assets/images/tranquil_logo_white.png",
                                 width: size.width * 0.5,
                                 height: size.height * 0.5),
                           )),
@@ -43,7 +43,7 @@ class SplashScreenView extends StatelessWidget {
                                     height: size.height * 0.03,
                                     child: FittedBox(
                                       child: Text(
-                                        'To a new beginning with Tranquil',
+                                        'To a new beginning with Tranquil Life',
                                         style: TextStyle(
                                           color: Color(0xFFC3C3C3),
                                         ),

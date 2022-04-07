@@ -67,16 +67,16 @@ class PaymentOptions extends StatelessWidget {
                                         onTap: () async{
                                           print(_walletController.figure.value);
 
-                                          // await _walletController.initialize(
-                                          //     "ayomideseaz@gmail.com",
-                                          //     "+2348130308873",
-                                          //     "Ayomide Ajayi").then((value){
-                                          //   print("$value");
-                                          //
-                                          //   return Navigator.push(context, MaterialPageRoute(builder: (context)=> WebViewUI(
-                                          //       url: "$value"
-                                          //   )));
-                                          // });
+                                          await _walletController.initialize(
+                                              "ayomideseaz@gmail.com",
+                                              "+2348130308873",
+                                              "Ayomide Ajayi").then((value){
+                                            print("$value");
+
+                                            return Navigator.push(context, MaterialPageRoute(builder: (context)=> WebViewUI(
+                                                url: "$value"
+                                            )));
+                                          });
                                         },
                                         child: Text(payment_options[index]),
                                       ),

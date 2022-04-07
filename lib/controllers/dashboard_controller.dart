@@ -87,17 +87,27 @@ class DashboardController extends GetxController {
   RxList<Widget>? tabs = <Widget>[].obs;
   GetStorage? _getStorage;
 
-  String? username,
-      firstName,
-      lastName,
-      workPlace,
-      discount,
-      phoneNum,
-      dob,
-      gender,
-      pin;
-  RxDouble? balance;
-  RxInt? myTotalConsultations;
+  RxString username = "".obs;
+  RxString firstName = "".obs;
+  RxString lastName = "".obs;
+  RxString email = "".obs;
+  RxString workPlace = "".obs;
+  RxString discount = "".obs;
+  RxString phoneNumber = "".obs;
+  RxString gender = "".obs;
+  RxString screenTimeoutPin = "".obs;
+  RxString avatarUrl = "".obs;
+  RxString latitude = "".obs;
+  RxString longitude = "".obs;
+  RxString onlineStatus = "".obs;
+  RxString fcmToken = "".obs;
+  RxString companyID = "".obs;
+  RxString staffID = "".obs;
+  RxInt dayOfBirth = 0.obs;
+  RxInt monthOfBirth = 0.obs;
+  RxInt yearOfBirth = 0.obs;
+  RxDouble balance = 0.0.obs;
+  RxInt myTotalConsultations = 0.obs;
   RxInt myTotalConsultationsForThisMonthLength = RxInt(0);
   // late QuerySnapshot myTotalConsultationsForThisMonth;
 
@@ -138,7 +148,7 @@ class DashboardController extends GetxController {
   Future clientProfile() async{
     String url = baseUrl + getClientProfilePath;
 
-    var response = await post(
+    var response = await get(
         Uri.parse(url),
         headers: {
           "Content-type": "application/json",
@@ -147,6 +157,29 @@ class DashboardController extends GetxController {
               "accessToken")}",
         });
 
+    var body = jsonDecode(response.body);
+
+    // firstName = body['f_name'];
+    // lastName = body['l_name'];
+    username.value = body['username'];
+    // gender = body['gender'];
+    // phoneNumber = body['phone'];
+    // email = body['email'];
+    // screenTimeoutPin = body['screen_timeout_pin'];
+    // avatarUrl = body['avatar_url'];
+    // latitude = body['latitude'];
+    // longitude = body['longitude'];
+    // onlineStatus = body['online_status'];
+    // dayOfBirth = body['day_of_birth'];
+    // monthOfBirth = body['month_of_birth'];
+    // yearOfBirth = body['year_of_birth'];
+    // fcmToken = body['fcm_token'];
+    // companyID = body['company_id'];
+    // staffID = body['staffID'];
+
+    print(jsonDecode(response.body).toString());
+    print(sharedPreferences!.getString("accessToken"));
+
     return jsonDecode(response.body);
   }
 
@@ -154,6 +187,8 @@ class DashboardController extends GetxController {
   void onInit() {
     super.onInit();
     clientProfile();
+
+    print("YESS!!!");
 
     //WidgetsBinding.instance!.addObserver(this);
   }
