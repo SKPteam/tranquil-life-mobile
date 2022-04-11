@@ -19,11 +19,11 @@ class Question {
   Question.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     q1 = json['q1'];
-    q1Options = json['q1_options'];
-    q1IsMultiChoice = json['q1_is_multi_choice'] == 0 ? false : true;
+    q1Options = (json['q1_options'] as List<dynamic>?)!.map((e) => e.toString()).toList();
+    q1IsMultiChoice = json['q1_is_multi_choice'];
     q1Trigger = json['q1_trigger'];
     q2 = json['q2'];
-    q2Options = json['q2_options'];
+    q2Options = (json['q1_options'] as List<dynamic>?)!.map((e) => e.toString()).toList();
   }
 
   Map<String, dynamic> toJson() {

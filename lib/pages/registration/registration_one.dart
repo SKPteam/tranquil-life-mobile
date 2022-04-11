@@ -13,6 +13,8 @@ import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
 
+import '../../constants/app_font.dart';
+
 class RegistrationOneView extends StatefulWidget {
   const RegistrationOneView({Key? key}) : super(key: key);
 
@@ -359,52 +361,45 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
                                           ),
                                           SizedBox(
                                               height: size.height * 0.06),
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                //TODO: USE richtext widget instead
-
-                                                  child: Column(
-                                                      children: [
-                                                        Text(
-                                                            'By clicking Next, you are indicating that you have ',
-                                                            textAlign: TextAlign.center,
-                                                            style: TextStyle(
-                                                                color: Colors.grey,
-                                                                fontSize: 16)),
-                                                        Row(
-                                                          children: [
-                                                            Text(' read and agreed to the ',
-                                                                textAlign: TextAlign.center,
-                                                                style: TextStyle(
-                                                                    color: Colors.grey,
-                                                                    fontSize: 16)),
-                                                            Text('Terms of Service ',
-                                                                textAlign: TextAlign.center,
-                                                                style: TextStyle(
-                                                                    color: kSecondaryColor,
-                                                                    fontSize: 16)),
-                                                            Text('and ',
-                                                                textAlign: TextAlign.center,
-                                                                style: TextStyle(
-                                                                    color: Colors.grey,
-                                                                    fontSize: 16)),
-                                                          ],
-                                                        ),
-                                                        Text('Privacy Policy',
-                                                            textAlign: TextAlign.center,
-                                                            style: TextStyle(
-                                                                color: kSecondaryColor,
-                                                                fontSize:
-                                                                18)),
-                                                        SizedBox(
-                                                            height:
-                                                            size.height * 0.04)
-                                                      ]))
-                                            ],
-                                          ),
+                                          RichText(
+                                            textAlign: TextAlign.center,
+                                            text: TextSpan(children: [
+                                              TextSpan(
+                                                text: 'By clicking Next, you are indicating that you have read and agreed to the ',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 16,
+                                                    fontFamily: josefinSansRegular
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: 'Terms of Service ',
+                                                style: TextStyle(
+                                                    color: Colors.yellow,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 16,
+                                                    fontFamily: josefinSansRegular
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: 'and ',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 16,
+                                                    fontFamily: josefinSansRegular
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: 'Privacy Policy',
+                                                style: TextStyle(
+                                                  color: yellow,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: josefinSansRegular,
+                                                  fontSize: 16,
+                                                ),
+                                              )
+                                            ]),
+                                          )
                                         ],
                                       ))
                                 ],

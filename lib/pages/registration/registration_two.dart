@@ -101,133 +101,7 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
                                           child: buildLastNameFormField(size),
                                         ),
                                         SizedBox(height: size.height * 0.020),
-                                        onBoardingController.userType.value ==
-                                            client
-                                            ?
-                                        Column(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.circular(4),
-                                              child: buildUserNameFormField(size),
-                                            ),
-                                            SizedBox(
-                                                height: size.height * 0.02),
-                                          ],
-                                        )
-                                            :
-                                        SizedBox(height: size.height * 0.002),
-
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              4),
-                                          child: buildDOBFormField(size),
-                                        ),
-                                        // SizedBox(height: size.height * 0.020),
-                                        // ClipRRect(
-                                        //   borderRadius: BorderRadius.circular(
-                                        //       4),
-                                        //   child: identityDocField(size),
-                                        // ),
-                                        // SizedBox(height: size.height * 0.020),
-                                        // ClipRRect(
-                                        //   borderRadius: BorderRadius.circular(
-                                        //       4),
-                                        //   child: cvDocField(size),
-                                        // ),
-                                        // ClipRRect(
-                                        //   borderRadius: BorderRadius.circular(4),
-                                        //   child: CustomFormField(
-                                        //     textEditingController: registrationTwoController.timeZoneEditingController,
-                                        //     hint: 'Time zone',
-                                        //     showCursor: false,
-                                        //     readOnly: true,
-                                        //     onTap: () {
-                                        //       //_showModalBottomSheet(context);
-                                        //     },
-                                        //     obscureText: false,
-                                        //     textInputType: TextInputType.text,
-                                        //     formatters: [],
-                                        //     togglePassword: () {},
-                                        //   ),
-                                        // ),
-                                        SizedBox(height: size.height * 0.03),
-                                        SizedBox(
-                                          width: size.width * 0.6,
-                                          height: 60,
-                                          child: ElevatedButton(
-                                              onPressed: () async{
-                                                await registrationTwoController
-                                                    .checkForUsername()
-                                                    .then((value) {
-                                                  if (kUserNameExists ==
-                                                      value) {
-                                                    registrationTwoController
-                                                        .usernameExists.value =
-                                                    true;
-                                                  } else {
-                                                    registrationTwoController
-                                                        .usernameExists.value =
-                                                    false;
-                                                  }
-                                                }).onError((error, stackTrace) {
-                                                  print(
-                                                      "CHECK FOR USERNAME: ERROR: $error");
-                                                });
-
-
-                                                if (registrationTwoController
-                                                    .firstNameTextEditingController
-                                                    .text.isEmpty) {
-                                                  displaySnackBar(
-                                                      kFirstNameNullError,
-                                                      context);
-                                                }
-                                                else
-                                                if (registrationTwoController
-                                                    .lastNameTextEditingController
-                                                    .text.isEmpty) {
-                                                  displaySnackBar(
-                                                      kLastNameNullError,
-                                                      context);
-                                                }
-                                                else
-                                                if (registrationTwoController
-                                                    .userNameTextEditingController
-                                                    .text.isEmpty) {
-                                                  displaySnackBar(
-                                                      kUserNameNullError,
-                                                      context);
-                                                }
-                                                else
-                                                if (registrationTwoController
-                                                    .usernameExists.value) {
-                                                  displaySnackBar(
-                                                      kUserNameExists, context);
-                                                }
-                                                else
-                                                if (registrationTwoController
-                                                    .age.value < 16) {
-                                                  displaySnackBar(
-                                                      kTooYoungError, context);
-                                                }
-                                                else {
-                                                Get.toNamed(Routes.REGISTRATION_THREE);
-                                                }
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 0,
-                                                      vertical: 20),
-                                                  primary: kPrimaryColor),
-                                              child: Text(
-                                                'Next',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18,
-                                                ),
-                                              )),
-                                        ),
-                                        SizedBox(height: size.height * 0.040),
+                                        userTypeWidgets(size)
                                       ],
                                     ))
                               ],
@@ -241,6 +115,185 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
                 ))
     );
   }
+
+  Widget userTypeWidgets(Size size){
+    if(onBoardingController.userType.value == client){
+      return Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: buildUserNameFormField(size),
+          ),
+          SizedBox(
+              height: size.height * 0.02),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(
+                4),
+            child: buildDOBFormField(size),
+          ),
+          SizedBox(height: size.height * 0.03),
+          SizedBox(
+            width: size.width * 0.6,
+            height: 60,
+            child: ElevatedButton(
+                onPressed: () async{
+                  await registrationTwoController
+                      .checkForUsername()
+                      .then((value) {
+                    if (kUserNameExists ==
+                        value) {
+                      registrationTwoController
+                          .usernameExists.value =
+                      true;
+                    } else {
+                      registrationTwoController
+                          .usernameExists.value =
+                      false;
+                    }
+                  }).onError((error, stackTrace) {
+                    print(
+                        "CHECK FOR USERNAME: ERROR: $error");
+                  });
+
+
+                  if (registrationTwoController
+                      .firstNameTextEditingController
+                      .text.isEmpty) {
+                    displaySnackBar(
+                        kFirstNameNullError,
+                        context);
+                  }
+                  else
+                  if (registrationTwoController
+                      .lastNameTextEditingController
+                      .text.isEmpty) {
+                    displaySnackBar(
+                        kLastNameNullError,
+                        context);
+                  }
+                  else
+                  if (registrationTwoController
+                      .userNameTextEditingController
+                      .text.isEmpty) {
+                    displaySnackBar(
+                        kUserNameNullError,
+                        context);
+                  }
+                  else
+                  if (registrationTwoController
+                      .usernameExists.value) {
+                    displaySnackBar(
+                        kUserNameExists, context);
+                  }
+                  else
+                  if (registrationTwoController
+                      .age.value < 16) {
+                    displaySnackBar(
+                        kTooYoungError, context);
+                  }
+                  else {
+                    Get.toNamed(Routes.REGISTRATION_THREE);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 20),
+                    primary: kPrimaryColor),
+                child: Text(
+                  'Next',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                )),
+          ),
+          SizedBox(height: size.height * 0.040),
+        ],
+      );
+    }else{
+      return Column(
+        children: [
+          SizedBox(height: size.height * 0.002),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(
+                4),
+            child: buildDOBFormField(size),
+          ),
+          SizedBox(height: size.height * 0.020),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(
+                4),
+            child: identityDocField(size),
+          ),
+          SizedBox(height: size.height * 0.020),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(
+                4),
+            child: cvDocField(size),
+          ),
+          SizedBox(height: size.height * 0.03),
+          SizedBox(
+            width: size.width * 0.6,
+            height: 60,
+            child: ElevatedButton(
+                onPressed: () async{
+
+                  if (registrationTwoController
+                      .firstNameTextEditingController
+                      .text.isEmpty) {
+                    displaySnackBar(
+                        kFirstNameNullError,
+                        context);
+                  }
+                  else if (registrationTwoController
+                      .lastNameTextEditingController
+                      .text.isEmpty) {
+                    displaySnackBar(
+                        kLastNameNullError,
+                        context);
+                  }
+                  else if (registrationTwoController
+                      .identityDocController
+                      .text.isEmpty) {
+                    displaySnackBar(
+                        "Passport or Driver's license is required",
+                        context);
+                  }
+                  else if (registrationTwoController
+                      .cvDocController.text.isEmpty) {
+                    displaySnackBar(
+                        "Resumé is required", context);
+                  }
+                  else if (registrationTwoController
+                      .age.value < 16) {
+                    displaySnackBar(
+                        kTooYoungError, context);
+                  }
+                  else {
+                    Get.toNamed(Routes.REGISTRATION_THREE);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 20),
+                    primary: kPrimaryColor),
+                child: Text(
+                  'Next',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                )),
+          ),
+          SizedBox(height: size.height * 0.040),
+        ],
+      );
+    }
+  }
+
+
   TextFormField buildFirstNameFormField(Size size) {
     return TextFormField(
       //validator: (value) => (value!.isEmpty? "Please enter your first name" : null),
@@ -290,7 +343,6 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
     );
   }
 
-
   TextFormField buildUserNameFormField(Size size) {
     return TextFormField(
       //validator: (value) => (value!.isEmpty? "Please enter your username" : null),
@@ -316,8 +368,6 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
       ),
     );
   }
-
-
 
   Future<void> selectDate(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -346,7 +396,6 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
     registrationTwoController.dateOfBirth = formattedDOB.toString();
     registrationTwoController.dobTextEditingController.text = registrationTwoController.dateOfBirth ?? '';
   }
-
 
   TextFormField buildDOBFormField( Size size) {
     return TextFormField(
@@ -384,15 +433,25 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(
-              vertical: 25.0, horizontal: size.width * 0.04
+              vertical: 11.0, horizontal: size.width * 0.04
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomText(text: "Passport or Driver's License",
+              CustomText(text:
+              registrationTwoController.identityDocController.text.isEmpty
+                  ? "Passport or Driver's License"
+                  : (registrationTwoController.identityDocController.text.length > 24
+                  ? (registrationTwoController.identityDocController.text.substring(0, 24) + "..." )
+                  : registrationTwoController.identityDocController.text),
                 size: 18, weight: FontWeight.normal, align: TextAlign.start, key: null, color: Colors.grey,),
-              Icon(
-                Icons.attach_file,
+              IconButton(
+                icon: Icon(Icons.attach_file),
+                onPressed: (){
+                  setState(() {
+                    registrationTwoController.selectImageFromGallery("passport", 0);
+                  });
+                },
               )
             ],
           ),
@@ -408,15 +467,24 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(
-              vertical: 25.0, horizontal: size.width * 0.04
+              vertical: 11.0, horizontal: size.width * 0.04
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CustomText(text: "Upload your resumé", size: 18,
+              CustomText(text:
+              registrationTwoController.identityDocController.text.isEmpty
+                  ? "Upload your resumé"
+                  : (registrationTwoController.cvDocController.text.length > 24
+                  ? (registrationTwoController.cvDocController.text.substring(0, 24) + "..." )
+                  : registrationTwoController.cvDocController.text),
+                size: 18,
                 weight: FontWeight.normal, align: TextAlign.start, key: null, color: Colors.grey,),
-              Icon(
-                Icons.attach_file,
+              IconButton(
+                icon: Icon(Icons.attach_file),
+                onPressed: (){
+                  registrationTwoController.selectImageFromGallery("cv", 0);
+                },
               )
             ],
           ),

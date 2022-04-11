@@ -12,12 +12,14 @@ import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/registration_one_controller.dart';
 import 'package:tranquil_life/controllers/registration_three_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/pages/registration/registration_four.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
 import 'package:tranquil_life/widgets/custom_form_field.dart';
 import 'package:tranquil_life/widgets/custom_form_field.dart';
 import 'package:tranquil_life/widgets/progress_dialog.dart';
 
+import '../../constants/app_font.dart';
 import '../../helpers/flush_bar_helper.dart';
 
 
@@ -32,6 +34,8 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final regOneController = Get.put(RegistrationOneController());
+  final _ = Get.put(RegistrationThreeController());
+
   final _formKeySignIn = GlobalKey <FormState>();
 
   _signIn() async {
@@ -44,10 +48,6 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
 
   @override
   Widget build(BuildContext context) {
-    onBoardingController
-        .userType
-        .value ==
-        client;
     return ResponsiveSafeArea(
         responsiveBuilder: (context, size)
         => Obx(() => Scaffold(
@@ -64,11 +64,11 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
             body: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: onBoardingController.userType.value ==
-                        client
-                        ? const AssetImage('assets/images/bg_img1.png')
-                        : const AssetImage('assets/images/bg_img2.png'),
-                    colorFilter: const ColorFilter.mode(
+                    image:
+                    onBoardingController.userType.value == client
+                        ? AssetImage('assets/images/bg_img1.png')
+                        : AssetImage('assets/images/bg_img2.png'),
+                    colorFilter: ColorFilter.mode(
                         Color(0xff777474), BlendMode.multiply),
                     fit: BoxFit.cover),
               ),
@@ -242,16 +242,12 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                       hint: 'Areas Of Expertise',
                                       readOnly: true,
                                       textEditingController:
-                                      registrationThreeController
-                                          .areaOfExpertiseTEC,
+                                      _.areaOfExpertiseTEC,
                                       onTap: () {
-                                        print("mdkkggd");
                                         registrationThreeController
                                             .areaOfExpertiseTEC.text = '';
-                                        // ignore: prefer_const_constructors
-                                        // registrationThreeController
-                                        //     .showAOEModalBottomSheet(
-                                        //     context);
+                                        registrationThreeController
+                                            .showAOEModalBottomSheet(context);
                                       },
                                       textInputType: TextInputType.text,
                                       togglePassword: () {},
@@ -269,13 +265,47 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                     child: CustomFormField(
                                       hint: 'Years Of Experience',
                                       textEditingController:
-                                      registrationThreeController
-                                          .yearsOfExpTEC,
+                                      _.yearsOfExpTEC,
                                       readOnly: true,
-                                      onTap: () {
+                                      onTap: () async{
                                         // registrationThreeController
                                         //     .showYOEModalBottomSheet(
                                         //     context);
+
+                                        ///Years of experience list
+                                        await Get.bottomSheet(
+                                            Container(
+                                              decoration: BoxDecoration(color: Colors.white),
+                                              height: size.height * 0.5,
+                                              padding: EdgeInsets.fromLTRB(
+                                                  16.0, 16.0, 16.0, 0),
+                                              child:Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text("Years of experience", style: TextStyle(fontSize: 18, fontFamily: josefinSansBold)),
+
+                                                  SizedBox(height: size.height*0.02),
+                                                   Expanded(
+                                                       child: ListView.builder(
+                                                           shrinkWrap: true,
+                                                           itemCount: _.yearsOfExperienceList.length,
+                                                           itemBuilder: (BuildContext context,
+                                                               int index){
+                                                             return ListTile(
+                                                               title: InkWell(
+                                                                 onTap: () async{
+                                                                   _.yearsOfExpTEC.text = _.yearsOfExperienceList[index].toString()+" years";
+                                                                 },
+                                                                 child: Text(_.yearsOfExperienceList[index]+" years"),
+                                                               ),
+                                                             );
+                                                           }
+                                                       ),
+                                                   )
+                                                ],
+                                              ),
+                                            )
+                                        );
                                       },
                                       textInputType: TextInputType.text,
                                       togglePassword: () {},
@@ -412,7 +442,7 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                             //   Get.toNamed(Routes.REGISTRATION_FOUR);
                                             // }
 
-                                            Get.toNamed(Routes.REGISTRATION_FOUR);
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=> RegistrationFourView()));
 
                                           },
                                           style: ElevatedButton.styleFrom(

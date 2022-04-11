@@ -100,34 +100,34 @@ class Home extends GetView<HomeController> {
                                     top: size.width * 0.01),
                                 child: Row(
                                   children: [
-                                    Container(
-                                      margin: EdgeInsets.only(
-                                          left: size.width * 0.2),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white70,
-                                        borderRadius:
-                                        BorderRadius.circular(10.0),
-                                        boxShadow: const [
-                                          BoxShadow(
-                                            color: Colors.grey,
-                                            blurRadius: 10,
-                                            spreadRadius: 0,
-                                            offset: Offset(3, 6),
-                                          ),
-                                        ],
-                                      ),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          var result = await Get.to<bool>(
-                                                () => QuestionnaireView(),
-                                          );
-                                          if (result ?? false) {
-                                            print("Get meetings list");
-                                            // Get.find<
-                                            //     MyScheduledMeetingsTabController>()
-                                            //     .getDataFromFirebase();
-                                          }
-                                        },
+                                    InkWell(
+                                      onTap: () async {
+                                        var result = await Get.to<bool>(
+                                              () => QuestionnaireView(),
+                                        );
+                                        if (result ?? false) {
+                                          print("Get meetings list");
+                                          // Get.find<
+                                          //     MyScheduledMeetingsTabController>()
+                                          //     .getDataFromFirebase();
+                                        }
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                            left: size.width * 0.2),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white70,
+                                          borderRadius:
+                                          BorderRadius.circular(10.0),
+                                          boxShadow: const [
+                                            BoxShadow(
+                                              color: Colors.grey,
+                                              blurRadius: 10,
+                                              spreadRadius: 0,
+                                              offset: Offset(3, 6),
+                                            ),
+                                          ],
+                                        ),
                                         child: SizedBox(
                                             width: 46,
                                             height: 46,

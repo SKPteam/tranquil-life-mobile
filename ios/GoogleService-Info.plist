@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>247965418361-dnl3bp3vc950ttko5qmvo51gb7nogu2u.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.247965418361-dnl3bp3vc950ttko5qmvo51gb7nogu2u</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>247965418361-6j7kbt80v9mn6gbhmgdb85iahc198ivk.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCbmsf-u0a99fStCytqVAPUFIFKhTlN7T0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>247965418361</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sli.tranquilLife</string>
+	<key>PROJECT_ID</key>
+	<string>mindscapeproject-ef43d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mindscapeproject-ef43d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:247965418361:ios:85e5724df9f08d97efa5a8</string>
+	<key>DATABASE_URL</key>
+	<string>https://mindscapeproject-ef43d-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

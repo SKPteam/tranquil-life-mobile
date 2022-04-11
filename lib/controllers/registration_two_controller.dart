@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -8,7 +11,9 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
-import 'package:tranquil_life/controllers/registration_one_controller.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
 class RegistrationTwoController extends GetxController {
   static RegistrationTwoController instance = Get.find();
@@ -20,7 +25,12 @@ class RegistrationTwoController extends GetxController {
   TextEditingController locationEditingController = TextEditingController();
   //You didn't initiate the textController that's the reason the constructor wasn't working
   TextEditingController timeZoneEditingController = TextEditingController();
+  TextEditingController identityDocController = TextEditingController();
+  TextEditingController cvDocController = TextEditingController();
 
+  // fields for passport and resumé/cv
+  File? passportImageFile;
+  File? cvImageFile;
 
   List<String> phoneNumbers = [];
 
@@ -39,11 +49,15 @@ class RegistrationTwoController extends GetxController {
   Map<dynamic, dynamic>? map;
 
   RxBool usernameExists = false.obs;
+  File? imageFile;
 
 
   @override
   void onInit() {
     super.onInit();
+
+    // identityDocController = TextEditingController();
+    // cvDocController = TextEditingController();
 
     print("USER_TYPE: ${onBoardingController.userType.value}");
 
@@ -142,4 +156,59 @@ class RegistrationTwoController extends GetxController {
     }
   }
 
+
+  // choose image from camera
+  selectImageFromCamera(idType, index) async{
+    try{
+      XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.camera);
+      if(pickedFile == null) return;
+      imageFile = File(pickedFile.path);
+      print(imageFile.toString());
+      _cropImage(imageFile!.path, idType, index);
+      update();
+    }on PlatformException catch (e){
+      if (kDebugMode) {
+        print("Failed to get Image $e");
+      }
+    }
+  }
+
+  selectImageFromGallery(idType, index) async{
+    try{
+      XFile? pickedFile = await ImagePicker().pickImage(
+          source: ImageSource.gallery
+      );
+      if(pickedFile == null) return;
+      imageFile = File(pickedFile.path);
+      _cropImage(imageFile!.path, idType, index);
+      update();
+    }on PlatformException catch (e){
+      if (kDebugMode) {
+        print("Failed to get Image $e");
+      }
+    }
+  }
+
+  _cropImage(filePath, idType, index) async{
+    File? croppedImage = await ImageCropper().cropImage(sourcePath: filePath);
+    if(croppedImage != null){
+      // if the id selected is passport (index 0 = front, index 1 = back)
+      if(idType == 'passport'){
+        passportImageFile = croppedImage;
+        identityDocController.text = passportImageFile!.path;
+        print("Passport ${identityDocController.text}");
+
+        update();
+      }
+      // if the id selected is stateId(index 0 = front, index 1 = back)
+      else{
+        cvImageFile = croppedImage;
+        cvDocController.text = cvImageFile!.path;
+        print("CV/Resume ${cvDocController.text}");
+
+        update();
+      }
+    }
+
+  }
 }

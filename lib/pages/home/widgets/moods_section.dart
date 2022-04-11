@@ -31,7 +31,7 @@ class SelectMood extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: Row(
                 children: [
                   CustomText(
@@ -90,11 +90,11 @@ class SelectMood extends StatelessWidget {
       },
       child: Container(
           alignment: Alignment.bottomCenter,
-          margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
+          margin: EdgeInsets.only(left: 8, top: 8, right: 8),
           child: Column(
             children: [
               Image.asset(mood.image, height: 30, width: 30,),
-              Text(mood.name, style: const TextStyle(color: light),)
+              Text(mood.name, style: TextStyle(color: light))
             ],
           )),
     );

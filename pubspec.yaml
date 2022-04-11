@@ -42,6 +42,11 @@ dependencies:
   flutter_paystack: any
   webview_flutter: ^2.0.12
 
+  firebase_core: ^1.0.0 #Firebase core
+  cloud_firestore: ^1.0.0 #Cloud firestore
+  firebase_messaging: ^10.0.0 #Firebase cloud messaging
+
+
   flutter_local_notifications: any
   http: any
   uuid: any #to generate universally unique identifier
@@ -49,6 +54,10 @@ dependencies:
   intl: any # Provides internationalization and localization facilities,
   #including message translation, plurals and genders, date/number formatting and parsing, and bidirectional text.
   timezone: any
+  image_picker: any
+  image_cropper: any
+  camera: any # use the camera plugin
+  path: any
   flutter_svg: any #to use SVG
   agora_rtc_engine: any
   date_picker_timeline: ^1.2.3

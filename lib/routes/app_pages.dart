@@ -24,6 +24,7 @@ import 'package:tranquil_life/pages/timeout/timeout_screen.dart';
 import 'package:tranquil_life/pages/wallet/add_new_card.dart';
 import 'package:tranquil_life/pages/wallet/wallet_page.dart';
 
+import '../pages/scheduling/consultant_list_view.dart';
 import '../splash_screen.dart';
 
 part 'app_routes.dart';
@@ -67,10 +68,10 @@ class AppPages {
       name: _Paths.REGISTRATION_THREE,
       page: () => RegistrationThreeView(),
     ),
-    // GetPage(
-    //   name: _Paths.REGISTRATION_FOUR,
-    //   page: () => RegistrationFourView(),
-    // ),
+    GetPage(
+      name: _Paths.REGISTRATION_FOUR,
+      page: () => RegistrationFourView(),
+    ),
     GetPage(
       name: _Paths.TIMEOUT_SCREEN,
       page: () => TimeoutView(),
@@ -103,10 +104,10 @@ class AppPages {
     //   name: _Paths.CHAT_HISTORY,
     //   page: () => ChatHistoryView(),
     // ),
-    // // GetPage(
-    // //   name: _Paths.CONSULTANT_LIST,
-    // //   page: () => ConsultantListView(answerOfQuestionaire: []),
-    // // ),
+    GetPage(
+      name: _Paths.CONSULTANT_LIST,
+      page: () => ConsultantListView(),
+    ),
     // GetPage(
     //   name: _Paths.NOTIFICATION_HISTORY,
     //   page: () => NotificationHistoryScreen(),
