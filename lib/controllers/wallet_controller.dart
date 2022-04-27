@@ -177,7 +177,7 @@ class WalletController extends GetxController{
         headers: {
           "Content-type": "application/json",
           "Accept": "application/json",
-          //"Authorization": "Bearer ${sharedPreferences!.getString("accessToken")}",
+          "Authorization": "Bearer ${sharedPreferences!.getString("accessToken")}",
         },
         body: json.encode({
           'id': id
@@ -185,6 +185,21 @@ class WalletController extends GetxController{
 
     return jsonDecode(response.body);
   }
+
+  // Future bankTransfer() async{
+  //   String url  = baseUrl + bankTransferPath;
+  //
+  //   var response = await http.post(
+  //       Uri.parse(url),
+  //       headers: {
+  //         "Content-type": "application/json",
+  //         "Accept": "application/json",
+  //         "Authorization": "Bearer ${sharedPreferences!.getString("accessToken")}",
+  //       },
+  //       body: json.encode({
+  //         'id':
+  //       }));
+  // }
 
   ///gives a reference string mentioning from which device type and at what time it is charged
   String getReference() {

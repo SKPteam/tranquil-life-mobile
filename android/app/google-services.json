@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "247965418361",
+    "firebase_url": "https://mindscapeproject-ef43d-default-rtdb.firebaseio.com",
+    "project_id": "mindscapeproject-ef43d",
+    "storage_bucket": "mindscapeproject-ef43d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:247965418361:android:b4c8448355b0a8d1efa5a8",
+        "android_client_info": {
+          "package_name": "com.sli.tranquilLife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "247965418361-v5nss4atdbgn8nnhct2vfrh2acl9mbvh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0QiuaqWLmxKu1_noROC777QP3aPIeZhw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "247965418361-v5nss4atdbgn8nnhct2vfrh2acl9mbvh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "247965418361-68g1fcjareincds6hveadbidi3bo20ul.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sli.tranquilLifeApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

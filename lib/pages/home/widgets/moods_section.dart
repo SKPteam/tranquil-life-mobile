@@ -83,7 +83,7 @@ class SelectMood extends StatelessWidget {
       onTap: () {
         _homeController.navigateToNextPage(index: index);
         _homeController.getSelectedItem();
-        DashboardController.to.setBottomBarIndex(2, _homeController.moodsList[_homeController.selectedIndex!].image);
+        dashboardController.setBottomBarIndex(2, _homeController.moodsList[_homeController.selectedIndex!].image);
         dashboardController.moodSelected = _homeController.moodsList[_homeController.selectedIndex!].image;
         print(_homeController.moodsList[_homeController.selectedIndex!].image);
         //moodOnTap!(2, mood.image);

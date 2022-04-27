@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -292,21 +293,16 @@ class RegistrationThreeController extends GetxController {
                               margin: EdgeInsets.only(
                                   left: 8, top: 8, right: 8),
                               child: Column(
-                                children: [
-                                  // Image.asset('assets/images/logo.jpg', height: 200, width: 200),
-                                  partner.logo!.isNotEmpty
-                                      ? Image.network(
-                                      partner.logo!, height: 200, width: 200)
-                                      : Image.asset(
-                                      'assets/images/logo.jpg', height: 200,
-                                      width: 200),
-                                  Text(partner.name!,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18))
-                                ],
-                              )
-                          ),
+
+                              children: [
+                                    companyLogoWidget(partner.logo!),
+                              Text(partner.name!,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18))
+                              ]
+                        )
+                        )
                         );
                       }).toList(),
                     )
@@ -341,6 +337,18 @@ class RegistrationThreeController extends GetxController {
         });
   }
 
+  Widget companyLogoWidget(String logo){
+    if(logo.isEmpty || logo == "none"){
+      return Padding(
+        padding: EdgeInsets.only(bottom: 45.0),
+        child: FlutterLogo(size: 150),
+      );
+    }else{
+      return Image.network(
+          logo, height: 200, width: 200);
+    }
+  }
+
   Future getStaff() async {
     String url = baseUrl + getStaffPath;
 
@@ -354,108 +362,7 @@ class RegistrationThreeController extends GetxController {
 
     var resBody = json.decode(response.body);
 
-    if (resBody["message"] == "does not exist") {
-      showDialog(
-          context: Get.context!,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Contact your company's HR",
-                  style: TextStyle(fontFamily: josefinSansSemiBold)),
-              content: Text(
-                  "Sorry, no staff with this id in ${companyEditingController
-                      .text}'s database"),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text("Ok")),
-              ],
-            );
-          });
-
-      return resBody["message"];
-    }
-    else {
-      showDialog(
-          context: Get.context!,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text(resBody["staff"]["company_email"].toString(),
-                  style: TextStyle(fontFamily: josefinSansSemiBold)),
-              content: Text(
-                  "To gain access to your consultation discount, use your company email."),
-              actions: [
-                TextButton(
-                    onPressed: () async {
-                      registrationOneController.emailTextEditingController
-                          .text = resBody["staff"]["company_email"].toString();
-
-                      displaySnackBar("Email: ${registrationOneController
-                          .emailTextEditingController.text}", context);
-
-                      print(
-                          "${registrationTwoController.dobTextEditingController
-                              .text.trim()}, "
-                              "${registrationOneController
-                              .phoneNumTextEditingController.text}");
-
-                      if (companyEditingController
-                          .text.isNotEmpty) {
-                        if (companyEditingController
-                            .text !=
-                            'None' && staffIDEditingController
-                            .value.text.isEmpty) {
-                          displaySnackBar(
-                              'Type in your staff ID ',
-                              context);
-                        } else if (companyEditingController.text == 'None'
-                            && registrationThreeController
-                                .staffIDEditingController
-                                .value.text.isEmpty) {
-                          Navigator.of(context).pop();
-                          //register client
-                          // await registerClient()
-                          //     .then((value){
-                          //   Navigator.of(context).pop();
-
-                          //Get.offAllNamed(Routes.SIGN_IN);
-                          // }).onError((error, stackTrace){
-                          //   print("REGISTRATION: ERROR $error");
-                          // });
-                        }
-                        else {
-                          //register client
-                          Navigator.of(context).pop();
-
-                          // await registerClient()
-                          //     .then((value) {
-                          //   Navigator.of(context).pop();
-                          //
-                          //   Get.offAllNamed(Routes.SIGN_IN);
-                          // }).onError((error, stackTrace){
-                          //   print("REGISTRATION: ERROR $error");
-                          // });
-                        }
-                      }
-                      else {
-                        displaySnackBar(
-                            'Select your company or organisation',
-                            context);
-                      }
-                    },
-                    child: Text("Accept")),
-
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text("Decline")),
-              ],
-            );
-          });
-      return resBody["staff"];
-    }
+    return resBody;
   }
 
   Future getStaffUsingEmail() async {
@@ -586,24 +493,25 @@ class RegistrationThreeController extends GetxController {
     var result = json.decode(response.body);
 
     if (result["user"] != null) {
-      sharedPreferences.setString("userName", result["user"]["username"]);
-      sharedPreferences.setString("firstName", result["user"]["f_name"]);
-      sharedPreferences.setString("lastName", result["user"]["l_name"]);
-      sharedPreferences.setString("email", result["user"]["email"]);
-      sharedPreferences.setString("phoneNumber", result["user"]["phone"]);
-      sharedPreferences.setString("token", result["user"]["auth_token"]);
+      // sharedPreferences.setString("userName", result["user"]["username"]);
+      // sharedPreferences.setString("firstName", result["user"]["f_name"]);
+      // sharedPreferences.setString("lastName", result["user"]["l_name"]);
+      // sharedPreferences.setString("email", result["user"]["email"]);
+      // sharedPreferences.setString("phoneNumber", result["user"]["phone"]);
+      // sharedPreferences.setString("accessToken", result["user"]["auth_token"]);
       ProgressDialogHelper().hideProgressDialog(Get.context!);
-      Get.offAllNamed(Routes.SIGN_IN);
       FlushBarHelper(Get.context!).showFlushBar(
           "Registration Successful", color: Colors.green);
     } else if (result["user"] == null) {
       ProgressDialogHelper().hideProgressDialog(Get.context!);
-      FlushBarHelper(Get.context!).showFlushBar(
-          result["errors"], color: Colors.red);
+      // FlushBarHelper(Get.context!).showFlushBar(
+      //     result["errors"], color: Colors.red);
     } else {
       ProgressDialogHelper().hideProgressDialog(Get.context!);
       throw Exception("Unable to Complete Registration");
     }
+
+    return result;
   }
 
   @override
@@ -611,5 +519,18 @@ class RegistrationThreeController extends GetxController {
     getConsltRegDataFromDatabase();
   }
 
+  @override
+  void onClose() {
+    if(sharedPreferences!.getString(userType).toString() == client){
+      _registrationOneController.emailTextEditingController.clear();
+      _registrationOneController.passwordTextEditingController.clear();
+      _registrationOneController.phoneNumTextEditingController.clear();
+      _registrationOneController.confirmPwdTextEditingController.clear();
+      _registrationTwoController.firstNameTextEditingController.clear();
+      _registrationTwoController.lastNameTextEditingController.clear();
+      _registrationTwoController.userNameTextEditingController.clear();
+    }
+    super.onClose();
+  }
 
 }

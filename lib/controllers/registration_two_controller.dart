@@ -25,12 +25,13 @@ class RegistrationTwoController extends GetxController {
   TextEditingController locationEditingController = TextEditingController();
   //You didn't initiate the textController that's the reason the constructor wasn't working
   TextEditingController timeZoneEditingController = TextEditingController();
-  TextEditingController identityDocController = TextEditingController();
-  TextEditingController cvDocController = TextEditingController();
 
   // fields for passport and resumé/cv
   File? passportImageFile;
   File? cvImageFile;
+
+  RxString passportPath = "".obs;
+  RxString cvPath = "".obs;
 
   List<String> phoneNumbers = [];
 
@@ -55,9 +56,6 @@ class RegistrationTwoController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    // identityDocController = TextEditingController();
-    // cvDocController = TextEditingController();
 
     print("USER_TYPE: ${onBoardingController.userType.value}");
 
@@ -195,16 +193,16 @@ class RegistrationTwoController extends GetxController {
       // if the id selected is passport (index 0 = front, index 1 = back)
       if(idType == 'passport'){
         passportImageFile = croppedImage;
-        identityDocController.text = passportImageFile!.path;
-        print("Passport ${identityDocController.text}");
+        passportPath.value = passportImageFile!.path;
+        print("Passport ${passportPath.value}");
 
         update();
       }
       // if the id selected is stateId(index 0 = front, index 1 = back)
       else{
         cvImageFile = croppedImage;
-        cvDocController.text = cvImageFile!.path;
-        print("CV/Resume ${cvDocController.text}");
+        cvPath.value = cvImageFile!.path;
+        print("CV/Resume ${cvPath.value}");
 
         update();
       }

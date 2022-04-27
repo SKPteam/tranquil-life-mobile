@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
@@ -53,7 +54,7 @@ class SelectedNoteView extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    DashboardController.to.userType == client
+                    dashboardController.userType.value == client
                         ? InkWell(
                             onTap: () {
                               displayConsultantList(context);

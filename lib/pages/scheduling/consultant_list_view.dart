@@ -11,15 +11,16 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/consultant_list_controller.dart';
-import 'package:tranquil_life/controllers/consultant_registration_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/models/consultant_porfolio_model.dart';
 import 'package:tranquil_life/models/consultant_profile_model.dart';
 import 'package:tranquil_life/models/schedule_date_model.dart';
-import 'package:tranquil_life/pages/profile/widgets/consultantProfile.dart';
+import 'package:tranquil_life/pages/scheduling/widgets/consultantPortfolio.dart';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:http/http.dart' as http;
 import 'package:tranquil_life/pages/scheduling/scheduling_time/widgets/schedule_meeting_dialog.dart';
+
+import '../../routes/app_pages.dart';
 
 
 class ConsultantListView extends StatefulWidget {
@@ -66,7 +67,7 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                           icon:
                               Icon(Icons.arrow_back, color: kPrimaryDarkColor),
                           onPressed: () {
-                            Get.back();
+                            Get.offNamedUntil(Routes.DASHBOARD, (route) => false);
                           },
                         ),
                       ),
@@ -96,7 +97,7 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                       Expanded(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: size.width * 0.12),
+                              horizontal: 16.0),
                           child: ListView.separated(
                             separatorBuilder: (context, index) => SizedBox(
                               height: 20,
@@ -113,7 +114,7 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Expanded(
-                                      flex: 3,
+                                      flex: 1,
                                       child: Stack(
                                         clipBehavior: Clip.none,
                                         children: [
@@ -156,7 +157,7 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                                     ),
 
                                     Expanded(
-                                      flex: 6,
+                                      flex: 2,
                                       child: Container(
                                         padding: EdgeInsets.only(
                                             left: size.width * 0.05),
@@ -164,13 +165,14 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                              CrossAxisAlignment.start,
                                           children: [
                                             //name of consultant
                                             FittedBox(
                                               fit: BoxFit.none,
                                               child: Text(
                                                 "${jsonArray[index]["l_name"]} ${jsonArray[index]["f_name"]} ",
+                                                textAlign: TextAlign.start,
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 18,
@@ -178,155 +180,161 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                                               ),
                                             ),
 
+                                            SizedBox(height: size.height*0.002),
+
+
                                             //button with view profile text
-                                            ElevatedButton(
-                                              style: ButtonStyle(
-                                                backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    Color(0xff434343)),
-                                                shape: MaterialStateProperty.all(
-                                                    RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.circular(4),
-                                                    )),
-                                                elevation: MaterialStateProperty.all(2),
-                                              ),
-                                              onPressed: () {
-
-                                                _.consultantPortfolio = ConsultantPortfolioModel(f_name: jsonArray[index]["f_name"].toString(),
-                                                    l_name: jsonArray[index]["l_name"].toString());
-                                                Navigator.of(context)
-                                                    .pushReplacement( MaterialPageRoute(
-                                                builder: (context) =>
-                                                ConsultantProfile(
-                                                _.consultantPortfolio,
-                                                heroTag: 'consultant$index',
-                                                key: null,
+                                            SizedBox(
+                                              height: 45,
+                                              child: ElevatedButton(
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Color(0xff434343)),
+                                                  shape: MaterialStateProperty.all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius.circular(4),
+                                                      )),
+                                                  elevation: MaterialStateProperty.all(2),
                                                 ),
-                                                ));
-
-                                              },
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                                children: [
-                                                  SvgPicture.asset(
-                                                    'assets/icons/metro-profile.svg',
-                                                    fit: BoxFit.none,
-                                                    color: kPrimaryColor,
-                                                  ),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  FittedBox(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Text(
-                                                      'View profile',
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: kPrimaryColor,
-                                                      ),
+                                                onPressed: () {
+                                                  _.consultantPortfolio = ConsultantPortfolioModel(f_name: jsonArray[index]["f_name"].toString(),
+                                                      l_name: jsonArray[index]["l_name"].toString());
+                                                  Navigator.of(context)
+                                                      .pushReplacement( MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ConsultantPortfolio(
+                                                          _.consultantPortfolio,
+                                                          heroTag: 'consultant$index',
+                                                          key: null,),
+                                                  ));
+                                                },
+                                                child: Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                      'assets/icons/metro-profile.svg',
+                                                      fit: BoxFit.none,
+                                                      color: kPrimaryColor,
                                                     ),
-                                                    fit: BoxFit.none,
-                                                  )
-                                                ],
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    FittedBox(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        'View profile',
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: kPrimaryColor,
+                                                        ),
+                                                      ),
+                                                      fit: BoxFit.none,
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
 
+                                            SizedBox(height: size.height*0.002),
+
                                             //button with schedule a meeting text
-                                            ElevatedButton(
-                                              style: ButtonStyle(
-                                                backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    Color(0xff434343)),
-                                                shape: MaterialStateProperty.all(
-                                                    RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.circular(4),
-                                                    )),
-                                                elevation: MaterialStateProperty.all(2),
-                                              ),
-                                              onPressed: () async {
+                                            SizedBox(
+                                              height: 45,
+                                              child: ElevatedButton(
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Color(0xff434343)),
+                                                  shape: MaterialStateProperty.all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius.circular(4),
+                                                      )),
+                                                  elevation: MaterialStateProperty.all(2),
+                                                ),
+                                                onPressed: () async {
 
 
 
-                                                ///list of schedules containing schedule model for creating container templates
-                                                ///of weekDay and date
-                                                ///dates from tom to next 7 days generated from DateTime
-                                                final List<Schedule> schedules =
-                                                List.generate(
-                                                  7,
-                                                      (index) => Schedule(
-                                                    DateTime.now().add(
-                                                      Duration(days: index + 1),
-                                                    ),
-                                                  ),
-                                                );
-
-                                                //show modal sheet for Date Selecting
-                                                bool result =
-                                                await showModalBottomSheet<
-                                                    bool>(
-                                                  isDismissible: true,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                      BorderRadius.vertical(
-                                                          top: Radius
-                                                              .circular(
-                                                              40))),
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      ScheduleMeetingDialog(
-                                                        schedules: schedules,
-                                                        consultantProfileModel: _
-                                                            .consultantProfileModel,
-                                                        isUserClient: true,
-                                                        key: null,
-                                                        reScheduleMeetingID: '',
-                                                      ),
-                                                ).then((value) {
-                                                  print(value);
-                                                  return value!;
-                                                });
-                                                print(result);
-                                                if (result) {
-                                                  Navigator.of(context)
-                                                      .pop(result);
-                                                }
-                                                // if (result ?? false) {
-                                                //   Navigator.of(context)
-                                                //       .pop(result ?? false);
-                                                // }
-
-
-                                              },
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                                children: const [
-                                                  Icon(Icons.schedule,
-                                                      color: kPrimaryColor),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  FittedBox(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Text(
-                                                      'Schedule a Meeting',
-                                                      textAlign: TextAlign.left,
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: kPrimaryColor,
+                                                  ///list of schedules containing schedule model for creating container templates
+                                                  ///of weekDay and date
+                                                  ///dates from tom to next 7 days generated from DateTime
+                                                  final List<Schedule> schedules =
+                                                  List.generate(
+                                                    7,
+                                                        (index) => Schedule(
+                                                      DateTime.now().add(
+                                                        Duration(days: index + 1),
                                                       ),
                                                     ),
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                ],
+                                                  );
+
+                                                  //show modal sheet for Date Selecting
+                                                  bool result =
+                                                  await showModalBottomSheet<
+                                                      bool>(
+                                                    isDismissible: true,
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                        BorderRadius.vertical(
+                                                            top: Radius
+                                                                .circular(
+                                                                40))),
+                                                    context: context,
+                                                    builder: (context) =>
+                                                        ScheduleMeetingDialog(
+                                                          schedules: schedules,
+                                                          consultantProfileModel: _
+                                                              .consultantProfileModel,
+                                                          isUserClient: true,
+                                                          key: null,
+                                                          reScheduleMeetingID: '',
+                                                        ),
+                                                  ).then((value) {
+                                                    print(value);
+                                                    return value!;
+                                                  });
+                                                  print(result);
+                                                  if (result) {
+                                                    Navigator.of(context)
+                                                        .pop(result);
+                                                  }
+                                                  // if (result ?? false) {
+                                                  //   Navigator.of(context)
+                                                  //       .pop(result ?? false);
+                                                  // }
+
+
+                                                },
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                                  children: const [
+                                                    Icon(Icons.schedule,
+                                                        color: kPrimaryColor),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    FittedBox(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                        'Schedule a Meeting',
+                                                        textAlign: TextAlign.left,
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: kPrimaryColor,
+                                                        ),
+                                                      ),
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             )
                                           ],

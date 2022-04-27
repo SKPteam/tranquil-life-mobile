@@ -1,29 +1,18 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer__ructors, prefer__literals_to_create_immutables, prefer__ructors, prefer__literals_to_create_immutables, avoid_print, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:tranquil_life/constants/app_font.dart';
-import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
-import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/models/consultant_profile_model.dart';
-import 'package:tranquil_life/models/schedule_date_model.dart';
 import 'package:tranquil_life/pages/home/widgets/meetings_section.dart';
-import 'package:tranquil_life/pages/journal/journal_page.dart';
 import 'package:tranquil_life/pages/notifications/notification_history_view.dart';
-import 'package:tranquil_life/pages/onboarding/onboarding_two.dart';
 import 'package:tranquil_life/pages/questionnaire/questionnaire_page.dart';
-import 'package:tranquil_life/pages/scheduling/consultant_list_view.dart';
-import 'package:tranquil_life/pages/scheduling/scheduling_time/widgets/schedule_meeting_dialog.dart';
-import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_text.dart';
 import 'package:tranquil_life/widgets/top_nav.dart';
 
@@ -70,7 +59,7 @@ class Home extends GetView<HomeController> {
                         child: Stack(
                           children: [
                             SizedBox(
-                                width: size.width * 0.4,
+                                width: size.width * 0.5,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -78,21 +67,20 @@ class Home extends GetView<HomeController> {
                                       'Hi,',
                                       style: TextStyle(
                                         color: kPrimaryDarkColor,
-                                        fontSize: 28,
+                                        fontSize: 26,
                                         fontWeight: FontWeight.normal,
                                       ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     CustomText(
-                                      text: dashboardController.username.value,
+                                      text: dashboardController.username.value.isEmpty ? "" : dashboardController.username.value,
                                       color: kPrimaryDarkColor,
                                       weight: FontWeight.w700,
                                       align: TextAlign.start,
-                                      size: 28,
+                                      size: 26,
                                     ),
                                   ],
                                 )),
-
                             Positioned(
                               right: size.width * 0.1,
                               child: Padding(
@@ -199,7 +187,7 @@ class Home extends GetView<HomeController> {
                                     ),
                                     SelectMood(
                                       moodOnTap: (int index, [moodSvgUrl]) {
-                                        DashboardController.to.setBottomBarIndex(index, moodSvgUrl!);
+                                        _dashboardController.setBottomBarIndex(index, moodSvgUrl!);
                                       },
                                     ),
                                     SizedBox(
@@ -215,4 +203,5 @@ class Home extends GetView<HomeController> {
               )),
     );
   }
+
 }

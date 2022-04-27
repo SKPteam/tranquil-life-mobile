@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/consultant_registration_controller.dart';
-import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/registration_one_controller.dart';
 import 'package:tranquil_life/controllers/registration_three_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
@@ -16,11 +14,10 @@ import 'package:tranquil_life/pages/registration/registration_four.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
 import 'package:tranquil_life/widgets/custom_form_field.dart';
-import 'package:tranquil_life/widgets/custom_form_field.dart';
-import 'package:tranquil_life/widgets/progress_dialog.dart';
 
 import '../../constants/app_font.dart';
 import '../../helpers/flush_bar_helper.dart';
+import '../../helpers/progress-dialog_helper.dart';
 
 
 class RegistrationThreeView extends StatefulWidget {
@@ -38,13 +35,13 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
 
   final _formKeySignIn = GlobalKey <FormState>();
 
-  _signIn() async {
-    FocusScope.of(context).unfocus();
-    if(_formKeySignIn.currentState!.validate()){
-      _formKeySignIn.currentState!.save();
-      registrationThreeController.registerClient();
-    }
-  }
+  // _signIn() async {
+  //   FocusScope.of(context).unfocus();
+  //   if(_formKeySignIn.currentState!.validate()){
+  //     _formKeySignIn.currentState!.save();
+  //     registrationThreeController.registerClient();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -183,32 +180,140 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                     width: size.width * 0.6,
                                     height: 60,
                                     child: ElevatedButton(
-                                        onPressed: () {
-                                          if (registrationThreeController
-                                              .companyEditingController
-                                              .text.isNotEmpty) {
-                                            if (registrationThreeController
+                                        onPressed: () async{
+                                          // registrationThreeController.registerClient();
+                                          // print("registering client");
+
+                                          if(registrationThreeController
+                                              .companyEditingController.text
+                                              .isNotEmpty){
+                                            if(registrationThreeController
                                                 .companyEditingController
                                                 .text !=
                                                 'None' &&
                                                 registrationThreeController
                                                     .staffIDEditingController
-                                                    .value.text.isEmpty) {
-                                              displaySnackBar(
-                                                  'Type in your staff ID ',
-                                                  context);
-                                            } else if (registrationThreeController
-                                                .companyEditingController.text ==
-                                                'None' &&
-                                                registrationThreeController
-                                                    .staffIDEditingController
                                                     .value.text.isEmpty)
                                             {
-                                              registrationThreeController.registerClient();
+                                              displaySnackBar(
+                                                  'Type in your staff ID ', context);
+
+                                            } else if (registrationThreeController
+                                              .companyEditingController.text ==
+                                              'None' &&
+                                              registrationThreeController
+                                                  .staffIDEditingController
+                                                  .value.text.isEmpty)
+                                            {
+                                              await registrationThreeController.registerClient();
                                               print("registering client");
-                                            }
-                                            else {
-                                              registrationThreeController.getStaff();
+
+                                              //Navigator.push(context, MaterialPageRoute(builder: (context)=>SignIn()));
+                                              Get.offAllNamed(Routes.SIGN_IN);
+
+                                            }else{
+                                              registrationThreeController.getStaff().then((value){
+                                                if (value["message"] == "does not exist") {
+                                                  showDialog(
+                                                      context: Get.context!,
+                                                      builder: (BuildContext context) {
+                                                        return AlertDialog(
+                                                          title: Text("Contact your company's HR",
+                                                              style: TextStyle(fontFamily: josefinSansSemiBold)),
+                                                          content: Text(
+                                                              "Sorry, no staff with this id in "
+                                                                  "${registrationThreeController.companyEditingController
+                                                                  .text}'s database"),
+                                                          actions: [
+                                                            TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                child: Text("Ok")),
+                                                          ],
+                                                        );
+                                                      });
+
+                                                  return value["message"];
+                                                }
+                                                else {
+                                                  showDialog(
+                                                      context: Get.context!,
+                                                      builder: (BuildContext context) {
+                                                        return AlertDialog(
+                                                          title: Text(value["staff"]["company_email"].toString(),
+                                                              style: TextStyle(fontFamily: josefinSansSemiBold)),
+                                                          content: Text(
+                                                              "To gain access to your consultation discount, use your company email."),
+                                                          actions: [
+                                                            TextButton(
+                                                                onPressed: () async {
+                                                                  registrationOneController.emailTextEditingController
+                                                                      .text = value["staff"]["company_email"].toString();
+
+                                                                  displaySnackBar("Email: ${registrationOneController
+                                                                      .emailTextEditingController.text}", context);
+
+                                                                  print(
+                                                                      "${registrationTwoController.dobTextEditingController
+                                                                          .text.trim()}, "
+                                                                          "${registrationOneController
+                                                                          .phoneNumTextEditingController.text}");
+
+                                                                  if (registrationThreeController
+                                                                      .companyEditingController
+                                                                      .text.isNotEmpty) {
+                                                                    if (registrationThreeController
+                                                                        .companyEditingController
+                                                                        .text !=
+                                                                        'None' && registrationThreeController
+                                                                        .staffIDEditingController
+                                                                        .value.text.isEmpty) {
+                                                                      displaySnackBar(
+                                                                          'Type in your staff ID ',
+                                                                          context);
+                                                                    } else if (
+                                                                    registrationThreeController
+                                                                        .companyEditingController.text == 'None'
+                                                                        && registrationThreeController
+                                                                        .staffIDEditingController
+                                                                        .value.text.isEmpty)
+                                                                    {
+                                                                      Navigator.of(context).pop();
+                                                                      //register client
+                                                                      await registrationThreeController.registerClient();
+
+                                                                      Get.offAllNamed(Routes.SIGN_IN);
+
+                                                                    } else {
+                                                                      Navigator.of(context).pop();
+
+                                                                      //register client
+                                                                      await registrationThreeController.registerClient();
+
+                                                                      Get.offAllNamed(Routes.SIGN_IN);
+
+                                                                    }
+                                                                  }
+                                                                  else {
+                                                                    displaySnackBar(
+                                                                        'Select your company or organisation',
+                                                                        context);
+                                                                  }
+                                                                },
+                                                                child: Text("Accept")),
+
+                                                            TextButton(
+                                                                onPressed: () {
+                                                                  Navigator.of(context).pop();
+                                                                },
+                                                                child: Text("Decline")),
+                                                          ],
+                                                        );
+                                                      });
+                                                  return value["staff"];
+                                                }
+                                              });
                                             }
                                           }
                                           else {
@@ -216,6 +321,38 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                                 'Select your company or organisation',
                                                 context);
                                           }
+                                          // if (registrationThreeController
+                                          //     .companyEditingController
+                                          //     .text.isNotEmpty) {
+                                          //   if (registrationThreeController
+                                          //       .companyEditingController
+                                          //       .text !=
+                                          //       'None' &&
+                                          //       registrationThreeController
+                                          //           .staffIDEditingController
+                                          //           .value.text.isEmpty) {
+                                          //     displaySnackBar(
+                                          //         'Type in your staff ID ',
+                                          //         context);
+                                          //   } else if (registrationThreeController
+                                          //       .companyEditingController.text ==
+                                          //       'None' &&
+                                          //       registrationThreeController
+                                          //           .staffIDEditingController
+                                          //           .value.text.isEmpty)
+                                          //   {
+                                          //     registrationThreeController.registerClient();
+                                          //     print("registering client");
+                                          //   }
+                                          //   else {
+
+                                          //   }
+                                          // }
+                                          // else {
+                                          //   displaySnackBar(
+                                          //       'Select your company or organisation',
+                                          //       context);
+                                          // }
                                         },
                                         style: ElevatedButton.styleFrom(
                                             padding: const EdgeInsets

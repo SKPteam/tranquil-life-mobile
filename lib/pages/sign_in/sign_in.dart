@@ -17,7 +17,8 @@ import '../../helpers/progress-dialog_helper.dart';
 import 'widgets/sign_in_form_fields.dart';
 
 
-class SignIn extends GetView<SignInController> {
+class SignIn extends StatelessWidget {
+  final SignInController _ = Get.put(SignInController());
   @override
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(

@@ -13,7 +13,7 @@ class SignInController extends GetxController{
   String? accessToken;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController emailTextEditingController = TextEditingController(text: "ayomideseaz@gmail.com");
+  TextEditingController emailTextEditingController = TextEditingController(text: "ayomide@tranquil-life.health");
   TextEditingController passwordTextEditingController = TextEditingController(text: "password123@");
 
   RxBool obscureText = RxBool(true);
@@ -33,18 +33,25 @@ class SignInController extends GetxController{
           "Accept": "application/json"
         },
         body: json.encode(requestBody));
-    var map = jsonDecode(response.body)['user'];
-    if(map!=null){
-      accessToken =  map['auth_token'];
+    var body = jsonDecode(response.body)['user'];
+    if(body!=null){
+      accessToken =  body['auth_token'];
       sharedPreferences!.setString('accessToken', accessToken!);
-      dashboardController.userType = client;
-      // dashboardController.username = map['username'];
-      // dashboardController.firstName = map['f_name'];
-      sharedPreferences!.setString('userType', client);
+      if(body['username'] == null){
+        dashboardController.userType.value = consultant;
+        sharedPreferences!.setString('userType', consultant);
+        dashboardController.firstName.value = body['f_name'];
+      }else{
+        dashboardController.userType.value = client;
+        //dashboardController.username.value = body['username'];
+        sharedPreferences!.setString('userType', client);
+        //sharedPreferences!.setString('username', body['username']);
+      }
+
     }else{
-      print(map["errors"]);
+      print(body["errors"]);
       throw Exception("Unable to Authenticate User");
     }
-    return map;
+    return body;
   }
 }

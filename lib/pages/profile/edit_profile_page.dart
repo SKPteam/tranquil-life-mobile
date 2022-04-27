@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/edit_profile_controller.dart';
@@ -168,9 +169,7 @@ class EditProfileView extends StatelessWidget {
                                       SizedBox(
                                         height: 40,
                                       ),
-                                      if (Get.find<OnBoardingController>()
-                                              .userType
-                                              .value ==
+                                      if (dashboardController.userType.value ==
                                           consultant)
                                         _.editField(
                                           context,
@@ -185,7 +184,7 @@ class EditProfileView extends StatelessWidget {
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      if (DashboardController.to.userType ==
+                                      if (dashboardController.userType.value ==
                                           consultant)
                                         _.editField(
                                           context,

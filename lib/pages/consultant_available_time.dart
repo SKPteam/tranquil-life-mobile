@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:tranquil_life/pages/speak_with_consultant.dart';
 import 'package:get/get.dart';
-import '../controllers/consultant_detail_controller.dart';
 
 class ConsultantAvailableTime extends StatefulWidget {
   const ConsultantAvailableTime({Key? key}) : super(key: key);
@@ -12,8 +10,8 @@ class ConsultantAvailableTime extends StatefulWidget {
 }
 
 class _ConsultantAvailableTimeState extends State<ConsultantAvailableTime> {
-  final _controller = Get.put(ConsultantDetailsController());
-  List<ConsultantDetails> consultants = ConsultantDetails.consultantDetails;
+  //final _controller = Get.put(ConsultantDetailsController());
+  //List<ConsultantDetails> consultants = ConsultantDetails.consultantDetails;
 
   bool? isDayTimeSelected = true;
   bool? isNightTimeSelected = false;
@@ -67,7 +65,7 @@ class _ConsultantAvailableTimeState extends State<ConsultantAvailableTime> {
         child: Scaffold(backgroundColor: Colors.grey.shade100,
           appBar: AppBar(
             centerTitle: true, elevation: 0.0, backgroundColor: Colors.transparent,
-            title: Text(consultants[_controller.selectedIndex!].name!, style: Theme.of(context).textTheme.headline5?.copyWith(color: Colors.black, fontWeight: FontWeight.w400),),
+            //title: Text(consultants[_controller.selectedIndex!].name!, style: Theme.of(context).textTheme.headline5?.copyWith(color: Colors.black, fontWeight: FontWeight.w400),),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 26.0),
@@ -91,17 +89,17 @@ class _ConsultantAvailableTimeState extends State<ConsultantAvailableTime> {
                   ],
                 ),
                 const SizedBox(height: 60,),
-                Wrap(crossAxisAlignment: WrapCrossAlignment.start,
-                  children: [
-                    ...consultants[_controller.selectedIndex!].dayTimeAvailableTime!.map((e) =>Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
-                      child: Container(
-                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)), height: 60, width: MediaQuery.of(context).size.width/3.5,
-                        child: Center(child: Text(e, style:Theme.of(context).textTheme.headline5?.copyWith(color: Colors.black, fontSize: 20),)),
-                      ),
-                    ))
-                  ],
-                ),
+                // Wrap(crossAxisAlignment: WrapCrossAlignment.start,
+                //   children: [
+                //     ...consultants[_controller.selectedIndex!].dayTimeAvailableTime!.map((e) =>Padding(
+                //       padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                //       child: Container(
+                //         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)), height: 60, width: MediaQuery.of(context).size.width/3.5,
+                //         child: Center(child: Text(e, style:Theme.of(context).textTheme.headline5?.copyWith(color: Colors.black, fontSize: 20),)),
+                //       ),
+                //     ))
+                //   ],
+                // ),
                 const SizedBox(height: 80,),
 
                 Container(

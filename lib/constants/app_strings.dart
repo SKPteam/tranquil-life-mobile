@@ -153,12 +153,13 @@ RxString generatedPwd = RxString(" ");
 var timeFormat = DateFormat('kk:mm');
 var dateFormat = DateFormat('dd-MM-yyyy');
 
-const baseUrl = "https://tranquil-api.herokuapp.com/api/";
+const baseUrl = "https://61ad-168-253-119-198.ngrok.io/api/";
 //const baseUrl = "http://127.0.0.1:8000";
 //const baseUrl = "https://tranquil-api.herokuapp.com";
 
 //Post Api paths
 const clientRegisterPath = 'client/register';
+const consultantRegisterPath = 'consultant/register';
 const loginPath = 'client/login';
 const clientAddJournal = 'client/addNote';
 const clientGetJournal = 'client/listNotes';
@@ -169,6 +170,8 @@ const createWalletPath = 'client/createWallet';
 const ravePayPath = 'pay';
 const addCardPath = 'client/addCard';
 const setDefaultCardPath = 'client/setDefaultCard';
+const bankTransferPath = 'transfer/pay';
+const mobileMoneyTransferPath = 'transfer/flw';
 const logoutPath = 'client/logout';
 
 

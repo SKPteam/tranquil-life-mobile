@@ -47,7 +47,7 @@ class OnBoardingTwo extends GetView<GetView<OnBoardingController>> {
                               height: 60,
                               child: ElevatedButton(onPressed: () {
                                 onBoardingController.userType.value = client;
-                                Get.offNamed(Routes.REGISTRATION_ONE);
+                                Get.toNamed(Routes.REGISTRATION_ONE);
                               }, style: ElevatedButton.styleFrom(
                                   padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20), primary: active),
                                   child: Text('Client',
@@ -69,7 +69,7 @@ class OnBoardingTwo extends GetView<GetView<OnBoardingController>> {
                               child: ElevatedButton(onPressed: (){
                                 //_showModalBottomSheet(context);
                                 onBoardingController.userType.value = consultant;
-                                Get.offNamed(Routes.REGISTRATION_ONE);
+                                Get.toNamed(Routes.REGISTRATION_ONE);
                               },
                                   style: ElevatedButton.styleFrom(
                                       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),

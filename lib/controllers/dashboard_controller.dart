@@ -31,11 +31,7 @@ import 'package:tranquil_life/helpers/constants.dart';
 import '../main.dart';
 
 class DashboardController extends GetxController {
-
-  //RxString userType = "".obs;
-  String? userType;
-
-  String? user;
+  RxString userType = ''.obs;
 
   static DashboardController instance = Get.find();
 
@@ -69,7 +65,7 @@ class DashboardController extends GetxController {
 
   //RxInt currentIndex = RxInt(0);
   RxBool pageLoaded = RxBool(false);
-  static DashboardController get to => Get.find();
+  //static DashboardController get to => Get.find();
 
   void setBottomBarIndex(int index, [String? moodSvgUrl = ""]) {
     if (moodSvgUrl!.isNotEmpty) {
@@ -85,7 +81,7 @@ class DashboardController extends GetxController {
   Timer? inactiveTimer;
   Timer? pausedTimer;
   RxList<Widget>? tabs = <Widget>[].obs;
-  GetStorage? _getStorage;
+
 
   RxString username = "".obs;
   RxString firstName = "".obs;
@@ -159,28 +155,41 @@ class DashboardController extends GetxController {
 
     var body = jsonDecode(response.body);
 
-    // firstName = body['f_name'];
-    // lastName = body['l_name'];
-    username.value = body['username'];
-    // gender = body['gender'];
-    // phoneNumber = body['phone'];
-    // email = body['email'];
-    // screenTimeoutPin = body['screen_timeout_pin'];
-    // avatarUrl = body['avatar_url'];
-    // latitude = body['latitude'];
-    // longitude = body['longitude'];
-    // onlineStatus = body['online_status'];
-    // dayOfBirth = body['day_of_birth'];
-    // monthOfBirth = body['month_of_birth'];
-    // yearOfBirth = body['year_of_birth'];
-    // fcmToken = body['fcm_token'];
-    // companyID = body['company_id'];
-    // staffID = body['staffID'];
+    if(body['username'] == null){
+      userType.value = consultant;
+      //sharedPreferences!.setString('username', body['f_name'] + body['l_name']);
+    }else{
+      userType.value = client;
+      //sharedPreferences!.setString('username', body['username']);
 
-    print(jsonDecode(response.body).toString());
-    print(sharedPreferences!.getString("accessToken"));
+    }
 
-    return jsonDecode(response.body);
+    Future.delayed(Duration(seconds: 1), (){
+      // firstName = body['f_name'];
+      // lastName = body['l_name'];
+      username.value = body['username'];
+      // gender = body['gender'];
+      // phoneNumber = body['phone'];
+      // email = body['email'];
+      // screenTimeoutPin = body['screen_timeout_pin'];
+      // avatarUrl = body['avatar_url'];
+      // latitude = body['latitude'];
+      // longitude = body['longitude'];
+      // onlineStatus = body['online_status'];
+      // dayOfBirth = body['day_of_birth'];
+      // monthOfBirth = body['month_of_birth'];
+      // yearOfBirth = body['year_of_birth'];
+      // fcmToken = body['fcm_token'];
+      // companyID = body['company_id'];
+      // staffID = body['staffID'];
+
+      print(jsonDecode(response.body).toString());
+      print(sharedPreferences!.getString("accessToken"));
+
+      return jsonDecode(response.body);
+
+    });
+
   }
 
   @override

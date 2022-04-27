@@ -11,15 +11,16 @@ import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/models/consultant_porfolio_model.dart';
 import 'package:tranquil_life/models/consultant_profile_model.dart';
 import 'package:tranquil_life/pages/scheduling/widgets/consultantProfile_info_widget.dart';
+import 'package:tranquil_life/routes/app_pages.dart';
 
 
-class ConsultantProfile extends StatelessWidget {
+class ConsultantPortfolio extends StatelessWidget {
   Size size = MediaQuery.of(Get.context!).size;
   //final ConsultantProfileModel consultantProfileModel;
   final ConsultantPortfolioModel consultantPortfolio;
   final String heroTag;
 
-  ConsultantProfile(this.consultantPortfolio,
+  ConsultantPortfolio(this.consultantPortfolio,
       {required Key? key, required this.heroTag})
       : super(key: key);
 
@@ -70,9 +71,9 @@ class ConsultantProfile extends StatelessWidget {
                     Container(
                       // padding: EdgeInsets.only(left: 10),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_back, color: kPrimaryDarkColor),
+                        icon: Icon(Icons.arrow_back, color: light),
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Get.offNamedUntil(Routes.DASHBOARD, (route) => false);
                         },
                       ),
                     ),

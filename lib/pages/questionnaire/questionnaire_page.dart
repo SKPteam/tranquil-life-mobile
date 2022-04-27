@@ -9,8 +9,8 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/questionnaire_controller.dart';
 import 'package:tranquil_life/helpers/bottom_sheet_helper.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/questionnaire_option.dart';
-import 'package:tranquil_life/pages/speak_with_consultant.dart';
 
 import '../../routes/app_pages.dart';
 
@@ -134,7 +134,7 @@ class _QuestionnaireViewState extends State<QuestionnaireView>
                             child: InkWell(
                               onTap: () {
                                 if (questionnaireController.questionLoaded.value) {
-                                  if(numberOfQuestionsAnswered.value == 0 || numberOfQuestionsAnswered.value == 1){
+                                  if(numberOfQuestionsAnswered.value == 0){
                                     Get.offAllNamed(Routes.DASHBOARD);
                                   }else if(numberOfQuestionsAnswered.value != snapshot.data.length-1){
                                     numberOfQuestionsAnswered.value--;
@@ -177,9 +177,6 @@ class _QuestionnaireViewState extends State<QuestionnaireView>
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: Colors.white,
-                                border: Border.all(
-                                  color: Colors.grey[600]!,
-                                ),
                               ),
                               //------------------------
                               // container that keeps filling according to the questions answered with green color
@@ -196,7 +193,7 @@ class _QuestionnaireViewState extends State<QuestionnaireView>
                                         .toDouble() * (value as int),
                                     height: 30,
                                     decoration: BoxDecoration(
-                                      color: kPrimaryColor,
+                                      color: kSecondaryColor,
                                     ),
                                   ),
                                 ),
@@ -230,7 +227,7 @@ class _QuestionnaireViewState extends State<QuestionnaireView>
                                   ),
                                 ),
                                 TextSpan(
-                                  text: '${(value as int)}',
+                                  text: snapshot.data!.length != numberOfQuestionsAnswered.value ? '${(value as int)+1}' : '${(value as int)}',
                                   style: TextStyle(
                                       color: Colors.black87,
                                       fontWeight: FontWeight.w500,
@@ -288,47 +285,51 @@ class _QuestionnaireViewState extends State<QuestionnaireView>
                                           snapshot.data![index].q1!,
                                           style: Theme.of(context).textTheme.headline4?.copyWith(color: Colors.black, fontSize: 24),
                                         ),
-                                        Spacer(),
-                                        Column(
-                                          children: snapshot.data![index].q1Options.map<Widget>((option){
-                                            return InkWell(
-                                              onTap: (){
-                                                if(option == snapshot.data![index].q1Trigger){
-                                                  //open modal dialog for q2
-                                                }else if(numberOfQuestionsAnswered.value != snapshot.data.length-1){
-                                                  pageController.nextPage(
-                                                      duration: const Duration(microseconds: 5), curve: Curves.fastOutSlowIn);
-                                                  numberOfQuestionsAnswered.value++;
-                                                }else{
-                                                  print("last question");
-                                                  numberOfQuestionsAnswered.value++;
+                                        SizedBox(height: size.height *0.08),
 
-                                                  Future.delayed(Duration(milliseconds: 500), (){
-                                                    Get.toNamed(Routes.CONSULTANT_LIST);
-                                                  });
-                                                }
+                                        SizedBox(
+                                          height: size.height*0.5,
+                                          child: ListView(
+                                            children: snapshot.data![index].q1Options.map<Widget>((option){
+                                              return InkWell(
+                                                onTap: (){
+                                                  if(option == snapshot.data![index].q1Trigger){
+                                                    showSubQuestionModal(context, snapshot.data![index].q2!, snapshot.data![index].q2Options, snapshot.data);
+                                                  }else if(numberOfQuestionsAnswered.value != snapshot.data.length-1){
+                                                    pageController.nextPage(
+                                                        duration: const Duration(microseconds: 5), curve: Curves.fastOutSlowIn);
+                                                    numberOfQuestionsAnswered.value++;
+                                                  }else{
+                                                    print("last question");
+                                                    numberOfQuestionsAnswered.value++;
 
-                                              },
-                                              child: Padding(
-                                                padding: EdgeInsets.all(8.0),
-                                                child: Container(
-                                                    height: 70,
-                                                    width: double.maxFinite,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(20),
-                                                        color: active),
-                                                    child: Align(
-                                                        alignment: Alignment.centerLeft,
-                                                        child: Padding(
-                                                          padding: EdgeInsets.only(left: 18.0),
-                                                          child: Text(
-                                                            option,
-                                                            style: TextStyle(color: light, fontSize: 18),
-                                                          ),
-                                                        ))),
-                                              ),
-                                            );
-                                          }).toList(),
+                                                    Future.delayed(Duration(milliseconds: 500), (){
+                                                      Get.toNamed(Routes.CONSULTANT_LIST);
+                                                    });
+                                                  }
+
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                      height: 70,
+                                                      width: double.maxFinite,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(20),
+                                                          color: active),
+                                                      child: Align(
+                                                          alignment: Alignment.centerLeft,
+                                                          child: Padding(
+                                                            padding: EdgeInsets.only(left: 18.0),
+                                                            child: Text(
+                                                              option,
+                                                              style: TextStyle(color: light, fontSize: 18),
+                                                            ),
+                                                          ))),
+                                                ),
+                                              );
+                                            }).toList(),
+                                          ),
                                         ),
 
                                         Spacer(),
@@ -377,35 +378,76 @@ class _QuestionnaireViewState extends State<QuestionnaireView>
     );
   }
 
-  // void _showOptionTwoDetails(BuildContext context, int index,{void Function()? onTap}){
-  //   MyBottomSheet()
-  //       .showDismissibleBottomSheet(
-  //       context: context,
-  //       height: MediaQuery.of(context).size.height / 2.5,
-  //       children: [
-  //         Text(_questionnaireController.listOfQuestions![index].q2!,
-  //             style: Theme.of(context).textTheme.headline5?.copyWith(
-  //                 fontSize: 25, color: Colors.black)),
-  //         SizedBox(height: 40),
-  //         ..._questionnaireController.listOfQuestions![index].q2Options!.map((element)
-  //         =>InkWell(
-  //           onTap: onTap,
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(8.0),
-  //             child: Container(
-  //               height: 70,width: MediaQuery.of(context).size.width,
-  //               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: active,),
-  //               child: Align(alignment: Alignment.centerLeft,
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.only(left: 18.0),
-  //                     child: Text(element, style: Theme.of(context).textTheme.headline5?.copyWith(color: Colors.white, fontSize: 28),),
-  //                   )),),
-  //           ),
-  //         ),
-  //   ),
-  //   ]
-  //   );
-  // }
+  Future<dynamic> showSubQuestionModal(
+      BuildContext context, q2, q2options, data) async
+  {
+    await showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (context){
+          return Container(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 16),
+            height: displayHeight(context)*0.6,
+            color: light,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: displayHeight(context)*0.02),
+                Text(
+                  q2!,
+                  style: Theme.of(context).textTheme.headline4?.copyWith(color: Colors.black, fontSize: 24),
+                ),
+
+                SizedBox(height: displayHeight(context) *0.06),
+
+                SizedBox(
+                  height: displayHeight(context)*0.4,
+                  child: ListView(
+                    children:  q2options.map<Widget>((option){
+                      return InkWell(
+                        onTap: (){
+                          if(numberOfQuestionsAnswered.value != data.length-1){
+                            pageController.nextPage(
+                                duration: const Duration(microseconds: 5), curve: Curves.fastOutSlowIn);
+                            numberOfQuestionsAnswered.value++;
+                          }else{
+                            print("last question");
+                            numberOfQuestionsAnswered.value++;
+
+                            Future.delayed(Duration(milliseconds: 500), (){
+                              Get.toNamed(Routes.CONSULTANT_LIST);
+                            });
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Container(
+                              height: 70,
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: active),
+                              child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 18.0),
+                                    child: Text(
+                                      option,
+                                      style: TextStyle(color: light, fontSize: 18),
+                                    ),
+                                  ))),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                )
+
+              ],
+            ),
+          );
+        });
+  }
   //
   Widget getTextWidgets(List<String> strings) {
     return Column(

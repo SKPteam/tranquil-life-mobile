@@ -23,8 +23,6 @@ class HomeController extends GetxController{
 
   final count = 0.obs;
 
-
-
   int? selectedIndex;
 
   navigateToNextPage({ required int index}) {
@@ -51,6 +49,5 @@ class HomeController extends GetxController{
     super.onInit();
 
     menuOptions = <String>[blog];
-
   }
 }

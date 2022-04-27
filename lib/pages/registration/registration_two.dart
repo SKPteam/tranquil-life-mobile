@@ -26,16 +26,16 @@ class RegistrationTwoView extends StatefulWidget {
 class _RegistrationTwoViewState extends State<RegistrationTwoView> {
   final controller = Get.put(RegistrationTwoController());
   final RegistrationOneController regOneController = Get.put(RegistrationOneController());
-  final _formKeySignIn = GlobalKey <FormState>();
+  final _formKey = GlobalKey <FormState>();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  _signIn() async {
-    FocusScope.of(context).unfocus();
-    if(_formKeySignIn.currentState!.validate()){
-      _formKeySignIn.currentState!.save();
-      Get.toNamed(Routes.REGISTRATION_THREE);
-    }
-  }
+  // _signIn() async {
+  //   FocusScope.of(context).unfocus();
+  //   if(_formKeySignIn.currentState!.validate()){
+  //     _formKeySignIn.currentState!.save();
+  //     Get.toNamed(Routes.REGISTRATION_THREE);
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(
@@ -86,7 +86,7 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
                                         fontSize: 18)),
                                 SizedBox(height: size.height * 0.08),
                                 Form(
-                                  key: _formKeySignIn,
+                                  key: _formKey,
                                     child: Column(
                                       children: [
                                         ClipRRect(
@@ -254,14 +254,14 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
                         context);
                   }
                   else if (registrationTwoController
-                      .identityDocController
-                      .text.isEmpty) {
+                      .passportPath
+                      .value.isEmpty) {
                     displaySnackBar(
                         "Passport or Driver's license is required",
                         context);
                   }
                   else if (registrationTwoController
-                      .cvDocController.text.isEmpty) {
+                      .cvPath.value.isEmpty) {
                     displaySnackBar(
                         "Resumé is required", context);
                   }
@@ -439,11 +439,11 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(text:
-              registrationTwoController.identityDocController.text.isEmpty
+              registrationTwoController.passportPath.value.isEmpty
                   ? "Passport or Driver's License"
-                  : (registrationTwoController.identityDocController.text.length > 24
-                  ? (registrationTwoController.identityDocController.text.substring(0, 24) + "..." )
-                  : registrationTwoController.identityDocController.text),
+                  : (registrationTwoController.passportPath.value.length > 24
+                  ? (registrationTwoController.passportPath.value.substring(0, 24) + "..." )
+                  : registrationTwoController.passportPath.value),
                 size: 18, weight: FontWeight.normal, align: TextAlign.start, key: null, color: Colors.grey,),
               IconButton(
                 icon: Icon(Icons.attach_file),
@@ -473,11 +473,11 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomText(text:
-              registrationTwoController.identityDocController.text.isEmpty
+              registrationTwoController.cvPath.value.isEmpty
                   ? "Upload your resumé"
-                  : (registrationTwoController.cvDocController.text.length > 24
-                  ? (registrationTwoController.cvDocController.text.substring(0, 24) + "..." )
-                  : registrationTwoController.cvDocController.text),
+                  : (registrationTwoController.cvPath.value.length > 24
+                  ? (registrationTwoController.cvPath.value.substring(0, 24) + "..." )
+                  : registrationTwoController.cvPath.value),
                 size: 18,
                 weight: FontWeight.normal, align: TextAlign.start, key: null, color: Colors.grey,),
               IconButton(
