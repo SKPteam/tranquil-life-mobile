@@ -4,20 +4,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/models/consultant_porfolio_model.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import 'package:tranquil_life/models/consultant_profile_model.dart';
 
 class ConsultantProfileInfoWidget extends StatefulWidget {
-  // final ConsultantProfileModel consultantProfileModel;
-  //  ConsultantProfileInfoWidget({required Key? key, required this.consultantProfileModel})
-  //     : super(key: key);
+  final String? fName;
+  final String? lName;
+  final double? latitude;
+  final double? longitude;
+  final List? specialties;
+  final String? yearsOfExperience;
+  final double? fee;
+  final List? languages;
 
-  late final ConsultantPortfolioModel consultantProfileModel;
+  ConsultantProfileInfoWidget({
+    Key? key,
+    this.fName,
+    this.lName,
+    this.latitude,
+    this.longitude,
+    this.specialties,
+    this.yearsOfExperience,
+    this.fee, this.languages}) : super(key: key);
 
-  ConsultantProfileInfoWidget({Key? key, required this.consultantProfileModel})
-      : super(key: key);
 
   @override
   _ConsultantProfileInfoWidgetState createState() =>
@@ -33,10 +42,16 @@ class _ConsultantProfileInfoWidgetState
 
   Size size = MediaQuery.of(Get.context!).size;
 
+  String description = "";
 
   @override
   void initState() {
     super.initState();
+
+    setState(() {
+      description = "Specialist in matters relating to ${widget.specialties.toString()}";
+    });
+
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),
@@ -57,7 +72,6 @@ class _ConsultantProfileInfoWidgetState
 
   @override
   Widget build(BuildContext context) {
-    var consultantProfileModel = widget.consultantProfileModel;
     return Transform.translate(
       offset: Offset(0, _sliderAnimation.value),
       child: Container(
@@ -79,9 +93,9 @@ class _ConsultantProfileInfoWidgetState
               // CONSULTANT NAME
               //------------------------
               Text(
-                consultantProfileModel.f_name! +
+                widget.fName! +
                     ' ' +
-                    consultantProfileModel.l_name!,
+                    widget.lName!,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
               ),
               SizedBox(
@@ -91,7 +105,7 @@ class _ConsultantProfileInfoWidgetState
               // CONSULTANT DESIGNATION
               //------------------------
               Text(
-                'consultantProfileModel.description!',
+                description,
                 style: TextStyle(fontSize: 14, color: Colors.grey[700]),
               ),
               SizedBox(
@@ -144,7 +158,7 @@ class _ConsultantProfileInfoWidgetState
                             child: FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Text(
-                                'consultantProfileModel.fee',
+                                widget.fee.toString(),
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontSize: 16,
@@ -208,8 +222,7 @@ class _ConsultantProfileInfoWidgetState
                           ),
                           Expanded(
                             child: Text(
-                              'consultantProfileModel.preferredLangs',
-                              //'${consultantProfileModel.preferredLangs!.isEmpty ? 'Any' : consultantProfileModel.preferredLangs}',
+                              '${widget.languages!.isEmpty ? 'Any' : widget.languages}',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontSize: 16,

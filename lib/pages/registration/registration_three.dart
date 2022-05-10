@@ -195,8 +195,12 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                                     .staffIDEditingController
                                                     .value.text.isEmpty)
                                             {
-                                              displaySnackBar(
-                                                  'Type in your staff ID ', context);
+                                              CustomSnackBar.showSnackBar(
+                                                  context: context,
+                                                  title: "Error",
+                                                  message: "Type in your staff ID",
+                                                  backgroundColor: active);
+
 
                                             } else if (registrationThreeController
                                               .companyEditingController.text ==
@@ -251,8 +255,12 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                                                   registrationOneController.emailTextEditingController
                                                                       .text = value["staff"]["company_email"].toString();
 
-                                                                  displaySnackBar("Email: ${registrationOneController
-                                                                      .emailTextEditingController.text}", context);
+                                                                  CustomSnackBar.showSnackBar(
+                                                                      context: context,
+                                                                      title: "Error",
+                                                                      message: "Email: ${registrationOneController
+                                                                          .emailTextEditingController.text}",
+                                                                      backgroundColor: active);
 
                                                                   print(
                                                                       "${registrationTwoController.dobTextEditingController
@@ -269,9 +277,13 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                                                         'None' && registrationThreeController
                                                                         .staffIDEditingController
                                                                         .value.text.isEmpty) {
-                                                                      displaySnackBar(
-                                                                          'Type in your staff ID ',
-                                                                          context);
+
+                                                                      CustomSnackBar.showSnackBar(
+                                                                          context: context,
+                                                                          title: "Error",
+                                                                          message: 'Type in your staff ID',
+                                                                          backgroundColor: active);
+
                                                                     } else if (
                                                                     registrationThreeController
                                                                         .companyEditingController.text == 'None'
@@ -296,9 +308,11 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                                                     }
                                                                   }
                                                                   else {
-                                                                    displaySnackBar(
-                                                                        'Select your company or organisation',
-                                                                        context);
+                                                                    CustomSnackBar.showSnackBar(
+                                                                        context: context,
+                                                                        title: "Error",
+                                                                        message: 'Select your company or organisation',
+                                                                        backgroundColor: active);
                                                                   }
                                                                 },
                                                                 child: Text("Accept")),
@@ -317,9 +331,11 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                             }
                                           }
                                           else {
-                                            displaySnackBar(
-                                                'Select your company or organisation',
-                                                context);
+                                            CustomSnackBar.showSnackBar(
+                                                context: context,
+                                                title: "Error",
+                                                message: 'Select your company or organisation',
+                                                backgroundColor: active);
                                           }
                                           // if (registrationThreeController
                                           //     .companyEditingController

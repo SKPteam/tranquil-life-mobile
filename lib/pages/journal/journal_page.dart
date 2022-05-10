@@ -268,9 +268,17 @@ class _JournalViewState extends State<JournalView> with SingleTickerProviderStat
                         child: InkWell(
                           onTap: () {
                             if (journalController.headingController!.text.isEmpty) {
-                              displaySnackBar(kHeaderNullError, context);
+                              CustomSnackBar.showSnackBar(
+                                  context: context,
+                                  title: "Error",
+                                  message: kHeaderNullError,
+                                  backgroundColor: active);
                             } else if (journalController.bodyController!.text.isEmpty) {
-                              displaySnackBar(kBodyNullError, context);
+                              CustomSnackBar.showSnackBar(
+                                  context: context,
+                                  title: "Error",
+                                  message: kBodyNullError,
+                                  backgroundColor: active);
                             } else {
                               journalController.addJournal(journalController.headingController?.text, journalController.bodyController?.text, widget.moodSvgUrl!).whenComplete((){
                                 journalController.headingController?.clear();

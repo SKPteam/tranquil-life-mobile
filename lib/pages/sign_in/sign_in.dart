@@ -115,21 +115,33 @@ class SignIn extends StatelessWidget {
                                       onPressed: () {
                                         if (signInController.emailTextEditingController.text
                                             .isEmpty) {
-                                          displaySnackBar(
-                                              kEmailNullError, context);
+                                          CustomSnackBar.showSnackBar(
+                                              context: context,
+                                              title: "Error",
+                                              message: kEmailNullError,
+                                              backgroundColor: active);
+
                                         } else if (signInController
                                             .passwordTextEditingController
                                             .text
                                             .isEmpty) {
-                                          displaySnackBar(
-                                              kPassNullError, context);
+                                          CustomSnackBar.showSnackBar(
+                                              context: context,
+                                              title: "Error",
+                                              message: kPassNullError,
+                                              backgroundColor: active);
+
                                         } else if (signInController
                                             .passwordTextEditingController
                                             .text
                                             .length <
                                             6) {
-                                          displaySnackBar(
-                                              kShortPassError, context);
+                                          CustomSnackBar.showSnackBar(
+                                              context: context,
+                                              title: "Error",
+                                              message: kShortPassError,
+                                              backgroundColor: active);
+
                                         } else {
                                           signInController.login(
                                               signInController.emailTextEditingController.text,

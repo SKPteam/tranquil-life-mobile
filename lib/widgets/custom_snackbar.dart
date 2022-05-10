@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-displaySnackBar(String message, BuildContext context) {
-  try {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          content: Text(message),
-          duration: const Duration(seconds: 2)
-      ),
-    );
-  } catch (e) {
-    debugPrint(e.toString());
+import '../constants/style.dart';
+
+class CustomSnackBar {
+  static void showSnackBar({
+    required BuildContext? context,
+    required String title,
+    required String message,
+    required Color backgroundColor,
+  }) {
+    Get.snackbar(title, message,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: backgroundColor,
+        titleText: Text(
+          title,
+          style: const TextStyle(fontSize: 16, color: light),
+        ),
+        messageText: Text(
+          message,
+          style: const TextStyle(fontSize: 16, color: light),
+        ),
+        colorText: Colors.white,
+        borderRadius: 8,
+        margin: const EdgeInsets.all(16));
   }
 }

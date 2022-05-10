@@ -74,6 +74,12 @@ const String userJBody = 'body';
 const String userJMood = 'moodUrl';
 const String userJDate = 'timestamp';
 
+const PROFILE_PIC_STORAGE_PATH = "profile_pics";
+const AUDIO_FILES_STORAGE_PATH = "audio_files";
+const VIDEO_FILES_STORAGE_PATH = "video_files";
+const IDENTITY_PIC_STORAGE_PATH = "identification_pics";
+const CV_FILES_STORAGE_PATH = "cv_files";
+
 const List<int> top_up_figures = [1, 50, 150, 250, 500, 750, 900, 1500];
 
 const List payment_options = [
@@ -153,7 +159,7 @@ RxString generatedPwd = RxString(" ");
 var timeFormat = DateFormat('kk:mm');
 var dateFormat = DateFormat('dd-MM-yyyy');
 
-const baseUrl = "https://61ad-168-253-119-198.ngrok.io/api/";
+const baseUrl = "https://cef0-168-253-119-198.eu.ngrok.io/api/";
 //const baseUrl = "http://127.0.0.1:8000";
 //const baseUrl = "https://tranquil-api.herokuapp.com";
 
@@ -180,5 +186,7 @@ const listCardsPath = 'client/listCards';
 const getClientProfilePath = 'client/getProfile';
 const getAllPartnersPath = 'client/listPartners';
 const  listQuestionsPath = 'client/listQuestions';
+const getAllConsultantsPath = 'client/listConsultants';
+
 
 

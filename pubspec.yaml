@@ -42,10 +42,10 @@ dependencies:
   flutter_paystack: any
   webview_flutter: ^2.0.12
 
-  firebase_core: ^1.0.0 #Firebase core
-  cloud_firestore: ^1.0.0 #Cloud firestore
+  firebase_core: any #Firebase core
+  cloud_firestore: any #Cloud firestore
+  firebase_storage: any
   firebase_messaging: ^10.0.0 #Firebase cloud messaging
-
 
   flutter_local_notifications: any
   http: any
@@ -81,7 +81,6 @@ dependencies:
   #      url: https://github.com/w-rui/StoragePath
   language_picker: any #language picker
   #flutter_sound: any
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

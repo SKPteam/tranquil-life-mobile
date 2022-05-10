@@ -239,7 +239,13 @@ class _AddNewCardState extends State<AddNewCard> {
                           if(value['message'] == 'Success'){
                             Navigator.pop(context, true);
                           }
-                        }).catchError((error)=>displaySnackBar("$error", context));
+                        }).catchError((error){
+                          CustomSnackBar.showSnackBar(
+                              context: context,
+                              title: "Error",
+                              message: kShortPassError,
+                              backgroundColor: active);
+                        });
                       },
                       icon: Icon(Icons.check, color: light)),
                   SizedBox(width: size.width * 0.01)

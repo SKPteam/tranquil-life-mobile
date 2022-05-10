@@ -18,9 +18,9 @@ import 'package:path/path.dart';
 class RegistrationTwoController extends GetxController {
   static RegistrationTwoController instance = Get.find();
 
-  TextEditingController firstNameTextEditingController = TextEditingController();
-  TextEditingController lastNameTextEditingController = TextEditingController();
-  TextEditingController userNameTextEditingController = TextEditingController();
+  TextEditingController firstNameTextEditingController = TextEditingController(text: "ddkd");
+  TextEditingController lastNameTextEditingController = TextEditingController(text: "ffsf");
+  TextEditingController userNameTextEditingController = TextEditingController(text: "djjff");
   TextEditingController dobTextEditingController = TextEditingController();
   TextEditingController locationEditingController = TextEditingController();
   //You didn't initiate the textController that's the reason the constructor wasn't working
@@ -61,6 +61,40 @@ class RegistrationTwoController extends GetxController {
 
     // locatePosition();
   }
+
+  saveFilesToFbStorage() {
+    print("something");
+    // Reference identityStorageRef = FirebaseStorage.instance
+    //     .ref()
+    //     .child(IDENTITY_PIC_STORAGE_PATH)
+    //     .child(basename(registrationTwoController.passportPath.value));
+    // UploadTask identityUploadTask =
+    // identityStorageRef.putFile(File(registrationTwoController.passportPath.value));
+
+    // Reference cvStorageRef = FirebaseStorage.instance
+    //     .ref()
+    //     .child(CV_FILES_STORAGE_PATH)
+    //     .child(basename(registrationTwoController.cvPath.value));
+    // UploadTask cvUploadTask =
+    // cvStorageRef.putFile(File(registrationTwoController.cvPath.value));
+
+    // List files = await Future.wait<String>([
+    //   _uploadTaskNextStep(identityUploadTask, identityStorageRef),
+    //   _uploadTaskNextStep(cvUploadTask, cvStorageRef),
+    // ]).catchError((error) {
+    //   CustomLoader.cancelDialog();
+    //   // display error message
+    //   CustomSnackBar.showSnackBar(
+    //       context: Get.context,
+    //       title: "An error occurred",
+    //       message: error.toString(),
+    //       backgroundColor: active);
+    // });
+    //
+    // passportURL.value = "${files[0]}";
+    // cvURL.value = "${files[1]}";
+  }
+
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 

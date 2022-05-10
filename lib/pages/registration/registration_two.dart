@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
+import 'package:tranquil_life/controllers/registration_four_controller.dart';
 import 'package:tranquil_life/controllers/registration_one_controller.dart';
 import 'package:tranquil_life/controllers/registration_two_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
@@ -26,6 +27,7 @@ class RegistrationTwoView extends StatefulWidget {
 class _RegistrationTwoViewState extends State<RegistrationTwoView> {
   final controller = Get.put(RegistrationTwoController());
   final RegistrationOneController regOneController = Get.put(RegistrationOneController());
+  final RegistrationFourController regFourController = Get.put(RegistrationFourController());
   final _formKey = GlobalKey <FormState>();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -159,40 +161,52 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
                   if (registrationTwoController
                       .firstNameTextEditingController
                       .text.isEmpty) {
-                    displaySnackBar(
-                        kFirstNameNullError,
-                        context);
+                    CustomSnackBar.showSnackBar(
+                        context: context,
+                        title: "Error",
+                        message: kFirstNameNullError,
+                        backgroundColor: active);
                   }
                   else
                   if (registrationTwoController
                       .lastNameTextEditingController
                       .text.isEmpty) {
-                    displaySnackBar(
-                        kLastNameNullError,
-                        context);
+                    CustomSnackBar.showSnackBar(
+                        context: context,
+                        title: "Error",
+                        message: kLastNameNullError,
+                        backgroundColor: active);
                   }
                   else
                   if (registrationTwoController
                       .userNameTextEditingController
                       .text.isEmpty) {
-                    displaySnackBar(
-                        kUserNameNullError,
-                        context);
+                    CustomSnackBar.showSnackBar(
+                        context: context,
+                        title: "Error",
+                        message: kUserNameNullError,
+                        backgroundColor: active);
                   }
                   else
                   if (registrationTwoController
                       .usernameExists.value) {
-                    displaySnackBar(
-                        kUserNameExists, context);
+                    CustomSnackBar.showSnackBar(
+                        context: context,
+                        title: "Error",
+                        message: kUserNameExists,
+                        backgroundColor: active);
                   }
                   else
                   if (registrationTwoController
                       .age.value < 16) {
-                    displaySnackBar(
-                        kTooYoungError, context);
+                    CustomSnackBar.showSnackBar(
+                        context: context,
+                        title: "Error",
+                        message: kTooYoungError,
+                        backgroundColor: active);
                   }
                   else {
-                    Get.toNamed(Routes.REGISTRATION_THREE);
+                    //Get.toNamed(Routes.REGISTRATION_THREE);
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -211,7 +225,8 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
           SizedBox(height: size.height * 0.040),
         ],
       );
-    }else{
+    }
+    else{
       return Column(
         children: [
           SizedBox(height: size.height * 0.002),
@@ -242,36 +257,54 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
                   if (registrationTwoController
                       .firstNameTextEditingController
                       .text.isEmpty) {
-                    displaySnackBar(
-                        kFirstNameNullError,
-                        context);
+
+                    CustomSnackBar.showSnackBar(
+                        context: context,
+                        title: "Error",
+                        message: kFirstNameNullError,
+                        backgroundColor: active);
                   }
                   else if (registrationTwoController
                       .lastNameTextEditingController
                       .text.isEmpty) {
-                    displaySnackBar(
-                        kLastNameNullError,
-                        context);
+
+                    CustomSnackBar.showSnackBar(
+                        context: context,
+                        title: "Error",
+                        message: kLastNameNullError,
+                        backgroundColor: active);
                   }
                   else if (registrationTwoController
                       .passportPath
                       .value.isEmpty) {
-                    displaySnackBar(
-                        "Passport or Driver's license is required",
-                        context);
+
+                    CustomSnackBar.showSnackBar(
+                        context: context,
+                        title: "Error",
+                        message: "Passport or Driver's license is required",
+                        backgroundColor: active);
                   }
                   else if (registrationTwoController
                       .cvPath.value.isEmpty) {
-                    displaySnackBar(
-                        "Resumé is required", context);
+                    CustomSnackBar.showSnackBar(
+                        context: context,
+                        title: "Error",
+                        message: "Resumé is required",
+                        backgroundColor: active);
                   }
                   else if (registrationTwoController
                       .age.value < 16) {
-                    displaySnackBar(
-                        kTooYoungError, context);
+
+                    CustomSnackBar.showSnackBar(
+                        context: context,
+                        title: "Error",
+                        message: kTooYoungError,
+                        backgroundColor: active);
                   }
                   else {
-                    Get.toNamed(Routes.REGISTRATION_THREE);
+                    regFourController.saveFilesToFbStorage();
+
+                    //Get.toNamed(Routes.REGISTRATION_THREE);
                   }
                 },
                 style: ElevatedButton.styleFrom(

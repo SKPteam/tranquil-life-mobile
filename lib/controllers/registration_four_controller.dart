@@ -1,16 +1,23 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/main.dart';
 
 import '../constants/controllers.dart';
+import '../constants/style.dart';
 import '../helpers/flush_bar_helper.dart';
 import '../helpers/progress-dialog_helper.dart';
 import '../routes/app_pages.dart';
+import '../widgets/custom_loader.dart';
+import '../widgets/custom_snackbar.dart';
 
 class RegistrationFourController extends GetxController {
   static RegistrationFourController instance = Get.find();
@@ -23,8 +30,60 @@ class RegistrationFourController extends GetxController {
   TextEditingController ibanTextEditingController = TextEditingController();
   TextEditingController swiftCodeTEC = TextEditingController();
 
+  RxString passportURL = "".obs;
+  RxString cvURL = "".obs;
+  RxString videoURL = "".obs;
+
+  @override
+  void onInit() {
+  }
+
+  Future saveFilesToFbStorage() async{
+    print("something");
+
+    fbStorage = FirebaseStorage.instance;
+
+
+    Reference identityStorageRef = fbStorage!.ref()
+        .child(IDENTITY_PIC_STORAGE_PATH)
+        .child(basename(registrationTwoController.passportPath.value));
+
+    UploadTask identityUploadTask =
+    identityStorageRef.putFile(File(registrationTwoController.passportPath.value));
+
+    // String val = registrationTwoController.passportPath.value;
+    //
+    // print(basename(registrationTwoController.passportPath.value));
+    // UploadTask identityUploadTask =
+    // identityStorageRef.putFile(File(val));
+
+
+
+    // Reference cvStorageRef = FirebaseStorage.instance
+    //     .ref()
+    //     .child(CV_FILES_STORAGE_PATH)
+    //     .child(basename(registrationTwoController.cvPath.value));
+    // UploadTask cvUploadTask =
+    // cvStorageRef.putFile(File(registrationTwoController.cvPath.value));
+
+    // List files = await Future.wait<String>([
+    //   _uploadTaskNextStep(identityUploadTask, identityStorageRef),
+    //   _uploadTaskNextStep(cvUploadTask, cvStorageRef),
+    // ]).catchError((error) {
+    //   CustomLoader.cancelDialog();
+    //   // display error message
+    //   CustomSnackBar.showSnackBar(
+    //       context: Get.context,
+    //       title: "An error occurred",
+    //       message: error.toString(),
+    //       backgroundColor: active);
+    // });
+    //
+    // passportURL.value = "${files[0]}";
+    // cvURL.value = "${files[1]}";
+  }
+
   Future registerConsultant() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     ProgressDialogHelper().showProgressDialog(
         Get.context!, "Registering...");
     String url = baseUrl + consultantRegisterPath;
@@ -39,8 +98,8 @@ class RegistrationFourController extends GetxController {
           .removeAllWhitespace,
       "languages": registrationThreeController.preferredLangTEC.text.split(", "),
       "years": registrationThreeController.yearsOfExpTEC.text,
-      "identity_front_url": registrationTwoController.passportPath.value,
-      "cv_url": registrationTwoController.cvPath.value,
+      "identity_front_url": passportURL.value.toString(),
+      "cv_url": cvURL.value.toString(),
       "employment_status": registrationThreeController.selectedWorkStatus.value,
       "specialties": registrationThreeController.areaOfExpertiseTEC.text.split(", "),
       "day_of_birth": registrationTwoController.day!,
@@ -83,5 +142,22 @@ class RegistrationFourController extends GetxController {
     return result;
   }
 
+  Future<String> _uploadTaskNextStep(
+      UploadTask uploadTask, Reference storage) async {
+    await uploadTask;
+
+    final url = await storage.getDownloadURL();
+
+    CustomLoader.cancelDialog();
+    return url;
+  }
+
+  Future saveConsultantProfile() async{
+    await saveFilesToFbStorage();
+
+    CustomLoader.cancelDialog();
+
+    //registerConsultant();
+  }
 
 }

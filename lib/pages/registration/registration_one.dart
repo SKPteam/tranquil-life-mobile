@@ -8,6 +8,7 @@ import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
+import 'package:tranquil_life/controllers/registration_four_controller.dart';
 import 'package:tranquil_life/controllers/registration_one_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
@@ -306,30 +307,48 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
 
                                                   if(registrationOneController
                                                       .emailTextEditingController.text.isEmpty) {
-                                                    displaySnackBar(kEmailNullError, context);
+                                                    CustomSnackBar.showSnackBar(
+                                                        context: context,
+                                                        title: "Error",
+                                                        message: kEmailNullError,
+                                                        backgroundColor: Colors.red);
                                                   }
                                                   else if(!emailValidatorRegExp
                                                       .hasMatch(registrationOneController
                                                       .emailTextEditingController
                                                       .text)) {
-                                                    displaySnackBar(kInvalidEmailError, context);
+                                                    CustomSnackBar.showSnackBar(
+                                                        context: context,
+                                                        title: "Error",
+                                                        message: kInvalidEmailError,
+                                                        backgroundColor: Colors.red);
                                                   }
                                                   else if(registrationOneController
                                                       .passwordTextEditingController.text.isEmpty) {
-                                                    displaySnackBar(kPassNullError, context);
+                                                    CustomSnackBar.showSnackBar(
+                                                        context: context,
+                                                        title: "Error",
+                                                        message: kPassNullError,
+                                                        backgroundColor: Colors.red);
                                                   }
                                                   else if(registrationOneController
                                                       .passwordTextEditingController.text
                                                       .length < 6) {
-                                                    displaySnackBar(
-                                                        kShortPassError, context);
+                                                    CustomSnackBar.showSnackBar(
+                                                        context: context,
+                                                        title: "Error",
+                                                        message: kShortPassError,
+                                                        backgroundColor: Colors.red);
                                                   }
                                                   else if (registrationOneController
                                                       .passwordTextEditingController
                                                       .text != registrationOneController
                                                       .confirmPwdTextEditingController.text) {
-                                                    displaySnackBar(
-                                                        kMatchPassError, context);
+                                                    CustomSnackBar.showSnackBar(
+                                                        context: context,
+                                                        title: "Error",
+                                                        message: kMatchPassError,
+                                                        backgroundColor: Colors.red);
                                                   }
                                                   else if (!passwordValidatorRegExp
                                                       .hasMatch(registrationOneController
@@ -339,9 +358,11 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
                                                         kInvalidPassError, context);
                                                   } else if (registrationOneController
                                                       .countryCode == null) {
-                                                    displaySnackBar(
-                                                        'Select a country code',
-                                                        context);
+                                                    CustomSnackBar.showSnackBar(
+                                                        context: context,
+                                                        title: "Error",
+                                                        message: "Select a country code",
+                                                        backgroundColor: Colors.red);
                                                   } else {
                                                     Get.toNamed(Routes.REGISTRATION_TWO);
                                                   }

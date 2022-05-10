@@ -173,22 +173,27 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       width: double.infinity,
                       child: ElevatedButton(
                           onPressed: () {
-                            if (_.homeAddressTEC.text.isEmpty ||
-                                _.bankAddressTEC.text.isEmpty ||
-                                _.bankAddressTEC.text.isEmpty ||
-                                _.ibanTextEditingController.text
-                                    .isEmpty ||
-                                _.swiftCodeTEC.text.isEmpty) {
-                              displaySnackBar(
-                                  "A field is empty", context);
-                            } else {
-                              print(Get.find<
-                                  RegistrationOneController>()
-                                  .emailTextEditingController
-                                  .text);
-                              _.registerConsultant();
-                              print("registering consultant");
-                            }
+                            _.saveConsultantProfile();
+
+                            // if (_.homeAddressTEC.text.isEmpty ||
+                            //     _.bankAddressTEC.text.isEmpty ||
+                            //     _.bankAddressTEC.text.isEmpty ||
+                            //     _.ibanTextEditingController.text
+                            //         .isEmpty ||
+                            //     _.swiftCodeTEC.text.isEmpty) {
+                            //   CustomSnackBar.showSnackBar(
+                            //       context: context,
+                            //       title: "Error",
+                            //       message: "A field is empty",
+                            //       backgroundColor: active);
+                            // } else {
+                            //   print(Get.find<
+                            //       RegistrationOneController>()
+                            //       .emailTextEditingController
+                            //       .text);
+                            //   _.saveConsultantProfile();
+                            //   print("registering consultant");
+                            // }
                           },
                           style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(

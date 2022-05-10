@@ -8,21 +8,33 @@ import 'package:get/get.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/models/consultant_porfolio_model.dart';
-import 'package:tranquil_life/models/consultant_profile_model.dart';
-import 'package:tranquil_life/pages/scheduling/widgets/consultantProfile_info_widget.dart';
+import 'package:tranquil_life/pages/scheduling/widgets/consultantPortfolio_info_widget.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 
 
 class ConsultantPortfolio extends StatelessWidget {
   Size size = MediaQuery.of(Get.context!).size;
-  //final ConsultantProfileModel consultantProfileModel;
-  final ConsultantPortfolioModel consultantPortfolio;
-  final String heroTag;
+  final String? heroTag;
+  final String? fName;
+  final String? lName;
+  final double? latitude;
+  final double? longitude;
+  final List? specialties;
+  final String? yearsOfExperience;
+  final double? fee;
+  final List? languages;
 
-  ConsultantPortfolio(this.consultantPortfolio,
-      {required Key? key, required this.heroTag})
-      : super(key: key);
+  ConsultantPortfolio({
+    Key? key,
+    this.heroTag,
+    this.fName,
+    this.lName,
+    this.latitude,
+    this.longitude,
+    this.specialties,
+    this.yearsOfExperience,
+    this.fee, this.languages}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +56,7 @@ class ConsultantPortfolio extends StatelessWidget {
                   // PROFILE IMAGE
                   //------------------------
                   Hero(
-                    tag: heroTag,
+                    tag: heroTag!,
                     child: Container(
                         alignment: Alignment.topLeft,
                         width: size.width,
@@ -73,7 +85,7 @@ class ConsultantPortfolio extends StatelessWidget {
                       child: IconButton(
                         icon: Icon(Icons.arrow_back, color: light),
                         onPressed: () {
-                          Get.offNamedUntil(Routes.DASHBOARD, (route) => false);
+                          Get.offNamed(Routes.CONSULTANT_LIST);
                         },
                       ),
                     ),
@@ -86,9 +98,15 @@ class ConsultantPortfolio extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ConsultantProfileInfoWidget(
-                  consultantProfileModel: consultantPortfolio, key: null,
-                  //consultantProfileModel: consultantProfileModel, key: null,
-                ),
+                  fName: fName,
+                  lName: lName,
+                  latitude: latitude,
+                  longitude: longitude,
+                  specialties: specialties,
+                  yearsOfExperience: yearsOfExperience,
+                  fee: fee,
+                  languages: languages,
+                  key: null),
               )
             ],
           ),
@@ -97,3 +115,4 @@ class ConsultantPortfolio extends StatelessWidget {
     );
   }
 }
+

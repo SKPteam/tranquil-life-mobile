@@ -12,5 +12,4 @@ class Schedule {
     weekDay = days[dateTime.weekday - 1];
   }
 
-
 }

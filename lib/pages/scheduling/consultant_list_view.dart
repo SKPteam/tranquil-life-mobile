@@ -12,14 +12,13 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/consultant_list_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/models/consultant_porfolio_model.dart';
-import 'package:tranquil_life/models/consultant_profile_model.dart';
 import 'package:tranquil_life/models/schedule_date_model.dart';
 import 'package:tranquil_life/pages/scheduling/widgets/consultantPortfolio.dart';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:http/http.dart' as http;
 import 'package:tranquil_life/pages/scheduling/scheduling_time/widgets/schedule_meeting_dialog.dart';
 
+import '../../models/consultant_model.dart';
 import '../../routes/app_pages.dart';
 
 
@@ -36,20 +35,10 @@ class ConsultantListView extends StatefulWidget {
 }
 
 class _ConsultantListViewState extends State<ConsultantListView> {
-
-  @override
-  void initState() {
-    // print(jsonArray.map((e) => print(e['f_name'])).toList());
-
-    super.initState();
-  }
+  ConsultantListController _ = Get.put(ConsultantListController());
 
   @override
   Widget build(BuildContext context) {
-    ConsultantListController _ = Get.put(ConsultantListController());
-
-    //print();
-
     return ResponsiveSafeArea(
       responsiveBuilder: (context, size) {
         return Scaffold(
@@ -98,254 +87,303 @@ class _ConsultantListViewState extends State<ConsultantListView> {
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 16.0),
-                          child: ListView.separated(
-                            separatorBuilder: (context, index) => SizedBox(
-                              height: 20,
-                            ),
-                            physics: BouncingScrollPhysics(),
-                            itemCount: jsonArray.length,
-                            itemBuilder: (context, index) {
-                              //${jsonArray[index]['f_name']}
-                              return Container(
-                                height: 150,
-                                padding: EdgeInsets.all(12),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: Stack(
-                                        clipBehavior: Clip.none,
+                          child: FutureBuilder<List<Consultant>>(
+                            future:  _.getConsultantList(),
+                            builder: (context, snapshot){
+                              if (snapshot.hasError) {
+                                return Text(snapshot.error.toString());
+                              }
+
+                              if (snapshot.connectionState == ConnectionState.waiting ||
+                                  snapshot.hasData == false) {
+                                return Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      CircularProgressIndicator(
+                                          valueColor:
+                                          AlwaysStoppedAnimation<Color>(Colors.yellow)
+                                      ),
+                                      // Loader Animation Widget
+                                      Padding(padding: const EdgeInsets.only(top: 20.0)),
+                                    ],
+                                  ),
+                                );
+                              }
+
+                              //if has data
+                              if(snapshot.hasData){
+                                return ListView(
+                                  children: snapshot.data!.map((consultant){
+                                    return Container(
+                                      height: 150,
+                                      padding: EdgeInsets.all(12),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          //image of consultant
-                                          Hero(
-                                            tag: 'consultant$index',
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              child: true
-                                                  ? Image.asset(
-                                                      'assets/images/avatar_img1.png',
-                                                      fit: BoxFit.cover,
-                                                      height: size.height *
-                                                          0.55)
-                                                  : Image.asset(
+                                          Expanded(
+                                            flex: 1,
+                                            child: Stack(
+                                              clipBehavior: Clip.none,
+                                              children: [
+                                                //image of consultant
+                                                Hero(
+                                                  tag: 'consultant$consultant',
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                    BorderRadius.circular(12),
+                                                    child: true
+                                                        ? Image.asset(
+                                                        'assets/images/avatar_img1.png',
+                                                        fit: BoxFit.cover,
+                                                        height: size.height *
+                                                            0.55)
+                                                        : Image.asset(
                                                       'assets/images/default_img.png',
                                                       fit: BoxFit.cover,
                                                       height: size.height *
                                                           0.55,
                                                     ),
+                                                  ),
+                                                ),
+                                                //online sign
+                                                Positioned(
+                                                  bottom: -5,
+                                                  right: -5,
+                                                  child: CircleAvatar(
+                                                    radius: 8,
+                                                    backgroundColor: true
+                                                    // _
+                                                    //     .consultantList[index]
+                                                    //     .onlineStatus!
+                                                        ? Colors.green
+                                                        : Colors.grey,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          //online sign
-                                          Positioned(
-                                            bottom: -5,
-                                            right: -5,
-                                            child: CircleAvatar(
-                                              radius: 8,
-                                              backgroundColor: true
-                                                  // _
-                                                  //     .consultantList[index]
-                                                  //     .onlineStatus!
-                                                  ? Colors.green
-                                                  : Colors.grey,
+
+                                          Expanded(
+                                            flex: 2,
+                                            child: Container(
+                                              padding: EdgeInsets.only(
+                                                  left: size.width * 0.05),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  //name of consultant
+                                                  FittedBox(
+                                                    fit: BoxFit.none,
+                                                    child: Text(
+                                                      "${consultant.fName} ${consultant.lName}",
+                                                      textAlign: TextAlign.start,
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                  SizedBox(height: size.height*0.002),
+
+
+                                                  //button with view profile text
+                                                  SizedBox(
+                                                    height: 45,
+                                                    child: ElevatedButton(
+                                                      style: ButtonStyle(
+                                                        backgroundColor:
+                                                        MaterialStateProperty.all(
+                                                            Color(0xff434343)),
+                                                        shape: MaterialStateProperty.all(
+                                                            RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(4),
+                                                            )),
+                                                        elevation: MaterialStateProperty.all(2),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pushReplacement( MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ConsultantPortfolio(
+                                                                heroTag: 'consultant${consultant}',
+                                                                fName: consultant.fName,
+                                                                lName: consultant.lName,
+                                                                latitude: consultant.latitude,
+                                                                longitude: consultant.longitude,
+                                                                specialties: consultant.specialties,
+                                                                yearsOfExperience: consultant.yearsOfExperience,
+                                                                fee: consultant.fee,
+                                                                languages: consultant.languages,
+                                                                key: null,),
+                                                        ));
+                                                      },
+                                                      child: Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: [
+                                                          SvgPicture.asset(
+                                                            'assets/icons/metro-profile.svg',
+                                                            fit: BoxFit.none,
+                                                            color: kPrimaryColor,
+                                                          ),
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          FittedBox(
+                                                            alignment: Alignment.centerLeft,
+                                                            child: Text(
+                                                              'View profile',
+                                                              textAlign: TextAlign.left,
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: kPrimaryColor,
+                                                              ),
+                                                            ),
+                                                            fit: BoxFit.none,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                  SizedBox(height: size.height*0.002),
+
+                                                  //button with schedule a meeting text
+                                                  SizedBox(
+                                                    height: 45,
+                                                    child: ElevatedButton(
+                                                      style: ButtonStyle(
+                                                        backgroundColor:
+                                                        MaterialStateProperty.all(
+                                                            Color(0xff434343)),
+                                                        shape: MaterialStateProperty.all(
+                                                            RoundedRectangleBorder(
+                                                              borderRadius:
+                                                              BorderRadius.circular(4),
+                                                            )),
+                                                        elevation: MaterialStateProperty.all(2),
+                                                      ),
+                                                      onPressed: () async {
+
+                                                        ///list of schedules containing schedule model for creating container templates
+                                                        ///of weekDay and date
+                                                        ///dates from tom to next 7 days generated from DateTime
+                                                        // final List<Schedule> schedules =
+                                                        // List.generate(
+                                                        //   7,
+                                                        //       (index) => Schedule(
+                                                        //     DateTime.now().add(
+                                                        //       Duration(days: index + 1),
+                                                        //     ),
+                                                        //   ),
+                                                        // );
+                                                        //
+                                                        // //show modal sheet for Date Selecting
+                                                        // bool result =
+                                                        // await showModalBottomSheet<
+                                                        //     bool>(
+                                                        //   isDismissible: true,
+                                                        //   shape: RoundedRectangleBorder(
+                                                        //       borderRadius:
+                                                        //       BorderRadius.vertical(
+                                                        //           top: Radius
+                                                        //               .circular(
+                                                        //               40))),
+                                                        //   context: context,
+                                                        //   builder: (context) =>
+                                                        //       ScheduleMeetingDialog(
+                                                        //         schedules: schedules,
+                                                        //         consultantProfileModel: _
+                                                        //             .consultantProfileModel,
+                                                        //         isUserClient: true,
+                                                        //         key: null,
+                                                        //         reScheduleMeetingID: '',
+                                                        //       ),
+                                                        // ).then((value) {
+                                                        //   print(value);
+                                                        //   return value!;
+                                                        // });
+                                                        // print(result);
+                                                        // if (result) {
+                                                        //   Navigator.of(context)
+                                                        //       .pop(result);
+                                                        // }
+                                                        // if (result ?? false) {
+                                                        //   Navigator.of(context)
+                                                        //       .pop(result ?? false);
+                                                        // }
+
+
+                                                      },
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                        children: const [
+                                                          Icon(Icons.schedule,
+                                                              color: kPrimaryColor),
+                                                          SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          FittedBox(
+                                                            alignment: Alignment.centerLeft,
+                                                            child: Text(
+                                                              'Schedule a Meeting',
+                                                              textAlign: TextAlign.left,
+                                                              style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: kPrimaryColor,
+                                                              ),
+                                                            ),
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
+
+
                                         ],
                                       ),
-                                    ),
-
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            left: size.width * 0.05),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            //name of consultant
-                                            FittedBox(
-                                              fit: BoxFit.none,
-                                              child: Text(
-                                                "${jsonArray[index]["l_name"]} ${jsonArray[index]["f_name"]} ",
-                                                textAlign: TextAlign.start,
-                                                style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18,
-                                                ),
-                                              ),
-                                            ),
-
-                                            SizedBox(height: size.height*0.002),
+                                    );
+                                  }).toList(),
+                                );
+                              }
 
 
-                                            //button with view profile text
-                                            SizedBox(
-                                              height: 45,
-                                              child: ElevatedButton(
-                                                style: ButtonStyle(
-                                                  backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Color(0xff434343)),
-                                                  shape: MaterialStateProperty.all(
-                                                      RoundedRectangleBorder(
-                                                        borderRadius:
-                                                        BorderRadius.circular(4),
-                                                      )),
-                                                  elevation: MaterialStateProperty.all(2),
-                                                ),
-                                                onPressed: () {
-                                                  _.consultantPortfolio = ConsultantPortfolioModel(f_name: jsonArray[index]["f_name"].toString(),
-                                                      l_name: jsonArray[index]["l_name"].toString());
-                                                  Navigator.of(context)
-                                                      .pushReplacement( MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ConsultantPortfolio(
-                                                          _.consultantPortfolio,
-                                                          heroTag: 'consultant$index',
-                                                          key: null,),
-                                                  ));
-                                                },
-                                                child: Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                      'assets/icons/metro-profile.svg',
-                                                      fit: BoxFit.none,
-                                                      color: kPrimaryColor,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    FittedBox(
-                                                      alignment: Alignment.centerLeft,
-                                                      child: Text(
-                                                        'View profile',
-                                                        textAlign: TextAlign.left,
-                                                        style: TextStyle(
-                                                          fontSize: 14,
-                                                          color: kPrimaryColor,
-                                                        ),
-                                                      ),
-                                                      fit: BoxFit.none,
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
+                              if (!snapshot.hasData &&
+                                  snapshot.connectionState == ConnectionState.done) {
+                                return Text('No Partners');
+                              }
 
-                                            SizedBox(height: size.height*0.002),
-
-                                            //button with schedule a meeting text
-                                            SizedBox(
-                                              height: 45,
-                                              child: ElevatedButton(
-                                                style: ButtonStyle(
-                                                  backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Color(0xff434343)),
-                                                  shape: MaterialStateProperty.all(
-                                                      RoundedRectangleBorder(
-                                                        borderRadius:
-                                                        BorderRadius.circular(4),
-                                                      )),
-                                                  elevation: MaterialStateProperty.all(2),
-                                                ),
-                                                onPressed: () async {
+                              if (snapshot.connectionState != ConnectionState.done) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
 
 
-
-                                                  ///list of schedules containing schedule model for creating container templates
-                                                  ///of weekDay and date
-                                                  ///dates from tom to next 7 days generated from DateTime
-                                                  final List<Schedule> schedules =
-                                                  List.generate(
-                                                    7,
-                                                        (index) => Schedule(
-                                                      DateTime.now().add(
-                                                        Duration(days: index + 1),
-                                                      ),
-                                                    ),
-                                                  );
-
-                                                  //show modal sheet for Date Selecting
-                                                  bool result =
-                                                  await showModalBottomSheet<
-                                                      bool>(
-                                                    isDismissible: true,
-                                                    shape: RoundedRectangleBorder(
-                                                        borderRadius:
-                                                        BorderRadius.vertical(
-                                                            top: Radius
-                                                                .circular(
-                                                                40))),
-                                                    context: context,
-                                                    builder: (context) =>
-                                                        ScheduleMeetingDialog(
-                                                          schedules: schedules,
-                                                          consultantProfileModel: _
-                                                              .consultantProfileModel,
-                                                          isUserClient: true,
-                                                          key: null,
-                                                          reScheduleMeetingID: '',
-                                                        ),
-                                                  ).then((value) {
-                                                    print(value);
-                                                    return value!;
-                                                  });
-                                                  print(result);
-                                                  if (result) {
-                                                    Navigator.of(context)
-                                                        .pop(result);
-                                                  }
-                                                  // if (result ?? false) {
-                                                  //   Navigator.of(context)
-                                                  //       .pop(result ?? false);
-                                                  // }
-
-
-                                                },
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                                  children: const [
-                                                    Icon(Icons.schedule,
-                                                        color: kPrimaryColor),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    FittedBox(
-                                                      alignment: Alignment.centerLeft,
-                                                      child: Text(
-                                                        'Schedule a Meeting',
-                                                        textAlign: TextAlign.left,
-                                                        style: TextStyle(
-                                                          fontSize: 14,
-                                                          color: kPrimaryColor,
-                                                        ),
-                                                      ),
-                                                      fit: BoxFit.contain,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-
-
+                              if (snapshot.data! == null || snapshot.data!.length == 0) {
+                                return Column(
+                                  children: <Widget>[
+                                    Center(child: Text("Unable to find any partners"))
                                   ],
-                                ),
-                              );
+                                );
+                              }
+
+                              return Text('No Data');
                             },
                           ),
                         ),
@@ -359,7 +397,4 @@ class _ConsultantListViewState extends State<ConsultantListView> {
     );
   }
 
-  Future<List> ConsultantListData() async {
-    return jsonArray.map((e) => (e)).toList();
-  }
 }

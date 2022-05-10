@@ -64,7 +64,6 @@ class AppSettingsView extends GetView<AppSettingsController> {
                             svgUrl: 'assets/icons/material-share.svg',
                             text: 'Invite Friends via..',
                             onTap: () async{
-                              displaySnackBar('clicked', context);
                               //share app link to other apps on the device, e.g whatsapp...
                               await Share.share('check out my website https://example.com', subject: 'Look what I made!');
                             },

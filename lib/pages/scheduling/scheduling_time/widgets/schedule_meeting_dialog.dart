@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/models/consultant_profile_model.dart';
 import 'package:tranquil_life/models/schedule_date_model.dart';
 
 class ScheduleMeetingDialog extends StatefulWidget {
   final String workingTimeOfConsultant;
-  final ConsultantProfileModel consultantProfileModel;
   final bool isUserClient;
   final bool reSchedule;
   final String reScheduleMeetingID;
@@ -22,8 +20,7 @@ class ScheduleMeetingDialog extends StatefulWidget {
         this.workingTimeOfConsultant = 'Mon - Fri',
         this.isUserClient = false,
         this.reSchedule = false,
-        required this.reScheduleMeetingID,
-        required this.consultantProfileModel});
+        required this.reScheduleMeetingID});
 
   @override
   _ScheduleMeetingDialogState createState() => _ScheduleMeetingDialogState();

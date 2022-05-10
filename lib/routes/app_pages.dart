@@ -33,7 +33,7 @@ class AppPages {
   AppPages._();
 
 
-  static const INITIAL = Routes.ON_BOARDING_ONE;
+  static const INITIAL = Routes.ON_BOARDING_TWO;
 
   static final routes = [
     GetPage(

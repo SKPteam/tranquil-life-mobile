@@ -18,10 +18,10 @@ class RegistrationOneController extends GetxController {
 
   Map data = {};
 
-  TextEditingController emailTextEditingController = TextEditingController();
-  TextEditingController phoneNumTextEditingController = TextEditingController();
-  TextEditingController passwordTextEditingController = TextEditingController();
-  TextEditingController confirmPwdTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController(text:"tundednut@gmail.com");
+  TextEditingController phoneNumTextEditingController = TextEditingController(text: "08130308873");
+  TextEditingController passwordTextEditingController = TextEditingController(text: "passw1@");
+  TextEditingController confirmPwdTextEditingController = TextEditingController(text: "passw1@");
   // TextEditingController dobTextEditingController = TextEditingController();
   // TextEditingController firstNameTextEditingController = TextEditingController();
   // TextEditingController lastNameTextEditingController = TextEditingController();
