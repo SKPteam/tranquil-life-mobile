@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -7,14 +8,13 @@ import 'package:get/get.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'constants/all_controller_binding.dart';
 import 'constants/app_font.dart';
+import 'constants/app_strings.dart';
 import 'constants/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp();
 
   // firebaseFirestore = FirebaseFirestore.instance;
   //
@@ -45,6 +45,8 @@ Future<void> main() async{
 
   firebaseFirestore = FirebaseFirestore.instance;
 
+
+
   otherConsltRegDetails =
       firebaseFirestore!.collection('otherConsultantRegistrationDetails');
 
@@ -57,6 +59,9 @@ SharedPreferences? sharedPreferences;
 FirebaseFirestore? firebaseFirestore;
 CollectionReference? otherConsltRegDetails;
 FirebaseStorage? fbStorage;
+
+final cloudinary = CloudinaryPublic(CLOUDINARY_NAME, UPLOAD_PRESET, cache: false);
+
 
 
 class MyApp extends StatelessWidget {

@@ -14,9 +14,17 @@ import 'package:tranquil_life/constants/controllers.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:cloudinary_public/cloudinary_public.dart';
+import 'package:tranquil_life/main.dart';
+import 'package:tranquil_life/widgets/progress_custom_bar.dart';
+
+import '../constants/style.dart';
+import '../widgets/custom_snackbar.dart';
+
 
 class RegistrationTwoController extends GetxController {
   static RegistrationTwoController instance = Get.find();
+
 
   TextEditingController firstNameTextEditingController = TextEditingController(text: "ddkd");
   TextEditingController lastNameTextEditingController = TextEditingController(text: "ffsf");
@@ -51,7 +59,11 @@ class RegistrationTwoController extends GetxController {
 
   RxBool usernameExists = false.obs;
   File? imageFile;
+  CloudinaryResponse? passportResponse;
+  CloudinaryResponse? cvResponse;
 
+  RxDouble passportUploadPercentage = 0.0.obs;
+  RxDouble cvUploadPercentage = 0.0.obs;
 
   @override
   void onInit() {
@@ -61,40 +73,6 @@ class RegistrationTwoController extends GetxController {
 
     // locatePosition();
   }
-
-  saveFilesToFbStorage() {
-    print("something");
-    // Reference identityStorageRef = FirebaseStorage.instance
-    //     .ref()
-    //     .child(IDENTITY_PIC_STORAGE_PATH)
-    //     .child(basename(registrationTwoController.passportPath.value));
-    // UploadTask identityUploadTask =
-    // identityStorageRef.putFile(File(registrationTwoController.passportPath.value));
-
-    // Reference cvStorageRef = FirebaseStorage.instance
-    //     .ref()
-    //     .child(CV_FILES_STORAGE_PATH)
-    //     .child(basename(registrationTwoController.cvPath.value));
-    // UploadTask cvUploadTask =
-    // cvStorageRef.putFile(File(registrationTwoController.cvPath.value));
-
-    // List files = await Future.wait<String>([
-    //   _uploadTaskNextStep(identityUploadTask, identityStorageRef),
-    //   _uploadTaskNextStep(cvUploadTask, cvStorageRef),
-    // ]).catchError((error) {
-    //   CustomLoader.cancelDialog();
-    //   // display error message
-    //   CustomSnackBar.showSnackBar(
-    //       context: Get.context,
-    //       title: "An error occurred",
-    //       message: error.toString(),
-    //       backgroundColor: active);
-    // });
-    //
-    // passportURL.value = "${files[0]}";
-    // cvURL.value = "${files[1]}";
-  }
-
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -222,7 +200,7 @@ class RegistrationTwoController extends GetxController {
   }
 
   _cropImage(filePath, idType, index) async{
-    File? croppedImage = await ImageCropper().cropImage(sourcePath: filePath);
+    File? croppedImage = ImageCropper().cropImage(sourcePath: filePath) as File?;
     if(croppedImage != null){
       // if the id selected is passport (index 0 = front, index 1 = back)
       if(idType == 'passport'){
@@ -244,3 +222,34 @@ class RegistrationTwoController extends GetxController {
 
   }
 }
+
+
+// Reference identityStorageRef = FirebaseStorage.instance
+//     .ref()
+//     .child(IDENTITY_PIC_STORAGE_PATH)
+//     .child(basename(registrationTwoController.passportPath.value));
+// UploadTask identityUploadTask =
+// identityStorageRef.putFile(File(registrationTwoController.passportPath.value));
+
+// Reference cvStorageRef = FirebaseStorage.instance
+//     .ref()
+//     .child(CV_FILES_STORAGE_PATH)
+//     .child(basename(registrationTwoController.cvPath.value));
+// UploadTask cvUploadTask =
+// cvStorageRef.putFile(File(registrationTwoController.cvPath.value));
+
+// List files = await Future.wait<String>([
+//   _uploadTaskNextStep(identityUploadTask, identityStorageRef),
+//   _uploadTaskNextStep(cvUploadTask, cvStorageRef),
+// ]).catchError((error) {
+//   CustomLoader.cancelDialog();
+//   // display error message
+//   CustomSnackBar.showSnackBar(
+//       context: Get.context,
+//       title: "An error occurred",
+//       message: error.toString(),
+//       backgroundColor: active);
+// });
+//
+// passportURL.value = "${files[0]}";
+// cvURL.value = "${files[1]}";

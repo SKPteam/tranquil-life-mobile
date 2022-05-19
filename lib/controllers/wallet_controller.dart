@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:flutter_paystack/flutter_paystack.dart';

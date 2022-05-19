@@ -30,56 +30,57 @@ dependencies:
   flutter:
     sdk: flutter
 
-  get: any
-  get_storage: any #backs up data to disk at each operation
-  toggle_switch: any
-  flutter_switch: any
+  get: ^4.6.3
+  toggle_switch: ^2.0.1
+  flutter_switch: ^0.3.2
 
-  geolocator: any # For access to platform specific location services
-  geocoding: any
+  geolocator: ^8.2.1 # For access to platform specific location services
+  geocoding: ^2.0.4
 
-  flutterwave: any
-  flutter_paystack: any
+  flutterwave: ^1.0.1
+  flutter_paystack: ^1.0.5+1
   webview_flutter: ^2.0.12
+  cloudinary_public: ^0.11.0
+  modal_bottom_sheet: ^2.0.1
 
-  firebase_core: any #Firebase core
-  cloud_firestore: any #Cloud firestore
-  firebase_storage: any
-  firebase_messaging: ^10.0.0 #Firebase cloud messaging
 
-  flutter_local_notifications: any
-  http: any
-  uuid: any #to generate universally unique identifier
-  country_code_picker: any
-  intl: any # Provides internationalization and localization facilities,
+  firebase_core: ^1.16.0
+  cloud_firestore: ^3.1.14
+  firebase_storage: ^10.2.15
+  firebase_messaging: ^10.0.0
+
+  flutter_local_notifications: ^9.5.3+1
+  http: ^0.13.4
+  uuid: ^3.0.6 #to generate universally unique identifier
+  country_code_picker: ^2.0.2
+  intl: ^0.17.0 # Provides internationalization and localization facilities,
   #including message translation, plurals and genders, date/number formatting and parsing, and bidirectional text.
-  timezone: any
-  image_picker: any
-  image_cropper: any
-  camera: any # use the camera plugin
-  path: any
-  flutter_svg: any #to use SVG
-  agora_rtc_engine: any
+  timezone: ^0.8.0
+  image_picker: ^0.8.5+3
+  image_cropper: ^2.0.2
+  camera: ^0.9.5+1 # use the camera plugin
+  path: ^1.8.1
+  flutter_svg: ^1.0.3
+  agora_rtc_engine: ^5.1.1
   date_picker_timeline: ^1.2.3
   flutter_staggered_grid_view: ^0.4.0
-  photo_manager: any #Photo/Assets management APIs for Flutter without UI integration, you can get assets (image/video/audio) from Android, iOS and macOS.
-  permission_handler: any #for handling permissions in the app
-  path_provider: any
-  share_plus: any #to share content from one app to another on the device
-  cached_network_image: any
-  package_info_plus: any
-  url_launcher: any
-  pay: any
-  timeago: any
-  pointycastle: any
-  shared_preferences: any
+  photo_manager: ^2.1.1 #Photo/Assets management APIs for Flutter without UI integration, you can get assets (image/video/audio) from Android, iOS and macOS.
+  permission_handler: ^9.2.0 #for handling permissions in the app
+  path_provider: ^2.0.10
+  share_plus: ^4.0.4 #to share content from one app to another on the device
+  cached_network_image: ^3.2.1
+  package_info_plus: ^1.4.2
+  url_launcher: ^6.1.2
+  pay: ^1.0.8
+  timeago: ^3.2.2
+  shared_preferences: ^2.0.15
   jiffy: ^5.0.0
-  another_flushbar: any
+  another_flushbar: ^1.10.29
   ndialog:
   #  storage_path:
   #    git:
   #      url: https://github.com/w-rui/StoragePath
-  language_picker: any #language picker
+  language_picker: ^0.4.1
   #flutter_sound: any
 
   # The following adds the Cupertino Icons font to your application.

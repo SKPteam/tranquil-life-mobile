@@ -25,7 +25,7 @@ class RegistrationTwoView extends StatefulWidget {
 }
 
 class _RegistrationTwoViewState extends State<RegistrationTwoView> {
-  final controller = Get.put(RegistrationTwoController());
+  final _ = Get.put(RegistrationTwoController());
   final RegistrationOneController regOneController = Get.put(RegistrationOneController());
   final RegistrationFourController regFourController = Get.put(RegistrationFourController());
   final _formKey = GlobalKey <FormState>();
@@ -253,7 +253,6 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
             height: 60,
             child: ElevatedButton(
                 onPressed: () async{
-
                   if (registrationTwoController
                       .firstNameTextEditingController
                       .text.isEmpty) {
@@ -302,9 +301,7 @@ class _RegistrationTwoViewState extends State<RegistrationTwoView> {
                         backgroundColor: active);
                   }
                   else {
-                    regFourController.saveFilesToFbStorage();
-
-                    //Get.toNamed(Routes.REGISTRATION_THREE);
+                    Get.toNamed(Routes.REGISTRATION_THREE);
                   }
                 },
                 style: ElevatedButton.styleFrom(

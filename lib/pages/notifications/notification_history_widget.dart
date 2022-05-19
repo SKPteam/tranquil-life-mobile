@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:get_storage/get_storage.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/models/notification_history_model.dart';
@@ -21,7 +20,7 @@ class NotificationHistoryItem extends StatelessWidget {
       : super(key: key);
   final NotificationModel? notificationModel;
   final bool loader;
-  final GetStorage prefs = GetStorage();
+  //final GetStorage prefs = GetStorage();
   final int index;
   final Function(int)? deleteNotification;
   @override
@@ -162,16 +161,16 @@ class NotificationHistoryItem extends StatelessWidget {
                                 //------------------------
                                 // PROFILE PIC
                                 //------------------------
-                                CircleAvatar(
-                                  backgroundColor: Colors.grey[400],
-                                  radius: 28,
-                                  child: CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                        notificationModel?.imageUrl ??
-                                            prefs.read(userAvatarUrl)),
-                                    radius: 26,
-                                  ),
-                                ),
+                                // CircleAvatar(
+                                //   backgroundColor: Colors.grey[400],
+                                //   radius: 28,
+                                //   child: CircleAvatar(
+                                //     backgroundImage: NetworkImage(
+                                //         notificationModel?.imageUrl ??
+                                //             prefs.read(userAvatarUrl)),
+                                //     radius: 26,
+                                //   ),
+                                // ),
                                  SizedBox(
                                   width: 16,
                                 ),

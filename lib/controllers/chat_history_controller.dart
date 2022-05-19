@@ -1,6 +1,5 @@
 
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 class ChatHistoryController extends GetxController {
@@ -17,7 +16,7 @@ class ChatHistoryController extends GetxController {
   ///boolean to check if there are more pagination is required
   bool moreChatRoomAvailableInDatabase = true;
 
-  GetStorage prefs = GetStorage();
+  //GetStorage prefs = GetStorage();
 
 
   @override

@@ -483,8 +483,12 @@ class _ChatScreenPageState extends State<ChatScreenPage>  with SingleTickerProvi
                               var result = await Navigator.of(context)
                                   .push(MaterialPageRoute(
                                 builder: (context) => Platform.isIOS
-                                    ? ImagePickerPageIOS()
-                                    : ImagePickerAndroid(),
+                                    ?
+                                    SizedBox()
+
+                                //TODO: ImagePickerPageIOS()
+                                    :
+                                ImagePickerAndroid(),
                               ));
                               if (result != null && result.isNotEmpty) {
                                 print(result);

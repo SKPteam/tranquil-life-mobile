@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
@@ -18,7 +17,7 @@ class EditProfileController extends GetxController {
 
   ProfileController profileController = Get.put(ProfileController());
 
-  GetStorage? getStorage;
+  //GetStorage? getStorage;
   RxBool uploadingPhoto = false.obs;
   RxString firstName = "".obs;
   RxString lastName = "".obs;
@@ -67,13 +66,15 @@ class EditProfileController extends GetxController {
 
   Widget profilePic(BuildContext context) {
     return Container(
-      child: !imagePickSel.value
-          ? CircleAvatar(
-        radius: 20,
-        backgroundImage:
-        NetworkImage(getStorage!.read(userAvatarUrl).toString()),
-      )
-          : CircleAvatar(
+      child:
+      // !imagePickSel.value
+      //     ? CircleAvatar(
+      //   radius: 20,
+      //   backgroundImage:
+      //   NetworkImage(getStorage!.read(userAvatarUrl).toString()),
+      // )
+          //:
+      CircleAvatar(
         backgroundImage: photoUrl.value.isEmpty
             ?  AssetImage('assets/images/avatar_img1.png')
             : AssetImage(""),

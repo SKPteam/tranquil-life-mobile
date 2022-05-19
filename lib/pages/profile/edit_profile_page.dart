@@ -6,14 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/edit_profile_controller.dart';
-import 'package:tranquil_life/controllers/onboarding_controller.dart';
-import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 class EditProfileView extends StatelessWidget {
   final EditProfileController _ = Get.put(EditProfileController());

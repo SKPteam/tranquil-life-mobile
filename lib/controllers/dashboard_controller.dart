@@ -5,7 +5,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
@@ -20,7 +19,6 @@ import 'package:tranquil_life/pages/profile/profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import 'package:tranquil_life/pages/wallet/wallet_page.dart';
 import 'package:tranquil_life/pages/profile/profile_page.dart';
@@ -141,7 +139,7 @@ class DashboardController extends GetxController {
     }
   }
 
-  Future clientProfile() async{
+  Future userProfile() async{
     String url = baseUrl + getClientProfilePath;
 
     var response = await get(
@@ -165,8 +163,8 @@ class DashboardController extends GetxController {
     }
 
     Future.delayed(Duration(seconds: 1), (){
-      // firstName = body['f_name'];
-      // lastName = body['l_name'];
+      firstName = body['f_name'];
+      lastName = body['l_name'];
       username.value = body['username'];
       // gender = body['gender'];
       // phoneNumber = body['phone'];
@@ -195,7 +193,7 @@ class DashboardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    clientProfile();
+    userProfile();
 
     print("YESS!!!");
 

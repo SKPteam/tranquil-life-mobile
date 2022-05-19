@@ -11,6 +11,11 @@ const String app_name = "Tranquil Life";
 const String client = 'client';
 const String consultant = 'consultant';
 
+//CLOUDINARY
+const String CLOUDINARY_NAME = "tranquil-life";
+const String UPLOAD_PRESET = "ml_default";
+const String CLOUDINARY_API_KEY = "552586961285433";
+
 // Form Error
 final RegExp emailValidatorRegExp =
 RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -159,14 +164,15 @@ RxString generatedPwd = RxString(" ");
 var timeFormat = DateFormat('kk:mm');
 var dateFormat = DateFormat('dd-MM-yyyy');
 
-const baseUrl = "https://cef0-168-253-119-198.eu.ngrok.io/api/";
+const baseUrl = "https://42a5-168-253-119-198.eu.ngrok.io/api/";
 //const baseUrl = "http://127.0.0.1:8000";
 //const baseUrl = "https://tranquil-api.herokuapp.com";
 
 //Post Api paths
 const clientRegisterPath = 'client/register';
 const consultantRegisterPath = 'consultant/register';
-const loginPath = 'client/login';
+//const loginPath = 'client/login';
+const loginPath = 'consultant/login';
 const clientAddJournal = 'client/addNote';
 const clientGetJournal = 'client/listNotes';
 const ifUsernameExistsPath = 'client/ifUsernameExists';

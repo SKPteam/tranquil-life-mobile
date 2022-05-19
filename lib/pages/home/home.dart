@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
@@ -72,13 +73,22 @@ class Home extends GetView<HomeController> {
                                       ),
                                       overflow: TextOverflow.ellipsis,
                                     ),
+                                    _dashboardController.userType.value == client ?
                                     CustomText(
                                       text: dashboardController.username.value.isEmpty ? "" : dashboardController.username.value,
                                       color: kPrimaryDarkColor,
                                       weight: FontWeight.w700,
                                       align: TextAlign.start,
                                       size: 26,
-                                    ),
+                                    ) :
+                                    CustomText(
+                                      text: dashboardController.firstName.value.isEmpty ? "" : dashboardController.firstName.value,
+                                      color: kPrimaryDarkColor,
+                                      weight: FontWeight.w700,
+                                      align: TextAlign.start,
+                                      size: 26,
+                                    )
+
                                   ],
                                 )),
                             Positioned(
