@@ -16,7 +16,6 @@ import 'package:tranquil_life/models/schedule_date_model.dart';
 import 'package:tranquil_life/pages/scheduling/widgets/consultantPortfolio.dart';
 import 'package:flutter/services.dart' as rootBundle;
 import 'package:http/http.dart' as http;
-import 'package:tranquil_life/pages/scheduling/scheduling_time/widgets/schedule_meeting_dialog.dart';
 
 import '../../models/consultant_model.dart';
 import '../../routes/app_pages.dart';

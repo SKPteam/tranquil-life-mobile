@@ -21,6 +21,7 @@ import 'package:tranquil_life/controllers/splash_screen_controller.dart';
 import 'package:tranquil_life/controllers/timeout_controller.dart';
 import 'package:tranquil_life/controllers/top_up_history_controller.dart';
 import 'package:tranquil_life/controllers/wallet_controller.dart';
+import 'package:tranquil_life/pages/isLoggedIn.dart';
 import 'package:tranquil_life/pages/onboarding/onboarding_one.dart';
 import 'package:tranquil_life/pages/onboarding/onboarding_two.dart';
 import 'package:tranquil_life/pages/registration/registration_one.dart';
@@ -32,8 +33,9 @@ import '../pages/dashboard/dashboard.dart';
 class AllControllerBinding extends Bindings{
   @override
   void dependencies() {
+    Get.lazyPut(() => IsLoggedIn());
     Get.lazyPut(() => SplashScreenController());
-    Get.lazyPut(() =>  OnBoardingController());
+    Get.lazyPut(() => OnBoardingController());
     Get.lazyPut(() => SignInController());
     Get.lazyPut(() => RegistrationOneController());
     Get.lazyPut(() => RegistrationTwoController());

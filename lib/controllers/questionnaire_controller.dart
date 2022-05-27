@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/main.dart';
-import 'package:tranquil_life/models/questionnaire_option.dart';
+import 'package:tranquil_life/models/questionnaire.dart';
 
 import '../services/http_services.dart';
 

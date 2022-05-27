@@ -16,7 +16,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:tranquil_life/main.dart';
-import 'package:tranquil_life/widgets/progress_custom_bar.dart';
 
 import '../constants/style.dart';
 import '../widgets/custom_snackbar.dart';

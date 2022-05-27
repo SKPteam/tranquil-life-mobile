@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
+import 'package:tranquil_life/services/http_services.dart';
 import 'constants/all_controller_binding.dart';
 import 'constants/app_font.dart';
 import 'constants/app_strings.dart';
@@ -15,11 +16,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
-
-  // firebaseFirestore = FirebaseFirestore.instance;
-  //
-  // otherConsltRegDetails =
-  //     firebaseFirestore!.collection('otherConsultantRegistrationDetails');
 
   if (kIsWeb) {
     await Firebase.initializeApp(
@@ -35,17 +31,11 @@ Future<void> main() async{
       ),
     );
 
-    // firebaseFirestore = FirebaseFirestore.instance;
-    //
-    // otherConsltRegDetails =
-    //     firebaseFirestore!.collection('otherConsultantRegistrationDetails');
   } else {
     await Firebase.initializeApp();
   }
 
   firebaseFirestore = FirebaseFirestore.instance;
-
-
 
   otherConsltRegDetails =
       firebaseFirestore!.collection('otherConsultantRegistrationDetails');
@@ -61,7 +51,6 @@ CollectionReference? otherConsltRegDetails;
 FirebaseStorage? fbStorage;
 
 final cloudinary = CloudinaryPublic(CLOUDINARY_NAME, UPLOAD_PRESET, cache: false);
-
 
 
 class MyApp extends StatelessWidget {

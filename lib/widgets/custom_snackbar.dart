@@ -12,6 +12,8 @@ class CustomSnackBar {
   }) {
     Get.snackbar(title, message,
         snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(milliseconds: 2000),
+        animationDuration: const Duration(milliseconds: 0),
         backgroundColor: backgroundColor,
         titleText: Text(
           title,

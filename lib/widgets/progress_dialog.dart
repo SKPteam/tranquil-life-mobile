@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tranquil_life/constants/style.dart';
 
 import 'package:tranquil_life/helpers/constants.dart';
 
-class ProgressDialog extends StatelessWidget{
-
-  final String message;
-  const ProgressDialog({Key? key, required this.message}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
+class ProgressDialog{
+  static void showProgressbar(message){
+    Dialog(
       child: Container(
         margin: const EdgeInsets.all(15.0),
         width: double.infinity,
@@ -34,6 +30,10 @@ class ProgressDialog extends StatelessWidget{
         ),
       ),
     );
+  }
+
+  static void cancelDialog() {
+    Get.back();
   }
 
 }

@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/models/mood.dart';
 
+import '../constants/app_strings.dart';
+
 
 class HomeController extends GetxController{
 
@@ -50,4 +52,7 @@ class HomeController extends GetxController{
 
     menuOptions = <String>[blog];
   }
+
+
+
 }

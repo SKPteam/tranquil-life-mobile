@@ -17,28 +17,9 @@ class EditProfileController extends GetxController {
 
   ProfileController profileController = Get.put(ProfileController());
 
-  //GetStorage? getStorage;
-  RxBool uploadingPhoto = false.obs;
-  RxString firstName = "".obs;
-  RxString lastName = "".obs;
-  RxString dob = "".obs;
-  RxString pin = "".obs;
-  RxString gender = "".obs;
-  RxString phoneNum = "".obs;
-  RxString timeZone = "".obs;
-  RxString bankName = "".obs;
-  RxString bankAddress = "".obs;
-  RxString homeAddress = "".obs;
-  RxString swiftCode = "".obs;
-  RxString workPlace = "".obs;
-  RxString workStatus = "".obs;
-  RxString areasOfExpertise = "".obs;
-  RxString yearsOfExperience = "".obs;
-  RxString preferredLangs = "".obs;
-  RxString fee = "".obs;
-  RxString IBAN = "".obs;
-  RxBool profileDataLoaded = true.obs;
-  RxBool imagePickSel = true.obs;
+
+  bool profileDataLoaded = true;
+  bool imagePickSel = true;
   List<TextEditingController> controllers = [
     TextEditingController(), TextEditingController(),
     TextEditingController(), TextEditingController(),

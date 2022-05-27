@@ -5,6 +5,7 @@ part of app_pages;
 abstract class Routes {
   Routes._();
 
+  static const IS_LOGGED_IN = _Paths.IS_LOGGED_IN;
   static const HOME = _Paths.HOME;
   static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
   static const TIMEOUT_SCREEN = _Paths.TIMEOUT_SCREEN;
@@ -34,6 +35,8 @@ abstract class Routes {
 }
 
 abstract class _Paths {
+  static const IS_LOGGED_IN = '/is-logged-in';
+
   static const HOME = '/home';
   static const SPLASH_SCREEN = '/splash_screen';
   static const TIMEOUT_SCREEN = '/timeout-screen';

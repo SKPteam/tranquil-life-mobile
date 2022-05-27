@@ -95,7 +95,7 @@ const List payment_options = [
 ];
 
 
-const List<String> monthsFromIndex = [
+const List<String> months = [
   'January',
   'February',
   'March',
@@ -110,6 +110,10 @@ const List<String> monthsFromIndex = [
   'December'
 ];
 const days = ['Mon', 'Tue', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'];
+const dayTimeList = ['06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00',
+  '14:00', '15:00', '16:00', '17:00'];
+const nightTimeList = ['18:00', '19:00', '20:00', '21:00', '22:00', '23:00',
+  '00:00', '01:00', '02:00', '03:00', '04:00', '05:00'];
 
 //currencyconv api client
 final Uri currencyURL = Uri.http("free.currconv.com", "/api/v7/currencies",
@@ -164,15 +168,17 @@ RxString generatedPwd = RxString(" ");
 var timeFormat = DateFormat('kk:mm');
 var dateFormat = DateFormat('dd-MM-yyyy');
 
-const baseUrl = "https://42a5-168-253-119-198.eu.ngrok.io/api/";
-//const baseUrl = "http://127.0.0.1:8000";
+const isAuthenticated = "User is authenticated";
+const isNotAuthenticated = "User is not authenticated";
+
+const baseUrl = "https://3b8a-197-210-8-189.eu.ngrok.io/api/";
 //const baseUrl = "https://tranquil-api.herokuapp.com";
 
 //Post Api paths
 const clientRegisterPath = 'client/register';
 const consultantRegisterPath = 'consultant/register';
-//const loginPath = 'client/login';
-const loginPath = 'consultant/login';
+const isConsultantAuthenticatedPath = 'consultant/isAuthenticated';
+const loginPath = 'client/login';
 const clientAddJournal = 'client/addNote';
 const clientGetJournal = 'client/listNotes';
 const ifUsernameExistsPath = 'client/ifUsernameExists';
@@ -184,14 +190,16 @@ const addCardPath = 'client/addCard';
 const setDefaultCardPath = 'client/setDefaultCard';
 const bankTransferPath = 'transfer/pay';
 const mobileMoneyTransferPath = 'transfer/flw';
-const logoutPath = 'client/logout';
+const clientLogoutPath = 'client/logOut';
+const consultantLogoutPath = 'consultant/logOut';
 
 
 //Get Api Paths
 const listCardsPath = 'client/listCards';
 const getClientProfilePath = 'client/getProfile';
+const getConsultantProfilePath = 'consultant/getProfile';
 const getAllPartnersPath = 'client/listPartners';
-const  listQuestionsPath = 'client/listQuestions';
+const listQuestionsPath = 'client/listQuestions';
 const getAllConsultantsPath = 'client/listConsultants';
 
 

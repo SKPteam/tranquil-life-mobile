@@ -35,6 +35,7 @@ class DashboardController extends GetxController {
 
   RxBool toggleValue = false.obs;
 
+
   RxInt tabIndex = 0.obs;
   String? moodSelected;
 
@@ -84,6 +85,8 @@ class DashboardController extends GetxController {
   RxString username = "".obs;
   RxString firstName = "".obs;
   RxString lastName = "".obs;
+  RxString dob = "".obs;
+  RxString pin = "".obs;
   RxString email = "".obs;
   RxString workPlace = "".obs;
   RxString discount = "".obs;
@@ -97,6 +100,17 @@ class DashboardController extends GetxController {
   RxString fcmToken = "".obs;
   RxString companyID = "".obs;
   RxString staffID = "".obs;
+  RxString timeZone = "".obs;
+  RxString bankName = "".obs;
+  RxString bankAddress = "".obs;
+  RxString homeAddress = "".obs;
+  RxString swiftCode = "".obs;
+  RxString workStatus = "".obs;
+  RxString areasOfExpertise = "".obs;
+  RxString yearsOfExperience = "".obs;
+  RxString preferredLangs = "".obs;
+  RxString fee = "".obs;
+  RxString IBAN = "".obs;
   RxInt dayOfBirth = 0.obs;
   RxInt monthOfBirth = 0.obs;
   RxInt yearOfBirth = 0.obs;
@@ -106,7 +120,6 @@ class DashboardController extends GetxController {
   // late QuerySnapshot myTotalConsultationsForThisMonth;
 
   RxString accountNumber = "".obs;
-  RxString bankName = "".obs;
 
   RxBool locked = false.obs;
 
@@ -140,7 +153,13 @@ class DashboardController extends GetxController {
   }
 
   Future userProfile() async{
-    String url = baseUrl + getClientProfilePath;
+
+    var apiPath = sharedPreferences!.getString("userType")
+        .toString() == client
+        ? getClientProfilePath
+        : getConsultantProfilePath;
+
+    var url = baseUrl + apiPath;
 
     var response = await get(
         Uri.parse(url),
@@ -153,39 +172,54 @@ class DashboardController extends GetxController {
 
     var body = jsonDecode(response.body);
 
-    if(body['username'] == null){
-      userType.value = consultant;
-      //sharedPreferences!.setString('username', body['f_name'] + body['l_name']);
-    }else{
-      userType.value = client;
-      //sharedPreferences!.setString('username', body['username']);
 
-    }
+    Future.delayed(Duration(seconds: 1),(){
+      if(sharedPreferences!.getString("userType")
+          .toString() == client)
+      {
+        firstName.value = body['f_name'];
+        lastName.value = body['l_name'];
+        username.value = body['username'];
+        // gender = body['gender'];
+        phoneNumber.value = body['phone'];
+        // email = body['email'];
+        // screenTimeoutPin = body['screen_timeout_pin'];
+        // avatarUrl = body['avatar_url'];
+        // latitude = body['latitude'];
+        // longitude = body['longitude'];
+        // onlineStatus = body['online_status'];
+        // dayOfBirth = body['day_of_birth'];
+        // monthOfBirth = body['month_of_birth'];
+        // yearOfBirth = body['year_of_birth'];
+        // fcmToken = body['fcm_token'];
+        // companyID = body['company_id'];
+        // staffID = body['staffID'];
 
-    Future.delayed(Duration(seconds: 1), (){
-      firstName = body['f_name'];
-      lastName = body['l_name'];
-      username.value = body['username'];
-      // gender = body['gender'];
-      // phoneNumber = body['phone'];
-      // email = body['email'];
-      // screenTimeoutPin = body['screen_timeout_pin'];
-      // avatarUrl = body['avatar_url'];
-      // latitude = body['latitude'];
-      // longitude = body['longitude'];
-      // onlineStatus = body['online_status'];
-      // dayOfBirth = body['day_of_birth'];
-      // monthOfBirth = body['month_of_birth'];
-      // yearOfBirth = body['year_of_birth'];
-      // fcmToken = body['fcm_token'];
-      // companyID = body['company_id'];
-      // staffID = body['staffID'];
+        sharedPreferences!.setString("display_name", username.value);
+      }
+      else{
+        firstName.value = body['f_name'];
+        lastName.value = body['l_name'];
+        // gender = body['gender'];
+        phoneNumber.value = body['phone'];
+        // email = body['email'];
+        // screenTimeoutPin = body['screen_timeout_pin'];
+        // avatarUrl = body['avatar_url'];
+        // latitude = body['latitude'];
+        // longitude = body['longitude'];
+        // onlineStatus = body['online_status'];
+        // dayOfBirth = body['day_of_birth'];
+        // monthOfBirth = body['month_of_birth'];
+        // yearOfBirth = body['year_of_birth'];
+        // fcmToken = body['fcm_token'];
+        // companyID = body['company_id'];
+        // staffID = body['staffID'];
 
-      print(jsonDecode(response.body).toString());
-      print(sharedPreferences!.getString("accessToken"));
+        username.value = body['f_name'];
+        sharedPreferences!.setString("display_name", username.value);
+      }
 
       return jsonDecode(response.body);
-
     });
 
   }

@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:share_plus/share_plus.dart';
@@ -106,8 +106,10 @@ class AppSettingsView extends GetView<AppSettingsController> {
                             svgUrl: 'assets/icons/icon-metro-exit.svg',
                             text: 'Log out',
                             color: Colors.black,
-                            onTap: (){
-                              appSettingsController.logOut().then((value) => Navigator.pushNamedAndRemoveUntil(context, Routes.SIGN_IN, (route) => false));
+                            onTap: () async{
+                              await appSettingsController.logOut();
+
+                              Get.offNamedUntil(Routes.SIGN_IN, (route) => false);
                             },
                           ),
                         ]),

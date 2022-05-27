@@ -184,6 +184,7 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
       // },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(
@@ -390,6 +391,7 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 16,
+                                                    color: light,
                                                     fontFamily: josefinSansRegular
                                                 ),
                                               ),
@@ -407,6 +409,7 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w400,
                                                     fontSize: 16,
+                                                    color: light,
                                                     fontFamily: josefinSansRegular
                                                 ),
                                               ),

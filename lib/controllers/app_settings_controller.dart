@@ -18,7 +18,9 @@ class AppSettingsController extends GetxController {
   }
 
   Future logOut() async{
-    String url = baseUrl + logoutPath;
+    String url = baseUrl +
+        (sharedPreferences!.getString(userType) == client
+            ? clientLogoutPath : consultantLogoutPath);
 
     var response = await post(Uri.parse(url),
         headers: {

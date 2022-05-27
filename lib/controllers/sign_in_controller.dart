@@ -13,20 +13,20 @@ class SignInController extends GetxController{
   String? accessToken;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController emailTextEditingController = TextEditingController(text: "ayomide@tranquil-life.health");
+  TextEditingController emailTextEditingController = TextEditingController(text:"tundednut@gmail.com");
   TextEditingController passwordTextEditingController = TextEditingController(text: "passw1@");
 
   RxBool obscureText = RxBool(true);
 
-  togglePassword(){
-    obscureText.value = !(obscureText.value);
+  void togglePassword() {
+    obscureText.value = !obscureText.value;
   }
 
   Future login(String email, String password) async {
     ProgressDialogHelper().showProgressDialog(Get.context!, "Authenticating...");
     String url = baseUrl + loginPath;
 
-    var requestBody = {'email': email, 'password': password,};
+    var requestBody = {'email': email, 'password': password};
     var response = await post(Uri.parse(url),
         headers: {
           "Content-type": "application/json",

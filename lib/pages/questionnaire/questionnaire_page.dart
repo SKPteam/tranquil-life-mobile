@@ -10,7 +10,7 @@ import 'package:tranquil_life/controllers/questionnaire_controller.dart';
 import 'package:tranquil_life/helpers/bottom_sheet_helper.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
-import 'package:tranquil_life/models/questionnaire_option.dart';
+import 'package:tranquil_life/models/questionnaire.dart';
 
 import '../../routes/app_pages.dart';
 

@@ -6,6 +6,7 @@ import 'package:tranquil_life/pages/dashboard/dashboard.dart';
 import 'package:tranquil_life/models/journal_model.dart';
 import 'package:tranquil_life/pages/chat/chat_history.dart';
 import 'package:tranquil_life/pages/chat/chatroom.dart';
+import 'package:tranquil_life/pages/isLoggedIn.dart';
 import 'package:tranquil_life/pages/journal/journal_history_page.dart';
 import 'package:tranquil_life/pages/journal/journal_page.dart';
 import 'package:tranquil_life/pages/journal/selected_note_page.dart';
@@ -25,7 +26,7 @@ import 'package:tranquil_life/pages/wallet/add_new_card.dart';
 import 'package:tranquil_life/pages/wallet/wallet_page.dart';
 
 import '../pages/scheduling/consultant_list_view.dart';
-import '../splash_screen.dart';
+import '../pages/splah_screen/splash_screen.dart';
 
 part 'app_routes.dart';
 
@@ -33,12 +34,17 @@ class AppPages {
   AppPages._();
 
 
-  static const INITIAL = Routes.ON_BOARDING_TWO;
+
+  static const INITIAL = Routes.IS_LOGGED_IN;
 
   static final routes = [
     GetPage(
+      name: _Paths.IS_LOGGED_IN,
+      page: () => IsLoggedIn(),
+    ),
+    GetPage(
       name: _Paths.SPLASH_SCREEN,
-      page: () => SplashScreenView(),
+      page: () => SplashScreen(),
     ),
     GetPage(
       name: _Paths.ON_BOARDING_ONE,

@@ -12,14 +12,12 @@ import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/main.dart';
-import 'package:tranquil_life/widgets/progress_custom_bar.dart';
-
+import 'package:tranquil_life/widgets/progress_dialog.dart';
 import '../constants/controllers.dart';
 import '../constants/style.dart';
 import '../helpers/flush_bar_helper.dart';
 import '../helpers/progress-dialog_helper.dart';
 import '../routes/app_pages.dart';
-import '../widgets/custom_loader.dart';
 import '../widgets/custom_snackbar.dart';
 
 class RegistrationFourController extends GetxController {
@@ -58,7 +56,7 @@ class RegistrationFourController extends GetxController {
           onProgress: (count, total) {
             passportUploadPercentage.value = (count / total) * 100;
 
-            ProgressCustomSnackBar
+            CustomSnackBar
                 .showSnackBar(
                 context: Get.context!,
                 title: "Uploading Passport...",
@@ -75,7 +73,7 @@ class RegistrationFourController extends GetxController {
           onProgress: (count, total) {
             cvUploadPercentage.value = (count / total) * 100;
 
-            ProgressCustomSnackBar
+            CustomSnackBar
                 .showSnackBar(
                 context: Get.context!,
                 title: "Uploading Resumé...",
@@ -162,14 +160,14 @@ class RegistrationFourController extends GetxController {
 
     final url = await storage.getDownloadURL();
 
-    CustomLoader.cancelDialog();
+    ProgressDialog;
     return url;
   }
 
   Future saveConsultantProfile() async{
     await saveFilesToCloudinary();
 
-    CustomLoader.cancelDialog();
+    ProgressDialog.cancelDialog();
 
     registerConsultant();
   }

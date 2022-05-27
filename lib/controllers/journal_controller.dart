@@ -6,45 +6,13 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/helpers/progress-dialog_helper.dart';
 import 'package:uuid/uuid.dart';
 import '../helpers/flush_bar_helper.dart';
-import '../helpers/progress-dialog_helper.dart';
 import '../routes/app_pages.dart';
 
 class JournalController extends GetxController {
   static JournalController instance = Get.find();
-
-
-  //Method for Client to add journal
-  addJournal(String? messageHeader, String? messageBody, String moodSvgUrl)async{
-    ProgressDialogHelper().showProgressDialog(Get.context!, "Adding Journal...");
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    final token = sharedPreferences.get('accessToken');
-
-    String url = baseUrl + clientAddJournal;
-    Map<String, String> header = {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization" : "Bearer $token"
-    };
-    var body = {
-      "heading": messageHeader,
-      "body": messageBody,
-      "moodSvgUrl": moodSvgUrl,
-    };
-
-    final response = await post(Uri.parse(url), headers: header, body: json.encode(body));
-    final result = json.decode(response.body);
-    if(result["note"] != null){
-      ProgressDialogHelper().hideProgressDialog(Get.context!);
-      Get.toNamed(Routes.JOURNAL_HISTORY);
-      FlushBarHelper(Get.context!).showFlushBar("Successful!", color: Colors.green);
-    }else{
-      ProgressDialogHelper().hideProgressDialog(Get.context!);
-      FlushBarHelper(Get.context!).showFlushBar("The body must not be greater than 255 characters.", color: Colors.red);
-      throw Exception("Unable to add note");
-    }
-  }
 
   Size size = MediaQuery.of(Get.context!).size;
 
@@ -91,22 +59,36 @@ class JournalController extends GetxController {
     }
   }
 
-  @override
-  void onInit() {
-    super.onInit();
+  //Method for Client to add journal
+  addJournal(String? messageHeader, String? messageBody, String moodSvgUrl)async{
+    ProgressDialogHelper().showProgressDialog(Get.context!, "Adding Journal...");
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final token = sharedPreferences.get('accessToken');
+
+    String url = baseUrl + clientAddJournal;
+    Map<String, String> header = {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization" : "Bearer $token"
+    };
+    var body = {
+      "heading": messageHeader,
+      "body": messageBody,
+      "moodSvgUrl": moodSvgUrl,
+    };
+
+    final response = await post(Uri.parse(url), headers: header, body: json.encode(body));
+    final result = json.decode(response.body);
+    if(result["note"] != null){
+      ProgressDialogHelper().hideProgressDialog(Get.context!);
+      Get.toNamed(Routes.JOURNAL_HISTORY);
+      FlushBarHelper(Get.context!).showFlushBar("Successful!", color: Colors.green);
+    }else{
+      ProgressDialogHelper().hideProgressDialog(Get.context!);
+      FlushBarHelper(Get.context!).showFlushBar("The body must not be greater than 255 characters.", color: Colors.red);
+      throw Exception("Unable to add note");
+    }
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
 }
 
-
-
-
-//TODO: Implement business logic for every feature in the Journal page here:
-//TODO: everything for journal and journal history

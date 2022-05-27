@@ -8,7 +8,8 @@ import 'package:tranquil_life/controllers/splash_screen_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 
 
-class SplashScreenView extends StatelessWidget {
+class SplashScreen extends StatelessWidget {
+  final SplashScreenController _ = Get.put(SplashScreenController());
   @override
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(
