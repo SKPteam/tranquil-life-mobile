@@ -15,10 +15,10 @@ import 'widgets/onBoardingContent.dart';
 class OnBoardingOne extends GetView<OnBoardingController> {
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSafeArea(
-        responsiveBuilder: (context, size){
-          return Scaffold(
-            body: Obx(()=>
+    return Scaffold(
+      body: ResponsiveSafeArea(
+          responsiveBuilder: (context, size){
+            return Obx(()=>
                 SizedBox(
                   width: double.infinity,
                   child: Column(
@@ -77,9 +77,9 @@ class OnBoardingOne extends GetView<OnBoardingController> {
                       )
                     ],
                   ),
-                )),
-          );
-        }
+                ));
+          }
+      )
     );
   }
 

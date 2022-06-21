@@ -8,8 +8,8 @@ import '../constants/app_strings.dart';
 
 
 class HomeController extends GetxController{
-
   static HomeController instance = Get.find();
+
   String blog = 'Blog';
   String signOut = 'Sign out';
   ValueNotifier<bool> anonymous = ValueNotifier(isAnonymousInTheApp);
@@ -49,6 +49,8 @@ class HomeController extends GetxController{
   @override
   void onInit() {
     super.onInit();
+
+    print("HOME!!!!!!");
 
     menuOptions = <String>[blog];
   }

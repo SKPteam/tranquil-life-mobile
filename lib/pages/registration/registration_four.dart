@@ -34,7 +34,7 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
   final RegistrationOneController _registrationOneController = Get.put(RegistrationOneController());
   final RegistrationTwoController _registrationTwoController = Get.put(RegistrationTwoController());
   final RegistrationThreeController _registrationThreeController = Get.put(RegistrationThreeController());
-  final RegistrationFourController _ = Get.put(RegistrationFourController());
+  //final RegistrationFourController _ = Get.put(RegistrationFourController());
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +91,7 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       showCursor: true,
                       obscureText: false,
                       togglePassword: () {},
-                      textEditingController: _.homeAddressTEC,
+                      textEditingController: registrationFourController.homeAddressTEC,
                     ),
                   ),
                   SizedBox(height: displayHeight(context) * 0.020),
@@ -105,7 +105,7 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       showCursor: true,
                       obscureText: false,
                       togglePassword: () {},
-                      textEditingController: _.accountNumberTEC,
+                      textEditingController: registrationFourController.accountNumberTEC,
                     ),
                   ),
                   SizedBox(height: displayHeight(context) * 0.020),
@@ -119,7 +119,7 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       showCursor: true,
                       obscureText: false,
                       togglePassword: () {},
-                      textEditingController: _.bankNameTEC,
+                      textEditingController: registrationFourController.bankNameTEC,
                     ),
                   ),
                   SizedBox(height: displayHeight(context) * 0.020),
@@ -133,7 +133,7 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       showCursor: true,
                       obscureText: false,
                       togglePassword: () {},
-                      textEditingController: _.bankAddressTEC,
+                      textEditingController: registrationFourController.bankAddressTEC,
                     ),
                   ),
                   SizedBox(height: displayHeight(context) * 0.020),
@@ -149,7 +149,7 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       obscureText: false,
                       togglePassword: () {},
                       textEditingController:
-                      _.ibanTextEditingController,
+                      registrationFourController.ibanTextEditingController,
                     ),
                   ),
                   SizedBox(height: displayHeight(context) * 0.020),
@@ -163,7 +163,7 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       showCursor: true,
                       obscureText: false,
                       togglePassword: () {},
-                      textEditingController: _.swiftCodeTEC,
+                      textEditingController: registrationFourController.swiftCodeTEC,
                     ),
                   ),
 
@@ -172,14 +172,14 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       width: double.infinity,
                       child: ElevatedButton(
                           onPressed: () {
-                            _.saveConsultantProfile();
+                            registrationFourController.saveConsultantProfile();
 
-                            // if (_.homeAddressTEC.text.isEmpty ||
-                            //     _.bankAddressTEC.text.isEmpty ||
-                            //     _.bankAddressTEC.text.isEmpty ||
-                            //     _.ibanTextEditingController.text
+                            // if (registrationFourController.homeAddressTEC.text.isEmpty ||
+                            //     registrationFourController.bankAddressTEC.text.isEmpty ||
+                            //     registrationFourController.bankAddressTEC.text.isEmpty ||
+                            //     registrationFourController.ibanTextEditingController.text
                             //         .isEmpty ||
-                            //     _.swiftCodeTEC.text.isEmpty) {
+                            //     registrationFourController.swiftCodeTEC.text.isEmpty) {
                             //   CustomSnackBar.showSnackBar(
                             //       context: context,
                             //       title: "Error",
@@ -190,7 +190,7 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                             //       RegistrationOneController>()
                             //       .emailTextEditingController
                             //       .text);
-                            //   _.saveConsultantProfile();
+                            //   registrationFourController.saveConsultantProfile();
                             //   print("registering consultant");
                             // }
                           },

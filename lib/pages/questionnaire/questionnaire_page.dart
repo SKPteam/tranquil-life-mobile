@@ -21,7 +21,6 @@ class QuestionnaireView extends StatefulWidget {
 
 class _QuestionnaireViewState extends State<QuestionnaireView>
     with TickerProviderStateMixin {
-  final QuestionnaireController _questionnaireController = Get.put(QuestionnaireController());
   final PageController pageController = PageController();
 
   int currentIndex = 0;

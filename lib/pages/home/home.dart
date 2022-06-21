@@ -35,9 +35,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
-  final DashboardController _dashboardController = Get.put(DashboardController());
-  final HomeController? _controller = Get.put(HomeController());
-
   @override
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(
@@ -204,7 +201,7 @@ class _HomeState extends State<Home> {
                               sharedPreferences!.getString(userType) == client
                                   ? SelectMood(
                                   moodOnTap: (int index, [moodSvgUrl]) {
-                                    _dashboardController.setBottomBarIndex(index, moodSvgUrl!);
+                                    dashboardController.setBottomBarIndex(index, moodSvgUrl!);
                                   })
                                   : Center(
                                 child: ClipRRect(

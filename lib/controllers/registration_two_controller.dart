@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -80,7 +79,7 @@ class RegistrationTwoController extends GetxController {
   late String country, currentLocation;
 
   var geoLocator = Geolocator(); // geoLocator is an instance of GeoLocator
-  late List<Placemark> placemark;
+  //late List<Placemark> placemark;
 
   var now;
 
@@ -129,41 +128,41 @@ class RegistrationTwoController extends GetxController {
     }
   }
 
-  locatePosition() async {
-    try {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-      currentPosition = position;
-
-      print(
-          'LAT: ${currentPosition.latitude.toString()} \n LON: ${currentPosition.longitude.toString()}');
-
-      placemark = await placemarkFromCoordinates(
-          currentPosition.latitude, currentPosition.longitude);
-
-      var now = DateTime.now();
-
-      String _printDuration(Duration duration) {
-        String twoDigits(int n) => n.toString().padLeft(2, "0");
-        String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-        return "${twoDigits(duration.inHours)}:$twoDigitMinutes";
-      }
-
-      print(
-          'GMT ${now.timeZoneOffset.isNegative ? '' : '+'}${_printDuration(now.timeZoneOffset)}');
-
-      country = '${placemark[0].country}/${placemark[0].administrativeArea}';
-      currentLocation =
-      '$country/${placemark[0].locality}/${placemark[0].subLocality}/${placemark[0].name}';
-
-      timeZoneEditingController.text =
-      'GMT ${now.timeZoneOffset.isNegative ? '' : '+'}${_printDuration(now.timeZoneOffset)}';
-
-      locationEditingController.text = country;
-    } catch (e) {
-      print('ERROR: ' + e.toString());
-    }
-  }
+  // locatePosition() async {
+  //   try {
+  //     Position position = await Geolocator.getCurrentPosition(
+  //         desiredAccuracy: LocationAccuracy.best);
+  //     currentPosition = position;
+  //
+  //     print(
+  //         'LAT: ${currentPosition.latitude.toString()} \n LON: ${currentPosition.longitude.toString()}');
+  //
+  //     placemark = await placemarkFromCoordinates(
+  //         currentPosition.latitude, currentPosition.longitude);
+  //
+  //     var now = DateTime.now();
+  //
+  //     String _printDuration(Duration duration) {
+  //       String twoDigits(int n) => n.toString().padLeft(2, "0");
+  //       String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+  //       return "${twoDigits(duration.inHours)}:$twoDigitMinutes";
+  //     }
+  //
+  //     print(
+  //         'GMT ${now.timeZoneOffset.isNegative ? '' : '+'}${_printDuration(now.timeZoneOffset)}');
+  //
+  //     country = '${placemark[0].country}/${placemark[0].administrativeArea}';
+  //     currentLocation =
+  //     '$country/${placemark[0].locality}/${placemark[0].subLocality}/${placemark[0].name}';
+  //
+  //     timeZoneEditingController.text =
+  //     'GMT ${now.timeZoneOffset.isNegative ? '' : '+'}${_printDuration(now.timeZoneOffset)}';
+  //
+  //     locationEditingController.text = country;
+  //   } catch (e) {
+  //     print('ERROR: ' + e.toString());
+  //   }
+  // }
 
 
   // choose image from camera

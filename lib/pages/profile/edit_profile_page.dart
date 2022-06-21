@@ -11,9 +11,8 @@ import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/edit_profile_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/main.dart';
 class EditProfileView extends StatelessWidget {
-  final EditProfileController _ = Get.put(EditProfileController());
-
   EditProfileView({Key? key}) : super(key: key);
 
   @override
@@ -49,9 +48,9 @@ class EditProfileView extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            // print('PHOTOOOOOO: ${_.photoUrl.value}');
-                            // await _.updateToUserDatabase();
-                            // Get.back(result: _.photoUrl.value);
+                            // print('PHOTOOOOOO: ${editProfileController.photoUrl.value}');
+                            // await editProfileController.updateToUserDatabase();
+                            // Get.back(result: editProfileController.photoUrl.value);
                             Navigator.of(context).pop('done');
                           },
                           child: Text(
@@ -78,7 +77,7 @@ class EditProfileView extends StatelessWidget {
                           child: SingleChildScrollView(
                             physics: BouncingScrollPhysics(),
                             child: true
-                                //_.profileDataLoaded.isTrue
+                                //editProfileController.profileDataLoaded.isTrue
                                 ? Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -87,57 +86,57 @@ class EditProfileView extends StatelessWidget {
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      _.editPhoto(context),
+                                      editProfileController.editPhoto(context),
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      _.editField(context,
+                                      editProfileController.editField(context,
                                           title: 'First Name',
-                                          controller: _.controllers[0],
+                                          controller: editProfileController.controllers[0],
                                           inputFormattors: [],
                                           onTapped: () {}),
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      _.editField(context,
+                                      editProfileController.editField(context,
                                           title: 'Last Name',
-                                          controller: _.controllers[1],
+                                          controller: editProfileController.controllers[1],
                                           inputFormattors: [],
                                           onTapped: () {}),
                                       SizedBox(
                                         height: 50,
                                       ),
-                                      _.editField(context,
+                                      editProfileController.editField(context,
                                           title: 'Date of Birth',
-                                          controller: _.controllers[2],
+                                          controller: editProfileController.controllers[2],
                                           readOnly: true,
                                           inputFormattors: [],
                                           onTapped: () {}),
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      _.editField(context,
+                                      editProfileController.editField(context,
                                           title: 'Gender',
-                                          controller: _.controllers[3],
+                                          controller: editProfileController.controllers[3],
                                           readOnly: false,
                                           inputFormattors: [],
                                           onTapped: () {}),
                                       SizedBox(
                                         height: 30,
                                       ),
-                                      _.editField(context,
+                                      editProfileController.editField(context,
                                           title: 'Location',
-                                          controller: _.controllers[4],
+                                          controller: editProfileController.controllers[4],
                                           readOnly: true,
                                           inputFormattors: [],
                                           onTapped: () {}),
                                       SizedBox(
                                         height: 40,
                                       ),
-                                      _.editField(
+                                      editProfileController.editField(
                                         context,
                                         title: 'Phone',
-                                        controller: _.controllers[5],
+                                        controller: editProfileController.controllers[5],
                                         inputFormattors: [
                                           FilteringTextInputFormatter
                                               .digitsOnly,
@@ -147,30 +146,31 @@ class EditProfileView extends StatelessWidget {
                                       SizedBox(
                                         height: 40,
                                       ),
-                                      _.editField(context,
+                                      editProfileController.editField(context,
                                           title: 'Time zone',
-                                          controller: _.controllers[6],
+                                          controller: editProfileController.controllers[6],
                                           readOnly: true,
                                           onTapped: () {},
                                           inputFormattors: []),
                                       SizedBox(
                                         height: 40,
                                       ),
-                                      _.editField(context,
+                                      editProfileController.editField(context,
                                           title: 'App lock pin',
-                                          controller: _.controllers[7],
+                                          controller: editProfileController.controllers[7],
                                           readOnly: true,
                                           onTapped: () {},
                                           inputFormattors: []),
                                       SizedBox(
                                         height: 40,
                                       ),
-                                      if (dashboardController.userType.value ==
+                                      if (sharedPreferences!.getString("userType")
+                                          .toString() ==
                                           consultant)
-                                        _.editField(
+                                        editProfileController.editField(
                                           context,
                                           title: 'Bank Name',
-                                          controller: _.controllers[8],
+                                          controller: editProfileController.controllers[8],
                                           inputFormattors: [
                                             FilteringTextInputFormatter.allow(
                                                 RegExp(r"[a-zA-Z]+|\s"))
@@ -180,12 +180,13 @@ class EditProfileView extends StatelessWidget {
                                       SizedBox(
                                         height: 15,
                                       ),
-                                      if (dashboardController.userType.value ==
+                                      if (sharedPreferences!.getString("userType")
+                                          .toString() ==
                                           consultant)
-                                        _.editField(
+                                        editProfileController.editField(
                                           context,
                                           title: 'IBAN',
-                                          controller: _.controllers[9],
+                                          controller: editProfileController.controllers[9],
                                           inputFormattors: [
                                             FilteringTextInputFormatter
                                                 .digitsOnly,
@@ -208,7 +209,7 @@ class EditProfileView extends StatelessWidget {
                 ],
               ),
 
-              //_.uploadingPhoto.value ?
+              //editProfileController.uploadingPhoto.value ?
               // Container(
               //   height: displayHeight(context),
               //   width: displayWidth(context),

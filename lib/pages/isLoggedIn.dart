@@ -41,7 +41,7 @@ class _IsLoggedInState extends State<IsLoggedIn> {
         Get.offAllNamed(Routes.SPLASH_SCREEN);
       }
 
-      print("isAUTHENTICATED:POST: ${jsonDecode(value!.body)}");
+      print("isAUTHENTICATED:POST: ${jsonDecode(value.body)}");
     });
   }
 

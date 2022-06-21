@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:location/location.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
@@ -16,8 +17,6 @@ import 'edit_profile_page.dart';
 
 class ProfileView extends StatefulWidget {
 
-
-
   final void Function(int index) setBottomBarIndex;
 
   Size size = MediaQuery.of(Get.context!).size;
@@ -29,7 +28,41 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  final ProfileController _ = Get.put(ProfileController());
+  Location location = Location();
+  late LocationData locationData;
+
+  getCurrentLocation() async {
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+    locationData = await location.getLocation();
+    //_initialCameraPosition = LatLng(LocationData.latitude!,LocationData.longitude!);
+    dashboardController.setLatitude(locationData.latitude!);
+    dashboardController.setLongitude(locationData.longitude!);
+
+    print("${locationData.latitude!} : ${locationData.longitude!}");
+  }
+
+  @override
+  void initState() {
+    print("HHH");
+    getCurrentLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +159,7 @@ class _ProfileViewState extends State<ProfileView> {
                               sharedPreferences!.getString("userType") ==
                                       client
                                   ? Text(
-                                      dashboardController.username.value == null
+                                      dashboardController.username.value.isEmpty
                                           ? ""
                                           : dashboardController.username.value,
                                       style: TextStyle(
@@ -135,10 +168,9 @@ class _ProfileViewState extends State<ProfileView> {
                                           color: kPrimaryDarkColor),
                                     )
                                   : Text(
-                                      "Dr Julius",
-                                      // !DashboardController.to.firstName!.value.isNull
-                                      //     ? DashboardController.to.firstName!.value
-                                      //     : '',
+                                      dashboardController.firstName.value.isNotEmpty
+                                          ? dashboardController.firstName.value
+                                          : '',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 20,
@@ -149,16 +181,6 @@ class _ProfileViewState extends State<ProfileView> {
                               ),
                               Text(
                                 "Lekki, Nigeria",
-                                // !Get.find<HomeController>()
-                                //     .location!.value.substring(
-                                //     0,
-                                //     Get.find<HomeController>().location!.value.indexOf("/")).isNull
-                                //     ? Get.find<HomeController>()
-                                //     .location!
-                                //     .value
-                                //     .substring(
-                                //     0, Get.find<HomeController>().location!.value.indexOf("/")).toString()
-                                //     : '',
                                 style: TextStyle(
                                     fontSize: 14, color: kPrimaryColor),
                               )

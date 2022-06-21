@@ -12,11 +12,11 @@ import 'package:tranquil_life/routes/app_pages.dart';
 class OnBoardingTwo extends GetView<GetView<OnBoardingController>> {
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSafeArea(
-      responsiveBuilder: (context, size){
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Container(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: ResponsiveSafeArea(
+        responsiveBuilder: (context, size){
+          return Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/bg_img1.png'),
@@ -121,9 +121,9 @@ class OnBoardingTwo extends GetView<GetView<OnBoardingController>> {
                   )
                 ],
               )
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

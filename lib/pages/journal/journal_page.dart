@@ -11,6 +11,7 @@ import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/journal_controller.dart';
 import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/main.dart';
 import 'package:tranquil_life/pages/journal/widgets/note_item.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 import 'package:tranquil_life/widgets/custom_snackbar.dart';
@@ -125,240 +126,240 @@ class _JournalViewState extends State<JournalView> with SingleTickerProviderStat
 
     return ResponsiveSafeArea(
       responsiveBuilder: (context, size) =>
-          Scaffold(resizeToAvoidBottomInset: false, backgroundColor: kLightBackgroundColor,
-        body: dashboardController.userType == client ?
-        SingleChildScrollView(
-            child: Container(
-              height: size.height,
-              padding:  EdgeInsets.all(20),
-              child: Column(
-                // mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(convertedDate,
-                        style: TextStyle(
-                          color: kPrimaryDarkColor,
-                          fontSize: 16,
+      sharedPreferences!.getString("userType")
+          .toString() == client ?
+      SingleChildScrollView(
+          child: Container(
+            height: size.height,
+            padding:  EdgeInsets.all(20),
+            child: Column(
+              // mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(convertedDate,
+                      style: TextStyle(
+                        color: kPrimaryDarkColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Container(
+                      height: 35,
+                      width: 35,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.JOURNAL_HISTORY);
+                        },
+                        child: Icon(
+                          Icons.list,
+                          color: kPrimaryColor,
+                          //size: size.width * 0.06,
                         ),
                       ),
-                      Container(
-                        height: 35,
-                        width: 35,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.toNamed(Routes.JOURNAL_HISTORY);
-                          },
-                          child: Icon(
-                            Icons.list,
-                            color: kPrimaryColor,
-                            //size: size.width * 0.06,
-                          ),
-                        ),
-                      )
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                if (widget.moodSvgUrl!.isNotEmpty)
+                  Row(mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(widget.moodSvgUrl!, height: 60),
                     ],
                   ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  if (widget.moodSvgUrl!.isNotEmpty)
-                    Row(mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset(widget.moodSvgUrl!, height: 60),
-                      ],
-                    ),
-                  AnimatedBuilder(
-                    animation: journalController.textAnim!,
-                    builder: (context, child) => Transform.translate(
-                      offset: Offset(0, journalController.textAnim!.value),
-                      child: Opacity(
-                        opacity: (0.8 -
-                            (journalController.textAnim!.value != 0 ? journalController.textAnim!.value.toDouble() / 100
-                                : -0.2))
-                            .toDouble(),
-                        child: SizedOverflowBox(
-                          size: textSize,
-                          alignment: Alignment.topCenter,
-                          child: ClipRect(
-                            clipper: CustomTextClipper(textSize),
-                            child: Transform.translate(
-                              offset: Offset(0, -journalController.textSlideAnim!.value * textSize.height),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 100,
-                                  ),
-                                  SizedBox(
-                                    height: textSize.width >
-                                        MediaQuery.of(context).size.width
-                                        ? textSize.height * 1.5
-                                        : textSize.height,
-                                    child: Text(
-                                      'What\'s On Your Mind?',
-                                      style: TextStyle(
-                                        fontSize: journalController.fontSizeForTitle,
-                                        color: Colors.black54,
-                                      ),
+                AnimatedBuilder(
+                  animation: journalController.textAnim!,
+                  builder: (context, child) => Transform.translate(
+                    offset: Offset(0, journalController.textAnim!.value),
+                    child: Opacity(
+                      opacity: (0.8 -
+                          (journalController.textAnim!.value != 0
+                              ? journalController.textAnim!.value.toDouble() / 100
+                              : -0.2))
+                          .toDouble(),
+                      child: SizedOverflowBox(
+                        size: textSize,
+                        alignment: Alignment.topCenter,
+                        child: ClipRect(
+                          clipper: CustomTextClipper(textSize),
+                          child: Transform.translate(
+                            offset: Offset(0, -journalController.textSlideAnim!.value * textSize.height),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 100,
+                                ),
+                                SizedBox(
+                                  height: textSize.width >
+                                      MediaQuery.of(context).size.width
+                                      ? textSize.height * 1.5
+                                      : textSize.height,
+                                  child: Text(
+                                    'What\'s On Your Mind?',
+                                    style: TextStyle(
+                                      fontSize: journalController.fontSizeForTitle,
+                                      color: Colors.black54,
                                     ),
                                   ),
-                                  SizedBox(
-                                      height: textSize.width > MediaQuery.of(context).size.width ? textSize.height * 2 : textSize.height,
-                                      child: TextField(
-                                        maxLines: 3, controller: journalController.headingController,
-                                        style:
-                                        TextStyle(fontSize: journalController.fontSizeForTitle),
-                                        decoration: InputDecoration(
-                                          hintStyle: TextStyle(fontSize: journalController.fontSizeForTitle, color: Colors.black54,),
-                                          hintText: 'What\'s On Your Mind?',
-                                          enabledBorder: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                          disabledBorder: InputBorder.none,
-                                          errorBorder: InputBorder.none,
-                                        ),
-                                      )),
-                                  SizedBox(
-                                    height: textSize.width >
-                                        MediaQuery.of(context).size.width
-                                        ? textSize.height * 1.5
-                                        : textSize.height,
-                                    child: Text(
-                                      'What\'s On Your Mind?',
-                                      style: TextStyle(
-                                        fontSize: journalController.fontSizeForTitle,
-                                        color: Colors.black54,
+                                ),
+                                SizedBox(
+                                    height: textSize.width > MediaQuery.of(context).size.width ? textSize.height * 2 : textSize.height,
+                                    child: TextField(
+                                      maxLines: 3, controller: journalController.headingController,
+                                      style:
+                                      TextStyle(fontSize: journalController.fontSizeForTitle),
+                                      decoration: InputDecoration(
+                                        hintStyle: TextStyle(fontSize: journalController.fontSizeForTitle, color: Colors.black54,),
+                                        hintText: 'What\'s On Your Mind?',
+                                        enabledBorder: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        disabledBorder: InputBorder.none,
+                                        errorBorder: InputBorder.none,
                                       ),
+                                    )),
+                                SizedBox(
+                                  height: textSize.width >
+                                      MediaQuery.of(context).size.width
+                                      ? textSize.height * 1.5
+                                      : textSize.height,
+                                  child: Text(
+                                    'What\'s On Your Mind?',
+                                    style: TextStyle(
+                                      fontSize: journalController.fontSizeForTitle,
+                                      color: Colors.black54,
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                  Spacer(),
-                  TextField(
-                    maxLines: 8,
-                    style:  TextStyle(fontSize: 20),
-                    controller: journalController.bodyController,
-                    decoration:  InputDecoration(
-                      hintStyle: TextStyle(fontSize: 20),
-                      hintText: 'Type Something here',
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
+                ),
+                Spacer(),
+                TextField(
+                  maxLines: 8,
+                  style:  TextStyle(fontSize: 20),
+                  controller: journalController.bodyController,
+                  decoration:  InputDecoration(
+                    hintStyle: TextStyle(fontSize: 20),
+                    hintText: 'Type Something here',
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                  ),
+                ),
+                // SizedBox(
+                //   height: 100,
+                // ),
+                Spacer(),
+                Align(alignment: Alignment.bottomLeft,
+                  child: Padding(
+                      padding:  EdgeInsets.only(left: 30.0, bottom: 100),
+                      child: InkWell(
+                        onTap: () {
+                          if (journalController.headingController!.text.isEmpty) {
+                            CustomSnackBar.showSnackBar(
+                                context: context,
+                                title: "Error",
+                                message: kHeaderNullError,
+                                backgroundColor: active);
+                          } else if (journalController.bodyController!.text.isEmpty) {
+                            CustomSnackBar.showSnackBar(
+                                context: context,
+                                title: "Error",
+                                message: kBodyNullError,
+                                backgroundColor: active);
+                          } else {
+                            journalController.addJournal(journalController.headingController?.text, journalController.bodyController?.text, widget.moodSvgUrl!).whenComplete((){
+                              journalController.headingController?.clear();
+                              journalController.bodyController?.clear();
+                            });
+                          }
+                        },
+                        child: CircleAvatar(
+                            backgroundColor: Colors.black54, radius: 30,
+                            child: Icon(Icons.check, color: kPrimaryColor, size: size.width * 0.05,)),
+                      )),
+                ),
+                // SizedBox(
+                //   height: 50,
+                // )
+              ],
+            ),
+          ))
+          :
+      SizedBox(
+        width: size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            //------------------------
+            // APPBAR
+            //------------------------
+            Container(
+
+              width: size.width * 0.95,
+              padding:  EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: size.width * 0.06,
+                  ),
+                  //------------------------
+                  // SCREEN HEADING
+                  //------------------------
+                  Text(
+                    'Journal',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
-                  // SizedBox(
-                  //   height: 100,
-                  // ),
                   Spacer(),
-                  Align(alignment: Alignment.bottomLeft,
-                    child: Padding(
-                        padding:  EdgeInsets.only(left: 30.0, bottom: 100),
-                        child: InkWell(
-                          onTap: () {
-                            if (journalController.headingController!.text.isEmpty) {
-                              CustomSnackBar.showSnackBar(
-                                  context: context,
-                                  title: "Error",
-                                  message: kHeaderNullError,
-                                  backgroundColor: active);
-                            } else if (journalController.bodyController!.text.isEmpty) {
-                              CustomSnackBar.showSnackBar(
-                                  context: context,
-                                  title: "Error",
-                                  message: kBodyNullError,
-                                  backgroundColor: active);
-                            } else {
-                              journalController.addJournal(journalController.headingController?.text, journalController.bodyController?.text, widget.moodSvgUrl!).whenComplete((){
-                                journalController.headingController?.clear();
-                                journalController.bodyController?.clear();
-                              });
-                            }
-                          },
-                          child: CircleAvatar(
-                              backgroundColor: Colors.black54, radius: 30,
-                              child: Icon(Icons.check, color: kPrimaryColor, size: size.width * 0.05,)),
-                        )),
+                  //------------------------
+                  // Search Button Container
+                  //------------------------
+                  InkWell(
+                    onTap: () {
+                      //TODO: Search query for journal using heading
+                    },
+                    child: Container(
+                      height: size.height * 0.037,
+                      width: size.height * 0.037,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      //------------------------
+                      // SEARCH SVG
+                      //------------------------
+                      child: Icon(
+                        Icons.search_rounded,
+                        size: 28,
+                        color: kPrimaryColor,
+                      ),
+                    ),
                   ),
-                  // SizedBox(
-                  //   height: 50,
-                  // )
                 ],
               ),
-            ))
-            :
-        SizedBox(
-          width: size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              //------------------------
-              // APPBAR
-              //------------------------
-              Container(
-
-                width: size.width * 0.95,
-                padding:  EdgeInsets.all(8),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.06,
-                    ),
-                    //------------------------
-                    // SCREEN HEADING
-                    //------------------------
-                    Text(
-                      'Journal',
-                      style: TextStyle(
-                        color: kPrimaryColor,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    Spacer(),
-                    //------------------------
-                    // Search Button Container
-                    //------------------------
-                    InkWell(
-                      onTap: () {
-                        //TODO: Search query for journal using heading
-                      },
-                      child: Container(
-                        height: size.height * 0.037,
-                        width: size.height * 0.037,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        //------------------------
-                        // SEARCH SVG
-                        //------------------------
-                        child: Icon(
-                          Icons.search_rounded,
-                          size: 28,
-                          color: kPrimaryColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ),
+      )
     );
   }
 

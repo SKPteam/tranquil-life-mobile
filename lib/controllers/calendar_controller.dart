@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../constants/app_strings.dart';
 
 class CalendarController extends GetxController{
+  static CalendarController instance = Get.find();
 
   var now = new DateTime.now();
   RxList daysFromIndex = [].obs;
@@ -10,7 +11,6 @@ class CalendarController extends GetxController{
 
   String currentMonth(){
     var current_mon = now.month;
-    print(months[current_mon-1]);
 
     return months[current_mon-1];
   }
@@ -67,7 +67,6 @@ class CalendarController extends GetxController{
     }
 
 
-    //print(now.month);
     datesFromIndex.value = List.from(nextDays)..addAll(nextMonthDays);
     daysFromIndex.value = List.from(list1)..addAll(list2);
   }

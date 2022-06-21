@@ -6,6 +6,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
@@ -29,58 +31,18 @@ import 'package:tranquil_life/helpers/constants.dart';
 import '../main.dart';
 
 class DashboardController extends GetxController {
-  RxString userType = ''.obs;
-
   static DashboardController instance = Get.find();
-
-  RxBool toggleValue = false.obs;
-
-
-  RxInt tabIndex = 0.obs;
-  String? moodSelected;
-
-  void selectedTab(int index) {
-    tabIndex.value = index;
-
-  }
-
-  void selectedFab(int index) {
-    tabIndex.value = index;
-  }
-
-  Widget tabView(){
-    switch(tabIndex.value){
-      case 1:
-        return WalletView(reloadWalletPage: setBottomBarIndex);
-      case 2:
-        return JournalView(moodSvgUrl: moodSelected ?? "");
-      case 3:
-        return ProfileView(setBottomBarIndex: (int index) {});
-      default:
-        return Home(moodOnTap: setBottomBarIndex);
-    }
-  }
-
-
-  //RxInt currentIndex = RxInt(0);
-  RxBool pageLoaded = RxBool(false);
-  //static DashboardController get to => Get.find();
-
-  void setBottomBarIndex(int index, [String? moodSvgUrl = ""]) {
-    if (moodSvgUrl!.isNotEmpty) {
-      selectedMoodSvgUrl.value = moodSvgUrl;
-    } else {
-      selectedMoodSvgUrl.value = '';
-    }
-    print('Changing Index');
-    tabIndex.value = index;
-  }
 
   ValueNotifier<String> selectedMoodSvgUrl = ValueNotifier('');
   Timer? inactiveTimer;
   Timer? pausedTimer;
   RxList<Widget>? tabs = <Widget>[].obs;
 
+  RxBool pageLoaded = RxBool(false);
+
+  RxBool toggleValue = false.obs;
+
+  RxBool locked = false.obs;
 
   RxString username = "".obs;
   RxString firstName = "".obs;
@@ -118,10 +80,60 @@ class DashboardController extends GetxController {
   RxInt myTotalConsultations = 0.obs;
   RxInt myTotalConsultationsForThisMonthLength = RxInt(0);
   // late QuerySnapshot myTotalConsultationsForThisMonth;
-
   RxString accountNumber = "".obs;
 
-  RxBool locked = false.obs;
+
+
+  // update the latitude of the user
+  setLatitude(value) {
+    latitude.value = value;
+    print("LAT: ${latitude.value}");
+    update();
+  }
+
+  // update the longitude of the user
+  setLongitude(value) {
+    longitude.value = value;
+    print("LONG: ${longitude.value}");
+
+    update();
+  }
+
+  RxInt tabIndex = 0.obs;
+  String? moodSelected;
+
+
+
+  void selectedTab(int index) {
+    tabIndex.value = index;
+  }
+
+  void selectedFab(int index) {
+    tabIndex.value = index;
+  }
+
+  Widget tabView(){
+    switch(tabIndex.value){
+      case 1:
+        return WalletView(reloadWalletPage: setBottomBarIndex);
+      case 2:
+        return JournalView(moodSvgUrl: moodSelected ?? "");
+      case 3:
+        return ProfileView(setBottomBarIndex: (int index) {});
+      default:
+        return Home(moodOnTap: setBottomBarIndex);
+    }
+  }
+
+  void setBottomBarIndex(int index, [String? moodSvgUrl = ""]) {
+    if (moodSvgUrl!.isNotEmpty) {
+      selectedMoodSvgUrl.value = moodSvgUrl;
+    } else {
+      selectedMoodSvgUrl.value = '';
+    }
+    print('Changing Index');
+    tabIndex.value = index;
+  }
 
 
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -152,7 +164,7 @@ class DashboardController extends GetxController {
     }
   }
 
-  Future userProfile() async{
+  Future getUserProfile() async{
 
     var apiPath = sharedPreferences!.getString("userType")
         .toString() == client
@@ -173,7 +185,7 @@ class DashboardController extends GetxController {
     var body = jsonDecode(response.body);
 
 
-    Future.delayed(Duration(seconds: 1),(){
+    Future.delayed(Duration(seconds: 1), (){
       if(sharedPreferences!.getString("userType")
           .toString() == client)
       {
@@ -224,12 +236,12 @@ class DashboardController extends GetxController {
 
   }
 
+
+
   @override
   void onInit() {
     super.onInit();
-    userProfile();
-
-    print("YESS!!!");
+    getUserProfile();
 
     //WidgetsBinding.instance!.addObserver(this);
   }

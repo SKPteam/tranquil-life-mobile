@@ -11,6 +11,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/main.dart';
 import 'package:tranquil_life/models/card_model.dart';
 import 'package:tranquil_life/helpers/constants.dart';
@@ -130,42 +131,45 @@ class WalletController extends GetxController{
   }
 
   Future getCardDetails() async {
-    cardStack.clear();
+    if(sharedPreferences!.getString("userType")
+        .toString() == client)
+    {
+      cardStack.clear();
 
-    String url  = baseUrl + listCardsPath;
+      String url  = baseUrl + listCardsPath;
 
-    var response = await http.get(Uri.parse(url), headers: {
-      "Content-type": "application/json",
-      "Accept": "application/json",
-      "Authorization": "Bearer ${sharedPreferences!.getString("accessToken")}",
-    });
-
-    if(response != null){
-      var resBody = json.decode(response.body);
-      resBody.forEach((card){
-        var model = CardModel();
-        model.id = card['id'];
-        model.cardOwner = card['cardOwner'];
-        model.cardNumber = card['cardNumber'];
-        model.cardExpiryMonth = card['cardExpiryMonth'];
-        model.cardExpiryYear = card['cardExpiryYear'];
-        model.cardType = card['cardType'];
-        model.cvv = card['cvv'];
-        model.isDefault = card['isDefault'];
-
-        cardStack.add(model);
+      var response = await http.get(Uri.parse(url), headers: {
+        "Content-type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Bearer ${sharedPreferences!.getString("accessToken")}",
       });
 
-      cardStackLoaded.value = true;
+      if(response != null){
+        var resBody = json.decode(response.body);
+        resBody.forEach((card){
+          var model = CardModel();
+          model.id = card['id'];
+          model.cardOwner = card['cardOwner'];
+          model.cardNumber = card['cardNumber'];
+          model.cardExpiryMonth = card['cardExpiryMonth'];
+          model.cardExpiryYear = card['cardExpiryYear'];
+          model.cardType = card['cardType'];
+          model.cvv = card['cvv'];
+          model.isDefault = card['isDefault'];
+
+          cardStack.add(model);
+        });
+
+        cardStackLoaded.value = true;
+      }
+
+      //cardStack.add(cardStack);
+      allCardStackBeforeSwipingOff.addAll(cardStack);
+
+      print(cardStack);
+
+      return cardStack;
     }
-
-    //cardStack.add(cardStack);
-    allCardStackBeforeSwipingOff.addAll(cardStack);
-
-    print(cardStack);
-
-    return cardStack;
-
   }
 
   Future setDefaultCard(int id) async{

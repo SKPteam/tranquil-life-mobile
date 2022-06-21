@@ -6,9 +6,6 @@ import 'package:get/get.dart';
 
 class NotificationBadge extends StatelessWidget {
   NotificationBadge({Key? key}) : super(key: key);
-
-  //final NotificationBadgeController _ = Get.put(NotificationBadgeController());
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

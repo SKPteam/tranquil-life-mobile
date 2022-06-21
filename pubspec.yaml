@@ -35,7 +35,8 @@ dependencies:
   flutter_switch: ^0.3.2
 
   geolocator: ^8.2.1 # For access to platform specific location services
-  geocoding: ^2.0.4
+  google_maps_flutter: ^2.1.5
+  location: ^4.4.0
 
   flutterwave: ^1.0.1
   flutter_paystack: ^1.0.5+1

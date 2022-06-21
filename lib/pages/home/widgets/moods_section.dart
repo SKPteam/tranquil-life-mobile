@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
@@ -14,9 +15,6 @@ import '../../journal/journal_page.dart';
 class SelectMood extends StatelessWidget {
   final void Function(int index, [String? moodSvgUrl])? moodOnTap;
   SelectMood({Key? key, this.moodOnTap}) : super(key: key);
-
-  final HomeController _homeController = Get.put(HomeController());
-  final DashboardController dashboardController = Get.put(DashboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +61,7 @@ class SelectMood extends StatelessWidget {
                     Expanded(
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: _homeController.moodsList.length,
+                          itemCount: homeController.moodsList.length,
                           itemBuilder: (BuildContext context, int index) =>
                               buildMoodCard(context, index)),
                     )
@@ -78,14 +76,14 @@ class SelectMood extends StatelessWidget {
   }
 
   Widget buildMoodCard(BuildContext context, int index) {
-    final mood = _homeController.moodsList[index];
+    final mood = homeController.moodsList[index];
     return InkWell(
       onTap: () {
-        _homeController.navigateToNextPage(index: index);
-        _homeController.getSelectedItem();
-        dashboardController.setBottomBarIndex(2, _homeController.moodsList[_homeController.selectedIndex!].image);
-        dashboardController.moodSelected = _homeController.moodsList[_homeController.selectedIndex!].image;
-        print(_homeController.moodsList[_homeController.selectedIndex!].image);
+        homeController.navigateToNextPage(index: index);
+        homeController.getSelectedItem();
+        dashboardController.setBottomBarIndex(2, homeController.moodsList[homeController.selectedIndex!].image);
+        dashboardController.moodSelected = homeController.moodsList[homeController.selectedIndex!].image;
+        print(homeController.moodsList[homeController.selectedIndex!].image);
         //moodOnTap!(2, mood.image);
       },
       child: Container(

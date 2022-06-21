@@ -6,6 +6,7 @@ import 'package:tranquil_life/pages/dashboard/dashboard.dart';
 import 'package:tranquil_life/models/journal_model.dart';
 import 'package:tranquil_life/pages/chat/chat_history.dart';
 import 'package:tranquil_life/pages/chat/chatroom.dart';
+import 'package:tranquil_life/pages/home/home.dart';
 import 'package:tranquil_life/pages/isLoggedIn.dart';
 import 'package:tranquil_life/pages/journal/journal_history_page.dart';
 import 'package:tranquil_life/pages/journal/journal_page.dart';
@@ -83,16 +84,20 @@ class AppPages {
       page: () => TimeoutView(),
     ),
     GetPage(
+      name: _Paths.HOME,
+      page: () => Home(moodOnTap: (int index, [String? moodSvgUrl]) {})
+    ),
+    GetPage(
       name: _Paths.WALLET,
-      page: () => WalletView(reloadWalletPage: (int index) {  },),
+      page: () => WalletView(reloadWalletPage: (int index) {  }),
     ),
     GetPage(
       name: _Paths.ADD_NEW_CARD,
-      page: () =>  AddNewCard(reloadWalletPage: (int index) {  },),
+      page: () =>  AddNewCard(reloadWalletPage: (int index) {  }),
     ),
     GetPage(
       name: _Paths.JOURNAL,
-      page: () =>  JournalView(moodSvgUrl: '',),
+      page: () =>  JournalView(moodSvgUrl: ''),
     ),
     GetPage(
       name: _Paths.JOURNAL_HISTORY,

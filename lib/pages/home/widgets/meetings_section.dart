@@ -7,8 +7,7 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/widgets/custom_text.dart';
 
 class MyMeetingsSection extends StatelessWidget {
-
-  MyMeetingsSection({Key? key}) : super(key: key);
+  const MyMeetingsSection({Key? key}) : super(key: key);
 
 
   @override

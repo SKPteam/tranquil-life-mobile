@@ -88,8 +88,6 @@ class _ScheduleMeetingDialogState extends State<ScheduleMeetingDialog> {
                   color: kPrimaryColor,
                 ),
                 onPressed: () {
-                  _calendarController.currentMonth();
-
                   print(_calendarController.daysFromIndex);
                   print(_calendarController.datesFromIndex);
 
@@ -146,7 +144,7 @@ class _ScheduleMeetingDialogState extends State<ScheduleMeetingDialog> {
               itemBuilder: (BuildContext context,int index){
                 return GestureDetector(
                   onTap: (){
-                    Get.to(MyTimeSlots());
+                    Get.to(MyTimeSlotsScreen());
                   },
                   child: SizedBox(
                     width: 80,
@@ -180,9 +178,3 @@ class _ScheduleMeetingDialogState extends State<ScheduleMeetingDialog> {
     );
   }
 }
-
-/*
-* Text(
-                          "${_calendarController.daysFromIndex[index]} \n\n${_calendarController.datesFromIndex[index]}",
-                          textAlign: TextAlign.center),
-* */

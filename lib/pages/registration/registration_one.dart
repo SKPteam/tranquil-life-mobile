@@ -25,7 +25,6 @@ class RegistrationOneView extends StatefulWidget {
 
 class _RegistrationOneViewState extends State<RegistrationOneView> {
   final OnBoardingController obc = Get.put(OnBoardingController());
-  final RegistrationOneController regOneController = Get.put(RegistrationOneController());
   final _formKeySignIn = GlobalKey <FormState>();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final _emailValidator = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
@@ -42,14 +41,14 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
     return CountryCodePicker(
       //when the picker is created for first time this is executed, we set the empty countryCode variable to the initial value
       onInit: (_countryCode) {
-        regOneController.countryCode = _countryCode.toString();
+        registrationOneController.countryCode = _countryCode.toString();
       },
       flagWidth: size.width / 18,
       initialSelection: 'NG',
       favorite: ['+234', 'NG'],
       onChanged: (_countryCode) {
         registrationOneController.countryCode = _countryCode.toString();
-        print("New Country selected: " + regOneController.countryCode.toString());
+        print("New Country selected: " + registrationOneController.countryCode.toString());
       },
       // optional. Shows only country name and flag
       showFlag: true,
@@ -65,7 +64,7 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
   TextFormField buildEmailFormField(Size size) {
     return TextFormField(
       // onChanged: (value){
-      //   regOneController.email = value;
+      //   registrationOneController.email = value;
       // },
       style: TextStyle(
           fontSize: 18,
@@ -104,20 +103,20 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
   TextFormField buildPasswordFormField(Size size) {
     return TextFormField(
       // onChanged: (value){
-      //   regOneController.password = value;
+      //   registrationOneController.password = value;
       // },
       style: TextStyle(
           fontSize: 18,
           color: Colors.black
       ),
       controller: registrationOneController.passwordTextEditingController,
-      obscureText: regOneController.obscureText.value,
+      obscureText: registrationOneController.obscureText.value,
       decoration: InputDecoration(
         suffix: InkWell(
             onTap: () {
-              regOneController.togglePassword();
+              registrationOneController.togglePassword();
             },
-            child: Icon(regOneController.obscureText.value ? Icons.visibility : Icons.visibility_off)),
+            child: Icon(registrationOneController.obscureText.value ? Icons.visibility : Icons.visibility_off)),
         hintText: "password",
         hintStyle: TextStyle(
             fontSize: 18, color: Colors.grey),
@@ -176,7 +175,7 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
       // validator: (value){
       //   if (value!.isEmpty) {
       //     return "Please confirm password";
-      //   } else if (value != regOneController.passwordTextEditingController.text) {
+      //   } else if (value != registrationOneController.passwordTextEditingController.text) {
       //     return "Password do not match";
       //   } else {
       //     return null;
@@ -258,7 +257,7 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
                                                               //   return null;
                                                               // },
                                                             // onChanged: (value){
-                                                            //   regOneController.phone = value;
+                                                            //   registrationOneController.phone = value;
                                                             // },
                                                             inputFormatters: [
                                                               FilteringTextInputFormatter.digitsOnly

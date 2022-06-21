@@ -2,24 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:location/location.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/dashboard_controller.dart';
-import 'package:tranquil_life/controllers/home_controller.dart';
-import 'package:tranquil_life/helpers/responsive_safe_area.dart';
-import 'package:tranquil_life/pages/home/home.dart';
-import 'package:tranquil_life/pages/profile/profile_page.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
 
 import '../chat/chatroom.dart';
 import 'widgets/fab_bottom_app_bar.dart';
 
-class Dashboard extends GetView<DashboardController>{
+class Dashboard extends StatefulWidget {
+  @override
+  _DashboardState createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
-  DashboardController _dashboardController = Get.put(DashboardController());
-
-  HomeController _homeController = Get.put(HomeController());
 
   Widget _buildFab(BuildContext context) {
     return FloatingActionButton(
@@ -35,32 +32,33 @@ class Dashboard extends GetView<DashboardController>{
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSafeArea(
-      responsiveBuilder: (context, size){
-        return  Obx(()
-        =>Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Center(
-              child: dashboardController.tabView()
-          ),
-          bottomNavigationBar: FABBottomAppBar(
-            centerItemText: 'Chat',
-            color: grey,
-            selectedColor: active,
-            notchedShape: CircularNotchedRectangle(),
-            onTabSelected: dashboardController.selectedTab,
-            items: [
-              FABBottomAppBarItem(iconData: Icons.home, text: 'Home'),
-              FABBottomAppBarItem(iconData: Icons.account_balance_wallet, text: 'Wallet'),
-              FABBottomAppBarItem(iconData: Icons.note_add, text: 'Journal'),
-              FABBottomAppBarItem(iconData: Icons.person, text: 'Profile'),
-            ],
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: _buildFab(
-              context), // Th
-        ));
-      },
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Obx(()
+      => Center(
+          child: dashboardController.tabView()
+      )),
+      bottomNavigationBar: FABBottomAppBar(
+        centerItemText: 'Chat',
+        color: grey,
+        selectedColor: active,
+        notchedShape: CircularNotchedRectangle(),
+        onTabSelected: dashboardController.selectedTab,
+        items: [
+          FABBottomAppBarItem(iconData: Icons.home, text: 'Home'),
+          FABBottomAppBarItem(iconData: Icons.account_balance_wallet, text: 'Wallet'),
+          FABBottomAppBarItem(iconData: Icons.note_add, text: 'Journal'),
+          FABBottomAppBarItem(iconData: Icons.person, text: 'Profile'),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: _buildFab(
+          context), // Th
     );
   }
+
+
+
 }
+
+

@@ -38,14 +38,10 @@ class SignInController extends GetxController{
       accessToken =  body['auth_token'];
       sharedPreferences!.setString('accessToken', accessToken!);
       if(body['username'] == null){
-        dashboardController.userType.value = consultant;
-        sharedPreferences!.setString('userType', consultant);
+        sharedPreferences!.setString(userType, consultant);
         dashboardController.firstName.value = body['f_name'];
       }else{
-        dashboardController.userType.value = client;
-        //dashboardController.username.value = body['username'];
-        sharedPreferences!.setString('userType', client);
-        //sharedPreferences!.setString('username', body['username']);
+        sharedPreferences!.setString(userType, client);
       }
 
     }else{

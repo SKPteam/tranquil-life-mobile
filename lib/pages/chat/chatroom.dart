@@ -26,10 +26,6 @@ import 'package:tranquil_life/widgets/valueListenableBuilder2.dart';
 import 'health_report_screen.dart';
 
 class ChatScreenPage extends StatefulWidget {
-
-
-
-
   ChatScreenPage({Key? key}) : super(key: key);
 
   @override

@@ -9,15 +9,11 @@ import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
+import 'package:tranquil_life/main.dart';
 import 'package:tranquil_life/models/journal_model.dart';
 
 class SelectedNoteView extends StatelessWidget {
   Size size = MediaQuery.of(Get.context!).size;
-  // final JournalModel journalModel;
-  //
-  // SelectedNoteView({Key? key, required this.journalModel}) : super(key: key);
-
-  // final SelectedNoteController _ = Get.put(SelectedNoteController());
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +50,8 @@ class SelectedNoteView extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    dashboardController.userType.value == client
+                    sharedPreferences!.getString("userType")
+                        .toString() == client
                         ? InkWell(
                             onTap: () {
                               displayConsultantList(context);
