@@ -14,7 +14,6 @@ import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/main.dart';
 import 'package:tranquil_life/models/card_model.dart';
-import 'package:tranquil_life/helpers/constants.dart';
 import 'package:uuid/uuid.dart';
 import 'package:http/http.dart' as http;
 import 'package:webview_flutter/webview_flutter.dart';

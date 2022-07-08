@@ -12,7 +12,7 @@ import 'package:tranquil_life/controllers/registration_four_controller.dart';
 import 'package:tranquil_life/controllers/registration_one_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
+import 'package:tranquil_life/general_widgets/custom_snackbar.dart';
 
 import '../../constants/app_font.dart';
 
@@ -24,18 +24,14 @@ class RegistrationOneView extends StatefulWidget {
 }
 
 class _RegistrationOneViewState extends State<RegistrationOneView> {
-  final OnBoardingController obc = Get.put(OnBoardingController());
-  final _formKeySignIn = GlobalKey <FormState>();
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final _emailValidator = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
-  _signIn() async {
-    FocusScope.of(context).unfocus();
-    if(_formKeySignIn.currentState!.validate()){
-      _formKeySignIn.currentState!.save();
-      Get.toNamed(Routes.REGISTRATION_TWO);
-    }
-  }
+  // _signIn() async {
+  //   FocusScope.of(context).unfocus();
+  //   if(_formKeySignIn.currentState!.validate()){
+  //     _formKeySignIn.currentState!.save();
+  //     Get.toNamed(Routes.REGISTRATION_TWO);
+  //   }
+  // }
 
   CountryCodePicker countryCodePicker(Size size) {
     return CountryCodePicker(
@@ -190,7 +186,7 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
         responsiveBuilder: (context, size)=>
             Obx(() =>
                 Scaffold(
-                  key: scaffoldKey,
+                  key: registrationOneController.scaffoldKey,
                   //resizeToAvoidBottomPadding: false,
                   extendBodyBehindAppBar: true,
                   appBar: AppBar(
@@ -221,7 +217,7 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
                                           fontSize: 18)),
                                   SizedBox(height: size.height * 0.08),
                                   Form(
-                                    key: _formKeySignIn,
+                                    key: registrationOneController.formKey,
                                       child: Column(
                                         children: [
                                           ClipRRect(
@@ -384,44 +380,46 @@ class _RegistrationOneViewState extends State<RegistrationOneView> {
                                               height: size.height * 0.06),
                                           RichText(
                                             textAlign: TextAlign.center,
-                                            text: TextSpan(children: [
-                                              TextSpan(
-                                                text: 'By clicking Next, you are indicating that you have read and agreed to the ',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 16,
-                                                    color: light,
-                                                    fontFamily: josefinSansRegular
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: 'Terms of Service ',
-                                                style: TextStyle(
-                                                    color: Colors.yellow,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 16,
-                                                    fontFamily: josefinSansRegular
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: 'and ',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 16,
-                                                    color: light,
-                                                    fontFamily: josefinSansRegular
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                text: 'Privacy Policy',
-                                                style: TextStyle(
-                                                  color: yellow,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontFamily: josefinSansRegular,
-                                                  fontSize: 16,
-                                                ),
-                                              )
-                                            ]),
+                                            text: TextSpan(
+                                                children: [
+                                                  TextSpan(
+                                                    text: 'By clicking Next, you are indicating that you have read and agreed to the ',
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 16,
+                                                        color: light,
+                                                        fontFamily: josefinSansRegular
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    text: 'Terms of Service ',
+                                                    style: TextStyle(
+                                                        color: Colors.yellow,
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 16,
+                                                        fontFamily: josefinSansRegular
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    text: 'and ',
+                                                    style: TextStyle(
+                                                        fontWeight: FontWeight.w400,
+                                                        fontSize: 16,
+                                                        color: light,
+                                                        fontFamily: josefinSansRegular
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    text: 'Privacy Policy',
+                                                    style: TextStyle(
+                                                      color: yellow,
+                                                      fontWeight: FontWeight.w400,
+                                                      fontFamily: josefinSansRegular,
+                                                      fontSize: 16,
+                                                    ),
+                                                  )
+                                                ]
+                                            ),
                                           )
                                         ],
                                       ))

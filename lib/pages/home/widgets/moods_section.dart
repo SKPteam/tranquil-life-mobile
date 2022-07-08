@@ -7,7 +7,7 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/models/mood.dart';
-import 'package:tranquil_life/widgets/custom_text.dart';
+import 'package:tranquil_life/general_widgets/custom_text.dart';
 
 import '../../journal/journal_page.dart';
 

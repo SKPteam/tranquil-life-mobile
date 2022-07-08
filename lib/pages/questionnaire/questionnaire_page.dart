@@ -7,7 +7,7 @@ import 'package:tranquil_life/constants/app_font.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/questionnaire_controller.dart';
-import 'package:tranquil_life/helpers/bottom_sheet_helper.dart';
+import 'package:tranquil_life/general_widgets/custom_bottom_sheet.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/questionnaire.dart';

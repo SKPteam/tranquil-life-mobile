@@ -48,11 +48,12 @@ class HomeController extends GetxController{
 
   @override
   void onInit() {
+    print("HOME!!!!!!");
+    menuOptions = <String>[blog];
+
     super.onInit();
 
-    print("HOME!!!!!!");
 
-    menuOptions = <String>[blog];
   }
 
 

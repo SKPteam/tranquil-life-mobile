@@ -7,7 +7,7 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/journal/selected_note_page.dart';
 import '../../controllers/journal_history_controller.dart';
-import '../../helpers/time_function_controller_helper.dart';
+import '../../controllers/time_function_controller.dart';
 
 class JournalHistoryView extends StatelessWidget {
   Size size = MediaQuery.of(Get.context!).size;

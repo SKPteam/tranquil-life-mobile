@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/scheduling/widgets/consultantPortfolio_info_widget.dart';
 import 'package:tranquil_life/routes/app_pages.dart';

@@ -12,7 +12,7 @@ import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 
 import 'package:tranquil_life/pages/timeout/widget/keyboard_number.dart';
 import 'package:tranquil_life/pages/timeout/widget/pin_number.dart';
-import 'package:tranquil_life/widgets/top_nav.dart';
+import 'package:tranquil_life/general_widgets/top_nav.dart';
 
 
 class TimeoutView extends GetView<TimeoutController> {

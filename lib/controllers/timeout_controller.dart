@@ -7,14 +7,9 @@ import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:tranquil_life/constants/app_strings.dart';
-import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/helpers/constants.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
-import 'package:tranquil_life/widgets/custom_form_field.dart';
+import 'package:tranquil_life/general_widgets/custom_form_field.dart';
 
 class TimeoutController extends GetxController{
   static TimeoutController instance = Get.find();
@@ -71,7 +66,9 @@ class TimeoutController extends GetxController{
                 onTap: () {},
                 textInputType: TextInputType.visiblePassword,
                 obscureText: true,
-                togglePassword: obscureText.value.obs),
+                onSuffixTap: obscureText.value.obs,
+              icon: const SizedBox(),
+            ),
             const SizedBox(height: 30),
             SizedBox(
               height: size.height * 0.056,

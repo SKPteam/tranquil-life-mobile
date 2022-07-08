@@ -19,7 +19,12 @@ class PaymentOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox();
+  }
+}
+
+/*
+* Container(
       decoration:
       BoxDecoration(color: Colors.white),
       height: size.height * 0.5,
@@ -100,6 +105,5 @@ class PaymentOptions extends StatelessWidget {
               ),
             );
           }),
-    );
-  }
-}
+    )
+* */

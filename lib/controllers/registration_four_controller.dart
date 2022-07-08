@@ -11,14 +11,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
+import 'package:tranquil_life/general_widgets/custom_loader.dart';
 import 'package:tranquil_life/main.dart';
-import 'package:tranquil_life/widgets/progress_dialog.dart';
 import '../constants/controllers.dart';
 import '../constants/style.dart';
-import '../helpers/flush_bar_helper.dart';
-import '../helpers/progress-dialog_helper.dart';
+import '../general_widgets/custom_flushbar.dart';
 import '../routes/app_pages.dart';
-import '../widgets/custom_snackbar.dart';
+import '../general_widgets/custom_snackbar.dart';
 
 class RegistrationFourController extends GetxController {
   static RegistrationFourController instance = Get.find();
@@ -41,63 +40,78 @@ class RegistrationFourController extends GetxController {
   RxDouble passportUploadPercentage = 0.0.obs;
   RxDouble cvUploadPercentage = 0.0.obs;
 
-  @override
-  void onInit() {
+  Future<String?> uploadFile() async {
+    Reference storageReference = FirebaseStorage.instance
+        .ref()
+        .child(CV_FILES_STORAGE_PATH)
+        .child(basename(registrationTwoController.passportImageFile!.path));
+    UploadTask uploadTask = storageReference.putFile(
+        File(registrationTwoController.passportImageFile!.path));
+    String? returnURL;
+    await uploadTask.then((_) async {
+      debugPrint('File Uploaded');
+      await storageReference
+          .getDownloadURL()
+          .then((fileURL) => returnURL = fileURL);
+    });
+    return returnURL;
   }
 
-  saveFilesToCloudinary() async{
-    try {
-      if ((registrationTwoController.passportPath.value != null)
-          && (registrationTwoController.cvPath.value != null)) {
-        passportResponse = await cloudinary.uploadFile(
-          CloudinaryFile.fromFile(
-              registrationTwoController.passportPath.value,
-              resourceType: CloudinaryResourceType.Auto),
-          onProgress: (count, total) {
-            passportUploadPercentage.value = (count / total) * 100;
-
-            CustomSnackBar
-                .showSnackBar(
-                context: Get.context!,
-                title: "Uploading Passport...",
-                message: "${passportUploadPercentage.value}",
-                backgroundColor: active);
-          },
-        );
-
-        cvResponse = await cloudinary.uploadFile(
-          CloudinaryFile.fromFile(
-              registrationTwoController.cvPath.value,
-              resourceType: CloudinaryResourceType.Auto),
-
-          onProgress: (count, total) {
-            cvUploadPercentage.value = (count / total) * 100;
-
-            CustomSnackBar
-                .showSnackBar(
-                context: Get.context!,
-                title: "Uploading Resumé...",
-                message: "${cvUploadPercentage.value}",
-                backgroundColor: active);
-          },
-        );
-
-      }
-
-      print("PASSPORT: "+passportResponse!.secureUrl.toString()
-          +"\n CV: "+cvResponse!.secureUrl.toString());
-
-    }catch(e){
-      print("ERROR $e");
-    }
 
 
-
-  }
+  // saveFilesToCloudinary() async{
+  //   try {
+  //     if ((registrationTwoController.passportPath.value != null)
+  //         && (registrationTwoController.cvPath.value != null)) {
+  //       passportResponse = await cloudinary.uploadFile(
+  //         CloudinaryFile.fromFile(
+  //             registrationTwoController.passportPath.value,
+  //             resourceType: CloudinaryResourceType.Auto),
+  //         onProgress: (count, total) {
+  //           passportUploadPercentage.value = (count / total) * 100;
+  //
+  //           CustomSnackBar
+  //               .showSnackBar(
+  //               context: Get.context!,
+  //               title: "Uploading Passport...",
+  //               message: "${passportUploadPercentage.value}",
+  //               backgroundColor: active);
+  //         },
+  //       );
+  //
+  //       cvResponse = await cloudinary.uploadFile(
+  //         CloudinaryFile.fromFile(
+  //             registrationTwoController.cvPath.value,
+  //             resourceType: CloudinaryResourceType.Auto),
+  //
+  //         onProgress: (count, total) {
+  //           cvUploadPercentage.value = (count / total) * 100;
+  //
+  //           CustomSnackBar
+  //               .showSnackBar(
+  //               context: Get.context!,
+  //               title: "Uploading Resumé...",
+  //               message: "${cvUploadPercentage.value}",
+  //               backgroundColor: active);
+  //         },
+  //       );
+  //
+  //     }
+  //
+  //     print("PASSPORT: "+passportResponse!.secureUrl.toString()
+  //         +"\n CV: "+cvResponse!.secureUrl.toString());
+  //
+  //   }catch(e){
+  //     print("ERROR $e");
+  //   }
+  //
+  //
+  //
+  // }
 
   Future registerConsultant() async {
-    ProgressDialogHelper().showProgressDialog(
-        Get.context!, "Registering...");
+    CustomLoader.showDialog();
+
     String url = baseUrl + consultantRegisterPath;
 
     var requestBody = {
@@ -110,8 +124,9 @@ class RegistrationFourController extends GetxController {
           .removeAllWhitespace,
       "languages": registrationThreeController.preferredLangTEC.text.split(", "),
       "years": registrationThreeController.yearsOfExpTEC.text,
-      "identity_front_url": passportResponse!.secureUrl.toString(),
-      "cv_url": cvResponse!.secureUrl.toString(),
+      //"identity_front_url": passportResponse!.secureUrl,
+      "identity_front_url": passportURL.value,
+      "cv_url": cvResponse!.secureUrl.isEmpty ? "" : cvResponse!.secureUrl,
       "employment_status": registrationThreeController.selectedWorkStatus.value,
       "specialties": registrationThreeController.areaOfExpertiseTEC.text.split(", "),
       "day_of_birth": registrationTwoController.day!,
@@ -137,17 +152,17 @@ class RegistrationFourController extends GetxController {
       // sharedPreferences.setString("email", result["user"]["email"]);
       // sharedPreferences.setString("phoneNumber", result["user"]["phone"]);
       // sharedPreferences.setString("token", result["user"]["auth_token"]);
-      ProgressDialogHelper().hideProgressDialog(Get.context!);
+      CustomLoader.cancelDialog();
       Get.offAllNamed(Routes.SIGN_IN);
       FlushBarHelper(Get.context!).showFlushBar(
           "Registration Successful", color: Colors.green);
     } else if (result["user"] == null) {
-      ProgressDialogHelper().hideProgressDialog(Get.context!);
+      CustomLoader.cancelDialog();
       print(result);
       FlushBarHelper(Get.context!).showFlushBar(
           result["errors"].toString(), color: Colors.red);
     } else {
-      ProgressDialogHelper().hideProgressDialog(Get.context!);
+      CustomLoader.cancelDialog();
       throw Exception("Unable to Complete Registration");
     }
 
@@ -160,14 +175,16 @@ class RegistrationFourController extends GetxController {
 
     final url = await storage.getDownloadURL();
 
-    ProgressDialog;
     return url;
   }
 
   Future saveConsultantProfile() async{
-    await saveFilesToCloudinary();
+    //await saveFilesToCloudinary();
 
-    ProgressDialog.cancelDialog();
+    passportURL.value = (await uploadFile())!;
+
+
+    CustomLoader.cancelDialog();
 
     registerConsultant();
   }

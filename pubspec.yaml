@@ -42,8 +42,6 @@ dependencies:
   flutter_paystack: ^1.0.5+1
   webview_flutter: ^2.0.12
   cloudinary_public: ^0.11.0
-  modal_bottom_sheet: ^2.0.1
-
 
   firebase_core: ^1.16.0
   cloud_firestore: ^3.1.14
@@ -59,6 +57,7 @@ dependencies:
   timezone: ^0.8.0
   image_picker: ^0.8.5+3
   image_cropper: ^2.0.2
+  file_picker: ^4.5.1 # file picker
   camera: ^0.9.5+1 # use the camera plugin
   path: ^1.8.1
   flutter_svg: ^1.0.3
@@ -77,12 +76,8 @@ dependencies:
   shared_preferences: ^2.0.15
   jiffy: ^5.0.0
   another_flushbar: ^1.10.29
-  ndialog:
-  #  storage_path:
-  #    git:
-  #      url: https://github.com/w-rui/StoragePath
   language_picker: ^0.4.1
-  #flutter_sound: any
+  flutter_sound: any
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

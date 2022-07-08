@@ -3,11 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/wallet_controller.dart';
-import 'package:tranquil_life/models/card_model.dart';
-import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/models/card_model.dart';
 import 'package:tranquil_life/pages/wallet/widgets/card_color.dart';
 

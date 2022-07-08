@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranquil_life/constants/controllers.dart';
@@ -33,7 +35,7 @@ class MyTimeSlotsScreen extends StatelessWidget {
                       //------------------------
                       IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          Get.back();
                         },
                         icon: Icon(
                           Icons.arrow_back,

@@ -9,12 +9,15 @@ import 'package:intl/intl.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 
-import '../helpers/flush_bar_helper.dart';
+import '../general_widgets/custom_flushbar.dart';
 import '../routes/app_pages.dart';
 import '../services/http_services.dart';
 
 class RegistrationOneController extends GetxController {
   static RegistrationOneController instance = Get.find();
+
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey <FormState>();
 
   Map data = {};
 

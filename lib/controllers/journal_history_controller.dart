@@ -19,11 +19,6 @@ class JournalHistoryController extends GetxController {
   Map map = {};
   RxBool journalsLoaded = false.obs;
 
-  // final RxList<JournalModel> journalList = <JournalModel>[].obs;
-
-  ///the last Notification document from the 10 extracted documents
-  // DocumentSnapshot? lastDisplayedJournalDocument;
-
   ///scroll controlling for checking whether the screen is scrolled to the end
   final ScrollController scrollController = ScrollController();
 

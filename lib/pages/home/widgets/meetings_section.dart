@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/widgets/custom_text.dart';
+import 'package:tranquil_life/general_widgets/custom_text.dart';
 
 class MyMeetingsSection extends StatelessWidget {
   const MyMeetingsSection({Key? key}) : super(key: key);

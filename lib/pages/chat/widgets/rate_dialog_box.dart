@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
+import 'package:tranquil_life/general_widgets/custom_snackbar.dart';
 
 class CustomRatingDialogBox extends StatefulWidget {
   final void Function()? onpressed;

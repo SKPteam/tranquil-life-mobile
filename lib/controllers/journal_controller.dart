@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
-import 'package:tranquil_life/helpers/progress-dialog_helper.dart';
+import 'package:tranquil_life/general_widgets/custom_loader.dart';
 import 'package:uuid/uuid.dart';
-import '../helpers/flush_bar_helper.dart';
+import '../general_widgets/custom_flushbar.dart';
 import '../routes/app_pages.dart';
 
 class JournalController extends GetxController {
@@ -61,7 +61,7 @@ class JournalController extends GetxController {
 
   //Method for Client to add journal
   addJournal(String? messageHeader, String? messageBody, String moodSvgUrl)async{
-    ProgressDialogHelper().showProgressDialog(Get.context!, "Adding Journal...");
+    CustomLoader.showDialog();
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final token = sharedPreferences.get('accessToken');
 
@@ -80,11 +80,11 @@ class JournalController extends GetxController {
     final response = await post(Uri.parse(url), headers: header, body: json.encode(body));
     final result = json.decode(response.body);
     if(result["note"] != null){
-      ProgressDialogHelper().hideProgressDialog(Get.context!);
+      CustomLoader.cancelDialog();
       Get.toNamed(Routes.JOURNAL_HISTORY);
       FlushBarHelper(Get.context!).showFlushBar("Successful!", color: Colors.green);
     }else{
-      ProgressDialogHelper().hideProgressDialog(Get.context!);
+      CustomLoader.cancelDialog();
       FlushBarHelper(Get.context!).showFlushBar("The body must not be greater than 255 characters.", color: Colors.red);
       throw Exception("Unable to add note");
     }

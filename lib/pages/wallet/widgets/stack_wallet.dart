@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/controllers/wallet_controller.dart';
-import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/models/card_model.dart';
-import 'package:tranquil_life/helpers/constants.dart';
-import 'package:tranquil_life/main.dart';
 
 import 'package:tranquil_life/pages/wallet/widgets/card_widget.dart';
 

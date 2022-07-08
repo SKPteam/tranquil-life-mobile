@@ -1,5 +1,3 @@
-// ignore_for_file: implementation_imports, must_be_immutable, prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,34 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/onboarding_controller.dart';
 import 'package:tranquil_life/controllers/registration_four_controller.dart';
-import 'package:tranquil_life/controllers/registration_one_controller.dart';
-import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/helpers/constants.dart';
 import 'package:tranquil_life/helpers/sizes_helpers.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
-import 'package:tranquil_life/widgets/custom_form_field.dart';
+import 'package:tranquil_life/general_widgets/custom_form_field.dart';
 
-import 'package:tranquil_life/widgets/custom_form_field.dart';
-import 'package:tranquil_life/widgets/progress_dialog.dart';
-
-import '../../controllers/registration_three_controller.dart';
-import '../../controllers/registration_two_controller.dart';
 import '../../helpers/responsive_safe_area.dart';
 
 class RegistrationFourView extends GetView<RegistrationFourController> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final _formKey = GlobalKey <FormState>();
-
-
-  RegistrationFourView({Key? key}) : super(key: key);
-
-  final RegistrationOneController _registrationOneController = Get.put(RegistrationOneController());
-  final RegistrationTwoController _registrationTwoController = Get.put(RegistrationTwoController());
-  final RegistrationThreeController _registrationThreeController = Get.put(RegistrationThreeController());
-  //final RegistrationFourController _ = Get.put(RegistrationFourController());
-
   @override
   Widget build(BuildContext context) {
     return ResponsiveSafeArea(
@@ -90,8 +68,9 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       onTap: () {},
                       showCursor: true,
                       obscureText: false,
-                      togglePassword: () {},
+                      onSuffixTap: () {},
                       textEditingController: registrationFourController.homeAddressTEC,
+                      icon: const SizedBox(),
                     ),
                   ),
                   SizedBox(height: displayHeight(context) * 0.020),
@@ -104,8 +83,9 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       onTap: () {},
                       showCursor: true,
                       obscureText: false,
-                      togglePassword: () {},
+                      onSuffixTap: () {},
                       textEditingController: registrationFourController.accountNumberTEC,
+                      icon: const SizedBox(),
                     ),
                   ),
                   SizedBox(height: displayHeight(context) * 0.020),
@@ -118,8 +98,9 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       onTap: () {},
                       showCursor: true,
                       obscureText: false,
-                      togglePassword: () {},
+                      onSuffixTap: () {},
                       textEditingController: registrationFourController.bankNameTEC,
+                      icon: const SizedBox()
                     ),
                   ),
                   SizedBox(height: displayHeight(context) * 0.020),
@@ -132,8 +113,9 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       onTap: () {},
                       showCursor: true,
                       obscureText: false,
-                      togglePassword: () {},
+                      onSuffixTap: () {},
                       textEditingController: registrationFourController.bankAddressTEC,
+                      icon: const SizedBox(),
                     ),
                   ),
                   SizedBox(height: displayHeight(context) * 0.020),
@@ -147,9 +129,11 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       onTap: () {},
                       showCursor: true,
                       obscureText: false,
-                      togglePassword: () {},
+                      onSuffixTap: () {},
                       textEditingController:
                       registrationFourController.ibanTextEditingController,
+                      icon: const SizedBox(),
+
                     ),
                   ),
                   SizedBox(height: displayHeight(context) * 0.020),
@@ -162,8 +146,9 @@ class RegistrationFourView extends GetView<RegistrationFourController> {
                       onTap: () {},
                       showCursor: true,
                       obscureText: false,
-                      togglePassword: () {},
+                      onSuffixTap: () {},
                       textEditingController: registrationFourController.swiftCodeTEC,
+                      icon: const SizedBox(),
                     ),
                   ),
 

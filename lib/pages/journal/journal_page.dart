@@ -14,7 +14,7 @@ import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/main.dart';
 import 'package:tranquil_life/pages/journal/widgets/note_item.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
+import 'package:tranquil_life/general_widgets/custom_snackbar.dart';
 
 import '../../controllers/journal_history_controller.dart';
 

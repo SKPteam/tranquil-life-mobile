@@ -11,7 +11,7 @@ import 'package:tranquil_life/constants/style.dart';
 import 'package:tranquil_life/controllers/app_settings_controller.dart';
 import 'package:tranquil_life/pages/profile/widgets/settings_tile.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
+import 'package:tranquil_life/general_widgets/custom_snackbar.dart';
 
 class AppSettingsView extends GetView<AppSettingsController> {
   @override

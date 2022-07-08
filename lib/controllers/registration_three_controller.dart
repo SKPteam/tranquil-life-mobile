@@ -16,27 +16,24 @@ import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/controllers/registration_one_controller.dart';
 import 'package:tranquil_life/controllers/registration_two_controller.dart';
+import 'package:tranquil_life/general_widgets/custom_loader.dart';
+import 'package:tranquil_life/helpers/sizes_helpers.dart';
+import 'package:tranquil_life/helpers/sizes_helpers.dart';
+import 'package:tranquil_life/helpers/sizes_helpers.dart';
 import 'package:tranquil_life/models/partner.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
+import 'package:tranquil_life/general_widgets/custom_snackbar.dart';
 
 import '../constants/style.dart';
-import '../helpers/flush_bar_helper.dart';
-import '../helpers/progress-dialog_helper.dart';
+import '../general_widgets/custom_flushbar.dart';
 import '../main.dart';
 import '../pages/registration/widgets/areaOfExpertiseModal.dart';
 
 class RegistrationThreeController extends GetxController {
   static RegistrationThreeController instance = Get.find();
 
-  RegistrationOneController _registrationOneController = Get.put(
-      RegistrationOneController());
-  RegistrationTwoController _registrationTwoController = Get.put(
-      RegistrationTwoController());
-
-  Size size = MediaQuery
-      .of(Get.context!)
-      .size;
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey <FormState>();
 
   /*For client*/
   TextEditingController companyEditingController = TextEditingController();
@@ -93,7 +90,6 @@ class RegistrationThreeController extends GetxController {
     });
   }
 
-
   //Language picker builder
   void openCupertinoLanguagePicker() =>
       showCupertinoModalPopup<void>(
@@ -108,8 +104,8 @@ class RegistrationThreeController extends GetxController {
                       Container(
                           alignment: Alignment.topRight,
                           padding: EdgeInsets.only(
-                              right: size.width * 0.06,
-                              top: size.height * 0.02),
+                              right: displayWidth(Get.context!) * 0.06,
+                              top: displayHeight(Get.context!) * 0.02),
                           child: GestureDetector(
                             onTap: () {
                               if(languageModalTitle.value == "Select"){
@@ -161,8 +157,8 @@ class RegistrationThreeController extends GetxController {
   Widget _buildCupertinoItem(Language language) =>
       Container(
         margin: EdgeInsets.only(
-          left: size.width * 0.06,
-          right: size.width * 0.06,
+          left: displayWidth(Get.context!) * 0.06,
+          right: displayWidth(Get.context!) * 0.06,
         ),
         child: Row(
           children: <Widget>[
@@ -285,7 +281,7 @@ class RegistrationThreeController extends GetxController {
 
                             print(partner.id!);
 
-                            Navigator.of(context).pop();
+                            Get.back();
                           },
                           child: Container(
                               height: 400,
@@ -401,13 +397,13 @@ class RegistrationThreeController extends GetxController {
                       staffIDEditingController.text =
                           resBody["staffID"].toString();
 
-                      Navigator.of(context).pop();
+                      Get.back();
                     },
                     child: Text("Yes")),
 
                 TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      Get.back();
                     },
                     child: Text("No")),
               ],
@@ -452,9 +448,8 @@ class RegistrationThreeController extends GetxController {
   }
 
   Future registerClient() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    ProgressDialogHelper().showProgressDialog(
-        Get.context!, "Authenticating...");
+    CustomLoader.showDialog();
+
     String url = baseUrl + clientRegisterPath;
 
     var requestBody = companyEditingController.text == "None" ?
@@ -499,15 +494,15 @@ class RegistrationThreeController extends GetxController {
       // sharedPreferences.setString("email", result["user"]["email"]);
       // sharedPreferences.setString("phoneNumber", result["user"]["phone"]);
       // sharedPreferences.setString("accessToken", result["user"]["auth_token"]);
-      ProgressDialogHelper().hideProgressDialog(Get.context!);
+      CustomLoader.cancelDialog();
       FlushBarHelper(Get.context!).showFlushBar(
           "Registration Successful", color: Colors.green);
     } else if (result["user"] == null) {
-      ProgressDialogHelper().hideProgressDialog(Get.context!);
+      CustomLoader.cancelDialog();
       // FlushBarHelper(Get.context!).showFlushBar(
       //     result["errors"], color: Colors.red);
     } else {
-      ProgressDialogHelper().hideProgressDialog(Get.context!);
+      CustomLoader.cancelDialog();
       throw Exception("Unable to Complete Registration");
     }
 
@@ -522,13 +517,13 @@ class RegistrationThreeController extends GetxController {
   @override
   void onClose() {
     if(sharedPreferences!.getString(userType).toString() == client){
-      _registrationOneController.emailTextEditingController.clear();
-      _registrationOneController.passwordTextEditingController.clear();
-      _registrationOneController.phoneNumTextEditingController.clear();
-      _registrationOneController.confirmPwdTextEditingController.clear();
-      _registrationTwoController.firstNameTextEditingController.clear();
-      _registrationTwoController.lastNameTextEditingController.clear();
-      _registrationTwoController.userNameTextEditingController.clear();
+      registrationOneController.emailTextEditingController.clear();
+      registrationOneController.passwordTextEditingController.clear();
+      registrationOneController.phoneNumTextEditingController.clear();
+      registrationOneController.confirmPwdTextEditingController.clear();
+      registrationTwoController.firstNameTextEditingController.clear();
+      registrationTwoController.lastNameTextEditingController.clear();
+      registrationTwoController.userNameTextEditingController.clear();
     }
     super.onClose();
   }

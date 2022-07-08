@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/helpers/constants.dart';
+import 'package:tranquil_life/general_widgets/custom_loader.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/models/chat_room_message.dart';
 import 'package:tranquil_life/models/schedule_meeting.dart';
@@ -21,7 +21,7 @@ import 'package:tranquil_life/pages/chat/widgets/rate_dialog_box.dart';
 import 'package:tranquil_life/pages/chat/widgets/text_widget.dart';
 import 'package:tranquil_life/pages/profile/widgets/image_picker_android.dart';
 import 'package:tranquil_life/pages/profile/widgets/image_picker_ios.dart';
-import 'package:tranquil_life/widgets/valueListenableBuilder2.dart';
+import 'package:tranquil_life/general_widgets/valueListenableBuilder2.dart';
 
 import 'health_report_screen.dart';
 
@@ -295,7 +295,7 @@ class _ChatScreenPageState extends State<ChatScreenPage>  with SingleTickerProvi
                                 color: Colors.white,
                               ),
                               onPressed: () async {
-                                showLoaderDialog(context);
+                                //CustomLoader.showDialog();
                                 // await for camera and mic permissions before pushing video page
                                 // await _handleCameraAndMic(Permission.camera);
                                 // await _handleCameraAndMic(

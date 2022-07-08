@@ -5,16 +5,13 @@ import 'package:get/get.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/sign_in_controller.dart';
-import 'package:tranquil_life/main.dart';
-import 'package:tranquil_life/pages/dashboard/dashboard.dart';
+import 'package:tranquil_life/general_widgets/custom_form_field.dart';
+import 'package:tranquil_life/general_widgets/custom_loader.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
-import '../../helpers/flush_bar_helper.dart';
-import '../../helpers/progress-dialog_helper.dart';
-import 'widgets/sign_in_form_fields.dart';
+import 'package:tranquil_life/general_widgets/custom_snackbar.dart';
+import '../../general_widgets/custom_flushbar.dart';
 
 class SignIn extends StatefulWidget {
   @override
@@ -22,58 +19,14 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  final SignInController _ = Get.put(SignInController());
-
-  TextFormField buildPasswordFormField() {
-    return TextFormField(
-      obscureText: _.obscureText.value,
-      controller: _.passwordTextEditingController,
-      style: TextStyle(
-          fontSize: 18,
-          color: Colors.black
-      ),
-      decoration: InputDecoration(
-        suffix: InkWell(
-            onTap: () {
-              setState(() {
-                _.togglePassword();
-              });
-            },
-            child: Icon(_.obscureText.value
-                ? Icons.visibility : Icons.visibility_off)
-        ),
-        hintText: "password",
-        hintStyle: TextStyle(
-            fontSize: 18,
-            color: Colors.grey),
-        fillColor: Colors.white,
-        border: InputBorder.none,
-        filled: true,
-        contentPadding: EdgeInsets.symmetric(
-            vertical: 20.0, horizontal: 16),
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        //suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return ResponsiveSafeArea(
-        responsiveBuilder: (context, size){
-          return Scaffold(
-            extendBodyBehindAppBar: true,
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title:  Text(
-                "Sign In",
-                style: TextStyle(color: grey),
-              ),
-            ),
-            body: Container(
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      body: ResponsiveSafeArea(
+        responsiveBuilder: (context, size)=>
+            Container(
               decoration:  BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage('assets/images/bg_img1.png'),
@@ -98,16 +51,37 @@ class _SignInState extends State<SignIn> {
                               key: signInController.formKey,
                               child: Column(
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(4.0),
-                                    child: buildEmailFormField(),
+                                  CustomFormField(
+                                    textInputType: TextInputType.emailAddress,
+                                    formatters: [],
+                                    hint: 'Email address',
+                                    onTap: () {},
+                                    showCursor: true,
+                                    obscureText: false,
+                                    onSuffixTap: () {},
+                                    textEditingController: signInController
+                                        .emailTextEditingController,
+                                    icon: const SizedBox(),
                                   ),
 
-                                  SizedBox(height: size.height * 0.020),
+                                  SizedBox(height: size.height * 0.02),
 
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(4.0),
-                                    child: buildPasswordFormField(),
+                                    child: CustomFormField(
+                                      textInputType: TextInputType.visiblePassword,
+                                      formatters: [],
+                                      hint: 'Password',
+                                      onTap: () {},
+                                      showCursor: true,
+                                      obscureText: signInController.obscureText.value,
+                                      onSuffixTap: () {
+                                        signInController.togglePassword();
+                                      },
+                                      textEditingController: signInController.passwordTextEditingController,
+                                      icon: Icon(signInController.obscureText.value
+                                          ? Icons.visibility : Icons.visibility_off),
+                                    ),
                                   ),
 
                                   SizedBox(height: size.height * 0.020),
@@ -188,19 +162,21 @@ class _SignInState extends State<SignIn> {
                                                 signInController.passwordTextEditingController.text
                                             ).then((value){
                                               if(value != null){
-                                                ProgressDialogHelper().hideProgressDialog(Get.context!);
+                                                CustomLoader.cancelDialog();
+
                                                 Get.offAllNamed(Routes.DASHBOARD);
                                               }else{
-                                                ProgressDialogHelper().hideProgressDialog(Get.context!);
+                                                CustomLoader.cancelDialog();
                                                 FlushBarHelper(Get.context!).showFlushBar(value["errors"], color: Colors.red);
                                                 print("Unable to login");
                                               }
                                             }).onError((error, stackTrace){
-                                              ProgressDialogHelper().hideProgressDialog(Get.context!);
+                                              CustomLoader.cancelDialog();
                                               print("Oops an Error occurred, failed to login $error");
                                             }).timeout(Duration(seconds: 90),onTimeout: (){
-                                              ProgressDialogHelper().hideProgressDialog(Get.context!);
-                                              FlushBarHelper(Get.context!).showFlushBar("TimeOut Error. Please try again", color: Colors.red);
+                                              CustomLoader.cancelDialog();
+                                              FlushBarHelper(Get.context!)
+                                                  .showFlushBar("TimeOut Error. Please try again", color: Colors.red);
                                             });
                                           }
                                         },
@@ -219,21 +195,19 @@ class _SignInState extends State<SignIn> {
 
                                   SizedBox(height: size.height * 0.040),
                                 ],
-                              )),
-
+                              )
+                          ),
                           SizedBox(height: size.height * 0.10),
-
                           //Don't have an account, Sign UP
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context, Routes.ON_BOARDING_TWO, (route) => false);
+                              Get.toNamed(Routes.ON_BOARDING_TWO);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Don' + "'t " + 'have an account? ',
+                                  'Don\'t have an account?',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -257,8 +231,7 @@ class _SignInState extends State<SignIn> {
                 ],
               ),
             ),
-          );
-        }
+      ),
     );
   }
 }

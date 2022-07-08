@@ -85,7 +85,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HOME,
-      page: () => Home(moodOnTap: (int index, [String? moodSvgUrl]) {})
+      page: () => HomeView(moodOnTap: (int index, [String? moodSvgUrl]) {})
     ),
     GetPage(
       name: _Paths.WALLET,

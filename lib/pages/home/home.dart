@@ -9,7 +9,6 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
 import 'package:tranquil_life/constants/style.dart';
-import 'package:tranquil_life/controllers/dashboard_controller.dart';
 import 'package:tranquil_life/controllers/home_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/main.dart';
@@ -17,23 +16,25 @@ import 'package:tranquil_life/pages/home/widgets/meetings_section.dart';
 import 'package:tranquil_life/pages/notifications/notification_history_view.dart';
 import 'package:tranquil_life/pages/questionnaire/questionnaire_page.dart';
 import 'package:tranquil_life/pages/scheduling/widgets/schedule_meeting_dialog.dart';
-import 'package:tranquil_life/widgets/custom_text.dart';
-import 'package:tranquil_life/widgets/top_nav.dart';
+import 'package:tranquil_life/general_widgets/custom_text.dart';
+import 'package:tranquil_life/general_widgets/top_nav.dart';
 
 import 'widgets/moods_section.dart';
 import 'widgets/notificationBadge.dart';
 
-class Home extends StatefulWidget {
+class HomeView extends StatefulWidget {
   final void Function(int index, [String? moodSvgUrl]) moodOnTap;
 
-  Home({Key? key, required this.moodOnTap}) : super(key: key);
+  HomeView({Key? key, required this.moodOnTap}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _HomeViewState createState() => _HomeViewState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeViewState extends State<HomeView> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+
+  final HomeController _ = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +158,10 @@ class _HomeState extends State<Home> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    Navigator.pushNamed(context, NotificationHistoryScreen.idScreen);
+                                    Navigator
+                                        .pushNamed(
+                                        context,
+                                        NotificationHistoryScreen.idScreen);
                                   },
                                   child: SizedBox(
                                     width: 46,

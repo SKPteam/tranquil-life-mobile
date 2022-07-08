@@ -16,9 +16,13 @@ const String CLOUDINARY_NAME = "tranquil-life";
 const String UPLOAD_PRESET = "ml_default";
 const String CLOUDINARY_API_KEY = "552586961285433";
 
+final _emailValidator = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
 // Form Error
+// final RegExp emailValidatorRegExp =
+// RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 final RegExp emailValidatorRegExp =
-RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 final RegExp passwordValidatorRegExp = RegExp(r'[!@#$%^&*(),.?":{}|<>]');
 const String kEmailNullError = "Please enter your email address";
 const String kHeaderNullError = "Please enter your header";
@@ -85,7 +89,6 @@ const VIDEO_FILES_STORAGE_PATH = "video_files";
 const IDENTITY_PIC_STORAGE_PATH = "identification_pics";
 const CV_FILES_STORAGE_PATH = "cv_files";
 
-const List<int> top_up_figures = [1, 50, 150, 250, 500, 750, 900, 1500];
 
 const List payment_options = [
   "Your Tranquil Life Default Card",
@@ -134,44 +137,26 @@ Random rnd = Random();
 
 RxString generatedPwd = RxString(" ");
 
-///returns a dynamic linking url as URI object, which is created when this function is called
-///[urlToLink] is the parameter that takes in the url that has to be converted into dynamic link
-///[short] is a boolean parameter used to return either a shortened uri or the long uri
-// Future<Uri> createDynamicLink(
-//     {required String urlToLink, required bool short}) async {
-//   final DynamicLinkParameters parameters = DynamicLinkParameters(
-//     uriPrefix: 'https://cx4k7.app.goo.gl',
-//     link: Uri.parse('$urlToLink'),
-//     androidParameters: AndroidParameters(
-//       packageName: 'io.flutter.plugins.firebasedynamiclinksexample',
-//       minimumVersion: 0,
-//     ),
-//     dynamicLinkParametersOptions: DynamicLinkParametersOptions(
-//       shortDynamicLinkPathLength: ShortDynamicLinkPathLength.short,
-//     ),
-//     iosParameters: IosParameters(
-//       bundleId: 'com.google.FirebaseCppDynamicLinksTestApp.dev',
-//       minimumVersion: '0',
-//     ),
-//   );
-//
-//   Uri url;
-//   if (short) {
-//     final ShortDynamicLink shortLink = await parameters.buildShortLink();
-//     url = shortLink.shortUrl;
-//   } else {
-//     url = await parameters.buildUrl();
-//   }
-//   return url;
-// }
-
 var timeFormat = DateFormat('kk:mm');
 var dateFormat = DateFormat('dd-MM-yyyy');
+
+//provide the Paystack key here
+//Live key
+//var publicKey = 'pk_live_b52f8dfdae10acd0d8844ac2a135306ac4026c98';
+//test key
+var publicKey = 'pk_test_7c8a9567ff263e8c5ee4b464b385f0e667b205a2';
+
+//the first parameter of the URI should be just the main URL, without http, any kind of special character like / or & or ?
+//the seconnd paramter will be the endpoint path
+//and the third paramter is a map of the different properties
+final String forceUpdate = 'force_update';
+final String shouldUpdateApp = 'update_app';
+final String latestVersionCode = 'app_version_code';
 
 const isAuthenticated = "User is authenticated";
 const isNotAuthenticated = "User is not authenticated";
 
-const baseUrl = "https://3b8a-197-210-8-189.eu.ngrok.io/api/";
+const baseUrl = "https://a336-168-253-119-198.eu.ngrok.io/api/";
 //const baseUrl = "https://tranquil-api.herokuapp.com";
 
 //Post Api paths

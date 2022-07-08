@@ -12,13 +12,11 @@ import 'package:tranquil_life/controllers/registration_three_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/registration/registration_four.dart';
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
-import 'package:tranquil_life/widgets/custom_form_field.dart';
+import 'package:tranquil_life/general_widgets/custom_snackbar.dart';
+import 'package:tranquil_life/general_widgets/custom_form_field.dart';
 
 import '../../constants/app_font.dart';
-import '../../helpers/flush_bar_helper.dart';
-import '../../helpers/progress-dialog_helper.dart';
-
+import '../../general_widgets/custom_flushbar.dart';
 
 class RegistrationThreeView extends StatefulWidget {
   const RegistrationThreeView({Key? key}) : super(key: key);
@@ -28,13 +26,6 @@ class RegistrationThreeView extends StatefulWidget {
 }
 
 class _RegistrationThreeViewState extends State<RegistrationThreeView> {
-
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final regOneController = Get.put(RegistrationOneController());
-  final _ = Get.put(RegistrationThreeController());
-
-  final _formKeySignIn = GlobalKey <FormState>();
-
   // _signIn() async {
   //   FocusScope.of(context).unfocus();
   //   if(_formKeySignIn.currentState!.validate()){
@@ -48,7 +39,7 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
     return ResponsiveSafeArea(
         responsiveBuilder: (context, size)
         => Obx(() => Scaffold(
-            key: scaffoldKey,
+            key: registrationThreeController.scaffoldKey,
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               backgroundColor: Colors.transparent,
@@ -92,7 +83,7 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                   fontSize: 18)),
                           SizedBox(height: size.height * 0.08),
                           Form(
-                            key: _formKeySignIn,
+                            key: registrationThreeController.formKey,
                               child: onBoardingController
                                   .userType
                                   .value ==
@@ -117,7 +108,7 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                   //               horizontal: size.width *
                                   //                   0.04),
                                   //           child: Text(
-                                  //             _.country.value,
+                                  //             registrationThreeController.country.value,
                                   //             style: TextStyle(
                                   //               color: Colors.white,
                                   //               fontSize: 18,
@@ -144,10 +135,11 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                         registrationThreeController.partnerListDialog(Get.context!, size);
                                       },
                                       obscureText: false,
-                                      togglePassword: () {},
+                                      onSuffixTap: () {},
                                       textInputType: TextInputType.text,
                                       formatters: const [],
                                       showCursor: false,
+                                      icon: const SizedBox(),
                                     ),
                                   ),
                                   SizedBox(
@@ -166,10 +158,11 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                           //..
                                         },
                                         obscureText: false,
-                                        togglePassword: () {},
+                                        onSuffixTap: () {},
                                         textInputType: TextInputType.text,
                                         formatters: const [],
                                         showCursor: true,
+                                        icon: const SizedBox(),
                                       ),
                                     ),
                                   ),
@@ -395,7 +388,7 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                       hint: 'Areas Of Expertise',
                                       readOnly: true,
                                       textEditingController:
-                                      _.areaOfExpertiseTEC,
+                                      registrationThreeController.areaOfExpertiseTEC,
                                       onTap: () {
                                         registrationThreeController
                                             .areaOfExpertiseTEC.text = '';
@@ -403,10 +396,11 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                             .showAOEModalBottomSheet(context);
                                       },
                                       textInputType: TextInputType.text,
-                                      togglePassword: () {},
+                                      onSuffixTap: () {},
                                       formatters: [],
                                       obscureText: false,
                                       showCursor: false,
+                                      icon: const SizedBox(),
                                     ),
                                   ),
                                   SizedBox(
@@ -418,7 +412,7 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                     child: CustomFormField(
                                       hint: 'Years Of Experience',
                                       textEditingController:
-                                      _.yearsOfExpTEC,
+                                      registrationThreeController.yearsOfExpTEC,
                                       readOnly: true,
                                       onTap: () async{
                                         // registrationThreeController
@@ -441,15 +435,15 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                                    Expanded(
                                                        child: ListView.builder(
                                                            shrinkWrap: true,
-                                                           itemCount: _.yearsOfExperienceList.length,
+                                                           itemCount: registrationThreeController.yearsOfExperienceList.length,
                                                            itemBuilder: (BuildContext context,
                                                                int index){
                                                              return ListTile(
                                                                title: InkWell(
                                                                  onTap: () async{
-                                                                   _.yearsOfExpTEC.text = _.yearsOfExperienceList[index].toString()+" years";
+                                                                   registrationThreeController.yearsOfExpTEC.text = registrationThreeController.yearsOfExperienceList[index].toString()+" years";
                                                                  },
-                                                                 child: Text(_.yearsOfExperienceList[index]+" years"),
+                                                                 child: Text(registrationThreeController.yearsOfExperienceList[index]+" years"),
                                                                ),
                                                              );
                                                            }
@@ -461,10 +455,12 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                         );
                                       },
                                       textInputType: TextInputType.text,
-                                      togglePassword: () {},
+                                      onSuffixTap: () {},
                                       formatters: [],
                                       obscureText: false,
                                       showCursor: false,
+                                      icon: const SizedBox(),
+
                                     ),
                                   ),
                                   SizedBox(
@@ -485,9 +481,10 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                             .openCupertinoLanguagePicker();
                                       },
                                       textInputType: TextInputType.text,
-                                      togglePassword: () {},
+                                      onSuffixTap: () {},
                                       formatters: [],
                                       obscureText: false,
+                                      icon: const SizedBox(),
                                     ),
                                   ),
                                   SizedBox(
@@ -570,10 +567,11 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                         //..
                                       },
                                       obscureText: false,
-                                      togglePassword: () {},
+                                      onSuffixTap: () {},
                                       textInputType: TextInputType.text,
                                       formatters: const [],
                                       showCursor: true,
+                                      icon: const SizedBox(),
                                     ),
                                   ),
                                   SizedBox(
@@ -584,11 +582,11 @@ class _RegistrationThreeViewState extends State<RegistrationThreeView> {
                                       height: 60,
                                       child: ElevatedButton(
                                           onPressed: () {
-                                            // if(_.areaOfExpertiseTEC.text.isEmpty
-                                            //     || _.yearsOfExpTEC.text.isEmpty
-                                            //     || _.preferredLangTEC.text.isEmpty
-                                            //     || _.selectedWorkStatus.value.isEmpty
-                                            //     || _.companyEditingController.text.isEmpty){
+                                            // if(registrationThreeController.areaOfExpertiseTEC.text.isEmpty
+                                            //     || registrationThreeController.yearsOfExpTEC.text.isEmpty
+                                            //     || registrationThreeController.preferredLangTEC.text.isEmpty
+                                            //     || registrationThreeController.selectedWorkStatus.value.isEmpty
+                                            //     || registrationThreeController.companyEditingController.text.isEmpty){
                                             //   displaySnackBar("A field is empty", context);
                                             // }
                                             // else{

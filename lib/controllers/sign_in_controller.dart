@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:tranquil_life/constants/app_strings.dart';
 import 'package:tranquil_life/constants/controllers.dart';
+import 'package:tranquil_life/general_widgets/custom_loader.dart';
 import 'package:tranquil_life/main.dart';
-import '../helpers/progress-dialog_helper.dart';
 
 class SignInController extends GetxController{
   static SignInController instance = Get.find();
@@ -23,7 +23,7 @@ class SignInController extends GetxController{
   }
 
   Future login(String email, String password) async {
-    ProgressDialogHelper().showProgressDialog(Get.context!, "Authenticating...");
+    CustomLoader.showDialog();
     String url = baseUrl + loginPath;
 
     var requestBody = {'email': email, 'password': password};

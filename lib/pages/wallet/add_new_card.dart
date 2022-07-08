@@ -48,7 +48,7 @@ import 'package:tranquil_life/controllers/add_new_card_controller.dart';
 import 'package:tranquil_life/controllers/wallet_controller.dart';
 import 'package:tranquil_life/helpers/responsive_safe_area.dart';
 import 'package:tranquil_life/pages/wallet/widgets/cardNumber_inputFormatter.dart';
-import 'package:tranquil_life/widgets/custom_snackbar.dart';
+import 'package:tranquil_life/general_widgets/custom_snackbar.dart';
 
 import 'widgets/expiry_data_input_formatter.dart';
 

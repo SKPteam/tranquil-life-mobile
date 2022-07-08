@@ -17,11 +17,14 @@ import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:tranquil_life/main.dart';
 
 import '../constants/style.dart';
-import '../widgets/custom_snackbar.dart';
+import '../general_widgets/custom_snackbar.dart';
 
 
 class RegistrationTwoController extends GetxController {
   static RegistrationTwoController instance = Get.find();
+
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey <FormState>();
 
 
   TextEditingController firstNameTextEditingController = TextEditingController(text: "ddkd");
@@ -31,10 +34,12 @@ class RegistrationTwoController extends GetxController {
   TextEditingController locationEditingController = TextEditingController();
   //You didn't initiate the textController that's the reason the constructor wasn't working
   TextEditingController timeZoneEditingController = TextEditingController();
+  TextEditingController passportOrDriverTEC = TextEditingController();
+  TextEditingController resumeTEC = TextEditingController();
 
   // fields for passport and resumé/cv
   File? passportImageFile;
-  File? cvImageFile;
+  File? cvFile;
 
   RxString passportPath = "".obs;
   RxString cvPath = "".obs;
@@ -63,6 +68,13 @@ class RegistrationTwoController extends GetxController {
   RxDouble passportUploadPercentage = 0.0.obs;
   RxDouble cvUploadPercentage = 0.0.obs;
 
+  ///Position to get user current position with geoLocator using latitude and longitude
+  late Position currentPosition;
+  late String country, currentLocation;
+
+  var geoLocator = Geolocator(); // geoLocator is an instance of GeoLocator
+  //late List<Placemark> placemark;
+
   @override
   void onInit() {
     super.onInit();
@@ -71,15 +83,6 @@ class RegistrationTwoController extends GetxController {
 
     // locatePosition();
   }
-
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
-  ///Position to get user current position with geoLocator using latitude and longitude
-  late Position currentPosition;
-  late String country, currentLocation;
-
-  var geoLocator = Geolocator(); // geoLocator is an instance of GeoLocator
-  //late List<Placemark> placemark;
 
   var now;
 
@@ -128,6 +131,7 @@ class RegistrationTwoController extends GetxController {
     }
   }
 
+
   // locatePosition() async {
   //   try {
   //     Position position = await Geolocator.getCurrentPosition(
@@ -164,61 +168,6 @@ class RegistrationTwoController extends GetxController {
   //   }
   // }
 
-
-  // choose image from camera
-  selectImageFromCamera(idType, index) async{
-    try{
-      XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.camera);
-      if(pickedFile == null) return;
-      imageFile = File(pickedFile.path);
-      print(imageFile.toString());
-      _cropImage(imageFile!.path, idType, index);
-      update();
-    }on PlatformException catch (e){
-      if (kDebugMode) {
-        print("Failed to get Image $e");
-      }
-    }
-  }
-
-  selectImageFromGallery(idType, index) async{
-    try{
-      XFile? pickedFile = await ImagePicker().pickImage(
-          source: ImageSource.gallery
-      );
-      if(pickedFile == null) return;
-      imageFile = File(pickedFile.path);
-      _cropImage(imageFile!.path, idType, index);
-      update();
-    }on PlatformException catch (e){
-      if (kDebugMode) {
-        print("Failed to get Image $e");
-      }
-    }
-  }
-
-  _cropImage(filePath, idType, index) async{
-    File? croppedImage = ImageCropper().cropImage(sourcePath: filePath) as File?;
-    if(croppedImage != null){
-      // if the id selected is passport (index 0 = front, index 1 = back)
-      if(idType == 'passport'){
-        passportImageFile = croppedImage;
-        passportPath.value = passportImageFile!.path;
-        print("Passport ${passportPath.value}");
-
-        update();
-      }
-      // if the id selected is stateId(index 0 = front, index 1 = back)
-      else{
-        cvImageFile = croppedImage;
-        cvPath.value = cvImageFile!.path;
-        print("CV/Resume ${cvPath.value}");
-
-        update();
-      }
-    }
-
-  }
 }
 
 

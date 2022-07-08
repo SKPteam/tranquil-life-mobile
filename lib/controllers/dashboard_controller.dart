@@ -19,14 +19,7 @@ import 'package:tranquil_life/pages/profile/profile_page.dart';
 
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import 'package:tranquil_life/pages/wallet/wallet_page.dart';
-import 'package:tranquil_life/pages/profile/profile_page.dart';
-
 import 'package:tranquil_life/routes/app_pages.dart';
-import 'package:tranquil_life/helpers/constants.dart';
 
 import '../main.dart';
 
@@ -112,18 +105,18 @@ class DashboardController extends GetxController {
     tabIndex.value = index;
   }
 
-  Widget tabView(){
-    switch(tabIndex.value){
-      case 1:
-        return WalletView(reloadWalletPage: setBottomBarIndex);
-      case 2:
-        return JournalView(moodSvgUrl: moodSelected ?? "");
-      case 3:
-        return ProfileView(setBottomBarIndex: (int index) {});
-      default:
-        return Home(moodOnTap: setBottomBarIndex);
-    }
-  }
+  // Widget tabView(){
+  //   switch(tabIndex.value){
+  //     case 1:
+  //       return WalletView(reloadWalletPage: setBottomBarIndex);
+  //     case 2:
+  //       return JournalView(moodSvgUrl: moodSelected ?? "");
+  //     case 3:
+  //       return ProfileView(setBottomBarIndex: (int index) {});
+  //     default:
+  //       return HomeView(moodOnTap: setBottomBarIndex);
+  //   }
+  // }
 
   void setBottomBarIndex(int index, [String? moodSvgUrl = ""]) {
     if (moodSvgUrl!.isNotEmpty) {
